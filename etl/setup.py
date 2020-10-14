@@ -20,3 +20,4 @@ class ETLEnv(object):
 
         self.dpla_api_key = secrets["apis"]["keys"]["dpla"]
         self.smithsonian_api_key = secrets["apis"]["keys"]["smithsonian"]
+        self.calisphere_api_key = secrets["apis"]["keys"]["calisphere"]
