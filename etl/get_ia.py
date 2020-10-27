@@ -2,6 +2,8 @@
 
 
 from internetarchive import search_items
+import unicodedata
+
 
 # from setup import ETLEnv
 
@@ -12,7 +14,7 @@ from internetarchive import search_items
 
 METADATA_KEY = {
     # 'title': 26,
-    'identifier': 26,
+    # 'identifier': 26,
     'mediatype': 26,
     'collection': 26,
     'creator': 21,
@@ -92,10 +94,45 @@ METADATA_KEY = {
 }
 
 
+def strip_html(value):
+
+    start = value.find('<')
+    if start < 0:
+        return value
+
+    end = value.find('>', start+1)
+    if end < 0:
+        return value
+
+    value = value[:start] + ' ' + value[end+1:]
+    return strip_html(value=value)
+
+def strip_value(value):
+
+    if type(value) is not str:
+
+        return value
+
+    value = value.strip()
+    if value.startswith('<'):
+
+        value = strip_html(value=value)
+
+        # Normalize whitespace.
+        # value = value.replace('\xa0', ' ')
+
+        value = unicodedata.normalize("NFKC", value)
+        while "  " in value:
+
+            value = value.replace("  ", " ")
+
+    return value
+
 def print_val(key, value):
 
-    print(f"{key}: {value}")
+    value = strip_value(value=value)
 
+    print(f"{key}: {value}")
 
 def print_metadata(item):
 
@@ -104,6 +141,7 @@ def print_metadata(item):
 
     metadata = item.metadata
 
+    print_val(key="title", value=metadata['title'])
     print_val(key="identifier", value=metadata['identifier'])
     print_val(key="details_url", value=item.urls.details)
     # print_val(key="download_url", value=item.urls.download)
@@ -121,6 +159,15 @@ if __name__ == "__main__":
     # items = search_items('identifier:chicano').iter_as_items()
     # for item in items:
     #     print(si['identifier'])
+
+
+    # items = search_items('identifier:102.TerraIncognita25.01.09rec25.01').iter_as_items()
+    # for item in items:
+
+    #     print_metadata(item=item)
+
+
+    # strip_html(value="<p>this is something</p><p>else</p>")
 
 
     # metadata = {}
