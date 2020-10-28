@@ -104,7 +104,7 @@ if __name__ == "__main__":
         # out.write(response.text)
 
 
-        data = BeautifulSoup(response.text, features="lxml-xml")
+        data = BeautifulSoup(markup=response.content, features="lxml-xml", from_encoding="utf-8")
         records = data.findAll("record")
 
         for record in records:
