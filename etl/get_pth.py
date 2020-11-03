@@ -51,7 +51,7 @@ def add_value(data, value):
 
     full_value = data.get(value.name, [])
     full_value.append(text)
-    record_data[value.name] = full_value
+    data[value.name] = full_value
 
     return True
 
