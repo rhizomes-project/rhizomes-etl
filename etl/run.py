@@ -3,12 +3,17 @@
 
 import setup
 import calisphere_etl
+import dpla_etl
 import pth_etl
 
 
 class ETLProcess():
 
     # REVIEW TODO make this an ABC
+
+    # def get_field_map(self):
+
+    #     raise Exception("Base class get_field_map not defined.")
 
     def __init__(self):
 
@@ -60,10 +65,27 @@ class CalisphereETLProcess(ETLProcess):
         calisphere_etl.load(data=self.data)
 
 
+class DPLAETLProcess(ETLProcess):
+
+    def extract(self):
+
+        self.data = dpla_etl.extract()
+
+    def transform(self):
+
+        dpla_etl.transform(data=self.data)
+
+    def load(self):
+
+        dpla_etl.load(data=self.data)
+
+
 def run_etl():
 
     # etl_classes = [ PTHETLProcess ]
     etl_classes = [ CalisphereETLProcess ]
+    etl_classes = [ DPLAETLProcess ]
+
     for etl_class in etl_classes:
 
         etl_process = etl_class()
