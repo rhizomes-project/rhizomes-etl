@@ -2,6 +2,7 @@
 
 
 import setup
+import calisphere_etl
 import pth_etl
 
 
@@ -44,9 +45,25 @@ class PTHETLProcess(ETLProcess):
         pth_etl.load(data=self.data)
 
 
+class CalisphereETLProcess(ETLProcess):
+
+    def extract(self):
+
+        self.data = calisphere_etl.extract()
+
+    def transform(self):
+
+        calisphere_etl.transform(data=self.data)
+
+    def load(self):
+
+        calisphere_etl.load(data=self.data)
+
+
 def run_etl():
 
-    etl_classes = [ PTHETLProcess ]
+    # etl_classes = [ PTHETLProcess ]
+    etl_classes = [ CalisphereETLProcess ]
     for etl_class in etl_classes:
 
         etl_process = etl_class()
