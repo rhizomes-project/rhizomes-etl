@@ -79,7 +79,6 @@ def extract():
 
 # REVIEW TODO come up with generic default versions of transform() and load()
 
-
 def transform(data):
 
     for record in data:
@@ -103,7 +102,6 @@ def transform(data):
 
                 del record[name]
 
-
 def load(data):
 
     for record in data:
@@ -120,7 +118,6 @@ def load(data):
                 print(f"{name}: {value}")
 
                 prev_values.add(name)
-
 
 
 if __name__ == "__main__":
