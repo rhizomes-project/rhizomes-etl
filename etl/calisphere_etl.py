@@ -44,6 +44,17 @@ SOLR_KEYS = [
     'score'
 ]
 
+field_map = {
+    "title":                 "Title",
+    "creator":               "Author/Artist",
+    "description":           "Description ",
+    "date":                  "Date",
+    "type":                  "Digital Format",
+    "id":                    "Resource Identifier",
+    "sort_collection_data":  "Source",
+    "subject":               "Subjects (Topic/Keywords)",
+}
+
 
 def extract():
 
@@ -67,11 +78,31 @@ def extract():
 
     return data
 
+
+# REVIEW TODO come up with generic default versions of transform() and load()
+
 def transform(data):
 
-    # REVIEW TODO add in mapping once Mary has done it for calisphere.
+    for record in data:
 
-    pass
+        for name, description in field_map.items():
+
+            if not description:
+
+                continue
+
+            value = record.get(name)
+            if value:
+
+                if record.get(description):
+
+                    record[description] += value
+
+                else:
+
+                    record[description] = value
+
+                del record[name]
 
 def load(data):
 
@@ -79,25 +110,12 @@ def load(data):
 
         print("")
 
-        for key in SOLR_KEYS:
+        for name in field_map.values():
 
-            value = record.get(key)
-            if not value:
+            value = record.get(name)
+            if value and name:
 
-                continue
-
-            if type(value) is list:
-
-                print(f"{key}:")
-                for val in value:
-
-                    print(f"    {val}")
-
-            else:
-
-                print(f"{key}: {value}")
-
-
+                print(f"{name}: {value}")
 
 if __name__ == "__main__":
 
