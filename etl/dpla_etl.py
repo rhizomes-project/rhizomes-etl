@@ -2,7 +2,6 @@
 
 
 import requests
-import csv
 import json
 
 from setup import ETLEnv
