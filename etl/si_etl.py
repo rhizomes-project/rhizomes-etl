@@ -6,9 +6,7 @@ import csv
 import json
 
 from setup import ETLEnv
-
-
-import pdb
+from tools import pretty_print
 
 
 protocol = "https://"
@@ -18,7 +16,7 @@ etl_env.start()
 api_key = etl_env.get_api_key(name="smithsonian")
 
 query_path = "/openaccess/api/v1.0/search"
-query_url = protocol + domain + query_path + "?api_key=" + api_key
+query_url = protocol + domain + query_path + "?api_key=" + api_key + "&rows=25"
 
 keys_to_ignore = ("title_sort", "type", "label")
 keys_to_not_label = ("content", )
@@ -98,6 +96,37 @@ def transform(data):
 
     for record in data:
 
+        # Clean up notes.
+        notes = record.get('content/freetext/notes')
+        if notes:
+
+            new_notes = []
+            for note in notes:
+
+                new_notes.append(f"- {note['label']}: {note['content']}")
+
+            record['content/freetext/notes'] = new_notes
+
+        # Clean up geolocations.
+        locations = record.get('content/indexedStructured/geoLocation')
+        if locations:
+
+            new_locations = set()
+            for location in locations:
+
+                for val in location.values():
+
+                    if not val.get('content'):
+
+                        # print(f"ignoring {str(list(location.keys()))}")
+                        pass
+
+                    else:
+
+                        new_locations |= { value['content'] for value in location.values() }
+
+            record['content/indexedStructured/geoLocation'] = new_locations
+
         for name, description in field_map.items():
 
             if not description:
@@ -130,7 +159,7 @@ def load(data):
             value = record.get(name)
             if value and name not in prev_values:
 
-                print(f"{name}: {value}")
+                pretty_print(name=name, value=value)
 
                 prev_values.add(name)
 
