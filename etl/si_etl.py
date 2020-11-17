@@ -8,6 +8,9 @@ import json
 from setup import ETLEnv
 
 
+import pdb
+
+
 protocol = "https://"
 domain = "api.si.edu"
 etl_env = ETLEnv()
@@ -23,7 +26,7 @@ keys_to_not_label = ("content", )
 field_map = {
     "title":                                   "Title",
     "content/indexedStructured/object_type":   "Resource Type",
-    "id ":                                     "Resource Identifier",
+    "id":                                      "Resource Identifier",
     "content/indexedStructured/date":          "Subjects (Historic Era)",
     "content/indexedStructured/topic":         "Subjects (Topic/Keywords)",
     "content/indexedStructured/geoLocation":   "Subjects (Geographic)",
