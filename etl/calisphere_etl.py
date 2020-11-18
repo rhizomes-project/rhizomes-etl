@@ -7,6 +7,7 @@ import json
 import solr
 
 from setup import ETLEnv
+from tools import pretty_print
 
 
 etl_env = ETLEnv()
@@ -115,7 +116,7 @@ def load(data):
             value = record.get(name)
             if value and name:
 
-                print(f"{name}: {value}")
+                pretty_print(name=name, value=value)
 
 if __name__ == "__main__":
 
