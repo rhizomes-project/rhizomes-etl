@@ -50,9 +50,9 @@ def extract():
 
         response = requests.get(list_items_url + "&q=" + search_term)
 
-        record = {}
-
         for doc in response.json()["docs"]:
+
+            record = {}
 
             for term in dpla_terms:
 
