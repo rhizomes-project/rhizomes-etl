@@ -5,6 +5,7 @@ import requests
 import json
 
 from setup import ETLEnv
+from tools import pretty_print
 
 
 protocol = "https://"
@@ -114,7 +115,7 @@ def load(data):
             value = record.get(name)
             if value and name not in prev_values:
 
-                print(f"{name}: {value}")
+                pretty_print(name=name, value=value)
 
                 prev_values.add(name)
 
