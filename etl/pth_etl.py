@@ -3,6 +3,7 @@
 
 import requests
 import sys
+from tools import pretty_print
 
 from bs4 import BeautifulSoup
 
@@ -146,7 +147,7 @@ def load(data):
             value = record.get(name)
             if value and name not in prev_values:
 
-                print(f"{name}: {get_value(value=value)}")
+                pretty_print(name=name, value=get_value(value=value))
 
                 prev_values.add(name)
 
