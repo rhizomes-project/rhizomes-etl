@@ -5,6 +5,13 @@ import setup
 import calisphere_etl
 import dpla_etl
 import pth_etl
+import si_etl
+
+
+# REVEW: TODO clean up "list" values so that they are easier to read (put each on its own line)
+# REVIEW: TODO move each etl class (below) into the script it belongs to
+
+# REVIEW: TODO add in URL mapping everywhere
 
 
 class ETLProcess():
@@ -80,11 +87,27 @@ class DPLAETLProcess(ETLProcess):
         dpla_etl.load(data=self.data)
 
 
+class SIETLProcess(ETLProcess):
+
+    def extract(self):
+
+        self.data = si_etl.extract()
+
+    def transform(self):
+
+        si_etl.transform(data=self.data)
+
+    def load(self):
+
+        si_etl.load(data=self.data)
+
+
 def run_etl():
 
-    # etl_classes = [ PTHETLProcess ]
     etl_classes = [ CalisphereETLProcess ]
-    etl_classes = [ DPLAETLProcess ]
+    # etl_classes = [ DPLAETLProcess ]
+    # etl_classes = [ PTHETLProcess ]
+    # etl_classes = [ SIETLProcess ]
 
     for etl_class in etl_classes:
 

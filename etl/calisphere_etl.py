@@ -7,7 +7,7 @@ import json
 import solr
 
 from setup import ETLEnv
-from tools import pretty_print
+from tools import MetadataWriter
 
 
 etl_env = ETLEnv()
@@ -48,12 +48,13 @@ SOLR_KEYS = [
 field_map = {
     "title":                 "Title",
     "creator":               "Author/Artist",
-    "description":           "Description ",
+    "description":           "Description",
     "date":                  "Date",
     "type":                  "Digital Format",
     "id":                    "Resource Identifier",
     "sort_collection_data":  "Source",
     "subject":               "Subjects (Topic/Keywords)",
+    # REVIEW Add type here
 }
 
 
@@ -65,7 +66,7 @@ def extract():
     data = []
 
     # Do a search
-    response = ss.query('title:chicano', rows=25)
+    response = ss.query('title:chicano', rows=50)
     for hit in response.results:
         
         record = {}
@@ -107,16 +108,23 @@ def transform(data):
 
 def load(data):
 
+    writer = MetadataWriter(format="json")
+    writer.start_collection()
+
     for record in data:
 
-        print("")
+        writer.start_record()
 
         for name in field_map.values():
 
             value = record.get(name)
             if value and name:
 
-                pretty_print(name=name, value=value)
+                writer.add_value(name=name, value=value)
+
+        writer.end_record()
+
+    writer.end_collection()
 
 if __name__ == "__main__":
 

@@ -1,10 +1,20 @@
 #!/usr/bin/env python
 
+import json
+
 
 import pdb
 
 
-def get_pretty_value(value):
+# TODO: remove all newlines?
+
+
+def pretty_print(name, value):
+
+    pass
+
+
+def get_value(value, format="json"):
 
     if type(value) is list:
 
@@ -13,6 +23,10 @@ def get_pretty_value(value):
             return value[0]
 
         else:
+
+            if format == 'json':
+
+                return value
 
             buf = ""
             for tmp in value:
@@ -42,6 +56,57 @@ def get_pretty_value(value):
         return value
 
 
-def pretty_print(name, value):
+class MetadataWriter():
 
-    print(f"{name}: {get_pretty_value(value=value)}")
+    def __init__(self, format):
+
+        self.format = format
+        if self.format == "json":
+
+            self.output = []
+
+        else:
+
+            self.output = ""
+
+    def start_collection(self):
+
+        pass
+
+    def start_record(self):
+
+        if self.format == "json":
+
+            self.output.append({})
+
+        else:
+
+            self.output += "\n"
+
+    def add_value(self, name, value):
+
+        value = get_value(value=value, format=self.format)
+        if self.format == "json":
+
+            pos = len(self.output) - 1
+            self.output[pos][name] = value
+
+        else:
+
+            self.output += f"{name}: {value}\n"
+
+    def end_record(self):
+
+        pass
+
+    def end_collection(self):
+
+        if self.format == "json":
+
+            buf = json.dumps(self.output)
+
+        else:
+
+            buf = self.output
+
+        print(buf)
