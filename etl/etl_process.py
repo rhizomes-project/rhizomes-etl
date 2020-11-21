@@ -58,8 +58,6 @@ class BaseETLProcess():
 
     def load(self, data):
 
-        field_map = self.get_field_map()
-
         writer = MetadataWriter(format=self.format)
         writer.start_collection()
 
@@ -67,9 +65,7 @@ class BaseETLProcess():
 
             writer.start_record()
 
-            for name in field_map.values():
-
-                name = name.value
+            for name in RhizomeField.values():
 
                 value = record.get(name)
                 if value and name:
