@@ -11,16 +11,24 @@ import pdb
 
 class RhizomeField(Enum):
 
-    ID          = "Resource Identifier"
-    TITLE       = "Title"
-    ARTIST      = "Author/Artist"
-    DESCRIPTION = "Description"
-    DATE        = "Date"
-    FORMAT      = "Digital Format"
-    SOURCE      = "Source"
-    SUBJECTS    = "Subjects (Topic/Keywords)"
-
-    # REVIEW Add URL
+    ID                              = "Resource Identifier"
+    TITLE                           = "Title"
+    AUTHOR_ARTIST                   = "Author/Artist"
+    DESCRIPTION                     = "Description"
+    DATE                            = "Date"
+    RESOURCETYPE                    = "ResourceType"
+    DIGITAL_FORMAT                  = "Digital Format"
+    DIMENSIONS                      = "Dimensions"
+    URL                             = "URL"
+    SOURCE                          = "Source"
+    LANGUAGE                        = "Language"
+    SUBJECTS_HISTORICAL_ERA         = "Subjects (Historic Era)"
+    SUBJECTS_TOPIC_KEYWORDS         = "Subjects (Topic/Keywords)"
+    SUBJECTS_GEOGRAPHIC             = "Subjects (Geographic)"
+    NOTES                           = "Notes"
+    COPYRIGHT_STATUS                = "Copyright Status"
+    COLLECTION_INFORMATION          = "Collection Information"
+    CREDIT_LINE                     = "Credit Line"
 
     @staticmethod
     def values():
