@@ -4,8 +4,10 @@
 import requests
 import json
 
+from etl_process import BaseETLProcess
 from setup import ETLEnv
-from tools import pretty_print
+from tools import RhizomeField
+
 
 
 protocol = "https://"
@@ -23,106 +25,74 @@ list_items_url = protocol + domain + list_items_path + "?page_size=25&api_key=" 
 
 field_map = {
 # REVIEW: Deal with format Dimensions
-# REVIEW: Rework this with RHizomeFields
-    "title":                "Title",
-    "creator/Contributor":  "Author/Artist",
-    "description":          "Description ",
-    "date":                 "Date",
-    "type":                 "Resource Type",
-    "format ":              "Digital Format",
-    "contributor":          "Source",
-    "language":             "Language",
-    "subject":              "Subjects (Topic/Keywords)",
-    "spatial":              "Subjects (geographic)",
-    "coverage ":            None,
+    "id":                   RhizomeField.ID,
+    "title":                RhizomeField.TITLE,
+    "creator":              RhizomeField.AUTHOR_ARTIST,
+    "contributor":          RhizomeField.AUTHOR_ARTIST,
+    "description":          RhizomeField.DESCRIPTION,
+    "date":                 RhizomeField.DATE,
+    "type":                 RhizomeField.RESOURCE_TYPE,
+    "format":               RhizomeField.DIGITAL_FORMAT,
+    "isShownAt":            RhizomeField.URL,
+    "collection_name":      RhizomeField.SOURCE,
+    "language":             RhizomeField.LANGUAGE,
+    "subject":              RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
+    "spatial":              RhizomeField.SUBJECTS_GEOGRAPHIC,
+    # "coverage ":            NONE,
+    "dataProvider":         RhizomeField.COLLECTION_INFORMATION,
 }
 
 
-def extract():
+class DPLAETLProcess(BaseETLProcess):
 
-    # dpla_terms = [ "id", "@context", "aggregatedCHO", "dataProvider", "ingestDate", "ingestType", "isShownAt", "object" ]
-    dpla_terms = [ "id", "dataProvider", "isShownAt", "object" ]
-    original_data_terms = [ "title", "description", "creator", "contributor", "date", "subject", "language", "reference_image_dimensions", "collection_name", "type", "format", "spatial", "coverage" ]
+    def get_field_map(self):
 
-    data = []
+        return field_map
 
-    search_terms = [ "chicano" ]
-    for search_term in search_terms:
+    def extract(self):
 
-        response = requests.get(list_items_url + "&q=" + search_term)
+        # dpla_terms = [ "id", "@context", "aggregatedCHO", "dataProvider", "ingestDate", "ingestType", "isShownAt", "object" ]
+        dpla_terms = [ "id", "dataProvider", "isShownAt", "object" ]
+        original_data_terms = [ "title", "description", "creator", "contributor", "date", "subject", "language", "reference_image_dimensions", "collection_name", "type", "format", "spatial", "coverage" ]
 
-        for doc in response.json()["docs"]:
+        data = []
 
-            record = {}
+        search_terms = [ "chicano" ]
+        for search_term in search_terms:
 
-            for term in dpla_terms:
+            response = requests.get(list_items_url + "&q=" + search_term)
 
-                record[term] = doc[term]
+            for doc in response.json()["docs"]:
 
-            originalRecordString = doc["originalRecord"]["stringValue"]
-            if originalRecordString.startswith('<'):
+                record = {}
 
-                # REVIEW TODO add support for OAIPMH
-                continue
+                for term in dpla_terms:
 
+                    record[term] = doc[term]
 
-            original_data = json.loads(originalRecordString)
-            for term in original_data_terms:
+                originalRecordString = doc["originalRecord"]["stringValue"]
+                if originalRecordString.startswith('<'):
 
-                if term in original_data:
-
-                    record[term] = original_data[term]
-
-            data.append(record)
-
-    return data
+                    # REVIEW TODO add support for OAIPMH
+                    continue
 
 
-# REVIEW TODO come up with generic default versions of transform() and load()
+                original_data = json.loads(originalRecordString)
+                for term in original_data_terms:
 
-def transform(data):
+                    if term in original_data:
 
-    for record in data:
+                        record[term] = original_data[term]
 
-        for name, description in field_map.items():
+                data.append(record)
 
-            if not description:
-
-                continue
-
-            value = record.get(name)
-            if value:
-
-                if record.get(description):
-
-                    record[description] += value
-
-                else:
-
-                    record[description] = value
-
-                del record[name]
-
-def load(data):
-
-    for record in data:
-
-        print("")
-
-        prev_values = set()
-
-        for name in field_map.values():
-
-            value = record.get(name)
-            if value and name not in prev_values:
-
-                pretty_print(name=name, value=value)
-
-                prev_values.add(name)
+        return data
 
 
 if __name__ == "__main__":
 
-    data = extract()
-    transform(data=data)
-    load(data=data)
+    etl_process = DPLAETLProcess(format="csv")
+
+    data = etl_process.extract()
+    etl_process.transform(data=data)
+    etl_process.load(data=data)

@@ -3,7 +3,7 @@
 
 import setup
 from calisphere_etl import CalisphereETLProcess
-# import dpla_etl
+from dpla_etl import DPLAETLProcess
 # import pth_etl
 # import si_etl
 
@@ -30,20 +30,6 @@ from calisphere_etl import CalisphereETLProcess
 #         pth_etl.load(data=self.data)
 
 
-# class DPLAETLProcess(ETLProcess):
-
-#     def extract(self):
-
-#         self.data = dpla_etl.extract()
-
-#     def transform(self):
-
-#         dpla_etl.transform(data=self.data)
-
-#     def load(self):
-
-#         dpla_etl.load(data=self.data)
-
 
 # class SIETLProcess(ETLProcess):
 
@@ -64,8 +50,8 @@ def run_etl():
 
     format = "csv"
 
-    etl_classes = [ CalisphereETLProcess ]
-    # etl_classes = [ DPLAETLProcess ]
+    # etl_classes = [ CalisphereETLProcess ]
+    etl_classes = [ DPLAETLProcess ]
     # etl_classes = [ PTHETLProcess ]
     # etl_classes = [ SIETLProcess ]
 

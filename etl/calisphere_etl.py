@@ -88,13 +88,6 @@ class CalisphereETLProcess(BaseETLProcess):
 
         return data
 
-    def transform(self, data):
-
-        super().transform(data=data)
-
-    def load(self, data):
-
-        super().load(data=data)
 
 if __name__ == "__main__":
 

@@ -16,7 +16,7 @@ class RhizomeField(Enum):
     AUTHOR_ARTIST                   = "Author/Artist"
     DESCRIPTION                     = "Description"
     DATE                            = "Date"
-    RESOURCETYPE                    = "ResourceType"
+    RESOURCE_TYPE                   = "ResourceType"
     DIGITAL_FORMAT                  = "Digital Format"
     DIMENSIONS                      = "Dimensions"
     URL                             = "URL"
