@@ -1,11 +1,31 @@
 #!/usr/bin/env python
 
 import csv
+from enum import Enum
 import json
 import sys
 
 
 import pdb
+
+
+class RhizomeField(Enum):
+
+    ID          = "Resource Identifier"
+    TITLE       = "Title"
+    ARTIST      = "Author/Artist"
+    DESCRIPTION = "Description"
+    DATE        = "Date"
+    FORMAT      = "Digital Format"
+    SOURCE      = "Source"
+    SUBJECTS    = "Subjects (Topic/Keywords)"
+
+    # REVIEW Add URL
+
+    @staticmethod
+    def values():
+
+        return [ value.value for value in RhizomeField.__members__.values() ]
 
 
 # TODO: remove all newlines?
@@ -79,11 +99,7 @@ class MetadataWriter():
 
         elif self.format == "csv":
 
-            # REVIEW: TODO put these fieldnames in one place only
-            fieldnames = [ "Title", "Author/Artist", "Description", "Date", "Digital Format", "Resource Identifier", "Source", "Subjects (Topic/Keywords)", ]
-
-            self.output = csv.DictWriter(sys.stdout, fieldnames=fieldnames, dialect=csv.QUOTE_ALL)
-
+            self.output = csv.DictWriter(sys.stdout, fieldnames=RhizomeField.values(), dialect=csv.QUOTE_ALL)
             self.row_buf = {}
 
         else:

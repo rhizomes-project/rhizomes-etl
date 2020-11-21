@@ -22,13 +22,14 @@ list_items_url = protocol + domain + list_items_path + "?page_size=25&api_key=" 
 
 
 field_map = {
+# REVIEW: Deal with format Dimensions
+# REVIEW: Rework this with RHizomeFields
     "title":                "Title",
     "creator/Contributor":  "Author/Artist",
     "description":          "Description ",
     "date":                 "Date",
     "type":                 "Resource Type",
     "format ":              "Digital Format",
-    # REVIEW: Deal with Dimensions 
     "contributor":          "Source",
     "language":             "Language",
     "subject":              "Subjects (Topic/Keywords)",

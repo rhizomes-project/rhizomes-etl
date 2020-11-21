@@ -22,6 +22,7 @@ keys_to_ignore = ("title_sort", "type", "label")
 keys_to_not_label = ("content", )
 
 field_map = {
+# REVIEW: Rework this with RHizomeFields
     "title":                                   "Title",
     "content/indexedStructured/object_type":   "Resource Type",
     "id":                                      "Resource Identifier",

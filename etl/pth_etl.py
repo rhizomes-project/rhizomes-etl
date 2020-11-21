@@ -21,6 +21,7 @@ get_records_url = protocol + domain + get_records_path
 
 
 field_map = {
+# REVIEW: Rework this with RHizomeFields
     "title":            "Title",
     "identifier":       "Resource Identifier",
     # "datestamp":        "",

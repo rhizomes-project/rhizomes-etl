@@ -7,7 +7,7 @@ import json
 import solr
 
 from setup import ETLEnv
-from tools import MetadataWriter
+from tools import MetadataWriter, RhizomeField
 
 
 etl_env = ETLEnv()
@@ -46,14 +46,14 @@ SOLR_KEYS = [
 ]
 
 field_map = {
-    "title":                 "Title",
-    "creator":               "Author/Artist",
-    "description":           "Description",
-    "date":                  "Date",
-    "type":                  "Digital Format",
-    "id":                    "Resource Identifier",
-    "sort_collection_data":  "Source",
-    "subject":               "Subjects (Topic/Keywords)",
+    "title":                 RhizomeField.TITLE.value,
+    "creator":               RhizomeField.ARTIST.value,
+    "description":           RhizomeField.DESCRIPTION.value,
+    "date":                  RhizomeField.DATE.value,
+    "type":                  RhizomeField.FORMAT.value,
+    "id":                    RhizomeField.ID.value,
+    "sort_collection_data":  RhizomeField.SOURCE.value,
+    "subject":               RhizomeField.SUBJECTS.value,
     # REVIEW Add type here
 }
 
@@ -108,7 +108,7 @@ def transform(data):
 
 def load(data):
 
-    writer = MetadataWriter(format="json")
+    writer = MetadataWriter(format="csv")
     writer.start_collection()
 
     for record in data:
