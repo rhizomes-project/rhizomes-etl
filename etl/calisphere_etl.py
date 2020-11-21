@@ -6,8 +6,9 @@ import json
 
 import solr
 
+from etl_process import BaseETLProcess
 from setup import ETLEnv
-from tools import MetadataWriter, RhizomeField
+from tools import RhizomeField
 
 
 etl_env = ETLEnv()
@@ -47,87 +48,58 @@ SOLR_KEYS = [
 
 field_map = {
     "title":                 RhizomeField.TITLE.value,
-    "creator":               RhizomeField.ARTIST.value,
+    "creator":               RhizomeField.AUTHOR_ARTIST.value,
+    "url_item":              RhizomeField.URL.value,
     "description":           RhizomeField.DESCRIPTION.value,
     "date":                  RhizomeField.DATE.value,
-    "type":                  RhizomeField.FORMAT.value,
+    "type":                  RhizomeField.DIGITAL_FORMAT.value,
     "id":                    RhizomeField.ID.value,
     "sort_collection_data":  RhizomeField.SOURCE.value,
-    "subject":               RhizomeField.SUBJECTS.value,
+    "subject":               RhizomeField.SUBJECTS_TOPIC_KEYWORDS.value,
     # REVIEW Add type here
 }
 
 
-def extract():
+class CalisphereETLProcess(BaseETLProcess):
 
-    # Get a connection to Calisphere's solr server.
-    ss = solr.SolrConnection("https://solr.calisphere.org/solr", post_headers={ "X-Authentication-Token": api_key } )
+    def get_field_map(self):
 
-    data = []
+        return field_map
 
-    # Do a search
-    response = ss.query('title:chicano', rows=50)
-    for hit in response.results:
-        
-        record = {}
-        for key in SOLR_KEYS:
+    def extract(self):
 
-            if hit.get(key):
+        # Get a connection to Calisphere's solr server.
+        ss = solr.SolrConnection("https://solr.calisphere.org/solr", post_headers={ "X-Authentication-Token": api_key } )
 
-                record[key] = hit[key]
+        data = []
 
-        data.append(record)
+        # Do a search
+        response = ss.query('title:chicano', rows=50)
+        for hit in response.results:
+            
+            record = {}
+            for key in SOLR_KEYS:
 
-    return data
+                if hit.get(key):
 
+                    record[key] = hit[key]
 
-# REVIEW TODO come up with generic default versions of transform() and load()
+            data.append(record)
 
-def transform(data):
+        return data
 
-    for record in data:
+    def transform(self, data):
 
-        for name, description in field_map.items():
+        super().transform(data=data)
 
-            if not description:
+    def load(self, data):
 
-                continue
-
-            value = record.get(name)
-            if value:
-
-                if record.get(description):
-
-                    record[description] += value
-
-                else:
-
-                    record[description] = value
-
-                del record[name]
-
-def load(data):
-
-    writer = MetadataWriter(format="csv")
-    writer.start_collection()
-
-    for record in data:
-
-        writer.start_record()
-
-        for name in field_map.values():
-
-            value = record.get(name)
-            if value and name:
-
-                writer.add_value(name=name, value=value)
-
-        writer.end_record()
-
-    writer.end_collection()
+        super().load(data=data)
 
 if __name__ == "__main__":
 
-    data = extract()
-    transform(data=data)
-    load(data=data)
+    etl_process = CalisphereETLProcess(format="csv")
+
+    data = etl_process.extract()
+    etl_process.transform(data=data)
+    etl_process.load(data=data)

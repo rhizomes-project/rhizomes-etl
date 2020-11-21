@@ -2,10 +2,10 @@
 
 
 import setup
-import calisphere_etl
-import dpla_etl
-import pth_etl
-import si_etl
+from calisphere_etl import CalisphereETLProcess
+# import dpla_etl
+# import pth_etl
+# import si_etl
 
 
 # REVEW: TODO clean up "list" values so that they are easier to read (put each on its own line)
@@ -14,95 +14,55 @@ import si_etl
 # REVIEW: TODO add in URL mapping everywhere
 
 
-class ETLProcess():
 
-    # REVIEW TODO make this an ABC
+# class PTHETLProcess(ETLProcess):
 
-    # def get_field_map(self):
+#     def extract(self):
 
-    #     raise Exception("Base class get_field_map not defined.")
+#         self.data = pth_etl.extract()
 
-    def __init__(self):
+#     def transform(self):
 
-        self.etl_env = setup.ETLEnv()
-        self.etl_env.start()
+#         pth_etl.transform(data=self.data)
 
-        self.data = {}
+#     def load(self):
 
-    def extract(self):
-
-        pass
-
-    def transform(self):
-
-        pass
-
-    def load(self):
-
-        pass
+#         pth_etl.load(data=self.data)
 
 
-class PTHETLProcess(ETLProcess):
+# class DPLAETLProcess(ETLProcess):
 
-    def extract(self):
+#     def extract(self):
 
-        self.data = pth_etl.extract()
+#         self.data = dpla_etl.extract()
 
-    def transform(self):
+#     def transform(self):
 
-        pth_etl.transform(data=self.data)
+#         dpla_etl.transform(data=self.data)
 
-    def load(self):
+#     def load(self):
 
-        pth_etl.load(data=self.data)
-
-
-class CalisphereETLProcess(ETLProcess):
-
-    def extract(self):
-
-        self.data = calisphere_etl.extract()
-
-    def transform(self):
-
-        calisphere_etl.transform(data=self.data)
-
-    def load(self):
-
-        calisphere_etl.load(data=self.data)
+#         dpla_etl.load(data=self.data)
 
 
-class DPLAETLProcess(ETLProcess):
+# class SIETLProcess(ETLProcess):
 
-    def extract(self):
+#     def extract(self):
 
-        self.data = dpla_etl.extract()
+#         self.data = si_etl.extract()
 
-    def transform(self):
+#     def transform(self):
 
-        dpla_etl.transform(data=self.data)
+#         si_etl.transform(data=self.data)
 
-    def load(self):
+#     def load(self):
 
-        dpla_etl.load(data=self.data)
-
-
-class SIETLProcess(ETLProcess):
-
-    def extract(self):
-
-        self.data = si_etl.extract()
-
-    def transform(self):
-
-        si_etl.transform(data=self.data)
-
-    def load(self):
-
-        si_etl.load(data=self.data)
+#         si_etl.load(data=self.data)
 
 
 def run_etl():
+
+    format = "csv"
 
     etl_classes = [ CalisphereETLProcess ]
     # etl_classes = [ DPLAETLProcess ]
@@ -111,11 +71,11 @@ def run_etl():
 
     for etl_class in etl_classes:
 
-        etl_process = etl_class()
+        etl_process = etl_class(format=format)
 
-        etl_process.extract()
-        etl_process.transform()
-        etl_process.load()
+        data = etl_process.extract()
+        etl_process.transform(data=data)
+        etl_process.load(data=data)
 
 
 if __name__ == "__main__":
