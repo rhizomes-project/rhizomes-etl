@@ -44,6 +44,8 @@ class BaseETLProcess():
                 value = record.get(name)
                 if value:
 
+                    description = description.value
+
                     if record.get(description):
 
                         record[description] += value
@@ -66,6 +68,8 @@ class BaseETLProcess():
             writer.start_record()
 
             for name in field_map.values():
+
+                name = name.value
 
                 value = record.get(name)
                 if value and name:

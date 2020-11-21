@@ -47,15 +47,15 @@ SOLR_KEYS = [
 ]
 
 field_map = {
-    "title":                 RhizomeField.TITLE.value,
-    "creator":               RhizomeField.AUTHOR_ARTIST.value,
-    "url_item":              RhizomeField.URL.value,
-    "description":           RhizomeField.DESCRIPTION.value,
-    "date":                  RhizomeField.DATE.value,
-    "type":                  RhizomeField.DIGITAL_FORMAT.value,
-    "id":                    RhizomeField.ID.value,
-    "sort_collection_data":  RhizomeField.SOURCE.value,
-    "subject":               RhizomeField.SUBJECTS_TOPIC_KEYWORDS.value,
+    "title":                 RhizomeField.TITLE,
+    "creator":               RhizomeField.AUTHOR_ARTIST,
+    "url_item":              RhizomeField.URL,
+    "description":           RhizomeField.DESCRIPTION,
+    "date":                  RhizomeField.DATE,
+    "type":                  RhizomeField.DIGITAL_FORMAT,
+    "id":                    RhizomeField.ID,
+    "sort_collection_data":  RhizomeField.SOURCE,
+    "subject":               RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
     # REVIEW Add type here
 }
 
