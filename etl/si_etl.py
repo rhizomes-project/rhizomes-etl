@@ -5,8 +5,9 @@ import requests
 import csv
 import json
 
+from etl_process import BaseETLProcess
 from setup import ETLEnv
-from tools import pretty_print
+from tools import RhizomeField
 
 
 protocol = "https://"
@@ -21,15 +22,18 @@ query_url = protocol + domain + query_path + "?api_key=" + api_key + "&rows=25"
 keys_to_ignore = ("title_sort", "type", "label")
 keys_to_not_label = ("content", )
 
+
 field_map = {
 # REVIEW: Rework this with RHizomeFields
-    "title":                                   "Title",
-    "content/indexedStructured/object_type":   "Resource Type",
-    "id":                                      "Resource Identifier",
-    "content/indexedStructured/date":          "Subjects (Historic Era)",
-    "content/indexedStructured/topic":         "Subjects (Topic/Keywords)",
-    "content/indexedStructured/geoLocation":   "Subjects (Geographic)",
-    "content/freetext/notes":                  "Notes",
+    "title":                                   RhizomeField.TITLE,
+    "content/indexedStructured/object_type":   RhizomeField.RESOURCE_TYPE,
+    "id":                                      RhizomeField.ID,
+    "content/descriptiveNonRepeating/guid":    RhizomeField.URL,
+    "date":                                    RhizomeField.DATE,
+    "content/indexedStructured/date":          RhizomeField.SUBJECTS_HISTORICAL_ERA,
+    "content/indexedStructured/topic":         RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
+    "content/indexedStructured/geoLocation":   RhizomeField.SUBJECTS_GEOGRAPHIC,
+    "content/freetext/notes":                  RhizomeField.NOTES,
 }
 
 
@@ -74,99 +78,71 @@ def traverse(record, key=None, indents=0):
     return data
 
 
-def extract():
+class SIETLProcess(BaseETLProcess):
 
-    data = []
+    def get_field_map(self):
 
-    search_terms = [ "chicano" ]
-    for search_term in search_terms:
-
-        response = requests.get(query_url + "&q=" + search_term)
-
-        for row in response.json()["response"]["rows"]:
-
-            record = traverse(record=row)
-            data.append(record)
-
-    return data
+        return field_map
 
 
-# REVIEW TODO come up with generic default versions of transform() and load()
+    def extract(self):
 
-def transform(data):
+        data = []
 
-    for record in data:
+        search_terms = [ "chicano" ]
+        for search_term in search_terms:
 
-        # Clean up notes.
-        notes = record.get('content/freetext/notes')
-        if notes:
+            response = requests.get(query_url + "&q=" + search_term)
 
-            new_notes = []
-            for note in notes:
+            for row in response.json()["response"]["rows"]:
 
-                new_notes.append(f"- {note['label']}: {note['content']}")
+                record = traverse(record=row)
+                data.append(record)
 
-            record['content/freetext/notes'] = new_notes
+        return data
 
-        # Clean up geolocations.
-        locations = record.get('content/indexedStructured/geoLocation')
-        if locations:
+    def transform(self, data):
 
-            new_locations = set()
-            for location in locations:
+        for record in data:
 
-                for val in location.values():
+            # Clean up notes.
+            notes = record.get('content/freetext/notes')
+            if notes:
 
-                    if not val.get('content'):
+                new_notes = []
+                for note in notes:
 
-                        # print(f"ignoring {str(list(location.keys()))}")
-                        pass
+                    new_notes.append(f"- {note['label']}: {note['content']}")
 
-                    else:
+                record['content/freetext/notes'] = new_notes
 
-                        new_locations |= { value['content'] for value in location.values() }
+            # Clean up geolocations.
+            locations = record.get('content/indexedStructured/geoLocation')
+            if locations:
 
-            record['content/indexedStructured/geoLocation'] = new_locations
+                new_locations = set()
+                for location in locations:
 
-        for name, description in field_map.items():
+                    for val in location.values():
 
-            if not description:
+                        if not val.get('content'):
 
-                continue
+                            # print(f"ignoring {str(list(location.keys()))}")
+                            pass
 
-            value = record.get(name)
-            if value:
+                        else:
 
-                if record.get(description):
+                            new_locations |= { value['content'] for value in location.values() }
 
-                    record[description] += value
+                record['content/indexedStructured/geoLocation'] = new_locations
 
-                else:
-
-                    record[description] = value
-
-                del record[name]
-
-def load(data):
-
-    for record in data:
-
-        print("")
-
-        prev_values = set()
-
-        for name in field_map.values():
-
-            value = record.get(name)
-            if value and name not in prev_values:
-
-                pretty_print(name=name, value=value)
-
-                prev_values.add(name)
+        super().transform(data=data)
 
 
 if __name__ == "__main__":
 
-    data = extract()
-    transform(data=data)
-    load(data=data)
+    etl_process = SIETLProcess(format="csv")
+
+    data = etl_process.extract()
+    etl_process.transform(data=data)
+    etl_process.load(data=data)
