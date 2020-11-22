@@ -1,9 +1,13 @@
 #!/usr/bin/env python
 
 
+import re
 import requests
 import sys
-from tools import pretty_print
+
+from etl_process import BaseETLProcess
+from setup import ETLEnv
+from tools import RhizomeField
 
 from bs4 import BeautifulSoup
 
@@ -22,22 +26,25 @@ get_records_url = protocol + domain + get_records_path
 
 field_map = {
 # REVIEW: Rework this with RHizomeFields
-    "title":            "Title",
-    "identifier":       "Resource Identifier",
-    # "datestamp":        "",
-    "setspec":          "",
-    "creator":          "Author/Artist",
-    "subject":          "Subjects (Topic/Keywords)",
-    "description":      "Description",
-    "contributor":      "Author/Artist",
-    "publisher":        "",
-    "date":             "Date",
-    "type":             "Resource Type",
-    "format":           "Digital Format",
-    "source":           "Source",
-    "language":         "Language",
-    "coverage":         "Subjects (geographic)",
+    "title":                                  RhizomeField.TITLE,
+    "creator":                                RhizomeField.AUTHOR_ARTIST,
+    "contributor":                            RhizomeField.AUTHOR_ARTIST,
+    "description":                            RhizomeField.DESCRIPTION,
+    "date":                                   RhizomeField.DATE,
+    "type":                                   RhizomeField.RESOURCE_TYPE,
+    "format":                                 RhizomeField.DIGITAL_FORMAT, # dimeionsion info removed by transform()
+    # RhizomeField.DIMENSIONS:                  RhizomeField.DIGITAL_FORMAT, # Added by transform()
+    "identifier":                             RhizomeField.ID,
+    # RhizomeField.URL:                         RhizomeField.URL, #Added by transform()
+    "source":                                 RhizomeField.SOURCE,
+    "language":                               RhizomeField.LANGUAGE,
+    # RhizomeField.SUBJECTS_HISTORICAL_ERA:     RhizomeField.SUBJECTS_HISTORICAL_ERA, # Added by transform()
+    "subject":                                RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
+    # RhizomeField.SUBJECTS_GEOGRAPHIC:         RhizomeField.SUBJECTS_GEOGRAPHIC, # Added by transform()
 }
+
+# REVIEW TODO Get canonical list of PTH formats.
+KNOWN_FORMATS = ('image', 'text')
 
 
 def add_value(data, value):
@@ -81,80 +88,119 @@ def get_value(value):
 
     return result
 
-def extract():
+def has_number(value):
 
-    data = []
+    return re.search(r'\d', value)
 
-    for collection in collections:
+class PTHETLProcess(BaseETLProcess):
 
-        response = requests.get(f"{get_records_url}{collection}")
+    def get_field_map(self):
 
-        xml_data = BeautifulSoup(markup=response.content, features="lxml-xml", from_encoding="utf-8")
-        records = xml_data.findAll("record")
+        return field_map
 
-        for record in records:
+    def extract(self):
 
-            record_data = {}
+        data = []
 
-            for value in record.header:
+        for collection in collections:
 
-                add_value(record_data, value)
+            response = requests.get(f"{get_records_url}{collection}")
+            xml_data = BeautifulSoup(markup=response.content, features="lxml-xml", from_encoding="utf-8")
+            records = xml_data.findAll("record")
 
-            for value in record.metadata:
+            for record in records:
 
-                if value.name == 'dc':
+                record_data = {}
 
-                    for child in value.children:
+                for value in record.header:
 
-                        add_value(record_data, child)
+                    add_value(record_data, value)
 
-            data.append(record_data)
+                for value in record.metadata:
 
-    return data
+                    if value.name == 'dc':
 
-def transform(data):
+                        for child in value.children:
 
-    for record in data:
+                            add_value(record_data, child)
 
-        for name, description in field_map.items():
+                data.append(record_data)
 
-            if not description:
+        return data
 
-                continue
+    def transform(self, data):
 
-            value = record.get(name)
-            if value:
+        for record in data:
 
-                if record.get(description):
+            # Split 'format' into digital format and dimensions.
+            formats = record.get("format", [])
+            if formats:
 
-                    record[description] += value
+                new_formats = []
+                new_dimensions = []
+
+                for format in formats:
+
+                    if format.lower() in KNOWN_FORMATS:
+
+                        new_formats.append(format)
+
+                    else:
+
+                        new_dimensions.append(format)
+
+                del record['format']
+                record[RhizomeField.DIGITAL_FORMAT.value] = new_formats
+                record[RhizomeField.DIMENSIONS.value] = new_dimensions
+
+            # Add in a URL value.
+            identifiers = record["identifier"]
+            new_ids = []
+            new_urls = []
+
+            for identifier in identifiers:
+
+                if identifier.startswith('http'):
+
+                    new_urls.append(identifier)
 
                 else:
 
-                    record[description] = value
+                    new_ids.append(identifier)
 
-                del record[name]
+            del record["identifier"]
+            record[RhizomeField.ID.value] = new_ids
+            record[RhizomeField.URL.value] = new_urls
 
-def load(data):
+            # Split 'coverage' into values dealing with geography and values dealing with history (dates).
+            coverage_values = record.get("coverage", [])
+            if coverage_values:
 
-    for record in data:
+                new_hist_vals = []
+                new_geo_vals = []
 
-        print("")
+                for value in coverage_values:
 
-        prev_values = set()
+                    if has_number(value=value):
 
-        for name in field_map.values():
+                        new_hist_vals.append(value)
 
-            value = record.get(name)
-            if value and name not in prev_values:
+                    else:
 
-                pretty_print(name=name, value=get_value(value=value))
+                        new_geo_vals.append(value)
 
-                prev_values.add(name)
+                del record["coverage"]
+                record[RhizomeField.SUBJECTS_HISTORICAL_ERA.value] = new_hist_vals
+                record[RhizomeField.SUBJECTS_GEOGRAPHIC.value] = new_geo_vals
+
+
+        super().transform(data=data)
 
 
 if __name__ == "__main__":
 
-    data = extract()
-    transform(data=data)
-    load(data=data)
+    etl_process = PTHETLProcess(format="csv")
+
+    data = etl_process.extract()
+    etl_process.transform(data=data)
+    etl_process.load(data=data)

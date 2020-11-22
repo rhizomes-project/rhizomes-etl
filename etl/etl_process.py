@@ -5,9 +5,6 @@ import setup
 from tools import MetadataWriter, RhizomeField
 
 # REVEW: TODO clean up "list" values so that they are easier to read (put each on its own line)
-# REVIEW: TODO move each etl class (below) into the script it belongs to
-
-# REVIEW: TODO add in URL mapping everywhere
 
 
 class BaseETLProcess():
@@ -35,26 +32,40 @@ class BaseETLProcess():
 
         for record in data:
 
-            for name, description in field_map.items():
+            for name, descriptions in field_map.items():
 
-                if not description:
+                if not descriptions:
 
                     continue
+
+                if type(name) is RhizomeField:
+
+                    name = name.value
+
+                if type(descriptions) is not list:
+
+                    descriptions = [ descriptions ]
 
                 value = record.get(name)
                 if value:
 
-                    description = description.value
+                    for description in descriptions:
 
-                    if record.get(description):
+                        description = description.value
 
-                        record[description] += value
+                        if description == name:
 
-                    else:
+                            continue
 
-                        record[description] = value
+                        if record.get(description):
 
-                    del record[name]
+                            record[description] += value
+
+                        else:
+
+                            record[description] = value
+
+                        del record[name]
 
     def load(self, data):
 
