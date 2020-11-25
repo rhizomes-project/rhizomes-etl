@@ -8,7 +8,11 @@ from pth_etl import PTHETLProcess
 from si_etl import SIETLProcess
 
 
-# REVEW: TODO clean up "list" values so that they are easier to read (put each on its own line)
+# REVIEW: TODO clean up "list" values so that they are easier to read (put each on its own line)
+# REVIEW: TODO check if date values can be converted accurately, and convert them to python date values
+# REVIEW: TODO look at how smithsonian metadata varies across collections within smithsonian
+# REVIEW: TODO put internet archive into new ETL layout (first pass at least)
+# REVIEW: TODO add in ability to specify format and institution from command-line
 
 
 def run_etl():
