@@ -130,7 +130,7 @@ class MetadataWriter():
 
             self.output.append({})
 
-        if self.format == "csv":
+        elif self.format == "csv":
 
             self.row_buf = {}
 
