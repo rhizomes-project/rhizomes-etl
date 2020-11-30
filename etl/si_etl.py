@@ -23,6 +23,10 @@ keys_to_ignore = ("title_sort", "type", "label")
 keys_to_not_label = ("content", )
 
 
+# REVIEW: Why isn't date coming out correctly? answer: because smithsonian metadata does not really have a date field consistently
+# REVIEW: map "name" to author? problem: 'name' is all over the place in smithsonian's metadata - not consistent
+
+
 field_map = {
 # REVIEW: Rework this with RHizomeFields
     "title":                                   RhizomeField.TITLE,
