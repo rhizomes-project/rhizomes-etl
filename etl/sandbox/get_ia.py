@@ -5,13 +5,6 @@ from internetarchive import search_items
 import unicodedata
 
 
-# from setup import ETLEnv
-
-
-# etl_env = ETLEnv()
-# etl_env.start()
-# api_key = etl_env.ia_api_key
-
 METADATA_KEY = {
     # 'title': 26,
     # 'identifier': 26,

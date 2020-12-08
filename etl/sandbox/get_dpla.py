@@ -12,7 +12,8 @@ protocol = "https://"
 domain = "api.dp.la"
 etl_env = ETLEnv()
 etl_env.start()
-api_key = etl_env.dpla_api_key
+api_key = etl_env.get_api_key(name="dpla")
+
 
 list_collections_path = "/v2/collections"
 list_collections_url = protocol + domain + list_collections_path + "?api_key=" + api_key

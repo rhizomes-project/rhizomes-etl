@@ -18,12 +18,6 @@ class ETLEnv(object):
         with open(SECRETS_PATH) as file:
             self.secrets = json.loads(file.read())
 
-
-        # REVIEW TODO get rid of these
-        self.dpla_api_key = self.secrets["apis"]["keys"]["dpla"]
-        self.smithsonian_api_key = self.secrets["apis"]["keys"]["smithsonian"]
-        self.calisphere_api_key = self.secrets["apis"]["keys"]["calisphere"]
-
     def get_api_key(self, name):
 
         return self.secrets["apis"]["keys"][name]

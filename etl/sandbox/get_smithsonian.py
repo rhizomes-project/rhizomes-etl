@@ -11,7 +11,7 @@ protocol = "https://"
 domain = "api.si.edu"
 etl_env = ETLEnv()
 etl_env.start()
-api_key = etl_env.smithsonian_api_key
+api_key = etl_env.get_api_key(name="smithsonian")
 
 query_path = "/openaccess/api/v1.0/search"
 query_url = protocol + domain + query_path + "?api_key=" + api_key

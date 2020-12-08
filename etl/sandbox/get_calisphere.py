@@ -11,7 +11,8 @@ from setup import ETLEnv
 
 etl_env = ETLEnv()
 etl_env.start()
-api_key = etl_env.calisphere_api_key
+api_key = etl_env.get_api_key(name="calisphere")
+
 
 
 # "https://solr.calisphere.org/solr/query/?q=fred"
