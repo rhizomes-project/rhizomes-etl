@@ -11,11 +11,20 @@ from si_etl import SIETLProcess
 
 
 # REVIEW: TODO clean up "list" values so that they are easier to read (put each on its own line)
-# REVIEW: TODO check if date values can be converted accurately, and convert them to python date values - Note: at least for PTH date is sometimes not more specific than year.
+# REVIEW: TODO check if date values can be converted accurately, and convert them to python date values ...
+#   - for calisphere, date is treated as a display date ('date') a sort date ('date_ss') and then sort_date_start and sort_date_end
+#   - for dplay, date is treated as 'displaydate' and then 'begin' and 'end', and is sometimes not available
+#   - for PTH date is sometimes not more specific than year.
+#   - for SI date is frequently more of a subject or topic, possibly with multiple values, and sometimes not available
+
 
 # REVIEW: TODO look at how smithsonian metadata varies across collections within smithsonian
 # REVIEW: TODO put internet archive into new ETL layout (first pass at least)
-# REVIEW: TODO add in ability to specify format and institution from command-line
+
+# REVIEW: TODO make sure keyword vs title search is consistent across institutions
+# REVIEW: TODO figure out how to deal with dates - separate search field and display field?
+# REVIEW: TODO come up with ability to pull entire dataset for institutions.
+
 
 INST_ETL_MAP = {
     "cali": CalisphereETLProcess,
