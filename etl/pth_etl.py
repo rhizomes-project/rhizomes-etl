@@ -19,7 +19,11 @@ list_sets_path = "/oai/?verb=ListSets"
 list_sets_url = protocol + domain + list_sets_path
 
 
-collections = [ "partner:MAMU" ]
+collections = [ "partner:MAMU", "partner:UNT", "partner:UNTA", "partner:UNTGD", ]
+
+# REVIEW: TODO Pull in all desired PTH collections
+# REVIEW: TODO revisit ways of further filtering PTH metadata
+
 get_records_path = "/oai/?verb=ListRecords&metadataPrefix=oai_dc&set="
 get_records_url = protocol + domain + get_records_path
 
