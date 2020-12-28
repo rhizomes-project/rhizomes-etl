@@ -71,7 +71,7 @@ def get_value(value, format="json"):
 
                     if format == "csv":
 
-                        buf += tmp + "\n"
+                        buf += tmp + " | "
 
                     else:
 
