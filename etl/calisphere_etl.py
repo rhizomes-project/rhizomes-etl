@@ -55,6 +55,26 @@ field_map = {
 }
 
 
+def get_overview(hit, keys):
+
+    overview = ''
+
+    for key in keys:
+
+        tmp = hit.get(key, [])
+        if type(tmp) is str:
+
+            overview += ' ' + tmp
+
+        elif type(tmp) is list:
+
+            for val in tmp:
+
+                overview += ' ' + val
+
+    return overview.lower()
+
+
 class CalisphereETLProcess(BaseETLProcess):
 
     def get_field_map(self):
@@ -100,6 +120,11 @@ class CalisphereETLProcess(BaseETLProcess):
             10703,
 
             #
+            # Cinewest Archive
+            #
+            27075,
+
+            #
             # California Revealed from Center for the Study of Political Graphics (Pull All Content) - https://calisphere.org/collections/27440/
             #
 
@@ -112,11 +137,11 @@ class CalisphereETLProcess(BaseETLProcess):
             {
                 "id": 27354,
                 "terms": [
-                    [ "Chicano", "Chicana", ],
-                    [ "Latino", "Latina", ],
-                    "Hispanic",
-                    "Boyle Heights",
-                    "Immigrant",
+                    "chicano", "chicana",
+                    "latino", "latina",
+                    "hispanic",
+                    "boyle heights",
+                    "immigrant",
                 ]
             },
 
@@ -127,7 +152,7 @@ class CalisphereETLProcess(BaseETLProcess):
             {
                 "id": 27087,
                 "terms": [
-                    ["mexican american", "mexican-american"],
+                    "mexican american", "mexican-american",
                 ]
             }
         ]
@@ -136,18 +161,39 @@ class CalisphereETLProcess(BaseETLProcess):
 
         for collection in collections:
 
-            # REVIEW: TODO handle collections with specific search terms
+            terms = []
+
+            # Is this a collections with specific search terms?
             if type(collection) is dict:
 
-                continue
+                terms = collection["terms"]
+                collection = collection["id"]
 
-            url = f"https://solr.calisphere.org/solr/query/?q=collection_url:https://registry.cdlib.org/api/v1/collection/{collection}/&wt=json&indent=true&rows=5000"
+            url = f"https://solr.calisphere.org/solr/query/?q=collection_url:https://registry.cdlib.org/api/v1/collection/{collection}/&wt=json&indent=true&rows=50000"
 
             headers = { "X-Authentication-Token": api_key }
             response = requests.get(url, headers=headers)
 
             for hit in response.json()['response']['docs']:
 
+                # Filter colletion results by term?
+                if terms:
+
+                    ignore = True
+                    overview = get_overview(hit=hit, keys=SOLR_KEYS)
+
+                    for term in terms:
+
+                        if term in overview:
+
+                            ignore = False
+                            break
+
+                    if ignore:
+
+                        continue
+
+                # Extract our data from the hit.
                 record = {}
                 for key in SOLR_KEYS:
 
