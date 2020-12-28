@@ -24,8 +24,10 @@ collections = [ "partner:MAMU", "partner:UNT", "partner:UNTA", "partner:UNTGD", 
 # REVIEW: TODO Pull in all desired PTH collections
 # REVIEW: TODO revisit ways of further filtering PTH metadata
 
-get_records_path = "/oai/?verb=ListRecords&metadataPrefix=oai_dc&set="
-get_records_url = protocol + domain + get_records_path
+records_path =       "/oai/?verb=ListRecords"
+start_records_path = records_path + "&metadataPrefix=oai_dc&set="
+start_records_url = protocol + domain + start_records_path
+resume_records_url = protocol + domain + records_path
 
 
 field_map = {
@@ -51,6 +53,10 @@ field_map = {
 KNOWN_FORMATS = ('image', 'text')
 
 
+def has_number(value):
+
+    return re.search(r'\d', value)
+
 def add_value(data, value):
 
     if not value.name:
@@ -67,7 +73,6 @@ def add_value(data, value):
     data[value.name] = full_value
 
     return True
-
 
 def clean_value(value):
 
@@ -92,9 +97,67 @@ def get_value(value):
 
     return result
 
-def has_number(value):
+def extract_records(records):
 
-    return re.search(r'\d', value)
+    data = []
+    for record in records:
+
+        record_data = {}
+
+        for value in record.header:
+
+            add_value(record_data, value)
+
+        for value in record.metadata:
+
+            if value.name == 'dc':
+
+                for child in value.children:
+
+                    add_value(record_data, child)
+
+        data.append(record_data)
+
+    return data
+
+record_count = 0
+
+def extract_collection(collection, resumption_token=None):
+
+    if not resumption_token:
+
+        url = f"{start_records_url}{collection}"
+
+        global record_count
+        record_count = 0
+
+    else:
+
+        url = f"{resume_records_url}&resumptionToken={resumption_token}"
+
+    response = requests.get(url)
+    xml_data = BeautifulSoup(markup=response.content, features="lxml-xml", from_encoding="utf-8")
+
+    # Extract all records from this result set.
+    records = extract_records(records=xml_data.find_all("record"))
+
+    resumption_tokens = xml_data.find_all("resumptionToken")
+    if resumption_tokens:
+
+        if record_count >= 20000:
+
+            return records
+
+
+        record_count += len(records)
+        print(f"{record_count} records ...", file=sys.stderr)
+
+        # Make recursive call to extract all records.
+        next_records = extract_collection(collection=collection, resumption_token=resumption_tokens[0].text)
+        records += next_records
+
+    return records
+
 
 class PTHETLProcess(BaseETLProcess):
 
@@ -108,27 +171,12 @@ class PTHETLProcess(BaseETLProcess):
 
         for collection in collections:
 
-            response = requests.get(f"{get_records_url}{collection}")
-            xml_data = BeautifulSoup(markup=response.content, features="lxml-xml", from_encoding="utf-8")
-            records = xml_data.findAll("record")
+            print(f"\nExtracting PTH collection {collection}:", file=sys.stderr)
 
-            for record in records:
+            collection_data = extract_collection(collection=collection)
+            data += collection_data
 
-                record_data = {}
-
-                for value in record.header:
-
-                    add_value(record_data, value)
-
-                for value in record.metadata:
-
-                    if value.name == 'dc':
-
-                        for child in value.children:
-
-                            add_value(record_data, child)
-
-                data.append(record_data)
+            print(f"\n... extracted {len(collection_data)} records for collection {collection}", file=sys.stderr)
 
         return data
 
