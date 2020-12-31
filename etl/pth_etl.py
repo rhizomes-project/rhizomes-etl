@@ -19,9 +19,9 @@ list_sets_path = "/oai/?verb=ListSets"
 list_sets_url = protocol + domain + list_sets_path
 
 
-collections = [ "partner:MAMU", "partner:UNT", "partner:UNTA", "partner:UNTGD", ]
+partners = [ "partner:MAMU", "partner:UNT", "partner:UNTA", "partner:UNTGD", ]
 
-# REVIEW: TODO Pull in all desired PTH collections
+# REVIEW: TODO Pull in all desired PTH partners
 # REVIEW: TODO revisit ways of further filtering PTH metadata
 
 records_path =       "/oai/?verb=ListRecords"
@@ -49,8 +49,15 @@ field_map = {
     # RhizomeField.SUBJECTS_GEOGRAPHIC:         RhizomeField.SUBJECTS_GEOGRAPHIC, # Added by transform()
 }
 
+KEYWORDS = [
+    "chicano", "chicana",
+    "mexican-american", "mexican american",
+]
+
 # REVIEW TODO Get canonical list of PTH formats.
 KNOWN_FORMATS = ('image', 'text')
+
+RECORD_LIMIT = 2
 
 
 def has_number(value):
@@ -74,28 +81,19 @@ def add_value(data, value):
 
     return True
 
-def clean_value(value):
+def do_keep_record(record):
+    "Returns True if the record should be retained"
 
-    if value.startswith("["):
-        value = value[ 1 : ]
+    title = ''.join(record.get('title', [])).lower()
+    description = ''.join(record.get('description', [])).lower()
 
-    if value.endswith("]"):
-        value = value[ : -1 ]
+    for keyword in KEYWORDS:
 
-    return value
+        if keyword in title or keyword in description:
 
-def get_value(value):
+            return True
 
-    if len(value) == 1:
-
-        return clean_value(value=value[0])
-
-    result = []
-    for tmp in value:
-
-        result.append(clean_value(value=tmp))
-
-    return result
+    return False
 
 def extract_records(records):
 
@@ -116,17 +114,19 @@ def extract_records(records):
 
                     add_value(record_data, child)
 
-        data.append(record_data)
+        if do_keep_record(record=record_data):
+
+            data.append(record_data)
 
     return data
 
 record_count = 0
 
-def extract_collection(collection, resumption_token=None):
+def extract_partner(partner, resumption_token=None):
 
     if not resumption_token:
 
-        url = f"{start_records_url}{collection}"
+        url = f"{start_records_url}{partner}"
 
         global record_count
         record_count = 0
@@ -144,7 +144,7 @@ def extract_collection(collection, resumption_token=None):
     resumption_tokens = xml_data.find_all("resumptionToken")
     if resumption_tokens:
 
-        if record_count >= 20000:
+        if RECORD_LIMIT and record_count >= RECORD_LIMIT:
 
             return records
 
@@ -153,7 +153,7 @@ def extract_collection(collection, resumption_token=None):
         print(f"{record_count} records ...", file=sys.stderr)
 
         # Make recursive call to extract all records.
-        next_records = extract_collection(collection=collection, resumption_token=resumption_tokens[0].text)
+        next_records = extract_partner(partner=partner, resumption_token=resumption_tokens[0].text)
         records += next_records
 
     return records
@@ -169,14 +169,14 @@ class PTHETLProcess(BaseETLProcess):
 
         data = []
 
-        for collection in collections:
+        for partner in partners:
 
-            print(f"\nExtracting PTH collection {collection}:", file=sys.stderr)
+            print(f"\nExtracting PTH partner {partner}:", file=sys.stderr)
 
-            collection_data = extract_collection(collection=collection)
-            data += collection_data
+            partner_data = extract_partner(partner=partner)
+            data += partner_data
 
-            print(f"\n... extracted {len(collection_data)} records for collection {collection}", file=sys.stderr)
+            print(f"\n... extracted {len(partner_data)} records for partner {partner}", file=sys.stderr)
 
         return data
 
