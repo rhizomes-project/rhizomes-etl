@@ -4,7 +4,21 @@
 import setup
 from tools import MetadataWriter, RhizomeField
 
-# REVEW: TODO clean up "list" values so that they are easier to read (put each on its own line)
+
+def clean_value(value):
+    "Cleans value, including removing bad whitespace."
+
+    if type(value) is str:
+
+        return value.strip()
+
+    else:
+
+        for idx, tmp in enumerate(value):
+
+            value[idx] = tmp.strip()
+
+        return value
 
 
 class BaseETLProcess():
@@ -28,9 +42,32 @@ class BaseETLProcess():
 
     def transform(self, data):
 
+        # REVIEW TODO: make sure that all transforms map from a field_map key to another field_map key, not
+        # to a RhizomeField directly.
+
         field_map = self.get_field_map()
 
+        # De-dupe the records (make sure no record appears more than once).
+        record_ids = set()
+        id_key = list(field_map.keys())[0]
         for record in data:
+
+            id_val = record[id_key]
+            if id_val in record_ids:
+
+                record["ignore"] = True
+
+            else:
+
+                record_ids.add(id_val)
+
+        # Now map all the other values in the raw metadata to the correct output rhizome fields.
+        for record in data:
+
+            # Has this record been flagged to be skipped?
+            if record.get("ignore", False):
+
+                continue
 
             for name, descriptions in field_map.items():
 
@@ -59,11 +96,11 @@ class BaseETLProcess():
 
                         if record.get(description):
 
-                            record[description] += value
+                            record[description] += clean_value(value=value)
 
                         else:
 
-                            record[description] = value
+                            record[description] = clean_value(value=value)
 
                         del record[name]
 
