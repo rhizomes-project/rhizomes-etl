@@ -29,9 +29,9 @@ keys_to_not_label = ("content", )
 
 field_map = {
 # REVIEW: Rework this with RHizomeFields
+    "id":                                      RhizomeField.ID,
     "title":                                   RhizomeField.TITLE,
     "content/indexedStructured/object_type":   RhizomeField.RESOURCE_TYPE,
-    "id":                                      RhizomeField.ID,
     "content/descriptiveNonRepeating/guid":    RhizomeField.URL,
     "date":                                    RhizomeField.DATE,
     "content/indexedStructured/date":          RhizomeField.SUBJECTS_HISTORICAL_ERA,

@@ -32,6 +32,7 @@ resume_records_url = protocol + domain + records_path
 
 field_map = {
 # REVIEW: Rework this with RHizomeFields
+    "identifier":                             RhizomeField.ID,
     "title":                                  RhizomeField.TITLE,
     "creator":                                RhizomeField.AUTHOR_ARTIST,
     "contributor":                            RhizomeField.AUTHOR_ARTIST,
@@ -40,7 +41,6 @@ field_map = {
     "type":                                   RhizomeField.RESOURCE_TYPE,
     "format":                                 RhizomeField.DIGITAL_FORMAT, # dimeionsion info removed by transform()
     # RhizomeField.DIMENSIONS:                  RhizomeField.DIGITAL_FORMAT, # Added by transform()
-    "identifier":                             RhizomeField.ID,
     # RhizomeField.URL:                         RhizomeField.URL, #Added by transform()
     "source":                                 RhizomeField.SOURCE,
     "language":                               RhizomeField.LANGUAGE,

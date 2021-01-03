@@ -42,13 +42,13 @@ SOLR_KEYS = [
 ]
 
 field_map = {
+    "id":                    RhizomeField.ID,
     "title":                 RhizomeField.TITLE,
     "creator":               RhizomeField.AUTHOR_ARTIST,
     "url_item":              RhizomeField.URL,
     "description":           RhizomeField.DESCRIPTION,
     "date":                  RhizomeField.DATE,
     "type":                  RhizomeField.DIGITAL_FORMAT,
-    "id":                    RhizomeField.ID,
     "sort_collection_data":  RhizomeField.SOURCE,
     "subject":               RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
     # REVIEW Add type here
