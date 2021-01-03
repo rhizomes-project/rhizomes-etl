@@ -3,6 +3,7 @@
 
 import requests
 import json
+import re
 import sys
 
 from etl_process import BaseETLProcess
@@ -27,7 +28,6 @@ dpla_terms = [ "id", "dataProvider", "isShownAt", "object" ]
 original_data_terms = [ "title", "description", "creator", "contributor", "date", "subject", "language", "reference_image_dimensions", "collection_name", "type", "format", "spatial", "coverage" ]
 
 field_map = {
-# REVIEW: Deal with format Dimensions
     "id":                   RhizomeField.ID,
     "title":                RhizomeField.TITLE,
     "creator":              RhizomeField.AUTHOR_ARTIST,
@@ -36,6 +36,7 @@ field_map = {
     "date":                 RhizomeField.DATE,
     "type":                 RhizomeField.RESOURCE_TYPE,
     "format":               RhizomeField.DIGITAL_FORMAT,
+    "dimensions":           RhizomeField.DIMENSIONS,
     "isShownAt":            RhizomeField.URL,
     "collection_name":      RhizomeField.SOURCE,
     "language":             RhizomeField.LANGUAGE,
@@ -44,6 +45,17 @@ field_map = {
     # "coverage ":            NONE,
     "dataProvider":         RhizomeField.COLLECTION_INFORMATION,
 }
+
+def split_dimension(value):
+    "Splits value into multiple terms if necessary."
+
+    return re.split(r';|:', value)
+
+
+def is_dimension(value):
+    "Returns True if value appears to describe a dimension."
+
+    return re.search(r'\d.*x|X.*\d', value)
 
 
 class DPLAETLProcess(BaseETLProcess):
@@ -56,7 +68,7 @@ class DPLAETLProcess(BaseETLProcess):
 
         data = []
 
-        search_terms = [ "chicano", "mexican-american" ]
+        search_terms = [ "chicano", "chicana", "mexican-american" ]
         for search_term in search_terms:
 
             # For details on pagination, see https://pro.dp.la/developers/requests#pagination
@@ -120,6 +132,42 @@ class DPLAETLProcess(BaseETLProcess):
                     data.append(record)
 
         return data
+
+    def transform(self, data):
+
+        for record in data:
+
+            # Split 'format' into digital format and dimensions.
+            formats = record.get("format", [])
+            if formats:
+
+                # Do any of the individual format values need to be split again?
+                new_formats = []
+                for format in formats:
+
+                    new_formats += split_dimension(value=format)
+
+                formats = new_formats
+
+                # Split formats into 'actual' format info and whatever appears to be dimension info.
+                new_formats = []
+                new_dimensions = []
+
+                for format in formats:
+
+                    if is_dimension(value=format):
+
+                        new_dimensions.append(format)
+
+                    else:
+
+                        new_formats.append(format)
+
+                # del record['format']
+                record["format"] = new_formats
+                record["dimensions"] = new_dimensions
+
+        super().transform(data=data)
 
 
 if __name__ == "__main__":
