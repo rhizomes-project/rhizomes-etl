@@ -59,23 +59,18 @@ def get_value(value, format="json"):
                 return value
 
             buf = ""
-            for tmp in value:
+            for idx, tmp in enumerate(value):
 
-                if type(tmp) is not str:
+                if format == "csv":
 
+                    buf += tmp
+                    if idx + 1 < len(value):
 
-                    pdb.set_trace()
-
+                        buf += " | "
 
                 else:
 
-                    if format == "csv":
-
-                        buf += tmp + " | "
-
-                    else:
-
-                        buf += "\n\t" + tmp
+                    buf += "\n\t" + tmp
 
             if format == "csv":
 
