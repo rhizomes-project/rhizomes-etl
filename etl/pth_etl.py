@@ -5,9 +5,9 @@ import re
 import requests
 import sys
 
-from etl_process import BaseETLProcess
-from setup import ETLEnv
-from tools import RhizomeField
+from etl.etl_process import BaseETLProcess
+from etl.setup import ETLEnv
+from etl.tools import RhizomeField
 
 from bs4 import BeautifulSoup
 

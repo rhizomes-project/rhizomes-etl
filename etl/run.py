@@ -3,11 +3,11 @@
 
 import sys
 
-import setup
-from calisphere_etl import CalisphereETLProcess
-from dpla_etl import DPLAETLProcess
-from pth_etl import PTHETLProcess
-from si_etl import SIETLProcess
+from etl import setup
+from etl.calisphere_etl import CalisphereETLProcess
+from etl.dpla_etl import DPLAETLProcess
+from etl.pth_etl import PTHETLProcess
+from etl.si_etl import SIETLProcess
 
 
 # REVIEW: TODO clean up "list" values so that they are easier to read (put each on its own line)
@@ -63,7 +63,7 @@ if __name__ == "__main__":
 
             if len(arg) < 12:
 
-                raise Exception(msg=f"Invalid format: {arg}")
+                raise Exception(f"Invalid format: {arg}")
 
             pos = arg.find('=')
             format_ = arg[ pos + 1 : ]
@@ -72,13 +72,13 @@ if __name__ == "__main__":
 
             if arg not in INST_ETL_MAP:
 
-                raise Exception(msg=f"Invalid institution: {arg}")
+                raise Exception(f"Invalid institution: {arg}")
 
             institutions.append(arg)
 
     if not institutions:
 
-        raise Exception(msg=f"Usage: run.py institution1 ... institutionN --format[=csv]")
+        raise Exception(f"Usage: run.py institution1 ... institutionN --format[=csv]")
 
     # Run the ETL.
     run_etl(institutions=institutions, format=format_)

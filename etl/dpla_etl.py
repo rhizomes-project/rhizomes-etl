@@ -3,12 +3,13 @@
 
 import requests
 import json
+import os
 import re
 import sys
 
-from etl_process import BaseETLProcess
-from setup import ETLEnv
-from tools import RhizomeField
+from etl.etl_process import BaseETLProcess
+from etl.setup import ETLEnv
+from etl.tools import RhizomeField
 
 
 protocol = "https://"
@@ -69,6 +70,15 @@ class DPLAETLProcess(BaseETLProcess):
         data = []
 
         search_terms = [ "chicano", "chicana", "mexican-american" ]
+        page_max = 100
+
+        # Running tests?
+        if os.environ.get("RUNNING_UNITTESTS"):
+
+            search_terms = [ "chicano" ]
+            page_max = 1
+
+        # Extract metadata for all our terms.
         for search_term in search_terms:
 
             # For details on pagination, see https://pro.dp.la/developers/requests#pagination
@@ -76,7 +86,7 @@ class DPLAETLProcess(BaseETLProcess):
             start = 0
             page = 1
 
-            while count > start and page <= 100:
+            while count > start and page <= page_max:
 
                 response = requests.get(f"{list_items_url}&page={page}&q={search_term}")
 
@@ -170,7 +180,7 @@ class DPLAETLProcess(BaseETLProcess):
         super().transform(data=data)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":    # pragma: no cover
 
     etl_process = DPLAETLProcess(format="csv")
 

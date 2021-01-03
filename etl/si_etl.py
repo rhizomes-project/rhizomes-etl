@@ -5,9 +5,9 @@ import requests
 import csv
 import json
 
-from etl_process import BaseETLProcess
-from setup import ETLEnv
-from tools import RhizomeField
+from etl.etl_process import BaseETLProcess
+from etl.setup import ETLEnv
+from etl.tools import RhizomeField
 
 
 protocol = "https://"

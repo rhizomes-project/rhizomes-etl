@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
+import os
 
-import setup
-from tools import MetadataWriter, RhizomeField
+from etl import setup
+from etl.tools import MetadataWriter, RhizomeField
 
 
 def clean_value(value):
@@ -121,5 +122,10 @@ class BaseETLProcess():
                     writer.add_value(name=name, value=value)
 
             writer.end_record()
+
+            # Running tests?
+            if os.environ.get("RUNNING_UNITTESTS"):
+
+                break
 
         writer.end_collection()
