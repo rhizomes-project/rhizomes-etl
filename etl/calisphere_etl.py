@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-
-import requests
 import json
+import os
+import requests
 
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
@@ -12,6 +12,8 @@ from etl.tools import RhizomeField
 etl_env = ETLEnv()
 etl_env.start()
 api_key = etl_env.get_api_key(name="calisphere")
+
+running_tests = os.environ.get("RUNNING_UNITTESTS")
 
 
 SOLR_KEYS = [
@@ -158,6 +160,20 @@ class CalisphereETLProcess(BaseETLProcess):
         ]
 
         data = []
+        rows = 5000
+
+        # Running tests?
+        if running_tests:
+
+            collections = [
+                {
+                    "id": 27087,
+                    "terms": [ "art" ]
+                }
+            ]
+
+            rows = 50
+
 
         for collection in collections:
 
@@ -169,7 +185,7 @@ class CalisphereETLProcess(BaseETLProcess):
                 terms = collection["terms"]
                 collection = collection["id"]
 
-            url = f"https://solr.calisphere.org/solr/query/?q=collection_url:https://registry.cdlib.org/api/v1/collection/{collection}/&wt=json&indent=true&rows=50000"
+            url = f"https://solr.calisphere.org/solr/query/?q=collection_url:https://registry.cdlib.org/api/v1/collection/{collection}/&wt=json&indent=true&rows={rows}"
 
             headers = { "X-Authentication-Token": api_key }
             response = requests.get(url, headers=headers)
@@ -203,10 +219,15 @@ class CalisphereETLProcess(BaseETLProcess):
 
                 data.append(record)
 
+                # Are we just testing?
+                if running_tests:
+
+                    break
+
         return data
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":    # pragma: no cover
 
     etl_process = CalisphereETLProcess(format="csv")
 
