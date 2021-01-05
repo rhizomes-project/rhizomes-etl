@@ -43,10 +43,14 @@ class BaseETLProcess():
 
     def transform(self, data):
 
-        # REVIEW TODO: make sure that all transforms map from a field_map key to another field_map key, not
-        # to a RhizomeField directly.
 
         field_map = self.get_field_map()
+
+        # Make sure that all transforms map from a field_map key to another field_map key, not
+        # from a RhizomeField directly to another.
+        if field_map.keys() & RhizomeField.values():
+
+            raise Exception(f"Invalid field map keys found: {field_map.keys() & RhizomeField.values()}")
 
         # De-dupe the records (make sure no record appears more than once).
         record_ids = set()
@@ -54,6 +58,11 @@ class BaseETLProcess():
         for record in data:
 
             id_val = record[id_key]
+
+            if type(id_val) is list:
+
+                id_val = id_val[0]
+
             if id_val in record_ids:
 
                 record["ignore"] = True
