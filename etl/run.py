@@ -46,20 +46,15 @@ def run_etl(institutions, format):
         etl_process.transform(data=data)
         etl_process.load(data=data)
 
+def run_cmd_line(args):
 
-if __name__ == "__main__":
-
-    format_ = "csv"
+    format_ = "csv" # default output format.
     institutions = []
 
     # Parse command-line args.
-    for idx, arg in enumerate(sys.argv):
+    for idx, arg in enumerate(args):
 
-        if idx == 0:
-
-            pass
-
-        elif arg.startswith("--format="):
+        if arg.startswith("--format="):
 
             if len(arg) < 12:
 
@@ -82,3 +77,8 @@ if __name__ == "__main__":
 
     # Run the ETL.
     run_etl(institutions=institutions, format=format_)
+
+
+if __name__ == "__main__":    # pragma: no cover
+
+    run_cmd_line(sys.argv[ 1: ])
