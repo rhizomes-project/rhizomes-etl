@@ -13,13 +13,17 @@ def clean_value(value):
 
         return value.strip()
 
-    else:
+    elif type(value) is list:
 
         for idx, tmp in enumerate(value):
 
             value[idx] = tmp.strip()
 
-        return value
+    elif type(value) is set:
+
+        value = { tmp.strip() for tmp in value }
+
+    return value
 
 
 class BaseETLProcess():
