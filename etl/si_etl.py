@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 
-
-import requests
 import csv
 import json
+import os
+import requests
 
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
 from etl.tools import RhizomeField
+
+
+running_tests = os.environ.get("RUNNING_UNITTESTS")
 
 
 protocol = "https://"
@@ -28,7 +31,6 @@ keys_to_not_label = ("content", )
 
 
 field_map = {
-# REVIEW: Rework this with RHizomeFields
     "id":                                      RhizomeField.ID,
     "title":                                   RhizomeField.TITLE,
     "content/indexedStructured/object_type":   RhizomeField.RESOURCE_TYPE,
@@ -103,6 +105,10 @@ class SIETLProcess(BaseETLProcess):
                 record = traverse(record=row)
                 data.append(record)
 
+                if running_tests:
+
+                    break
+
         return data
 
     def transform(self, data):
@@ -143,7 +149,7 @@ class SIETLProcess(BaseETLProcess):
         super().transform(data=data)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":    # pragma: no cover
 
     etl_process = SIETLProcess(format="csv")
 
