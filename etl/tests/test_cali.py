@@ -15,6 +15,6 @@ class TestCali(TestBase):
         self.run_etl_test(institution="cali", format="csv", expected=expected)
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':    # pragma: no cover
 
     unittest.main()

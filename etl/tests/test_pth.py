@@ -15,6 +15,6 @@ class TestDPLA(TestBase):
         self.run_etl_test(institution="pth", format="csv", expected=expected)
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':    # pragma: no cover
 
     unittest.main()
