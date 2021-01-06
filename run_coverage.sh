@@ -10,7 +10,10 @@ export RUNNING_UNITTESTS=1
 # coverage run etl/tests/test_pth.py
 # coverage run etl/tests/test_si.py
 
-coverage run -m unittest etl/tests/test*.py
+pattern="*"
+# pattern="si"
+
+coverage run -m unittest etl/tests/test*${pattern}*.py
 
 # coverage run run_tests.py all
 
