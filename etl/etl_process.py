@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import abc
 import os
 
 from etl import setup
@@ -26,9 +27,7 @@ def clean_value(value):
     return value
 
 
-class BaseETLProcess():
-
-    # REVIEW TODO make this an ABC
+class BaseETLProcess(abc.ABC):
 
     def __init__(self, format):
 
@@ -37,13 +36,15 @@ class BaseETLProcess():
         self.etl_env = setup.ETLEnv()
         self.etl_env.start()
 
-    def get_field_map(self):
+    @abc.abstractmethod
+    def get_field_map(self):    # pragma: no cover (should never get called)
 
-        raise Exception("Base class get_field_map() not defined.")
+        pass
 
-    def extract(self):
+    @abc.abstractmethod
+    def extract(self):    # pragma: no cover (should never get called)
 
-        raise Exception("Base class extract() not defined.")
+        pass
 
     def transform(self, data):
 
