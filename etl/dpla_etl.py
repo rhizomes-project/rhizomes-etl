@@ -43,20 +43,23 @@ field_map = {
     "language":             RhizomeField.LANGUAGE,
     "subject":              RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
     "spatial":              RhizomeField.SUBJECTS_GEOGRAPHIC,
-    # "coverage ":            NONE,
     "dataProvider":         RhizomeField.COLLECTION_INFORMATION,
 }
 
+
 def split_dimension(value):
-    "Splits value into multiple terms if necessary."
+    "Splits value into a list if necessary."
 
     return re.split(r';|:', value)
-
 
 def is_dimension(value):
     "Returns True if value appears to describe a dimension."
 
     return re.search(r'\d.*x|X.*\d', value)
+
+
+# REVIEW look into cleaning up / getting better dates
+# REVIEW look into search terms, re "mexican american"
 
 
 class DPLAETLProcess(BaseETLProcess):
