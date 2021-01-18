@@ -126,6 +126,10 @@ class BaseETLProcess(abc.ABC):
 
         for record in data:
 
+            if record.get("ignore"):
+
+                continue
+
             writer.start_record()
 
             for name in RhizomeField.values():
