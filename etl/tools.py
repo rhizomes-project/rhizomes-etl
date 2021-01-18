@@ -13,6 +13,7 @@ class RhizomeField(Enum):
 
     ID                              = "Resource Identifier"
     TITLE                           = "Title"
+    # SCORE                           = "Score"
     AUTHOR_ARTIST                   = "Author/Artist"
     DESCRIPTION                     = "Description"
     DATE                            = "Date"
@@ -36,7 +37,54 @@ class RhizomeField(Enum):
         return [ value.value for value in RhizomeField.__members__.values() ]
 
 
-# TODO: remove all newlines?
+def add_oaipmh_value(data, value):
+
+    if not value.name:
+
+        return False
+
+    text = value.get_text().strip()
+    if not text:
+
+        return False
+
+    full_value = data.get(value.name, [])
+    full_value.append(text)
+    data[value.name] = full_value
+
+    return True
+
+
+def get_oaipmh_record(record):
+
+    record_data = {}
+
+    # If the record header is not available, ignore the record
+    # (These records appear to be in some format other than OIAPMH - we would need
+    # documentation to parse these, since all or most of the metadata appears to be codes.)
+    if not record.header:
+
+        return {}
+
+    for value in record.header:
+
+        add_oaipmh_value(data=record_data, value=value)
+
+    metadata = record.metadata or record.dc
+
+    if not metadata:
+
+        return {}
+
+    for value in metadata:
+
+        if value.name:
+
+            for child in value.children:
+
+                add_oaipmh_value(data=record_data, value=child)
+
+    return record_data
 
 
 def pretty_print(name, value):

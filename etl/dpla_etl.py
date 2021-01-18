@@ -7,9 +7,11 @@ import os
 import re
 import sys
 
+from bs4 import BeautifulSoup
+
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
-from etl.tools import RhizomeField
+from etl.tools import RhizomeField, get_oaipmh_record
 
 
 protocol = "https://"
@@ -24,9 +26,16 @@ list_collections_url = protocol + domain + list_collections_path + "?api_key=" +
 list_items_path = "/v2/items"
 list_items_url = protocol + domain + list_items_path + "?page=1&page_size=500&api_key=" + api_key
 
-# dpla_terms = [ "id", "@context", "aggregatedCHO", "dataProvider", "ingestDate", "ingestType", "isShownAt", "object" ]
-dpla_terms = [ "id", "dataProvider", "isShownAt", "object" ]
-original_data_terms = [ "title", "description", "creator", "contributor", "date", "subject", "language", "reference_image_dimensions", "collection_name", "type", "format", "spatial", "coverage" ]
+dpla_terms = [
+    "id", "dataProvider", "isShownAt", "object",
+    { "sourceResource": [ "title", "description", "creator", "contributor", "date", "type", { "subject" : [ "name" ] }, "dataProvider", { "date" : [ "displayDate" ] } ] },
+    ]
+json_original_data_terms = [ "title", "description", "creator", "contributor", "date", "subject", "language", "reference_image_dimensions", "collection_name", "type", "format", "coverage" ]
+
+# REVIEW: finish this
+# xml_original_data_terms = [ "titleInfo", "abstract", "", "", "", "", "", "", ]datestamp, note
+
+xml_original_data_terms = []
 
 field_map = {
     "id":                   RhizomeField.ID,
@@ -59,7 +68,82 @@ def is_dimension(value):
 
 
 # REVIEW look into cleaning up / getting better dates
-# REVIEW look into search terms, re "mexican american"
+
+
+
+def parse_json_terms(tree, terms):
+
+    data = {}
+
+    for term in terms:
+
+        if type(term) is dict:
+
+            for parent, children in term.items():
+
+                child_data = parse_json_terms(tree=tree.get(parent, {}), terms=children)
+                data |= child_data
+
+        else:
+
+            if type(tree) is list:
+
+                for obj in tree:
+
+                    data |= parse_json_terms(tree=obj, terms=[term])
+
+            else:
+
+                if tree.get(term):
+
+                    data[term] = tree[term]
+
+    return data
+
+
+def parse_oaipmh_record(record):
+
+    xml_data = BeautifulSoup(markup=record, features="lxml-xml")
+
+    for record in xml_data.find_all("record"):
+
+        return get_oaipmh_record(record=record)
+
+
+def parse_original_string(doc, record):
+
+    originalRecordString = doc["originalRecord"]
+    if type(originalRecordString) is str:
+
+        # REVIEW TODO handle situation where metadata is in a URL somwewhere. altho sometimes that url
+        # may be unavailable (due to DNS error?)
+
+        return
+
+    else:
+
+        originalRecordString = originalRecordString.get("stringValue")
+
+    if originalRecordString:
+
+        if originalRecordString.startswith('<'):
+
+            # Original record appears to be in OAIPMH...
+            original_data = parse_oaipmh_record(record=originalRecordString)
+            original_data_terms = xml_original_data_terms
+
+        else:
+
+            # Original record is in json ...
+            original_data = json.loads(originalRecordString)
+            original_data_terms = json_original_data_terms
+
+        # Add the original terms that we pulled out into the record data.
+        for term in original_data_terms:
+
+            if term in original_data and not record.get(term):
+
+                record[term] = original_data[term]
 
 
 class DPLAETLProcess(BaseETLProcess):
@@ -72,8 +156,11 @@ class DPLAETLProcess(BaseETLProcess):
 
         data = []
 
-        search_terms = [ "chicano", "chicana", "mexican-american" ]
+        search_terms = [ "chicano", "chicana", "%22mexican+american%22" ]
         page_max = 100
+
+        # search_terms = [ "chicano" ]
+        # search_terms = [ "%22Nuestra+Señora+de+Guadalupe%22" ]
 
         # Running tests?
         if os.environ.get("RUNNING_UNITTESTS"):
@@ -102,13 +189,8 @@ class DPLAETLProcess(BaseETLProcess):
 
                 for doc in response.json()["docs"]:
 
-                    record = {}
-
-                    for term in dpla_terms:
-
-                        if doc.get(term):
-
-                            record[term] = doc[term]
+                    # Get the terms available for all DPLA records.
+                    record = parse_json_terms(tree=doc, terms=dpla_terms)
 
                     # Some records that are part of contributor collections have most of their metadata embedded in the sourceResource string.
                     if not record.get("title"):
@@ -117,30 +199,8 @@ class DPLAETLProcess(BaseETLProcess):
 
                             record[val] = doc['sourceResource'].get(val)
 
-                    originalRecordString = doc["originalRecord"]
-                    if type(originalRecordString) is str:
-
-                        # REVIEW TODO handle situation where metadata is in a URL somwewhere. altho sometimes that url 
-                        # may be unavailable (due to DNS error?)
-
-                        continue
-
-                    else:
-
-                        originalRecordString = originalRecordString.get("stringValue")
-
-                    if not originalRecordString or originalRecordString.startswith('<'):
-
-                        # REVIEW TODO add support for OAIPMH
-                        continue
-
-
-                    original_data = json.loads(originalRecordString)
-                    for term in original_data_terms:
-
-                        if term in original_data:
-
-                            record[term] = original_data[term]
+                    # Try to load metadata out of the original string as well.
+                    parse_original_string(doc=doc, record=record)
 
                     data.append(record)
 
@@ -149,6 +209,14 @@ class DPLAETLProcess(BaseETLProcess):
     def transform(self, data):
 
         for record in data:
+
+            if record.get("displayDate"):
+
+                record["date"] = record["displayDate"]
+
+            elif record.get("date") == [{}]:
+
+                del record["date"]
 
             # Split 'format' into digital format and dimensions.
             formats = record.get("format", [])
