@@ -126,7 +126,7 @@ class BaseETLProcess(abc.ABC):
 
         for record in data:
 
-            if record.get("ignore"):
+            if record.get("ignore", False):
 
                 continue
 

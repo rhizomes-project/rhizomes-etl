@@ -12,6 +12,7 @@ from etl.run import run_cmd_line
 
 REAL_GET = requests.get
 current_institution = None
+current_tag = None
 
 
 class MockResponse():
@@ -29,7 +30,13 @@ class MockGetter():
 
     def __call__(self, url, params=None, **kwargs):
 
-        data_path = f"etl/tests/data/{current_institution}.json"
+        data_path = f"etl/tests/data/{current_institution}"
+        if current_tag:
+
+            data_path = f"_{current_tag}"
+
+        data_path +=  ".json"
+
         if path.exists(data_path):
 
             with open(data_path, "r") as input:
@@ -57,12 +64,20 @@ class TestBase(unittest.TestCase):
 
         self.maxDiff = None
 
-    def run_etl_test(self, institution, format, expected):
+    def run_etl_test(self, institution, format, expected, tag=None):
 
-        print(f"\nTesting ETL process for {institution}, format={format}\n", file=sys.stderr)
+        if tag:
+
+            print(f"\nTesting ETL process for {institution} {tag}, format={format}\n", file=sys.stderr)
+
+        else:
+
+            print(f"\nTesting ETL process for {institution}, format={format}\n", file=sys.stderr)
 
         global current_institution
         current_institution = institution
+        global current_tag
+        current_tag = tag
 
         old_stdout = sys.stdout
         mystdout = StringIO()
