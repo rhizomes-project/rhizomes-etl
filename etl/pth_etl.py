@@ -7,7 +7,7 @@ import sys
 
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
-from etl.tools import RhizomeField
+from etl.tools import RhizomeField, get_oaipmh_record
 
 from bs4 import BeautifulSoup
 
@@ -62,6 +62,13 @@ KEYWORDS = [
     "mexican-american", "mexican american",
 ]
 
+
+# REVIEW TODO: For UNT Libraries, use keywords: Collections La Presna, Texas Borderlands (or search by collection)
+# see https://docs.google.com/spreadsheets/d/14SI3V1zBTcIq_ASz48ZB12ykD662N-TfdP9bxypSRQI/edit#gid=0
+
+# REVIEW: See https://docs.google.com/document/d/1cD559D8JANAGrs5pwGZqaxa7oHTwid0mxQG0PmAKhLQ/edit for how to pull data.
+
+
 # REVIEW TODO Get canonical list of PTH formats.
 KNOWN_FORMATS = ('image', 'text')
 
@@ -69,23 +76,6 @@ KNOWN_FORMATS = ('image', 'text')
 def has_number(value):
 
     return re.search(r'\d', value)
-
-def add_value(data, value):
-
-    if not value.name:
-
-        return False
-
-    text = value.get_text().strip()
-    if not text:
-
-        return False
-
-    full_value = data.get(value.name, [])
-    full_value.append(text)
-    data[value.name] = full_value
-
-    return True
 
 def do_keep_record(record):
     "Returns True if the record should be retained"
@@ -106,20 +96,7 @@ def extract_records(records):
     data = []
     for record in records:
 
-        record_data = {}
-
-        for value in record.header:
-
-            add_value(record_data, value)
-
-        for value in record.metadata:
-
-            if value.name == 'dc':
-
-                for child in value.children:
-
-                    add_value(record_data, child)
-
+        record_data = get_oaipmh_record(record=record)
         if do_keep_record(record=record_data):
 
             data.append(record_data)
