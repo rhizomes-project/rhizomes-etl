@@ -30,6 +30,13 @@ keys_to_not_label = ("content", )
 # REVIEW: map "name" to author? problem: 'name' is all over the place in smithsonian's metadata - not consistent
 
 
+# archives of american art
+# american art museum
+# national museum of american history
+# national portrait gallery
+# 
+
+
 field_map = {
     "id":                                      RhizomeField.ID,
     "title":                                   RhizomeField.TITLE,
