@@ -6,7 +6,7 @@ import json
 
 import solr
 
-from setup import ETLEnv
+from etl.setup import ETLEnv
 
 
 etl_env = ETLEnv()

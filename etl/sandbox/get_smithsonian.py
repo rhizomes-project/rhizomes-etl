@@ -4,7 +4,7 @@
 import requests
 import json
 
-from setup import ETLEnv
+from etl.setup import ETLEnv
 
 
 protocol = "https://"
@@ -61,7 +61,24 @@ def traverse(data, key=None, indents=0):
 
 if __name__ == "__main__":
 
+    id_vals = [
+        "edanmdm-nmah_1892815",
+        "2018.0158.134",
+        "2018.0158",
+        "2018.0158.134",
+    ]
+
+    for id_val in id_vals:
+
+        url = f"https://api.si.edu/openaccess/api/v1.0/content/{id_val}?api_key={api_key}"
+        response = requests.get(url=url)
+        if not response.ok:
+
+            print(f"id {id_val} did not work")
+
+
     search_terms = [ "chicano" ]
+    search_terms = [ "2018.0158" ]
     for search_term in search_terms:
 
         response = requests.get(query_url + "&q=" + search_term)
