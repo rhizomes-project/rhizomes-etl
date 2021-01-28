@@ -47,7 +47,7 @@ class BaseETLProcess(abc.ABC):
         pass
 
     def transform(self, data):
-
+        "Transform the data."
 
         field_map = self.get_field_map()
 
@@ -120,6 +120,7 @@ class BaseETLProcess(abc.ABC):
                         del record[name]
 
     def load(self, data):
+        "Load the data (into csv, json, database, etc.)"
 
         writer = MetadataWriter(format=self.format)
         writer.start_collection()
