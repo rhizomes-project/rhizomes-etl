@@ -13,7 +13,6 @@ class RhizomeField(Enum):
 
     ID                              = "Resource Identifier"
     TITLE                           = "Title"
-    # SCORE                           = "Score"
     AUTHOR_ARTIST                   = "Author/Artist"
     DESCRIPTION                     = "Description"
     DATE                            = "Date"
@@ -30,6 +29,7 @@ class RhizomeField(Enum):
     COPYRIGHT_STATUS                = "Copyright Status"
     COLLECTION_INFORMATION          = "Collection Information"
     CREDIT_LINE                     = "Credit Line"
+    IMAGE                           = "Image"
 
     @staticmethod
     def values():
