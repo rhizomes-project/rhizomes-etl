@@ -54,6 +54,7 @@ class TestBase(unittest.TestCase):
 
         self.maxDiff = None
         self.debug = False
+        self.inspect_output = False
 
     def run_etl_test(self, institution, format, expected, tag=None):
 
@@ -87,5 +88,16 @@ class TestBase(unittest.TestCase):
             mystdout.seek(0)
             output = mystdout.read()
 
-            # self.assertEqual(output, expected)
-            self.assertEqual(len(output), len(expected))
+            # Break to examine output?
+            if self.inspect_output:
+
+                import pdb
+                pdb.set_trace()
+
+            if current_institution == "si":
+
+                self.assertEqual(len(output), len(expected))
+
+            else:
+
+                self.assertEqual(output, expected)
