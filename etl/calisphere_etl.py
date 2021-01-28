@@ -34,6 +34,7 @@ SOLR_KEYS = [
     'campus_data',
     'collection_url',
     'repository_name',
+    'reference_image_md5',
     'repository_data',
     'rights'
     'collection_name',
@@ -53,7 +54,8 @@ field_map = {
     "type":                  RhizomeField.DIGITAL_FORMAT,
     "sort_collection_data":  RhizomeField.SOURCE,
     "subject":               RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
-    # REVIEW Add type here
+    "reference_image_md5":   RhizomeField.IMAGE,
+    # REVIEW Add type here?
 }
 
 
@@ -225,6 +227,19 @@ class CalisphereETLProcess(BaseETLProcess):
                     break
 
         return data
+
+    def transform(self, data):
+
+        for record in data:
+
+            # Transform the image md5's into urls, e.g.,
+            # https://calisphere.org/clip/500x500/4d2a48ba900fccef9c01cae0fd5cf3bc
+            reference_image_md5 = record.get("reference_image_md5")
+            if reference_image_md5:
+
+                record["reference_image_md5"] = f"https://calisphere.org/clip/500x500/{reference_image_md5}"
+
+        super().transform(data=data)
 
 
 if __name__ == "__main__":    # pragma: no cover
