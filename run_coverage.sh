@@ -5,16 +5,11 @@
 export PYTHONPATH=$(pwd)
 export RUNNING_UNITTESTS=1
 
-# coverage run etl/tests/test_dpla.py
-coverage run etl/tests/test_cali.py
-# coverage run etl/tests/test_pth.py
-# coverage run etl/tests/test_si.py
-
 pattern="*"
 # pattern="cali"
-# pattern="si"
-# pattern="pth"
 # pattern="dpla"
+# pattern="pth"
+# pattern="si"
 
 coverage run -m unittest etl/tests/test*${pattern}*.py
 
