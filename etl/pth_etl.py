@@ -55,6 +55,7 @@ field_map = {
     "subjects_hist":                          RhizomeField.SUBJECTS_HISTORICAL_ERA,
     "subject":                                RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
     "subjects_geo":                           RhizomeField.SUBJECTS_GEOGRAPHIC,
+    "thumbnail":                              RhizomeField.IMAGE,
 }
 
 KEYWORDS = [
@@ -204,6 +205,15 @@ class PTHETLProcess(BaseETLProcess):
 
             record["identifier"] = new_ids
             record["url"] = new_urls
+
+            # Add in a link to the thumbnail image.
+            if new_urls:
+
+                url = new_urls[0]
+                if not url.endswith('/'):
+                    url += '/'
+
+                record["thumbnail"] = url + "thumbnail"
 
             # Split 'coverage' into values dealing with geography and values dealing with history (dates).
             coverage_values = record.get("coverage", [])
