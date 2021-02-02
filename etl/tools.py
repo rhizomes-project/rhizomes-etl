@@ -6,9 +6,6 @@ import json
 import sys
 
 
-import pdb
-
-
 class RhizomeField(Enum):
 
     ID                              = "Resource Identifier"
@@ -128,11 +125,7 @@ def get_value(value, format="json"):
 
     elif type(value) is dict:
 
-
-        pdb.set_trace()
-
-        return ""
-
+        raise Exception("values of type dict are not supported")
 
     else:
 

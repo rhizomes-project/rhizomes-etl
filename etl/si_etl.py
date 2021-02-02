@@ -10,6 +10,11 @@ from etl.setup import ETLEnv
 from etl.tools import RhizomeField
 
 
+# REVIEW remove these
+from etl import setup
+import pdb
+
+
 running_tests = os.environ.get("RUNNING_UNITTESTS")
 
 
@@ -20,7 +25,7 @@ etl_env.start()
 api_key = etl_env.get_api_key(name="smithsonian")
 
 query_path = "/openaccess/api/v1.0/search"
-query_url = protocol + domain + query_path + "?api_key=" + api_key + "&rows=25"
+query_url = protocol + domain + query_path + "?api_key=" + api_key + "&rows=1000"
 
 keys_to_ignore = ("title_sort", "type", "label")
 keys_to_not_label = ("content", )
@@ -47,6 +52,7 @@ field_map = {
     "content/indexedStructured/topic":         RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
     "content/indexedStructured/geoLocation":   RhizomeField.SUBJECTS_GEOGRAPHIC,
     "content/freetext/notes":                  RhizomeField.NOTES,
+    "image_urls":                              RhizomeField.IMAGE,
 }
 
 
@@ -91,6 +97,41 @@ def traverse(record, key=None, indents=0):
     return data
 
 
+def get_image_urls(id_):
+    "Returns urls to images, if any, for the given object."
+
+    url = f"https://api.si.edu/openaccess/api/v1.0/content/{id_}?api_key={api_key}"
+
+
+    import pdb
+    # pdb.set_trace()
+
+
+    response = requests.get(url=url)
+    if not response.ok:
+
+        return None
+
+    data = response.json()
+    urls = []
+
+    media_objects = data["response"]["content"].get("descriptiveNonRepeating", {}).get("online_media", {}).get("media", [])
+    for media_object in media_objects:
+
+
+        pdb.set_trace()
+
+
+        for resource in media_object.get("resources", []):
+
+            url = resource.get("url", None)
+            if url and url.endswith(".jpg"):
+
+                urls.append(url)
+
+    return urls
+
+
 class SIETLProcess(BaseETLProcess):
 
     def get_field_map(self):
@@ -122,6 +163,16 @@ class SIETLProcess(BaseETLProcess):
 
         for record in data:
 
+            # Retrieve urls to any images for the record.
+            urls = get_image_urls(id_=record["id"])
+            if urls:
+
+
+                pdb.set_trace()
+
+
+                record["image_urls"] = urls
+
             # Clean up notes.
             notes = record.get('content/freetext/notes')
             if notes:
@@ -140,16 +191,23 @@ class SIETLProcess(BaseETLProcess):
                 new_locations = set()
                 for location in locations:
 
-                    for val in location.values():
 
-                        if not val.get('content'):
+                    if record['id'] == 'edanmdm-siris_sil_1106151':
 
-                            # print(f"ignoring {str(list(location.keys()))}")
-                            pass
+                        pdb.set_trace()
+
+
+                    for value in location.values():
+
+                        if type(value) is dict:
+
+                            if value.get('content'):
+
+                                new_locations.add(value['content'])
 
                         else:
 
-                            new_locations |= { value['content'] for value in location.values() }
+                            new_locations.add(value)
 
                 record['content/indexedStructured/geoLocation'] = new_locations
 
@@ -158,8 +216,18 @@ class SIETLProcess(BaseETLProcess):
 
 if __name__ == "__main__":    # pragma: no cover
 
-    etl_process = SIETLProcess(format="csv")
+    etl_env = setup.ETLEnv()
+    etl_env.start()
 
-    data = etl_process.extract()
-    etl_process.transform(data=data)
-    etl_process.load(data=data)
+    # urls = get_image_urls(id_="edanmdm-nmaahc_2012.36.4ab")
+
+    urls = get_image_urls(id_="edanmdm-nmah_1051480")
+
+    print(urls)
+
+
+    # etl_process = SIETLProcess(format="csv")
+
+    # data = etl_process.extract()
+    # etl_process.transform(data=data)
+    # etl_process.load(data=data)
