@@ -64,6 +64,8 @@ venv.bak/
 pip-selfcheck.json
 pyvenv.cfg
 
+# mac os stuff
+.DS_Store
 
 # mypy
 .mypy_cache/
