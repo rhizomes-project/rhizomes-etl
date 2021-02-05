@@ -9,6 +9,8 @@ from unittest.mock import patch
 
 from etl.run import run_cmd_line
 
+import pdb
+
 
 REAL_GET = requests.get
 current_institution = None
@@ -91,7 +93,6 @@ class TestBase(unittest.TestCase):
             # Break to examine output?
             if self.inspect_output:
 
-                import pdb
                 pdb.set_trace()
 
             if current_institution == "si":

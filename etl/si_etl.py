@@ -34,12 +34,16 @@ keys_to_not_label = ("content", )
 # REVIEW: Why isn't date coming out correctly? answer: because smithsonian metadata does not really have a date field consistently
 # REVIEW: map "name" to author? problem: 'name' is all over the place in smithsonian's metadata - not consistent
 
+# REVIEW mary thomas's contact at SI
+# REVIEW try using edan API http://edan.si.edu/openaccess/docs/
 
+
+# important SI collections:
+#
 # archives of american art
 # american art museum
 # national museum of american history
 # national portrait gallery
-# 
 
 
 field_map = {
@@ -103,10 +107,6 @@ def get_image_urls(id_):
     url = f"https://api.si.edu/openaccess/api/v1.0/content/{id_}?api_key={api_key}"
 
 
-    import pdb
-    # pdb.set_trace()
-
-
     response = requests.get(url=url)
     if not response.ok:
 
@@ -163,15 +163,15 @@ class SIETLProcess(BaseETLProcess):
 
         for record in data:
 
-            # Retrieve urls to any images for the record.
-            urls = get_image_urls(id_=record["id"])
-            if urls:
+            # # Retrieve urls to any images for the record.
+            # urls = get_image_urls(id_=record["id"])
+            # if urls:
 
 
-                pdb.set_trace()
+            #     pdb.set_trace()
 
 
-                record["image_urls"] = urls
+            #     record["image_urls"] = urls
 
             # Clean up notes.
             notes = record.get('content/freetext/notes')

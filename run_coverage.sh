@@ -13,7 +13,7 @@ pattern="*"
 
 coverage run -m unittest etl/tests/test*${pattern}*.py
 
-if [ ${pattern} -eq "all" ]
+if [ "${pattern}" = "*" ]
 then
 
 	coverage html
