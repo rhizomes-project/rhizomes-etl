@@ -26,7 +26,7 @@ class RhizomeField(Enum):
     COPYRIGHT_STATUS                = "Copyright Status"
     COLLECTION_INFORMATION          = "Collection Information"
     CREDIT_LINE                     = "Credit Line"
-    IMAGE                           = "Image"
+    IMAGES                          = "Images"
 
     @staticmethod
     def values():

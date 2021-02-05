@@ -53,7 +53,7 @@ field_map = {
     "subject":              RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
     "spatial":              RhizomeField.SUBJECTS_GEOGRAPHIC,
     "dataProvider":         RhizomeField.COLLECTION_INFORMATION,
-    "object":               RhizomeField.IMAGE,
+    "object":               RhizomeField.IMAGES,
 }
 
 

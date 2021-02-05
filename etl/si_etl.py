@@ -56,7 +56,7 @@ field_map = {
     "content/indexedStructured/topic":         RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
     "content/indexedStructured/geoLocation":   RhizomeField.SUBJECTS_GEOGRAPHIC,
     "content/freetext/notes":                  RhizomeField.NOTES,
-    "image_urls":                              RhizomeField.IMAGE,
+    "image_urls":                              RhizomeField.IMAGES,
 }
 
 

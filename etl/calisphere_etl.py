@@ -54,7 +54,7 @@ field_map = {
     "type":                  RhizomeField.DIGITAL_FORMAT,
     "sort_collection_data":  RhizomeField.SOURCE,
     "subject":               RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
-    "reference_image_md5":   RhizomeField.IMAGE,
+    "reference_image_md5":   RhizomeField.IMAGES,
     # REVIEW Add type here?
 }
 

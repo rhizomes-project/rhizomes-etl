@@ -55,7 +55,7 @@ field_map = {
     "subjects_hist":                          RhizomeField.SUBJECTS_HISTORICAL_ERA,
     "subject":                                RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
     "subjects_geo":                           RhizomeField.SUBJECTS_GEOGRAPHIC,
-    "thumbnail":                              RhizomeField.IMAGE,
+    "thumbnail":                              RhizomeField.IMAGES,
 }
 
 KEYWORDS = [
