@@ -10,11 +10,6 @@ from etl.setup import ETLEnv
 from etl.tools import RhizomeField
 
 
-# REVIEW remove these
-from etl import setup
-import pdb
-
-
 running_tests = os.environ.get("RUNNING_UNITTESTS")
 
 
@@ -31,11 +26,9 @@ keys_to_ignore = ("title_sort", "type", "label")
 keys_to_not_label = ("content", )
 
 
+# REVIEW: is there a way to constrain results by institution?
 # REVIEW: Why isn't date coming out correctly? answer: because smithsonian metadata does not really have a date field consistently
 # REVIEW: map "name" to author? problem: 'name' is all over the place in smithsonian's metadata - not consistent
-
-# REVIEW mary thomas's contact at SI
-# REVIEW try using edan API http://edan.si.edu/openaccess/docs/
 
 
 # important SI collections:
@@ -106,7 +99,6 @@ def get_image_urls(id_):
 
     url = f"https://api.si.edu/openaccess/api/v1.0/content/{id_}?api_key={api_key}"
 
-
     response = requests.get(url=url)
     if not response.ok:
 
@@ -117,10 +109,6 @@ def get_image_urls(id_):
 
     media_objects = data["response"]["content"].get("descriptiveNonRepeating", {}).get("online_media", {}).get("media", [])
     for media_object in media_objects:
-
-
-        pdb.set_trace()
-
 
         for resource in media_object.get("resources", []):
 
@@ -148,7 +136,19 @@ class SIETLProcess(BaseETLProcess):
 
             response = requests.get(query_url + "&q=" + search_term)
 
+
+            # REVIEW Constrain results by keyword and institution.
+            # response = requests.get(query_url + "&q=chicanoANDdata_source:archives+of+american+art")
+
             for row in response.json()["response"]["rows"]:
+
+
+                title = row["title"]
+                print(title)
+
+
+                url = row["url"]
+                print(url)
 
                 record = traverse(record=row)
                 data.append(record)
@@ -164,14 +164,10 @@ class SIETLProcess(BaseETLProcess):
         for record in data:
 
             # # Retrieve urls to any images for the record.
-            # urls = get_image_urls(id_=record["id"])
-            # if urls:
+            urls = get_image_urls(id_=record["id"])
+            if urls:
 
-
-            #     pdb.set_trace()
-
-
-            #     record["image_urls"] = urls
+                record["image_urls"] = urls
 
             # Clean up notes.
             notes = record.get('content/freetext/notes')
@@ -190,12 +186,6 @@ class SIETLProcess(BaseETLProcess):
 
                 new_locations = set()
                 for location in locations:
-
-
-                    if record['id'] == 'edanmdm-siris_sil_1106151':
-
-                        pdb.set_trace()
-
 
                     for value in location.values():
 
@@ -216,18 +206,23 @@ class SIETLProcess(BaseETLProcess):
 
 if __name__ == "__main__":    # pragma: no cover
 
-    etl_env = setup.ETLEnv()
-    etl_env.start()
+    if True:
 
-    # urls = get_image_urls(id_="edanmdm-nmaahc_2012.36.4ab")
+        from etl import setup
 
-    urls = get_image_urls(id_="edanmdm-nmah_1051480")
+        etl_env = setup.ETLEnv()
+        etl_env.start()
 
-    print(urls)
+        urls = get_image_urls(id_="edanmdm-nmaahc_2012.36.4ab")
 
+        # urls = get_image_urls(id_="edanmdm-nmah_1051480")
 
-    # etl_process = SIETLProcess(format="csv")
+        print(urls)
 
-    # data = etl_process.extract()
-    # etl_process.transform(data=data)
-    # etl_process.load(data=data)
+    else:
+
+        etl_process = SIETLProcess(format="csv")
+
+        data = etl_process.extract()
+        etl_process.transform(data=data)
+        etl_process.load(data=data)
