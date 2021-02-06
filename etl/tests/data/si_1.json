@@ -1,0 +1,235 @@
+{
+  "status": 200,
+  "responseCode": 1,
+  "response": {
+    "id": "edanmdm-nmaahc_2012.36.4ab",
+    "title": "Drumsticks used by Art Blakey",
+    "unitCode": "NMAAHC",
+    "type": "edanmdm",
+    "url": "edanmdm:nmaahc_2012.36.4ab",
+    "content": {
+      "descriptiveNonRepeating": {
+        "record_ID": "nmaahc_2012.36.4ab",
+        "online_media": {
+          "mediaCount": 2,
+          "media": [
+            {
+              "thumbnail": "https://ids.si.edu/ids/deliveryService?id=NMAAHC-2012_36_4ab_001-000001",
+              "idsId": "NMAAHC-2012_36_4ab_001-000001",
+              "usage": {
+                "access": "CC0"
+              },
+              "guid": "http://n2t.net/ark:/65665/az9cfd20077-17c2-4d9c-af0d-807fc468b451",
+              "type": "Images",
+              "content": "https://ids.si.edu/ids/deliveryService?id=NMAAHC-2012_36_4ab_001-000001",
+              "resources": [
+                {
+                  "label": "High-resolution TIFF",
+                  "url": "https://ids.si.edu/ids/download?id=NMAAHC-2012_36_4ab_001-000001.tif"
+                },
+                {
+                  "label": "High-resolution JPEG (7033x7033)",
+                  "url": "https://ids.si.edu/ids/download?id=NMAAHC-2012_36_4ab_001-000001.jpg"
+                },
+                {
+                  "label": "Screen Image",
+                  "url": "https://ids.si.edu/ids/download?id=NMAAHC-2012_36_4ab_001-000001_screen"
+                },
+                {
+                  "label": "Thumbnail Image",
+                  "url": "https://ids.si.edu/ids/download?id=NMAAHC-2012_36_4ab_001-000001_thumb"
+                }
+              ]
+            },
+            {
+              "thumbnail": "https://ids.si.edu/ids/deliveryService?id=NMAAHC-2012_36_4ab_002-000001",
+              "idsId": "NMAAHC-2012_36_4ab_002-000001",
+              "usage": {
+                "access": "CC0"
+              },
+              "guid": "http://n2t.net/ark:/65665/az9cad988ac-2d2d-4f7b-85f6-bf7c89368486",
+              "type": "Images",
+              "content": "https://ids.si.edu/ids/deliveryService?id=NMAAHC-2012_36_4ab_002-000001",
+              "resources": [
+                {
+                  "label": "High-resolution TIFF",
+                  "url": "https://ids.si.edu/ids/download?id=NMAAHC-2012_36_4ab_002-000001.tif"
+                },
+                {
+                  "label": "High-resolution JPEG (5836x5836)",
+                  "url": "https://ids.si.edu/ids/download?id=NMAAHC-2012_36_4ab_002-000001.jpg"
+                },
+                {
+                  "label": "Screen Image",
+                  "url": "https://ids.si.edu/ids/download?id=NMAAHC-2012_36_4ab_002-000001_screen"
+                },
+                {
+                  "label": "Thumbnail Image",
+                  "url": "https://ids.si.edu/ids/download?id=NMAAHC-2012_36_4ab_002-000001_thumb"
+                }
+              ]
+            }
+          ]
+        },
+        "unit_code": "NMAAHC",
+        "title_sort": "DRUMSTICKS USED BY ART BLAKEY",
+        "guid": "http://n2t.net/ark:/65665/fd5665b0e78-9453-4089-863f-781e34ac34bf",
+        "record_link": "https://nmaahc.si.edu/object/nmaahc_2012.36.4ab",
+        "title": {
+          "label": "Object Name",
+          "content": "Drumsticks used by Art Blakey"
+        },
+        "metadata_usage": {
+          "access": "CC0"
+        },
+        "data_source": "National Museum of African American History and Culture"
+      },
+      "indexedStructured": {
+        "date": [
+          "1980s"
+        ],
+        "geoLocation": [
+          {
+            "L2": {
+              "type": "Country",
+              "content": "United States"
+            }
+          },
+          {
+            "L1": {
+              "type": "Continent",
+              "content": "North and Central America"
+            }
+          }
+        ],
+        "object_type": [
+          "Drumsticks"
+        ],
+        "culture": [
+          "African Americans"
+        ],
+        "online_media_rights": [
+          "No Known Copyright Restrictions"
+        ],
+        "name": [
+          "Vic Firth Company",
+          "Blakey, Art"
+        ],
+        "topic": [
+          "Instrumentalists (Musicians)",
+          "Jazz (Music)"
+        ],
+        "place": [
+          "United States",
+          "North and Central America"
+        ],
+        "online_media_type": [
+          "Images"
+        ]
+      },
+      "freetext": {
+        "setName": [
+          {
+            "label": "See more items in",
+            "content": "National Museum of African American History and Culture Collection"
+          },
+          {
+            "label": "Classification",
+            "content": "Musical Instruments"
+          }
+        ],
+        "date": [
+          {
+            "label": "Date",
+            "content": "1980s"
+          }
+        ],
+        "identifier": [
+          {
+            "label": "Object number",
+            "content": "2012.36.4ab"
+          }
+        ],
+        "notes": [
+          {
+            "label": "Description",
+            "content": "A pair of wooden drumsticks, the last to be used by Art Blakey. The drumsticks are cylindrical with one rounded end and one tapered end with a small bulbous tip. Stamped labels in black read 'VIC / FIRTH' and 'AMERICAN CLASSIC 5A / USA'. One of the sticks is scratched and gouged heavily, with material missing from the tip."
+          }
+        ],
+        "creditLine": [
+          {
+            "label": "Credit Line",
+            "content": "Collection of the Smithsonian National Museum of African American History and Culture, Gift of Peter Bradley"
+          }
+        ],
+        "name": [
+          {
+            "label": "Created by",
+            "content": "Vic Firth Company, American, founded 1963"
+          },
+          {
+            "label": "Used by",
+            "content": "Art Blakey, American, 1919 - 1990"
+          }
+        ],
+        "topic": [
+          {
+            "label": "Topic",
+            "content": "African American"
+          },
+          {
+            "label": "Topic",
+            "content": "Instrumentalists (Musicians)"
+          },
+          {
+            "label": "Topic",
+            "content": "Jazz (Music)"
+          }
+        ],
+        "place": [
+          {
+            "label": "Place made",
+            "content": "United States, North and Central America"
+          }
+        ],
+        "physicalDescription": [
+          {
+            "label": "Medium",
+            "content": "wood"
+          },
+          {
+            "label": "Dimensions",
+            "content": "2012.36.4a: 16 x 1/2 x 1/2 in. (40.6 x 1.3 x 1.3 cm)"
+          },
+          {
+            "label": "Dimensions",
+            "content": "2012.36.4b: 16 x 1/2 x 1/2 in. (40.6 x 1.3 x 1.3 cm)"
+          }
+        ],
+        "dataSource": [
+          {
+            "label": "Data Source",
+            "content": "National Museum of African American History and Culture"
+          }
+        ],
+        "objectRights": [
+          {
+            "label": "Restrictions & Rights",
+            "content": "No Known Copyright Restrictions"
+          }
+        ],
+        "objectType": [
+          {
+            "label": "Type",
+            "content": "drumsticks"
+          }
+        ]
+      }
+    },
+    "hash": "1e0c93ee9d6f94e6b53545b55eb85fa2e1792b1c",
+    "docSignature": "1cead0bfa8926504e4af3d8741b8cca1de55084c_bcb823c6ce170fcf6e8677e5fee59b73",
+    "timestamp": "1604494936",
+    "lastTimeUpdated": "1604494936",
+    "version": ""
+  }
+}

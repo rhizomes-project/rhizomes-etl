@@ -1,0 +1,193 @@
+{
+  "count": 2,
+  "start": 1,
+  "limit": 1,
+  "docs": [
+    {
+      "id": "3ef0ac8f4ac2890f6214f3e39e6d6d2c",
+      "@context": "http://dp.la/api/items/context",
+      "@id": "http://dp.la/api/items/3ef0ac8f4ac2890f6214f3e39e6d6d2c",
+      "aggregatedCHO": "#sourceResource",
+      "dataProvider": "UC Santa Barbara, Library, Department of Special Research Collections",
+      "ingestDate": "2021-01-11T21:48:33.192Z",
+      "ingestType": "item",
+      "isShownAt": "http://ark.cdlib.org/ark:/13030/hb6b69p4pk",
+      "object": "https://thumbnails.calisphere.org/clip/150x150/fdc4da2fbca597a53cd27817bed9baf4",
+      "originalRecord": {
+        "stringValue": "{\n  \"url_item\" : \"http://ark.cdlib.org/ark:/13030/hb6b69p4pk\",\n  \"description\" : [ \"La Virgen de Guadalupe, seen from the hands up, in traditional attitude, wears a crown. The background is red.\", \"The artist of any work retains all rights to that work. Copyright has not been assigned to the Regents of the University of California. The copyright law of the United States (Title 17, United States Code) governs the making of photocopies or other reproductions of copyrighted material. Under certain conditions specified in the law, libraries and archives are authorized to furnish a photocopy or other reproduction. One of these specified conditions is that the photocopy or reproduction is not to be \\\"used for any purpose other than private study, scholarship, or research.\\\" If a user makes a request for, or later uses, a photocopy or reproduction for purposes in excess of \\\"fair use,\\\" that user may be liable for copyright infringement. No further reproduction is permitted without prior written permission by the artist or copyright holder. Any requests for permission to reproduce this piece must be directed to: Self-Help Graphics & Art 3802 Cesar E. Chavez Avenue Los Angeles, CA 90063 For further information: (323) 881-6444 Fax: (323) 881-6447 info@selfhelpgraphics.com\" ],\n  \"publisher\" : [ \"California Ethnic and Multicultural Archives, Dept of Special Collections, Donald Davidson Library, University of California, Santa Barbara, CA 93106-9010, cema@library.ucsb.edu, (805) 893-8563, URL: http://cemaweb.library.ucsb.edu/cema_index.html\" ],\n  \"publisher_ss\" : [ \"California Ethnic and Multicultural Archives, Dept of Special Collections, Donald Davidson Library, University of California, Santa Barbara, CA 93106-9010, cema@library.ucsb.edu, (805) 893-8563, URL: http://cemaweb.library.ucsb.edu/cema_index.html\" ],\n  \"facet_decade\" : [ \"1990s\" ],\n  \"harvest_id_s\" : \"19853--http://ark.cdlib.org/ark:/13030/hb6b69p4pk\",\n  \"sort_title\" : \"nuestra seora de guadalupe\",\n  \"campus_name\" : [ \"UC Santa Barbara\" ],\n  \"repository_url\" : [ \"https://registry.cdlib.org/api/v1/repository/29/\" ],\n  \"sort_date_end\" : \"1995-01-01T00:00:00Z\",\n  \"campus_data\" : [ \"https://registry.cdlib.org/api/v1/campus/8/::UC Santa Barbara\" ],\n  \"coverage\" : [ \"Los Angeles (Calif.)\" ],\n  \"coverage_ss\" : [ \"Los Angeles (Calif.)\" ],\n  \"date\" : [ \"1995\" ],\n  \"date_ss\" : [ \"1995\" ],\n  \"contributor\" : [ \"Márquez, Daniel, Artist\" ],\n  \"contributor_ss\" : [ \"Márquez, Daniel, Artist\" ],\n  \"genre\" : [ \"35mm slide\", \"Screen Prints\" ],\n  \"genre_ss\" : [ \"35mm slide\", \"Screen Prints\" ],\n  \"id\" : \"ark:/13030/hb6b69p4pk\",\n  \"subject\" : [ \"Chicano art\", \"Chicanos\", \"Mexican American art\", \"Mexican Americans\", \"Prints\", \"Guadalupe, Our Lady of\" ],\n  \"subject_ss\" : [ \"Chicano art\", \"Chicanos\", \"Mexican American art\", \"Mexican Americans\", \"Prints\", \"Guadalupe, Our Lady of\" ],\n  \"collection_url\" : [ \"https://registry.cdlib.org/api/v1/collection/19853/\" ],\n  \"repository_name\" : [ \"Library, Department of Special Research Collections\" ],\n  \"reference_image_md5\" : \"fdc4da2fbca597a53cd27817bed9baf4\",\n  \"repository_data\" : [ \"https://registry.cdlib.org/api/v1/repository/29/::Library, Department of Special Research Collections::UC Santa Barbara\" ],\n  \"language\" : [ \"Spanish\" ],\n  \"language_ss\" : [ \"Spanish\" ],\n  \"rights\" : [ \"Transmission or reproduction of materials protected by copyright beyond that allowed by fair use requires the written permission of the copyright owners. Works not in the public domain cannot be commercially exploited without permission of the copyright owner. Responsibility for any use rests exclusively with the user.\", \"Consult repository for copyright holder information\", \"California Ethnic and Multicultural Archives, Dept of Special Collections, Donald Davidson Library, University of California, Santa Barbara, CA 93106-9010; cema@library.ucsb.edu (805) 893-8563\" ],\n  \"rights_ss\" : [ \"Transmission or reproduction of materials protected by copyright beyond that allowed by fair use requires the written permission of the copyright owners. Works not in the public domain cannot be commercially exploited without permission of the copyright owner. Responsibility for any use rests exclusively with the user.\", \"Consult repository for copyright holder information\", \"California Ethnic and Multicultural Archives, Dept of Special Collections, Donald Davidson Library, University of California, Santa Barbara, CA 93106-9010; cema@library.ucsb.edu (805) 893-8563\" ],\n  \"reference_image_dimensions\" : \"524:800\",\n  \"campus_url\" : [ \"https://registry.cdlib.org/api/v1/campus/8/\" ],\n  \"collection_data\" : [ \"https://registry.cdlib.org/api/v1/collection/19853/::Self-Help Graphics and Art archives\" ],\n  \"type\" : [ \"image\" ],\n  \"type_ss\" : [ \"image\" ],\n  \"spatial\" : [ \"Los Angeles (Calif.)\" ],\n  \"spatial_ss\" : [ \"Los Angeles (Calif.)\" ],\n  \"sort_collection_data\" : [ \"selfhelp graphics and art archives:Self-Help Graphics and Art archives:https://registry.cdlib.org/api/v1/collection/19853/\" ],\n  \"collection_name\" : [ \"Self-Help Graphics and Art archives\" ],\n  \"title\" : [ \"Nuestra Señora de Guadalupe\" ],\n  \"title_ss\" : [ \"Nuestra Señora de Guadalupe\" ],\n  \"identifier\" : [ \"http://ark.cdlib.org/ark:/13030/hb6b69p4pk\", \"CEMA 3\" ],\n  \"identifier_ss\" : [ \"http://ark.cdlib.org/ark:/13030/hb6b69p4pk\", \"CEMA 3\" ],\n  \"creator\" : [ \"Márquez, Daniel, Artist\" ],\n  \"creator_ss\" : [ \"Márquez, Daniel, Artist\" ],\n  \"sort_date_start\" : \"1995-01-01T00:00:00Z\",\n  \"_version_\" : 1655828340845576192,\n  \"timestamp\" : \"2020-01-15T20:42:41.042Z\"\n}"
+      },
+      "provider": {
+        "@id": "http://dp.la/api/contributor/cdl",
+        "name": "California Digital Library"
+      },
+      "sourceResource": {
+        "@id": "http://dp.la/api/items/3ef0ac8f4ac2890f6214f3e39e6d6d2c#SourceResource",
+        "collection": [
+          {
+            "title": "Self-Help Graphics and Art archives"
+          }
+        ],
+        "contributor": [
+          "Márquez, Daniel, Artist"
+        ],
+        "creator": [
+          "Márquez, Daniel, Artist"
+        ],
+        "date": [
+          {
+            "displayDate": "1995",
+            "begin": "1995",
+            "end": "1995"
+          }
+        ],
+        "description": [
+          "La Virgen de Guadalupe, seen from the hands up, in traditional attitude, wears a crown. The background is red.",
+          "The artist of any work retains all rights to that work. Copyright has not been assigned to the Regents of the University of California. The copyright law of the United States (Title 17, United States Code) governs the making of photocopies or other reproductions of copyrighted material. Under certain conditions specified in the law, libraries and archives are authorized to furnish a photocopy or other reproduction. One of these specified conditions is that the photocopy or reproduction is not to be 'used for any purpose other than private study, scholarship, or research.'' If a user makes a request for, or later uses, a photocopy or reproduction for purposes in excess of 'fair use,' that user may be liable for copyright infringement. No further reproduction is permitted without prior written permission by the artist or copyright holder. Any requests for permission to reproduce this piece must be directed to: Self-Help Graphics & Art 3802 Cesar E. Chavez Avenue Los Angeles, CA 90063 For further information: (323) 881-6444 Fax: (323) 881-6447 info@selfhelpgraphics.com"
+        ],
+        "identifier": [
+          "http://ark.cdlib.org/ark:/13030/hb6b69p4pk",
+          "CEMA 3"
+        ],
+        "language": [
+          {
+            "name": "Spanish",
+            "iso639_3": "Spanish"
+          }
+        ],
+        "publisher": [
+          "California Ethnic and Multicultural Archives, Dept of Special Collections, Donald Davidson Library, University of California, Santa Barbara, CA 93106-9010, cema@library.ucsb.edu, (805) 893-8563, URL: http://cemaweb.library.ucsb.edu/cema_index.html"
+        ],
+        "rights": [
+          "Transmission or reproduction of materials protected by copyright beyond that allowed by fair use requires the written permission of the copyright owners. Works not in the public domain cannot be commercially exploited without permission of the copyright owner. Responsibility for any use rests exclusively with the user.",
+          "Consult repository for copyright holder information",
+          "California Ethnic and Multicultural Archives, Dept of Special Collections, Donald Davidson Library, University of California, Santa Barbara, CA 93106-9010; cema@library.ucsb.edu (805) 893-8563"
+        ],
+        "spatial": [
+          {
+            "name": "Los Angeles (Calif.)"
+          }
+        ],
+        "subject": [
+          {
+            "name": "Chicano art"
+          },
+          {
+            "name": "Chicanos"
+          },
+          {
+            "name": "Mexican American art"
+          },
+          {
+            "name": "Mexican Americans"
+          },
+          {
+            "name": "Prints"
+          },
+          {
+            "name": "Guadalupe, Our Lady of"
+          }
+        ],
+        "title": [
+          "Nuestra Señora de Guadalupe"
+        ],
+        "type": [
+          "image"
+        ]
+      },
+      "@type": "ore:Aggregation"
+    },
+    {
+      "id": "3ef0ac8f4ac2890f6214f3e39e6d6d2c",
+      "@context": "http://dp.la/api/items/context",
+      "@id": "http://dp.la/api/items/3ef0ac8f4ac2890f6214f3e39e6d6d2c",
+      "aggregatedCHO": "#sourceResource",
+      "dataProvider": "UC Santa Barbara, Library, Department of Special Research Collections",
+      "ingestDate": "2021-01-11T21:48:33.192Z",
+      "ingestType": "item",
+      "isShownAt": "http://ark.cdlib.org/ark:/13030/hb6b69p4pk",
+      "object": "https://thumbnails.calisphere.org/clip/150x150/fdc4da2fbca597a53cd27817bed9baf4",
+      "originalRecord": {
+        "stringValue": "{\n  \"url_item\" : \"http://ark.cdlib.org/ark:/13030/hb6b69p4pk\",\n  \"description\" : [ \"La Virgen de Guadalupe, seen from the hands up, in traditional attitude, wears a crown. The background is red.\", \"The artist of any work retains all rights to that work. Copyright has not been assigned to the Regents of the University of California. The copyright law of the United States (Title 17, United States Code) governs the making of photocopies or other reproductions of copyrighted material. Under certain conditions specified in the law, libraries and archives are authorized to furnish a photocopy or other reproduction. One of these specified conditions is that the photocopy or reproduction is not to be \\\"used for any purpose other than private study, scholarship, or research.\\\" If a user makes a request for, or later uses, a photocopy or reproduction for purposes in excess of \\\"fair use,\\\" that user may be liable for copyright infringement. No further reproduction is permitted without prior written permission by the artist or copyright holder. Any requests for permission to reproduce this piece must be directed to: Self-Help Graphics & Art 3802 Cesar E. Chavez Avenue Los Angeles, CA 90063 For further information: (323) 881-6444 Fax: (323) 881-6447 info@selfhelpgraphics.com\" ],\n  \"publisher\" : [ \"California Ethnic and Multicultural Archives, Dept of Special Collections, Donald Davidson Library, University of California, Santa Barbara, CA 93106-9010, cema@library.ucsb.edu, (805) 893-8563, URL: http://cemaweb.library.ucsb.edu/cema_index.html\" ],\n  \"publisher_ss\" : [ \"California Ethnic and Multicultural Archives, Dept of Special Collections, Donald Davidson Library, University of California, Santa Barbara, CA 93106-9010, cema@library.ucsb.edu, (805) 893-8563, URL: http://cemaweb.library.ucsb.edu/cema_index.html\" ],\n  \"facet_decade\" : [ \"1990s\" ],\n  \"harvest_id_s\" : \"19853--http://ark.cdlib.org/ark:/13030/hb6b69p4pk\",\n  \"sort_title\" : \"nuestra seora de guadalupe\",\n  \"campus_name\" : [ \"UC Santa Barbara\" ],\n  \"repository_url\" : [ \"https://registry.cdlib.org/api/v1/repository/29/\" ],\n  \"sort_date_end\" : \"1995-01-01T00:00:00Z\",\n  \"campus_data\" : [ \"https://registry.cdlib.org/api/v1/campus/8/::UC Santa Barbara\" ],\n  \"coverage\" : [ \"Los Angeles (Calif.)\" ],\n  \"coverage_ss\" : [ \"Los Angeles (Calif.)\" ],\n  \"date\" : [ \"1995\" ],\n  \"date_ss\" : [ \"1995\" ],\n  \"contributor\" : [ \"Márquez, Daniel, Artist\" ],\n  \"contributor_ss\" : [ \"Márquez, Daniel, Artist\" ],\n  \"genre\" : [ \"35mm slide\", \"Screen Prints\" ],\n  \"genre_ss\" : [ \"35mm slide\", \"Screen Prints\" ],\n  \"id\" : \"ark:/13030/hb6b69p4pk\",\n  \"subject\" : [ \"Chicano art\", \"Chicanos\", \"Mexican American art\", \"Mexican Americans\", \"Prints\", \"Guadalupe, Our Lady of\" ],\n  \"subject_ss\" : [ \"Chicano art\", \"Chicanos\", \"Mexican American art\", \"Mexican Americans\", \"Prints\", \"Guadalupe, Our Lady of\" ],\n  \"collection_url\" : [ \"https://registry.cdlib.org/api/v1/collection/19853/\" ],\n  \"repository_name\" : [ \"Library, Department of Special Research Collections\" ],\n  \"reference_image_md5\" : \"fdc4da2fbca597a53cd27817bed9baf4\",\n  \"repository_data\" : [ \"https://registry.cdlib.org/api/v1/repository/29/::Library, Department of Special Research Collections::UC Santa Barbara\" ],\n  \"language\" : [ \"Spanish\" ],\n  \"language_ss\" : [ \"Spanish\" ],\n  \"rights\" : [ \"Transmission or reproduction of materials protected by copyright beyond that allowed by fair use requires the written permission of the copyright owners. Works not in the public domain cannot be commercially exploited without permission of the copyright owner. Responsibility for any use rests exclusively with the user.\", \"Consult repository for copyright holder information\", \"California Ethnic and Multicultural Archives, Dept of Special Collections, Donald Davidson Library, University of California, Santa Barbara, CA 93106-9010; cema@library.ucsb.edu (805) 893-8563\" ],\n  \"rights_ss\" : [ \"Transmission or reproduction of materials protected by copyright beyond that allowed by fair use requires the written permission of the copyright owners. Works not in the public domain cannot be commercially exploited without permission of the copyright owner. Responsibility for any use rests exclusively with the user.\", \"Consult repository for copyright holder information\", \"California Ethnic and Multicultural Archives, Dept of Special Collections, Donald Davidson Library, University of California, Santa Barbara, CA 93106-9010; cema@library.ucsb.edu (805) 893-8563\" ],\n  \"reference_image_dimensions\" : \"524:800\",\n  \"campus_url\" : [ \"https://registry.cdlib.org/api/v1/campus/8/\" ],\n  \"collection_data\" : [ \"https://registry.cdlib.org/api/v1/collection/19853/::Self-Help Graphics and Art archives\" ],\n  \"type\" : [ \"image\" ],\n  \"type_ss\" : [ \"image\" ],\n  \"spatial\" : [ \"Los Angeles (Calif.)\" ],\n  \"spatial_ss\" : [ \"Los Angeles (Calif.)\" ],\n  \"sort_collection_data\" : [ \"selfhelp graphics and art archives:Self-Help Graphics and Art archives:https://registry.cdlib.org/api/v1/collection/19853/\" ],\n  \"collection_name\" : [ \"Self-Help Graphics and Art archives\" ],\n  \"title\" : [ \"Nuestra Señora de Guadalupe\" ],\n  \"title_ss\" : [ \"Nuestra Señora de Guadalupe\" ],\n  \"identifier\" : [ \"http://ark.cdlib.org/ark:/13030/hb6b69p4pk\", \"CEMA 3\" ],\n  \"identifier_ss\" : [ \"http://ark.cdlib.org/ark:/13030/hb6b69p4pk\", \"CEMA 3\" ],\n  \"creator\" : [ \"Márquez, Daniel, Artist\" ],\n  \"creator_ss\" : [ \"Márquez, Daniel, Artist\" ],\n  \"sort_date_start\" : \"1995-01-01T00:00:00Z\",\n  \"_version_\" : 1655828340845576192,\n  \"timestamp\" : \"2020-01-15T20:42:41.042Z\"\n}"
+      },
+      "provider": {
+        "@id": "http://dp.la/api/contributor/cdl",
+        "name": "California Digital Library"
+      },
+      "sourceResource": {
+        "@id": "http://dp.la/api/items/3ef0ac8f4ac2890f6214f3e39e6d6d2c#SourceResource",
+        "collection": [
+          {
+            "title": "Self-Help Graphics and Art archives"
+          }
+        ],
+        "contributor": [
+          "Márquez, Daniel, Artist"
+        ],
+        "creator": [
+          "Márquez, Daniel, Artist"
+        ],
+        "date": [
+          {
+            "displayDate": "1995",
+            "begin": "1995",
+            "end": "1995"
+          }
+        ],
+        "description": [
+          "La Virgen de Guadalupe, seen from the hands up, in traditional attitude, wears a crown. The background is red.",
+          "The artist of any work retains all rights to that work. Copyright has not been assigned to the Regents of the University of California. The copyright law of the United States (Title 17, United States Code) governs the making of photocopies or other reproductions of copyrighted material. Under certain conditions specified in the law, libraries and archives are authorized to furnish a photocopy or other reproduction. One of these specified conditions is that the photocopy or reproduction is not to be 'used for any purpose other than private study, scholarship, or research.'' If a user makes a request for, or later uses, a photocopy or reproduction for purposes in excess of 'fair use,' that user may be liable for copyright infringement. No further reproduction is permitted without prior written permission by the artist or copyright holder. Any requests for permission to reproduce this piece must be directed to: Self-Help Graphics & Art 3802 Cesar E. Chavez Avenue Los Angeles, CA 90063 For further information: (323) 881-6444 Fax: (323) 881-6447 info@selfhelpgraphics.com"
+        ],
+        "identifier": [
+          "http://ark.cdlib.org/ark:/13030/hb6b69p4pk",
+          "CEMA 3"
+        ],
+        "language": [
+          {
+            "name": "Spanish",
+            "iso639_3": "Spanish"
+          }
+        ],
+        "publisher": [
+          "California Ethnic and Multicultural Archives, Dept of Special Collections, Donald Davidson Library, University of California, Santa Barbara, CA 93106-9010, cema@library.ucsb.edu, (805) 893-8563, URL: http://cemaweb.library.ucsb.edu/cema_index.html"
+        ],
+        "rights": [
+          "Transmission or reproduction of materials protected by copyright beyond that allowed by fair use requires the written permission of the copyright owners. Works not in the public domain cannot be commercially exploited without permission of the copyright owner. Responsibility for any use rests exclusively with the user.",
+          "Consult repository for copyright holder information",
+          "California Ethnic and Multicultural Archives, Dept of Special Collections, Donald Davidson Library, University of California, Santa Barbara, CA 93106-9010; cema@library.ucsb.edu (805) 893-8563"
+        ],
+        "spatial": [
+          {
+            "name": "Los Angeles (Calif.)"
+          }
+        ],
+        "subject": [
+          {
+            "name": "Chicano art"
+          },
+          {
+            "name": "Chicanos"
+          },
+          {
+            "name": "Mexican American art"
+          },
+          {
+            "name": "Mexican Americans"
+          },
+          {
+            "name": "Prints"
+          },
+          {
+            "name": "Guadalupe, Our Lady of"
+          }
+        ],
+        "title": [
+          "Nuestra Señora de Guadalupe"
+        ],
+        "type": [
+          "image"
+        ]
+      },
+      "@type": "ore:Aggregation"
+    }
+  ]
+}
