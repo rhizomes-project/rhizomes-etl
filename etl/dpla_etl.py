@@ -14,6 +14,8 @@ from etl.setup import ETLEnv
 from etl.tools import RhizomeField, get_oaipmh_record
 
 
+running_tests = os.environ.get("RUNNING_UNITTESTS")
+
 protocol = "https://"
 domain = "api.dp.la"
 etl_env = ETLEnv()
@@ -160,11 +162,8 @@ class DPLAETLProcess(BaseETLProcess):
         search_terms = [ "chicano", "chicana", "%22mexican+american%22" ]
         page_max = 100
 
-        # search_terms = [ "chicano" ]
-        # search_terms = [ "%22Nuestra+Señora+de+Guadalupe%22" ]
-
         # Running tests?
-        if os.environ.get("RUNNING_UNITTESTS"):
+        if running_tests:
 
             search_terms = [ "chicano" ]
             page_max = 1
@@ -204,6 +203,10 @@ class DPLAETLProcess(BaseETLProcess):
                     parse_original_string(doc=doc, record=record)
 
                     data.append(record)
+
+                    if running_tests:
+
+                        break
 
         return data
 
