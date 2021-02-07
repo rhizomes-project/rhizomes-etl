@@ -5,7 +5,18 @@
 export PYTHONPATH=$(pwd)
 export RUNNING_UNITTESTS=1
 
-pattern="*"
+
+if [ $# -eq 1 ]
+then
+
+    pattern=$1
+
+else
+
+    pattern="*"
+
+fi
+
 # pattern="cali"
 # pattern="dpla"
 # pattern="pth"
