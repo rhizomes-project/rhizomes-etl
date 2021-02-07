@@ -22,16 +22,10 @@ list_sets_path = "/oai/?verb=ListSets"
 list_sets_url = protocol + domain + list_sets_path
 
 RECORD_LIMIT = None
+record_count = 0
 
-partners = [ "partner:MAMU", "partner:UNT", "partner:UNTA", "partner:UNTGD", ]
-
-if running_tests:
-
-    partners = [ "partner:MAMU" ]
-    RECORD_LIMIT = 1
 
 # REVIEW: TODO Pull in all desired PTH partners
-# REVIEW: TODO revisit ways of further filtering PTH metadata
 
 records_path =       "/oai/?verb=ListRecords"
 start_records_path = records_path + "&metadataPrefix=oai_dc&set="
@@ -58,10 +52,36 @@ field_map = {
     "thumbnail":                              RhizomeField.IMAGES,
 }
 
-KEYWORDS = [
-    "chicano", "chicana",
+keyword_limiters = [
+    "chicano", "chicana", "chicanx",
     "mexican-american", "mexican american",
 ]
+
+partners = {
+
+    # Mexic-Arte Museum
+    "MAMU": None,
+
+    # UNT Libraries
+    "UNT": keyword_limiters,
+
+    # UNT Libraries Special Collections
+    "UNTA": keyword_limiters,
+
+    # UNT Libraries Government Documents Department
+    "UNTGD": keyword_limiters,
+
+    # TCU Mary Couts Burnett Library
+    "TCU": None
+}
+
+if running_tests:
+
+    partners = {
+        "MAMU": None,
+        "TCU": keyword_limiters,
+    }
+    RECORD_LIMIT = 1
 
 
 # REVIEW TODO: For UNT Libraries, use keywords: Collections La Presna, Texas Borderlands (or search by collection)
@@ -78,13 +98,13 @@ def has_number(value):
 
     return re.search(r'\d', value)
 
-def do_keep_record(record):
+def do_keep_record(record, keywords):
     "Returns True if the record should be retained"
 
     title = ''.join(record.get('title', [])).lower()
     description = ''.join(record.get('description', [])).lower()
 
-    for keyword in KEYWORDS:
+    for keyword in keywords:
 
         if keyword in title or keyword in description:
 
@@ -92,28 +112,33 @@ def do_keep_record(record):
 
     return False
 
-def extract_records(records):
+def extract_records(records, keywords=None):
 
     data = []
     for record in records:
 
         record_data = get_oaipmh_record(record=record)
-        if do_keep_record(record=record_data):
+
+        if keywords:
+
+            if do_keep_record(record=record_data, keywords=keywords):
+
+                data.append(record_data)
+
+        else:
 
             data.append(record_data)
 
     return data
 
-record_count = 0
+def extract_partner(partner, keywords=None, resumption_token=None):
 
-def extract_partner(partner, resumption_token=None):
+    global record_count
 
     if not resumption_token:
 
-        url = f"{start_records_url}{partner}"
-
-        global record_count
         record_count = 0
+        url = f"{start_records_url}partner:{partner}"
 
     else:
 
@@ -122,23 +147,21 @@ def extract_partner(partner, resumption_token=None):
     response = requests.get(url)
     xml_data = BeautifulSoup(markup=response.content, features="lxml-xml", from_encoding="utf-8")
 
-    # Extract all records from this result set.
-    records = extract_records(records=xml_data.find_all("record"))
+    # Extract records from this partner.
+    records = extract_records(records=xml_data.find_all("record"), keywords=keywords)
 
+    # Loop through next set of data (if any).
     resumption_tokens = xml_data.find_all("resumptionToken")
     if resumption_tokens:
-
-        if RECORD_LIMIT and record_count >= RECORD_LIMIT:
-
-            return records
-
 
         record_count += len(records)
         print(f"{record_count} records ...", file=sys.stderr)
 
         # Make recursive call to extract all records.
-        next_records = extract_partner(partner=partner, resumption_token=resumption_tokens[0].text)
-        records += next_records
+        if not RECORD_LIMIT or record_count < RECORD_LIMIT:
+
+            next_records = extract_partner(partner=partner, keywords=keywords, resumption_token=resumption_tokens[0].text)
+            records += next_records
 
     return records
 
@@ -153,11 +176,16 @@ class PTHETLProcess(BaseETLProcess):
 
         data = []
 
-        for partner in partners:
+        for partner, keywords in partners.items():
 
             print(f"\nExtracting PTH partner {partner}:", file=sys.stderr)
 
-            partner_data = extract_partner(partner=partner)
+            partner_data = extract_partner(partner=partner, keywords=keywords)
+
+            if running_tests:
+
+                partner_data = partner_data[ : 1 ]
+
             data += partner_data
 
             print(f"\n... extracted {len(partner_data)} records for partner {partner}", file=sys.stderr)
