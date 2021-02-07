@@ -142,9 +142,4 @@ class BaseETLProcess(abc.ABC):
 
             writer.end_record()
 
-            # Running tests?
-            if os.environ.get("RUNNING_UNITTESTS"):
-
-                break
-
         writer.end_collection()
