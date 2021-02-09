@@ -103,10 +103,4 @@ class TestBase(unittest.TestCase):
 
                 pdb.set_trace()
 
-            if current_institution == "si":
-
-                self.assertEqual(len(output), len(expected))
-
-            else:
-
-                self.assertEqual(output, expected)
+            self.assertEqual(output, expected)

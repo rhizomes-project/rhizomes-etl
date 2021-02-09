@@ -4,6 +4,7 @@ import csv
 import json
 import os
 import requests
+import sys
 
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
@@ -31,12 +32,31 @@ keys_to_not_label = ("content", )
 # REVIEW: map "name" to author? problem: 'name' is all over the place in smithsonian's metadata - not consistent
 
 
-# important SI collections:
-#
-# archives of american art
-# american art museum
-# national museum of american history
-# national portrait gallery
+# Important SI collections (Use https://api.si.edu/openaccess/api/v1.0/terms/unit_code?q=online_media_type:Images&api_key=api_key to get updated list.)
+providers = [
+
+    # archives of american art
+    "AAA",
+
+    # smithsonian american art museum
+    "SAAM",
+
+    # national museum of american history
+    "NMAH",
+
+    # national portrait gallery
+    "NPG",
+]
+
+search_terms = [
+    "chicana", "chicano", "chicanx",
+    "mexican-american",
+]
+
+if running_tests:
+
+    providers = [ providers[0] ]
+    search_terms = [ search_terms[0] ]
 
 
 field_map = {
@@ -131,37 +151,37 @@ class SIETLProcess(BaseETLProcess):
 
         data = []
 
-        search_terms = [ "chicano" ]
-        for search_term in search_terms:
+        # Constrain results by keyword and institution.
+        for provider in providers:
 
-            response = requests.get(query_url + "&q=" + search_term)
+            for search_term in search_terms:
 
+                response = requests.get(query_url + f"&q={search_term}+AND+unit_code:{provider}")
+                if not response.ok:
 
-            # REVIEW Constrain results by keyword and institution.
-            # response = requests.get(query_url + "&q=chicanoANDdata_source:archives+of+american+art")
+                    raise Exception(f"Error retrieving data from SI: {response.reason} - status code: {response.status_code}")
 
-            for row in response.json()["response"]["rows"]:
+                for row in response.json()["response"]["rows"]:
 
+                    record = traverse(record=row)
+                    data.append(record)
 
-                title = row["title"]
-                print(title)
+                    if running_tests:
 
-
-                url = row["url"]
-                print(url)
-
-                record = traverse(record=row)
-                data.append(record)
-
-                if running_tests:
-
-                    break
+                        break
 
         return data
 
     def transform(self, data):
 
+        cnt = 0
+
         for record in data:
+
+            cnt += 1
+            if cnt % 25:
+
+                print(f"Transformed {cnt} records", file=sys.stderr)
 
             # # Retrieve urls to any images for the record.
             urls = get_image_urls(id_=record["id"])
