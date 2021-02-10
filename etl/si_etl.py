@@ -179,9 +179,9 @@ class SIETLProcess(BaseETLProcess):
         for record in data:
 
             cnt += 1
-            if cnt % 25:
+            if cnt % 25 == 0:
 
-                print(f"Transformed {cnt} records", file=sys.stderr)
+                print(f"Transformed {cnt} of {len(data)} records", file=sys.stderr)
 
             # # Retrieve urls to any images for the record.
             urls = get_image_urls(id_=record["id"])
