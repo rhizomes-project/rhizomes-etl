@@ -80,7 +80,8 @@ page_max = None
 # Running tests?
 if running_tests:
 
-    search_terms = [ "chicano" ]
+    key = list(providers.keys())[0]
+    providers = { key : [ providers[key][0] ] }
     page_max = 1
 
 
