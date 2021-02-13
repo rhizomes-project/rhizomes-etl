@@ -42,7 +42,7 @@ class MockGetter():
         data_path = f"etl/tests/data/{current_institution}"
         if current_tag:
 
-            data_path = f"_{current_tag}"
+            data_path += f"_{current_tag}"
 
         data_paths = [ data_path + ".json", data_path + f"_{self.num_calls}.json" ]
 
