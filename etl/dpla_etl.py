@@ -14,6 +14,9 @@ from etl.setup import ETLEnv
 from etl.tools import RhizomeField, get_oaipmh_record
 
 
+import pdb
+
+
 running_tests = os.environ.get("RUNNING_UNITTESTS")
 
 protocol = "https://"
@@ -33,6 +36,7 @@ dpla_terms = [
     { "sourceResource": [ "title", "description", "creator", "contributor", "date", "type", { "subject" : [ "name" ] }, "dataProvider", { "date" : [ "displayDate" ] } ] },
     ]
 json_original_data_terms = [ "title", "description", "creator", "contributor", "date", "subject", "language", "reference_image_dimensions", "collection_name", "type", "format", "coverage" ]
+
 
 # REVIEW: finish this
 # xml_original_data_terms = [ "titleInfo", "abstract", "", "", "", "", "", "", ]datestamp, note
@@ -57,6 +61,30 @@ field_map = {
     "dataProvider":         RhizomeField.COLLECTION_INFORMATION,
     "object":               RhizomeField.IMAGES,
 }
+
+# REVIEW uncommnent search_terms & providers.
+
+# Note: "mexican american", "mexican+american" and "mexican-american" all get the same results via API.
+search_terms = [ "chicano", ]
+# "chicana", "chicanx", "%22mexican+american%22", ]
+
+providers = {
+    "UC Santa Barbara, Library, Department of Special Research Collections": search_terms,
+    # "UC San Diego, Library, Digital Library Development Program": search_terms,
+    # "Center for the Study of Political Graphics": None
+    # "UC San Diego, Library, Special Collections and Archives": search_terms,
+    # "University of Southern California Digital Library": search_terms,
+    # "Los Angeles Public Library": search_terms,
+    # "California State University, Fullerton, University Archives and Special Collections": search_terms,
+}
+
+page_max = 1
+
+# Running tests?
+if running_tests:
+
+    search_terms = [ "chicano" ]
+    page_max = 1
 
 
 def split_dimension(value):
@@ -157,56 +185,63 @@ class DPLAETLProcess(BaseETLProcess):
 
     def extract(self):
 
+
+        # pdb.set_trace()
+
+
         data = []
 
-        search_terms = [ "chicano", "chicana", "%22mexican+american%22" ]
-        page_max = 100
+        # Extract metadata for the providers we are interested in.
+        for provider, search_terms in providers.items():
 
-        # Running tests?
-        if running_tests:
+            for search_term in search_terms:
 
-            search_terms = [ "chicano" ]
-            page_max = 1
+                # For details on pagination, see https://pro.dp.la/developers/requests#pagination
+                count = 1
+                start = 0
+                page = 1
 
-        # Extract metadata for all our terms.
-        for search_term in search_terms:
+                provider_encoded = provider.replace(' ', '+')
 
-            # For details on pagination, see https://pro.dp.la/developers/requests#pagination
-            count = 1
-            start = 0
-            page = 1
+                while count > start and (page_max is None or page <= page_max):
 
-            while count > start and page <= page_max:
+                    # response = requests.get(f"{list_items_url}&page={page}&q={search_term}")
 
-                response = requests.get(f"{list_items_url}&page={page}&q={search_term}")
+                    # response = requests.get(f"{list_items_url}&page={page}&dataProvider={provider_encoded}")
 
-                count = response.json()["count"]
-                start = response.json()["start"]
+                    response = requests.get(f"{list_items_url}&page={page}&dataProvider={provider_encoded}&q={search_term}")
 
-                print(f"search term: {search_term}, page: {page}, total docs: {count}, start: {start}, curr docs: {len(data)}", file=sys.stderr)
+                    count = response.json()["count"]
+                    start = response.json()["start"]
 
-                page += 1
+                    # print(f"search term: {search_term}, page: {page}, total docs: {count}, start: {start}, curr docs: {len(data)}", file=sys.stderr)
 
-                for doc in response.json()["docs"]:
+                    # print(f"provider: {provider}, page: {page}, total docs: {count}, start: {start}, curr docs: {len(data)}", file=sys.stderr)
 
-                    # Get the terms available for all DPLA records.
-                    record = parse_json_terms(tree=doc, terms=dpla_terms)
+                    print(f"provider: {provider}, search term: {search_term}, page: {page}, total docs: {count}, start: {start}, curr docs: {len(data)}", file=sys.stderr)
 
-                    # Some records that are part of contributor collections have most of their metadata embedded in the sourceResource string.
-                    if not record.get("title"):
+                    page += 1
 
-                        for val in [ "title", "description" ]:
+                    for doc in response.json()["docs"]:
 
-                            record[val] = doc['sourceResource'].get(val)
+                        # Get the terms available for all DPLA records.
+                        record = parse_json_terms(tree=doc, terms=dpla_terms)
 
-                    # Try to load metadata out of the original string as well.
-                    parse_original_string(doc=doc, record=record)
+                        # Some records that are part of contributor collections have most of their metadata embedded in the sourceResource string.
+                        if not record.get("title"):
 
-                    data.append(record)
+                            for val in [ "title", "description" ]:
 
-                    if running_tests:
+                                record[val] = doc['sourceResource'].get(val)
 
-                        break
+                        # Try to load metadata out of the original string as well.
+                        parse_original_string(doc=doc, record=record)
+
+                        data.append(record)
+
+                        if running_tests:
+
+                            break
 
         return data
 
