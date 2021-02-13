@@ -14,9 +14,6 @@ from etl.setup import ETLEnv
 from etl.tools import RhizomeField, get_oaipmh_record
 
 
-import pdb
-
-
 running_tests = os.environ.get("RUNNING_UNITTESTS")
 
 protocol = "https://"
@@ -64,21 +61,21 @@ field_map = {
 
 # REVIEW uncommnent search_terms & providers.
 
-# Note: "mexican american", "mexican+american" and "mexican-american" all get the same results via API.
-search_terms = [ "chicano", ]
-# "chicana", "chicanx", "%22mexican+american%22", ]
+# Note: "mexican american", "mexican+american" and "mexican-american" all get the same results via API. Also, "chicanx" 
+# returns no results for the providers we are using.
+search_terms = [ "chicano", "chicana", "%22mexican+american%22", ]
 
 providers = {
     "UC Santa Barbara, Library, Department of Special Research Collections": search_terms,
-    # "UC San Diego, Library, Digital Library Development Program": search_terms,
-    # "Center for the Study of Political Graphics": None
-    # "UC San Diego, Library, Special Collections and Archives": search_terms,
-    # "University of Southern California Digital Library": search_terms,
-    # "Los Angeles Public Library": search_terms,
-    # "California State University, Fullerton, University Archives and Special Collections": search_terms,
+    "UC San Diego, Library, Digital Library Development Program": search_terms,
+    "Center for the Study of Political Graphics": None,
+    "UC San Diego, Library, Special Collections and Archives": search_terms,
+    "University of Southern California Digital Library": search_terms,
+    "Los Angeles Public Library": search_terms,
+    "California State University, Fullerton, University Archives and Special Collections": search_terms,
 }
 
-page_max = 1
+page_max = None
 
 # Running tests?
 if running_tests:
@@ -96,10 +93,6 @@ def is_dimension(value):
     "Returns True if value appears to describe a dimension."
 
     return re.search(r'\d.*x|X.*\d', value)
-
-
-# REVIEW look into cleaning up / getting better dates
-
 
 
 def parse_json_terms(tree, terms):
@@ -177,6 +170,62 @@ def parse_original_string(doc, record):
                 record[term] = original_data[term]
 
 
+def extract_provider_records(provider, search_term=None):
+    """
+    Extract all records for the given provider. Limit the results by the search
+    term provided, if any.
+    """
+
+    data = []
+
+    # For details on pagination, see https://pro.dp.la/developers/requests#pagination
+    count = 1
+    start = 0
+    page = 1
+
+    provider_encoded = provider.replace(' ', '+')
+
+    while count > start and (page_max is None or page <= page_max):
+
+        url=f"{list_items_url}&page={page}&dataProvider={provider_encoded}"
+
+        if search_term:
+
+            url += f"&q={search_term}"
+
+        response = requests.get(url=url)
+
+        count = response.json()["count"]
+        start = response.json()["start"]
+
+        print(f"provider: {provider}, search term: {search_term}, page: {page}, total docs: {count}, start: {start}, curr docs: {len(data)}", file=sys.stderr)
+
+        page += 1
+
+        for doc in response.json()["docs"]:
+
+            # Get the terms available for all DPLA records.
+            record = parse_json_terms(tree=doc, terms=dpla_terms)
+
+            # Some records that are part of contributor collections have most of their metadata embedded in the sourceResource string.
+            if not record.get("title"):
+
+                for val in [ "title", "description" ]:
+
+                    record[val] = doc['sourceResource'].get(val)
+
+            # Try to load metadata out of the original string as well.
+            parse_original_string(doc=doc, record=record)
+
+            data.append(record)
+
+            if running_tests:
+
+                break
+
+    return data
+
+
 class DPLAETLProcess(BaseETLProcess):
 
     def get_field_map(self):
@@ -185,63 +234,22 @@ class DPLAETLProcess(BaseETLProcess):
 
     def extract(self):
 
-
-        # pdb.set_trace()
-
-
         data = []
 
-        # Extract metadata for the providers we are interested in.
+        # Extract the records for the providers we are interested in.
         for provider, search_terms in providers.items():
 
-            for search_term in search_terms:
+            if search_terms:
 
-                # For details on pagination, see https://pro.dp.la/developers/requests#pagination
-                count = 1
-                start = 0
-                page = 1
+                for search_term in search_terms:
 
-                provider_encoded = provider.replace(' ', '+')
+                    provider_data = extract_provider_records(provider=provider, search_term=search_term)
 
-                while count > start and (page_max is None or page <= page_max):
+            else:
 
-                    # response = requests.get(f"{list_items_url}&page={page}&q={search_term}")
+                provider_data = extract_provider_records(provider=provider)
 
-                    # response = requests.get(f"{list_items_url}&page={page}&dataProvider={provider_encoded}")
-
-                    response = requests.get(f"{list_items_url}&page={page}&dataProvider={provider_encoded}&q={search_term}")
-
-                    count = response.json()["count"]
-                    start = response.json()["start"]
-
-                    # print(f"search term: {search_term}, page: {page}, total docs: {count}, start: {start}, curr docs: {len(data)}", file=sys.stderr)
-
-                    # print(f"provider: {provider}, page: {page}, total docs: {count}, start: {start}, curr docs: {len(data)}", file=sys.stderr)
-
-                    print(f"provider: {provider}, search term: {search_term}, page: {page}, total docs: {count}, start: {start}, curr docs: {len(data)}", file=sys.stderr)
-
-                    page += 1
-
-                    for doc in response.json()["docs"]:
-
-                        # Get the terms available for all DPLA records.
-                        record = parse_json_terms(tree=doc, terms=dpla_terms)
-
-                        # Some records that are part of contributor collections have most of their metadata embedded in the sourceResource string.
-                        if not record.get("title"):
-
-                            for val in [ "title", "description" ]:
-
-                                record[val] = doc['sourceResource'].get(val)
-
-                        # Try to load metadata out of the original string as well.
-                        parse_original_string(doc=doc, record=record)
-
-                        data.append(record)
-
-                        if running_tests:
-
-                            break
+            data += provider_data
 
         return data
 
