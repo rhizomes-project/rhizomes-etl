@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
-from etl.tools import RhizomeField, get_oaipmh_record
+from etl.tools import RhizomeField
 
 
 running_tests = os.environ.get("RUNNING_UNITTESTS")
@@ -30,15 +30,10 @@ list_items_url = protocol + domain + list_items_path + "?page=1&page_size=500&ap
 
 dpla_terms = [
     "id", "dataProvider", "isShownAt", "object",
-    { "sourceResource": [ "title", "description", "creator", "contributor", "date", "type", { "subject" : [ "name" ] }, "dataProvider", { "date" : [ "displayDate" ] } ] },
+    { "sourceResource": [ "title", "description", "creator", "contributor", "date", "format", "type", { "subject" : [ "name" ] }, "dataProvider", { "date" : [ "displayDate" ] } ] },
     ]
-json_original_data_terms = [ "title", "description", "creator", "contributor", "date", "subject", "language", "reference_image_dimensions", "collection_name", "type", "format", "coverage" ]
+json_original_data_terms = [ "title", "description", "creator", "contributor", "date", "subject", "language", "reference_image_dimensions", "collection_name", "type", "coverage" ]
 
-
-# REVIEW: finish this
-# xml_original_data_terms = [ "titleInfo", "abstract", "", "", "", "", "", "", ]datestamp, note
-
-xml_original_data_terms = []
 
 field_map = {
     "id":                   RhizomeField.ID,
@@ -80,8 +75,13 @@ page_max = None
 # Running tests?
 if running_tests:
 
-    key = list(providers.keys())[0]
-    providers = { key : [ providers[key][0] ] }
+    provider_0 = list(providers.keys())[0]
+    provider_1 = list(providers.keys())[1]
+    providers = {
+        provider_0 : [ providers[provider_0][0] ],
+        provider_1 : None
+    }
+
     page_max = 1
 
 
@@ -126,13 +126,16 @@ def parse_json_terms(tree, terms):
     return data
 
 
-def parse_oaipmh_record(record):
-
-    xml_data = BeautifulSoup(markup=record, features="lxml-xml")
-
-    for record in xml_data.find_all("record"):
-
-        return get_oaipmh_record(record=record)
+# Note: none of the providers we are using seem to use OAIPMH format for their native metadata, so
+# I am leaving this commented out.
+# def parse_oaipmh_record(record):
+#     "Parse original string that is in OAIPMH format."
+#
+#     xml_data = BeautifulSoup(markup=record, features="lxml-xml")
+#
+#     for record in xml_data.find_all("record"):
+#
+#         return get_oaipmh_record(record=record)
 
 
 def parse_original_string(doc, record):
@@ -153,9 +156,12 @@ def parse_original_string(doc, record):
 
         if originalRecordString.startswith('<'):
 
-            # Original record appears to be in OAIPMH...
-            original_data = parse_oaipmh_record(record=originalRecordString)
-            original_data_terms = xml_original_data_terms
+            raise Exception("OAIPMH format metadata is not currently supported for DPLA")    # pragma: no cover (should never get here)
+
+            # # Original record appears to be in OAIPMH...
+            # xml_original_data_terms = [ "titleInfo", "abstract", "", "", "", "", "", "", ]datestamp, note
+            # original_data = parse_oaipmh_record(record=originalRecordString)
+            # original_data_terms = xml_original_data_terms
 
         else:
 
@@ -195,15 +201,20 @@ def extract_provider_records(provider, search_term=None):
             url += f"&q={search_term}"
 
         response = requests.get(url=url)
+        if not response.ok:
 
-        count = response.json()["count"]
-        start = response.json()["start"]
+            raise Exception(f"Error retrieving data from PTH for {partner}, search_term: {search_term}, status code: {response.status_code}, reason: {response.reason}")
+
+        json_content = response.json()
+
+        count = json_content["count"]
+        start = json_content["start"]
 
         print(f"provider: {provider}, search term: {search_term}, page: {page}, total docs: {count}, start: {start}, curr docs: {len(data)}", file=sys.stderr)
 
         page += 1
 
-        for doc in response.json()["docs"]:
+        for doc in json_content["docs"]:
 
             # Get the terms available for all DPLA records.
             record = parse_json_terms(tree=doc, terms=dpla_terms)
