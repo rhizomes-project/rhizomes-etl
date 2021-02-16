@@ -145,6 +145,10 @@ def extract_partner(partner, keywords=None, resumption_token=None):
         url = f"{resume_records_url}&resumptionToken={resumption_token}"
 
     response = requests.get(url)
+    if not response.ok:
+
+        raise Exception(f"Error retrieving data from PTH for {partner}, keywords: {keywords}, status code: {response.status_code}, reason: {response.reason}")
+
     xml_data = BeautifulSoup(markup=response.content, features="lxml-xml", from_encoding="utf-8")
 
     # Extract records from this partner.
