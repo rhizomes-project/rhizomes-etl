@@ -99,7 +99,7 @@ class TestBase(unittest.TestCase):
             output = mystdout.read()
 
             # Break to examine output?
-            if self.inspect_output:
+            if self.inspect_output:    # pragma: no cover (this is just for debugging)
 
                 pdb.set_trace()
 
