@@ -19,9 +19,10 @@ current_tag = None
 
 class MockResponse():
 
-    def __init__(self, data):
+    def __init__(self, data=None, content=None):
 
         self.data = data
+        self.content = content
         self.ok = True
 
     def json(self):
@@ -39,20 +40,28 @@ class MockGetter():
 
         self.num_calls = 0 if self.num_calls is None else self.num_calls + 1
 
-        data_path = f"etl/tests/data/{current_institution}"
-        if current_tag:
+        for format in [ "json", "xml" ]:
 
-            data_path += f"_{current_tag}"
+            data_path = f"etl/tests/data/{current_institution}"
+            if current_tag:
 
-        data_paths = [ data_path + ".json", data_path + f"_{self.num_calls}.json" ]
+                data_path += f"_{current_tag}"
 
-        for data_path in data_paths:
+            data_paths = [ data_path + f".{format}", data_path + f"_{self.num_calls}.{format}" ]
 
-            if os.path.exists(data_path):
+            for data_path in data_paths:
 
-                with open(data_path, "r") as input:
+                if os.path.exists(data_path):
 
-                    return MockResponse(data=json.loads(input.read()))
+                    with open(data_path, "r") as input:
+
+                        if format == "json":
+
+                            return MockResponse(data=json.loads(input.read()))
+
+                        else:
+
+                            return MockResponse(content=input.read())
 
         # No test data exists for this institutions: Just do the actual http get.
         return REAL_GET(url=url, params=params, **kwargs)
