@@ -11,12 +11,9 @@ from etl.setup import ETLEnv
 from etl.tools import RhizomeField
 
 
-running_tests = os.environ.get("RUNNING_UNITTESTS")
-
-
 protocol = "https://"
 domain = "api.si.edu"
-etl_env = ETLEnv()
+etl_env = ETLEnv.instance()
 etl_env.start()
 api_key = etl_env.get_api_key(name="smithsonian")
 
@@ -48,19 +45,16 @@ providers = [
     "NPG",
 ]
 
+# REVIEW double-check that "mexican-american" and "mexican american" get the same results.
 search_terms = [
     "chicana", "chicano", "chicanx",
     "mexican-american",
 ]
 
-if running_tests:
-
-    providers = [ providers[0] ]
-    search_terms = [ search_terms[0] ]
-
 
 field_map = {
     "id":                                      RhizomeField.ID,
+    "name":                                    RhizomeField.AUTHOR_ARTIST,
     "title":                                   RhizomeField.TITLE,
     "content/indexedStructured/object_type":   RhizomeField.RESOURCE_TYPE,
     "content/descriptiveNonRepeating/guid":    RhizomeField.URL,
@@ -71,6 +65,9 @@ field_map = {
     "content/freetext/notes":                  RhizomeField.NOTES,
     "image_urls":                              RhizomeField.IMAGES,
 }
+
+# REVIEW: see why not everything has a URL, e.g., archival materials, "Oral history interview with Angel Rodriguez-Diaz, 2004 April 23-May 7"
+# REVIEW: look into why certain records have no artst, e.g., edanmdm-saam_1971.439.3
 
 
 # 
@@ -142,10 +139,17 @@ def get_image_urls(id_):
 
 class SIETLProcess(BaseETLProcess):
 
+    def init_testing(self):
+
+        global providers
+        global search_terms
+
+        providers = [ providers[0] ]
+        search_terms = [ search_terms[0] ]
+
     def get_field_map(self):
 
         return field_map
-
 
     def extract(self):
 
@@ -166,7 +170,7 @@ class SIETLProcess(BaseETLProcess):
                     record = traverse(record=row)
                     data.append(record)
 
-                    if running_tests:
+                    if etl_env.are_tests_running():
 
                         break
 

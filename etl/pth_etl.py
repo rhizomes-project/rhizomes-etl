@@ -12,9 +12,6 @@ from etl.tools import RhizomeField, get_oaipmh_record
 from bs4 import BeautifulSoup
 
 
-running_tests = os.environ.get("RUNNING_UNITTESTS")
-
-
 protocol = "https://"
 domain = "texashistory.unt.edu"
 
@@ -74,14 +71,6 @@ partners = {
     # TCU Mary Couts Burnett Library
     "TCU": None
 }
-
-if running_tests:
-
-    partners = {
-        "MAMU": None,
-        "TCU": keyword_limiters,
-    }
-    RECORD_LIMIT = 1
 
 
 # REVIEW TODO: For UNT Libraries, use keywords: Collections La Presna, Texas Borderlands (or search by collection)
@@ -172,6 +161,18 @@ def extract_partner(partner, keywords=None, resumption_token=None):
 
 class PTHETLProcess(BaseETLProcess):
 
+    def init_testing(self):
+
+        global partners
+        global RECORD_LIMIT
+
+        partners = {
+            "MAMU": None,
+            "TCU": keyword_limiters,
+        }
+        RECORD_LIMIT = 1
+
+
     def get_field_map(self):
 
         return field_map
@@ -186,7 +187,7 @@ class PTHETLProcess(BaseETLProcess):
 
             partner_data = extract_partner(partner=partner, keywords=keywords)
 
-            if running_tests:
+            if ETLEnv.instance().are_tests_running():
 
                 partner_data = partner_data[ : 1 ]
 

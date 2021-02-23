@@ -14,11 +14,9 @@ from etl.setup import ETLEnv
 from etl.tools import RhizomeField
 
 
-running_tests = os.environ.get("RUNNING_UNITTESTS")
-
 protocol = "https://"
 domain = "api.dp.la"
-etl_env = ETLEnv()
+etl_env = ETLEnv.instance()
 etl_env.start()
 api_key = etl_env.get_api_key(name="dpla")
 
@@ -71,18 +69,6 @@ providers = {
 }
 
 page_max = None
-
-# Running tests?
-if running_tests:
-
-    provider_0 = list(providers.keys())[0]
-    provider_1 = list(providers.keys())[1]
-    providers = {
-        provider_0 : [ providers[provider_0][0] ],
-        provider_1 : None
-    }
-
-    page_max = 1
 
 
 def split_dimension(value):
@@ -231,7 +217,7 @@ def extract_provider_records(provider, search_term=None):
 
             data.append(record)
 
-            if running_tests:
+            if etl_env.are_tests_running():
 
                 break
 
@@ -239,6 +225,21 @@ def extract_provider_records(provider, search_term=None):
 
 
 class DPLAETLProcess(BaseETLProcess):
+
+    def init_testing(self):
+
+        global providers
+        global page_max
+
+        provider_0 = list(providers.keys())[0]
+        provider_1 = list(providers.keys())[1]
+        providers = {
+            provider_0 : [ providers[provider_0][0] ],
+            provider_1 : None
+        }
+
+        page_max = 1
+
 
     def get_field_map(self):
 

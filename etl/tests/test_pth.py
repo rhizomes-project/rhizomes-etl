@@ -1,12 +1,16 @@
-from io import StringIO
-import sys
+#!/usr/bin/env python
 
 import unittest
 
+from etl.setup import ETLEnv
 from etl.tests.test_tools import TestBase
 
 
-class TestDPLA(TestBase):
+
+# REVIEW Save sample test data for all institutions so that we can run tests even if API is down.
+
+
+class TestPTH(TestBase):
 
     def test(self):
 
@@ -17,4 +21,6 @@ class TestDPLA(TestBase):
 
 if __name__ == '__main__':    # pragma: no cover
 
-    unittest.main()
+    ETLEnv.instance().init_testing()
+
+    unittest.main(TestPTH())

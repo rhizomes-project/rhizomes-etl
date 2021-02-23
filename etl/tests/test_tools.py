@@ -1,6 +1,6 @@
 from io import StringIO
 import json
-from os import path
+import os
 import requests
 import sys
 
@@ -48,7 +48,7 @@ class MockGetter():
 
         for data_path in data_paths:
 
-            if path.exists(data_path):
+            if os.path.exists(data_path):
 
                 with open(data_path, "r") as input:
 

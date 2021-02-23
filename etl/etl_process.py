@@ -3,7 +3,7 @@
 import abc
 import os
 
-from etl import setup
+from etl.setup import ETLEnv
 from etl.tools import MetadataWriter, RhizomeField
 
 
@@ -33,8 +33,17 @@ class BaseETLProcess(abc.ABC):
 
         self.format = format
 
-        self.etl_env = setup.ETLEnv()
+        self.etl_env = ETLEnv.instance()
         self.etl_env.start()
+
+        if self.etl_env.are_tests_running():
+
+            self.init_testing()
+
+    @abc.abstractmethod
+    def init_testing(self):    # pragma: no cover (should never get called)
+
+        pass
 
     @abc.abstractmethod
     def get_field_map(self):    # pragma: no cover (should never get called)

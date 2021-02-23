@@ -9,12 +9,11 @@ from etl.setup import ETLEnv
 from etl.tools import RhizomeField
 
 
-etl_env = ETLEnv()
+etl_env = ETLEnv.instance()
 etl_env.start()
 api_key = etl_env.get_api_key(name="calisphere")
 
-running_tests = os.environ.get("RUNNING_UNITTESTS")
-
+rows = 5000
 
 SOLR_KEYS = [
     "title",
@@ -58,6 +57,79 @@ field_map = {
     # REVIEW Add type here?
 }
 
+collections = [
+
+    #
+    # CEMA  - California Ethnic and Multicultural Archive
+    #
+
+    # Self-Help Graphics and Art archives - https://calisphere.org/collections/19853/
+    19853,
+    # Galería De La Raza archives - https://calisphere.org/collections/9080/
+    9080,
+    # Royal Chicano Air Force archives - https://calisphere.org/collections/18781/
+    18781,
+    # Centro Cultural de la Raza archives - https://calisphere.org/collections/9076/
+    9076,
+    # Villa (Esteban) papers - https://calisphere.org/collections/23847/
+    23847,
+    # Montoya (José) papers - https://calisphere.org/collections/15021/
+    15021,
+    # Prigoff (James) slide collection - https://calisphere.org/collections/17669/
+    17669,
+    # Ochoa (Victor) papers - https://calisphere.org/collections/16082/
+    16082,
+    # Vallejo (Linda) papers - https://calisphere.org/collections/23662/
+    23662,
+    # Torres (Salvador Roberto) papers - https://calisphere.org/collections/26299/
+    26299,
+    # Lucero (Linda) collection on La Raza Silkscreen Center/La Raza Graphics - https://calisphere.org/collections/13523/
+    13523,
+
+    #
+    # inSite Archive (Pull All Content) - https://calisphere.org/collections/10703/
+    #
+
+    10703,
+
+    #
+    # Cinewest Archive
+    #
+    27075,
+
+    #
+    # California Revealed from Center for the Study of Political Graphics (Pull All Content) - https://calisphere.org/collections/27440/
+    #
+
+    27440,
+
+    #
+    # Robin Dunitz Slides of Los Angeles Murals, 1925-2002 (Pull subset of content based on search terms) - https://calisphere.org/collections/27354/
+    #
+
+    {
+        "id": 27354,
+        "terms": [
+            "chicano", "chicana",
+            "latino", "latina",
+            "hispanic",
+            "boyle heights",
+            "immigrant",
+        ]
+    },
+
+    #
+    # California Historical Society Collection, 1860-1960 (Pull subset of content based on search terms) - https://calisphere.org/collections/27087/
+    #
+
+    {
+        "id": 27087,
+        "terms": [
+            "mexican american", "mexican-american",
+        ]
+    }
+]
+
 
 def get_overview(hit, keys):
 
@@ -81,102 +153,30 @@ def get_overview(hit, keys):
 
 class CalisphereETLProcess(BaseETLProcess):
 
+    def init_testing(self):
+
+        global collections
+        global rows
+
+        collections = [
+            {
+                "id": 27087,
+                "terms": [ "art" ]
+            }
+        ]
+
+        rows = 50
+
+
     def get_field_map(self):
 
         return field_map
 
     def extract(self):
 
-        # Search for each collection
-        collections = [
-
-            #
-            # CEMA  - California Ethnic and Multicultural Archive
-            #
-
-            # Self-Help Graphics and Art archives - https://calisphere.org/collections/19853/
-            19853,
-            # Galería De La Raza archives - https://calisphere.org/collections/9080/
-            9080,
-            # Royal Chicano Air Force archives - https://calisphere.org/collections/18781/
-            18781,
-            # Centro Cultural de la Raza archives - https://calisphere.org/collections/9076/
-            9076,
-            # Villa (Esteban) papers - https://calisphere.org/collections/23847/
-            23847,
-            # Montoya (José) papers - https://calisphere.org/collections/15021/
-            15021,
-            # Prigoff (James) slide collection - https://calisphere.org/collections/17669/
-            17669,
-            # Ochoa (Victor) papers - https://calisphere.org/collections/16082/
-            16082,
-            # Vallejo (Linda) papers - https://calisphere.org/collections/23662/
-            23662,
-            # Torres (Salvador Roberto) papers - https://calisphere.org/collections/26299/
-            26299,
-            # Lucero (Linda) collection on La Raza Silkscreen Center/La Raza Graphics - https://calisphere.org/collections/13523/
-            13523,
-
-            #
-            # inSite Archive (Pull All Content) - https://calisphere.org/collections/10703/
-            #
-
-            10703,
-
-            #
-            # Cinewest Archive
-            #
-            27075,
-
-            #
-            # California Revealed from Center for the Study of Political Graphics (Pull All Content) - https://calisphere.org/collections/27440/
-            #
-
-            27440,
-
-            #
-            # Robin Dunitz Slides of Los Angeles Murals, 1925-2002 (Pull subset of content based on search terms) - https://calisphere.org/collections/27354/
-            #
-
-            {
-                "id": 27354,
-                "terms": [
-                    "chicano", "chicana",
-                    "latino", "latina",
-                    "hispanic",
-                    "boyle heights",
-                    "immigrant",
-                ]
-            },
-
-            #
-            # California Historical Society Collection, 1860-1960 (Pull subset of content based on search terms) - https://calisphere.org/collections/27087/
-            #
-
-            {
-                "id": 27087,
-                "terms": [
-                    "mexican american", "mexican-american",
-                ]
-            }
-        ]
-
         data = []
-        rows = 5000
 
-        # Running tests?
-        if running_tests:
-
-            collections = [
-                {
-                    "id": 27087,
-                    "terms": [ "art" ]
-                }
-            ]
-
-            rows = 50
-
-
+        # Search for each collection
         for collection in collections:
 
             terms = []
@@ -222,7 +222,7 @@ class CalisphereETLProcess(BaseETLProcess):
                 data.append(record)
 
                 # Are we just testing?
-                if running_tests:
+                if etl_env.are_tests_running():
 
                     break
 

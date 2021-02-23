@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 
-from io import StringIO
-import sys
-
 import unittest
 
+from etl.setup import ETLEnv
 from etl.tests.test_tools import TestBase
 
 
@@ -33,4 +31,6 @@ class TestDPLA(TestBase):
 
 if __name__ == '__main__':    # pragma: no cover
 
-    unittest.main()
+    ETLEnv.instance().init_testing()
+
+    unittest.main(TestDPLA())
