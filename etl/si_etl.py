@@ -54,7 +54,7 @@ search_terms = [
 
 field_map = {
     "id":                                      RhizomeField.ID,
-    "name":                                    RhizomeField.AUTHOR_ARTIST,
+    "content/indexedStructured/name":          RhizomeField.AUTHOR_ARTIST,
     "title":                                   RhizomeField.TITLE,
     "content/indexedStructured/object_type":   RhizomeField.RESOURCE_TYPE,
     "content/descriptiveNonRepeating/guid":    RhizomeField.URL,
@@ -186,6 +186,13 @@ class SIETLProcess(BaseETLProcess):
             if cnt % 25 == 0:
 
                 print(f"Transformed {cnt} of {len(data)} records", file=sys.stderr)
+
+            # Extract relevant author info.
+            names = record.get("content/indexedStructured/name", [])
+            if names:
+
+                new_names = [ name["content"] for name in names if name["type"] == "personal_main" ]
+                record["content/indexedStructured/name"] = new_names
 
             # # Retrieve urls to any images for the record.
             urls = get_image_urls(id_=record["id"])
