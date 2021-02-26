@@ -191,7 +191,19 @@ class SIETLProcess(BaseETLProcess):
             names = record.get("content/indexedStructured/name", [])
             if names:
 
-                new_names = [ name["content"] for name in names if name["type"] == "personal_main" ]
+                new_names = []
+                for name in names:
+
+                    if type(name) is dict:
+
+                        if name["type"] == "personal_main":
+
+                            new_names.append(name["content"])
+
+                    else:
+
+                        new_names.append(name)
+
                 record["content/indexedStructured/name"] = new_names
 
             # # Retrieve urls to any images for the record.
