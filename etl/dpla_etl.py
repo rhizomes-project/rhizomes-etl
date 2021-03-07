@@ -52,8 +52,6 @@ field_map = {
     "object":               RhizomeField.IMAGES,
 }
 
-# REVIEW uncommnent search_terms & providers.
-
 # Note: "mexican american", "mexican+american" and "mexican-american" all get the same results via API. Also, "chicanx" 
 # returns no results for the providers we are using.
 search_terms = [ "chicano", "chicana", "%22mexican+american%22", ]
@@ -129,8 +127,9 @@ def parse_original_string(doc, record):
     originalRecordString = doc["originalRecord"]
     if type(originalRecordString) is str:
 
-        # REVIEW TODO handle situation where metadata is in a URL somwewhere. altho sometimes that url
-        # may be unavailable (due to DNS error?)
+        # Occasionally the metadata is in a URL somwewhere, and sometimes that url
+        # may be unavailable (due to DNS error?) - luckily our curent data pull
+        # never encounters this at the present time (as of March, 2021).
 
         return
 
