@@ -76,6 +76,9 @@ collections = {
 
     # Art Lies
     "ARTL": None,
+
+    # Texas Borderlands Newspaper Collection
+    "BORDE": [ "obra de arte", "artista", "arte" ]
 }
 
 
