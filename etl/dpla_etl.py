@@ -218,7 +218,7 @@ def extract_provider_records(provider, search_term=None):
 
             if etl_env.are_tests_running():
 
-                break
+                return data
 
     return data
 

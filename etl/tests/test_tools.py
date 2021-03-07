@@ -8,6 +8,7 @@ import unittest
 from unittest.mock import patch
 
 from etl.run import run_cmd_line
+from etl.setup import ETLEnv
 
 import pdb
 
@@ -74,6 +75,8 @@ class TestBase(unittest.TestCase):
         self.maxDiff = None
         self.debug = False
         self.inspect_output = False
+
+        ETLEnv.instance().init_testing()
 
     def run_etl_test(self, institution, format, expected, tag=None):
 
