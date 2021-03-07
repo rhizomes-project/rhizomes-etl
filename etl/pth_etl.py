@@ -72,6 +72,12 @@ partners = {
     "TCU": None
 }
 
+collections = {
+
+    # Art Lies
+    "ARTL": None,
+}
+
 
 # REVIEW TODO: For UNT Libraries, use keywords: Collections La Presna, Texas Borderlands (or search by collection)
 # see https://docs.google.com/spreadsheets/d/14SI3V1zBTcIq_ASz48ZB12ykD662N-TfdP9bxypSRQI/edit#gid=0
@@ -120,14 +126,21 @@ def extract_records(records, keywords=None):
 
     return data
 
-def extract_partner(partner, keywords=None, resumption_token=None):
+def extract_partner(partner=None, collection=None, keywords=None, resumption_token=None):
 
     global record_count
 
     if not resumption_token:
 
         record_count = 0
-        url = f"{start_records_url}partner:{partner}"
+
+        if partner:
+
+            url = f"{start_records_url}partner:{partner}"
+
+        else:
+
+            url = f"{start_records_url}collection:{collection}"
 
     else:
 
@@ -136,7 +149,7 @@ def extract_partner(partner, keywords=None, resumption_token=None):
     response = requests.get(url)
     if not response.ok:
 
-        raise Exception(f"Error retrieving data from PTH for {partner}, keywords: {keywords}, status code: {response.status_code}, reason: {response.reason}")
+        raise Exception(f"Error retrieving data from PTH for {partner} {collection}, keywords: {keywords}, status code: {response.status_code}, reason: {response.reason}")
 
     xml_data = BeautifulSoup(markup=response.content, features="lxml-xml", from_encoding="utf-8")
 
@@ -192,6 +205,20 @@ class PTHETLProcess(BaseETLProcess):
                 partner_data = partner_data[ : 1 ]
 
             data += partner_data
+
+            print(f"\n... extracted {len(partner_data)} records for partner {partner}", file=sys.stderr)
+
+        for collection, keywords in collections.items():
+
+            print(f"\nExtracting PTH collection {collection}:", file=sys.stderr)
+
+            collection_data = extract_partner(collection=collection, keywords=keywords)
+
+            if ETLEnv.instance().are_tests_running():
+
+                collection_data = collection_data[ : 1 ]
+
+            data += collection_data
 
             print(f"\n... extracted {len(partner_data)} records for partner {partner}", file=sys.stderr)
 
