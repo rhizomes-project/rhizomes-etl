@@ -10,19 +10,20 @@ from etl.tools import MetadataWriter, RhizomeField
 def clean_value(value):
     "Cleans value, including removing bad whitespace."
 
+    if type(value) is set:
+
+        value = list(value)
+
     if type(value) is str:
 
         return value.strip()
 
     elif type(value) is list:
 
+        value.sort()
         for idx, tmp in enumerate(value):
 
             value[idx] = tmp.strip()
-
-    elif type(value) is set:
-
-        value = { tmp.strip() for tmp in value }
 
     return value
 
