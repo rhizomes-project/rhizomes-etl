@@ -1,3 +1,4 @@
+import csv
 from io import StringIO
 import json
 import os
@@ -115,4 +116,15 @@ class TestBase(unittest.TestCase):
 
                 pdb.set_trace()
 
-            self.assertEqual(output, expected)
+            # Convert output to csv and compare the csv.
+            output_csv = []
+            for row in csv.reader(StringIO(output)):
+
+                output_csv.append(row)
+
+            expected_csv = []
+            for row in csv.reader(StringIO(expected)):
+
+                expected_csv.append(row)
+
+            self.assertEqual(output_csv, expected_csv)

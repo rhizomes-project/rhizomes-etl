@@ -202,6 +202,8 @@ class MetadataWriter():
 
     def end_collection(self):
 
+        # REVIEW: just return the data everywhere here?
+
         if self.format == "json":
 
             buf = json.dumps(self.output)
