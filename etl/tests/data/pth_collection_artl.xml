@@ -1,0 +1,2878 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="/media/oai/oai2.xsl"?>
+<OAI-PMH xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.openarchives.org/OAI/2.0/" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+  <responseDate>2021-03-14T21:53:14Z</responseDate>
+  <request verb="ListRecords" metadataPrefix="oai_dc" set="collection:ARTL">https://texashistory.unt.edu/oai/</request>
+  <ListRecords>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228033</identifier>
+        <datestamp>2012-07-02T13:37:30Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 68, Spring/Summer 2011</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ART LIES</dc:title>
+          <dc:title>Art Lies, A Contemporary Art Journal, No. 68</dc:title>
+          <dc:title>Art Lies, Architecture Is Not Art</dc:title>
+          <dc:creator>Mueller, Kurt</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:subject>Architecture</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Murray, Elizabeth</dc:contributor>
+          <dc:contributor>Tannahill, Kaylan</dc:contributor>
+          <dc:contributor>Adams, Lauren</dc:contributor>
+          <dc:contributor>Evans, Ariel</dc:contributor>
+          <dc:contributor>Dearing, Harry</dc:contributor>
+          <dc:contributor>Beck, Logan</dc:contributor>
+          <dc:contributor>Blaylock, Cameron</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>Bonansinga, Kate</dc:contributor>
+          <dc:contributor>Judson, Ben</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Masterpiece Litho, Inc.</dc:contributor>
+          <dc:date>2011</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>112 p. : col. ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228033/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228033</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228006</identifier>
+        <datestamp>2020-08-25T12:57:57Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 41, Winter 2003</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ARTL!ES</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Baum, Kelly</dc:contributor>
+          <dc:contributor>Gupta, Anjali</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Cohen, Rebecca</dc:contributor>
+          <dc:contributor>Daniel, Mike</dc:contributor>
+          <dc:contributor>Oliver, Retha</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Gonzales, Rosalinda</dc:contributor>
+          <dc:contributor>Schlief, Jennifer</dc:contributor>
+          <dc:date>2003</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>100 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228006/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228006</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228007</identifier>
+        <datestamp>2020-08-25T12:58:18Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 42, Spring 2004</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ARTL!ES</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Gupta, Anjali</dc:contributor>
+          <dc:contributor>Cohen, Rebecca</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Daniel, Mike</dc:contributor>
+          <dc:contributor>Oliver, Retha</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Schlief, Jennifer</dc:contributor>
+          <dc:date>2004</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>104 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228007/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228007</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228056</identifier>
+        <datestamp>2020-08-25T12:36:40Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 26, Spring 2000</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:title>ArtLies, Texas Art Journal, #26, Spring 2000</dc:title>
+          <dc:creator>Carter, Linda Haag</dc:creator>
+          <dc:creator>McNulty, Debbie</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Weinstein, Joel</dc:contributor>
+          <dc:contributor>Kalil, Susie</dc:contributor>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:date>2000</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>88 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228056/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228056</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228057</identifier>
+        <datestamp>2020-08-25T12:36:59Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 27, Summer 2000</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:title>In The Desert Of Your Heart</dc:title>
+          <dc:title>ArtLies, # 27, Summer 2000</dc:title>
+          <dc:creator>Kalil, Susie</dc:creator>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Weinstein, Joel</dc:contributor>
+          <dc:date>2000</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>80 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228057/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228057</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228061</identifier>
+        <datestamp>2020-08-25T12:54:33Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 31, Summer 2001</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ARTLIES AND So Do People...</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:creator>Kalil, Susie</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>French, Christopher</dc:contributor>
+          <dc:contributor>Cohen, Rebecca</dc:contributor>
+          <dc:contributor>Daniel, Mike</dc:contributor>
+          <dc:contributor>Bonansinga, Kate</dc:contributor>
+          <dc:contributor>Hunt, Henry</dc:contributor>
+          <dc:contributor>New Pencil Design</dc:contributor>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:date>2001</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>84 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228061/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228061</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228062</identifier>
+        <datestamp>2020-08-25T12:54:56Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 32, Fall 2001</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:title>ArtLies, Fall 2001</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:creator>Huerta, Benito</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Kalil, Susie</dc:contributor>
+          <dc:contributor>Marcoulesco, Ileana</dc:contributor>
+          <dc:contributor>Cohen, Rebecca</dc:contributor>
+          <dc:contributor>Daniel, Mike</dc:contributor>
+          <dc:contributor>Bonansinga, Kate</dc:contributor>
+          <dc:date>2001</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>84 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228062/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228062</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228053</identifier>
+        <datestamp>2020-08-25T12:35:40Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 23, Summer 1999</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:creator>Lightman, Victoria H.</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Calledare, Donald</dc:contributor>
+          <dc:contributor>Fahl, David</dc:contributor>
+          <dc:contributor>Parikh, Krupa</dc:contributor>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:date>1999</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>60 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228053/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228053</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228046</identifier>
+        <datestamp>2020-08-25T12:33:53Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 15, Summer 1997</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies, Number 15, Texas Art Journal, Summer 1997</dc:title>
+          <dc:title>ArtLies, The New Negro</dc:title>
+          <dc:creator>McGee, David</dc:creator>
+          <dc:creator>Locke, Patrick</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:contributor>Locke, Patrick</dc:contributor>
+          <dc:contributor>Malone, Tierney</dc:contributor>
+          <dc:contributor>Brooks, Neil</dc:contributor>
+          <dc:contributor>Green, Leamon</dc:contributor>
+          <dc:date>1997</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>16 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228046/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228046</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228047</identifier>
+        <datestamp>2020-08-25T12:34:08Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 16, Fall 1997</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies, Number 16, Fall 1997, Texas Art Journal</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:creator>Davenport, Bill</dc:creator>
+          <dc:creator>Fuchs, Francesca</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Locke, Patrick</dc:contributor>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:contributor>ImageSet</dc:contributor>
+          <dc:date>1997</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>56 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228047/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228047</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228063</identifier>
+        <datestamp>2020-08-25T12:55:15Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 34, Spring 2002</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Marcoulesco, Ileana</dc:contributor>
+          <dc:contributor>Lennie, Janaki</dc:contributor>
+          <dc:contributor>Cohen, Rebecca</dc:contributor>
+          <dc:contributor>Daniel, Mike</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:date>2002</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>77 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228063/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228063</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228064</identifier>
+        <datestamp>2020-08-25T12:55:39Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 35, Summer 2002</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Marcoulesco, Ileana</dc:contributor>
+          <dc:contributor>Lennie, Janaki</dc:contributor>
+          <dc:contributor>Cohen, Rebecca</dc:contributor>
+          <dc:contributor>Daniel, Mike</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:date>2002</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>92 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228064/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228064</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228008</identifier>
+        <datestamp>2020-08-25T12:58:43Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 43, Summer 2004</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ARTL!ES</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Gupta, Anjali</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Cohen, Rebecca</dc:contributor>
+          <dc:contributor>Oliver, Retha</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Schlief, Jennifer</dc:contributor>
+          <dc:contributor>Roesch, Ariane</dc:contributor>
+          <dc:date>2004</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>119 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228008/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228008</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228009</identifier>
+        <datestamp>2020-08-25T12:59:02Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 44, Fall 2004</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ARTL!ES</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Cohen, Rebecca</dc:contributor>
+          <dc:contributor>Oliver, Retha</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Schlief, Jennifer</dc:contributor>
+          <dc:date>2004</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>116 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228009/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228009</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228014</identifier>
+        <datestamp>2020-08-25T13:00:39Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 49, Winter 2006</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ARTL!ES</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Basha, Regine</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Cohen, Rebecca</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>White, Michelle</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Ward, Jeff M.</dc:contributor>
+          <dc:contributor>Keeton, Kym</dc:contributor>
+          <dc:date>2006</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>132 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228014/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228014</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228015</identifier>
+        <datestamp>2020-08-25T13:00:55Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 50, Spring 2006</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ARTL!ES</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Owen, Paula</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>White, Michelle</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Keeton, Kym</dc:contributor>
+          <dc:date>2006</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>128 p. : col. ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228015/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228015</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228048</identifier>
+        <datestamp>2020-08-25T12:34:23Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 17, Winter 1997-1998</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies, Number 17, Texas Art Journal, Winter 1997-1998</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:creator>Locke, Patrick</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Calledare, Donald</dc:contributor>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:contributor>Grover, Andrea</dc:contributor>
+          <dc:contributor>Olejniczak, Christine</dc:contributor>
+          <dc:date>1997</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>48 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228048/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228048</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228049</identifier>
+        <datestamp>2020-08-25T12:34:37Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 18, Spring 1998</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies, Number 16, Texas Art Journal, Spring 1998</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:creator>Birringer, Johannes</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Locke, Patrick</dc:contributor>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:date>1998</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>56 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228049/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228049</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228010</identifier>
+        <datestamp>2020-08-25T12:59:26Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 45, Winter 2005</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ARTL!ES</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Cohen, Rebecca</dc:contributor>
+          <dc:contributor>Oliver, Retha</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Nguyen, Thuy</dc:contributor>
+          <dc:contributor>Roesch, Ariane</dc:contributor>
+          <dc:date>2005</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>112 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228010/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228010</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228011</identifier>
+        <datestamp>2020-08-25T12:59:46Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 46, Spring 2005</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ARTL!ES</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Jameson, Kathleen V.</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Cohen, Rebecca</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Nguyen, Thuy</dc:contributor>
+          <dc:date>2005</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>120 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228011/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228011</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228065</identifier>
+        <datestamp>2020-08-25T12:55:58Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 36, Fall 2002</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Sanders, Gail</dc:contributor>
+          <dc:contributor>Marcoulesco, Ileana</dc:contributor>
+          <dc:contributor>Lennie, Janaki</dc:contributor>
+          <dc:contributor>Cohen, Rebecca</dc:contributor>
+          <dc:contributor>Daniel, Mike</dc:contributor>
+          <dc:date>2002</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>96 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228065/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228065</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228066</identifier>
+        <datestamp>2020-08-25T12:56:17Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 37, Winter 2002-2003</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Marcoulesco, Ileana</dc:contributor>
+          <dc:contributor>Lennie, Janaki</dc:contributor>
+          <dc:contributor>Cohen, Rebecca</dc:contributor>
+          <dc:contributor>Daniel, Mike</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:date>2002</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>92 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228066/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228066</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228054</identifier>
+        <datestamp>2020-08-25T12:36:03Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 24, Fall 1999</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:creator>Kalil, Susie</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Calledare, Donald</dc:contributor>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:date>1999</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>120 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228054/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228054</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228055</identifier>
+        <datestamp>2020-08-25T12:36:27Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 25, Winter 1999-2000</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:title>ArtLies, Number 21, Texas Art Journal, #25 Winter 1999-2000</dc:title>
+          <dc:creator>Tyson, Janet S.</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Calledare, Donald</dc:contributor>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:date>1999</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>80 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228055/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228055</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228020</identifier>
+        <datestamp>2020-08-25T13:03:09Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 55, Fall 2007</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>Art Lies, A Contemporary Art Quarterly, No. 55</dc:title>
+          <dc:title>Art Lies, Future Perfect</dc:title>
+          <dc:creator>Staley, Tim</dc:creator>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Goldsmith, Meredith</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>White, Michelle</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>University of Texas Press</dc:contributor>
+          <dc:contributor>Masterpiece Litho, Inc.</dc:contributor>
+          <dc:date>2007</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>128 p. : col. ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228020/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228020</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228021</identifier>
+        <datestamp>2020-08-25T13:03:21Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 56, Winter 2007</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>Art Lies, A Contemporary Art Quarterly, No. 56</dc:title>
+          <dc:title>Art Lies, Collectivity &amp; Collaboration</dc:title>
+          <dc:creator>Staley, Tim</dc:creator>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Goldsmith, Meredith</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>White, Michelle</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>University of Texas Press</dc:contributor>
+          <dc:contributor>Masterpiece Litho, Inc.</dc:contributor>
+          <dc:date>2007</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>128 p. : col. ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228021/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228021</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228022</identifier>
+        <datestamp>2020-08-25T13:03:35Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 57, Spring 2008</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>Art Lies, A Contemporary Art Quarterly, No. 57</dc:title>
+          <dc:title>Art Lies, The Medium Needs a Massage</dc:title>
+          <dc:creator>Staley, Tim</dc:creator>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>White, Michelle</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>University of Texas Press</dc:contributor>
+          <dc:contributor>Masterpiece Litho, Inc.</dc:contributor>
+          <dc:date>2008</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>128 p. : col. ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228022/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228022</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228067</identifier>
+        <datestamp>2020-08-25T12:56:33Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 38, Spring 2003</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:title>ARTL!ES</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Marcoulesco, Ileana</dc:contributor>
+          <dc:contributor>Lennie, Janaki</dc:contributor>
+          <dc:contributor>Cohen, Rebecca</dc:contributor>
+          <dc:contributor>Daniel, Mike</dc:contributor>
+          <dc:contributor>Oliver, Retha</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:date>2003</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>96 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228067/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228067</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228004</identifier>
+        <datestamp>2020-08-25T12:56:52Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 39, Summer 2003</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:title>ARTL!ES</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Tyson, Janet</dc:contributor>
+          <dc:contributor>Gupta, Anjali</dc:contributor>
+          <dc:contributor>Lennie, Janaki</dc:contributor>
+          <dc:contributor>Cohen, Rebecca</dc:contributor>
+          <dc:contributor>Daniel, Mike</dc:contributor>
+          <dc:contributor>Oliver, Retha</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:date>2003</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>96 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228004/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228004</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228012</identifier>
+        <datestamp>2020-08-25T13:00:03Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 47, Summer 2005</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ARTL!ES</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Colpitt, Frances</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Cohen, Rebecca</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>White, Michelle</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:date>2005</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>128 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228012/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228012</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228013</identifier>
+        <datestamp>2020-08-25T13:00:23Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 48, Fall 2005</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ARTL!ES</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Glassford, Thomas</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Cohen, Rebecca</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>White, Michelle</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Keeton, Kym</dc:contributor>
+          <dc:date>2005</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>120 p. : ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228013/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228013</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228018</identifier>
+        <datestamp>2020-08-25T13:01:59Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 53, Spring 2007</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ARTL!ES</dc:title>
+          <dc:creator>Staley, Tim</dc:creator>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>White, Michelle</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Ward, Jeff M.</dc:contributor>
+          <dc:date>2007</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>128 p. : col. ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228018/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228018</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228019</identifier>
+        <datestamp>2020-08-25T13:02:15Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 54, Summer 2007</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ARTL!ES</dc:title>
+          <dc:creator>Staley, Tim</dc:creator>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>White, Michelle</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Goldsmith, Meredith</dc:contributor>
+          <dc:date>2007</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>112 p. : col. ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228019/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228019</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228050</identifier>
+        <datestamp>2020-08-25T12:34:54Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 20, Fall 1998</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies, Number 20, Fall 1998, Texas Art Journal</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:creator>Watson, Randy</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>ArtLies</dc:publisher>
+          <dc:contributor>Engelman, Michelle W.</dc:contributor>
+          <dc:contributor>Locke, Patrick</dc:contributor>
+          <dc:contributor>Calledare, Donald</dc:contributor>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:date>1998</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>56 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228050/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228050</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228051</identifier>
+        <datestamp>2020-08-25T12:35:09Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 21, Winter 1998-1999</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies, Number 21, Texas Art Journal, Winter 1998-1999</dc:title>
+          <dc:title>ArtL!es...in the community</dc:title>
+          <dc:creator>Gooden, Troy</dc:creator>
+          <dc:creator>Brown, David P.</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:subject>communities</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Locke, Patrick</dc:contributor>
+          <dc:contributor>Calledare, Donald</dc:contributor>
+          <dc:contributor>Fahl, David</dc:contributor>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:date>1998</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>64 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228051/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228051</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228052</identifier>
+        <datestamp>2020-08-25T12:35:24Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 22, Spring 1999</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies 22</dc:title>
+          <dc:title>Texas Journal, Spring 1999</dc:title>
+          <dc:title>Museum Architecture in Texas</dc:title>
+          <dc:creator>Robinson, Lauri Nelson</dc:creator>
+          <dc:creator>Huerta, Benito</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:subject>museum architecture</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Locke, Patrick</dc:contributor>
+          <dc:contributor>Calledare, Donald</dc:contributor>
+          <dc:contributor>Fahl, David</dc:contributor>
+          <dc:contributor>Gazer Design Group</dc:contributor>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:date>1999</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>64 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228052/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228052</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228030</identifier>
+        <datestamp>2020-08-25T13:05:40Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 65, Spring 2010</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>Art Lies, A Contemporary Art Quarterly, No. 65</dc:title>
+          <dc:title>Art Lies, The Back Forty</dc:title>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Murray, Elizabeth</dc:contributor>
+          <dc:contributor>Coffield, Cynthia</dc:contributor>
+          <dc:contributor>Cook, Rachel</dc:contributor>
+          <dc:contributor>Mueller, Kurt</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>Bonansinga, Kate</dc:contributor>
+          <dc:contributor>Judson, Ben</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Masterpiece Litho, Inc.</dc:contributor>
+          <dc:date>2010</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>96 p. : col. ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228030/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228030</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228031</identifier>
+        <datestamp>2020-08-25T13:05:58Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 66, Summer 2010</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>Art Lies, A Contemporary Art Quarterly, No. 66</dc:title>
+          <dc:title>Art Lies, Magma of Stupidity</dc:title>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Murray, Elizabeth</dc:contributor>
+          <dc:contributor>Cook, Rachel</dc:contributor>
+          <dc:contributor>Mueller, Kurt</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>Bonansinga, Kate</dc:contributor>
+          <dc:contributor>Judson, Ben</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Masterpiece Litho, Inc.</dc:contributor>
+          <dc:date>2010</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>96 p. : col. ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228031/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228031</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228016</identifier>
+        <datestamp>2020-08-25T13:01:18Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 51, Summer 2006</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ARTL!ES</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Moreno, Gean</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>White, Michelle</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Ward, Jeff M.</dc:contributor>
+          <dc:date>2006</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>128 p. : col. ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228016/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228016</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228017</identifier>
+        <datestamp>2020-08-25T13:01:42Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 52, Fall 2006</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ARTL!ES</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>White, Michelle</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Ward, Jeff M.</dc:contributor>
+          <dc:date>2006</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>112 p. : col. ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228017/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228017</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228023</identifier>
+        <datestamp>2020-08-25T13:03:48Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 58, Summer 2008</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>Art Lies, A Contemporary Art Quarterly, No. 58</dc:title>
+          <dc:title>Art Lies, Urban Myths</dc:title>
+          <dc:creator>Staley, Tim</dc:creator>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Murray, Elizabeth</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>White, Michelle</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>University of Texas Press</dc:contributor>
+          <dc:contributor>Masterpiece Litho, Inc.</dc:contributor>
+          <dc:date>2008</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>112 p. : ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228023/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228023</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228024</identifier>
+        <datestamp>2020-08-25T13:04:05Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 59, Fall 2008</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>Art Lies, A Contemporary Art Quarterly, No. 59</dc:title>
+          <dc:title>Art Lies, Death of the Curator</dc:title>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Murray, Elizabeth</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>White, Michelle</dc:contributor>
+          <dc:contributor>University of Texas Press</dc:contributor>
+          <dc:contributor>Masterpiece Litho, Inc.</dc:contributor>
+          <dc:date>2008</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>128 p. : col. ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228024/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228024</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228028</identifier>
+        <datestamp>2020-08-25T13:05:00Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 63, Fall 2009</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>Art Lies, A Contemporary Art Quarterly, No. 63</dc:title>
+          <dc:title>Art Lies, False Positives</dc:title>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Murray, Elizabeth</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Mueller, Kurt</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>Bonansinga, Kate</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Cook, Rachel</dc:contributor>
+          <dc:contributor>University of Texas Press</dc:contributor>
+          <dc:contributor>Masterpiece Litho, Inc.</dc:contributor>
+          <dc:date>2009</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>112 p. : col. ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228028/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228028</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228029</identifier>
+        <datestamp>2020-08-25T13:05:26Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 64, Winter 2009</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>Art Lies, A Contemporary Art Quarterly, No. 64</dc:title>
+          <dc:title>Art Lies, Dead Reckoning</dc:title>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Murray, Elizabeth</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Mueller, Kurt</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>Bonansinga, Kate</dc:contributor>
+          <dc:contributor>Judson, Ben</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Cook, Rachel</dc:contributor>
+          <dc:contributor>University of Texas Press</dc:contributor>
+          <dc:contributor>Masterpiece Litho, Inc.</dc:contributor>
+          <dc:date>2009</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>112 p. : col. ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228029/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228029</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228005</identifier>
+        <datestamp>2020-08-25T12:57:18Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 40, Fall 2003</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:title>ARTL!ES</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Whitney, Kathleen</dc:contributor>
+          <dc:contributor>Gupta, Anjali</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Cohen, Rebecca</dc:contributor>
+          <dc:contributor>Daniel, Mike</dc:contributor>
+          <dc:contributor>Oliver, Retha</dc:contributor>
+          <dc:contributor>Dossett, Beckham</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Gonzales, Rosalinda</dc:contributor>
+          <dc:contributor>Schlief, Jennifer</dc:contributor>
+          <dc:date>2003</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>80 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228005/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228005</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228060</identifier>
+        <datestamp>2020-08-25T12:53:42Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 30, Spring 2001</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:title>ArtLies, # 30, Spring</dc:title>
+          <dc:creator>Adele, Lynne</dc:creator>
+          <dc:creator>Smither, Murray</dc:creator>
+          <dc:creator>Steen, William</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>French, Christopher</dc:contributor>
+          <dc:contributor>Cohen, Rebecca</dc:contributor>
+          <dc:contributor>Daniel, Mike</dc:contributor>
+          <dc:contributor>Bonansinga, Kate</dc:contributor>
+          <dc:contributor>French, Christopher</dc:contributor>
+          <dc:contributor>Kalil, Susie</dc:contributor>
+          <dc:contributor>Koch, Polly</dc:contributor>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:date>2001</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>84 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228060/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228060</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228032</identifier>
+        <datestamp>2020-08-25T13:06:10Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 67, Fall/Winter 2010</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>Art Lies, A Contemporary Art Quarterly, No. 67</dc:title>
+          <dc:title>Art Lies, The New Flesh</dc:title>
+          <dc:creator>Mueller, Kurt</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Murray, Elizabeth</dc:contributor>
+          <dc:contributor>Tannahill, Kaylan</dc:contributor>
+          <dc:contributor>Adams, Lauren</dc:contributor>
+          <dc:contributor>Evans, Ariel</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>Bonansinga, Kate</dc:contributor>
+          <dc:contributor>Judson, Ben</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Masterpiece Litho, Inc.</dc:contributor>
+          <dc:date>2010</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>112 p. : col. ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228032/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228032</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228025</identifier>
+        <datestamp>2020-08-25T13:04:20Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 60, Winter 2008</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>Art Lies, A Contemporary Art Quarterly, No. 60</dc:title>
+          <dc:title>Art Lies, Theatre as Metaphor</dc:title>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Murray, Elizabeth</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>White, Michelle</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Cook, Rachel</dc:contributor>
+          <dc:contributor>University of Texas Press</dc:contributor>
+          <dc:contributor>Masterpiece Litho, Inc.</dc:contributor>
+          <dc:date>2008</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>124 p. : col. ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228025/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228025</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228026</identifier>
+        <datestamp>2020-08-25T13:04:33Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 61, Spring 2009</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>Art Lies, A Contemporary Art Quarterly, No. 61</dc:title>
+          <dc:title>Art Lies, Second Acts</dc:title>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Murray, Elizabeth</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>White, Michelle</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Cook, Rachel</dc:contributor>
+          <dc:contributor>University of Texas Press</dc:contributor>
+          <dc:contributor>Masterpiece Litho, Inc.</dc:contributor>
+          <dc:date>2009</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>112 p. : ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228026/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228026</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228027</identifier>
+        <datestamp>2020-08-25T13:04:46Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 62, Summer 2009</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>Art Lies, A Contemporary Art Quarterly, No. 62</dc:title>
+          <dc:title>Art Lies, Disruptors</dc:title>
+          <dc:creator>Gupta, Anjali</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Murray, Elizabeth</dc:contributor>
+          <dc:contributor>Ewing, John</dc:contributor>
+          <dc:contributor>Mueller, Kurt</dc:contributor>
+          <dc:contributor>Puleo, Risa</dc:contributor>
+          <dc:contributor>Bourbon, Matthew</dc:contributor>
+          <dc:contributor>Bonansinga, Kate</dc:contributor>
+          <dc:contributor>Small Project Office</dc:contributor>
+          <dc:contributor>Cook, Rachel</dc:contributor>
+          <dc:contributor>University of Texas Press</dc:contributor>
+          <dc:contributor>Masterpiece Litho, Inc.</dc:contributor>
+          <dc:date>2009</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>112 p. : col. ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228027/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228027</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228038</identifier>
+        <datestamp>2020-08-25T12:31:28Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 5, February-March 1995</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:title>Artlies, The Public Art Issue</dc:title>
+          <dc:title>Artlies 5</dc:title>
+          <dc:creator>Huerta, Benito</dc:creator>
+          <dc:creator>Harvey, John</dc:creator>
+          <dc:creator>Nelson, Lauri</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art 2</dc:publisher>
+          <dc:contributor>Smith, Stephanie</dc:contributor>
+          <dc:contributor>Rios, Francisco</dc:contributor>
+          <dc:contributor>Tribe Design</dc:contributor>
+          <dc:contributor>Night Rider</dc:contributor>
+          <dc:date>1995-02</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>44 p. : ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228038/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228038</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas - Harris County - Houston</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228039</identifier>
+        <datestamp>2020-08-25T12:31:48Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 6, April-May 1995</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies 6</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:creator>Davis, Susan</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Smith, Stephanie</dc:contributor>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:contributor>ALCO</dc:contributor>
+          <dc:date>1995-04</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>48 p. : ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228039/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228039</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228042</identifier>
+        <datestamp>2020-08-25T12:32:35Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 11, June-September 1996</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:creator>Calledare, Donald</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>ArtLies</dc:publisher>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:contributor>Huerta, Benito</dc:contributor>
+          <dc:date>1996-06</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>50 p. : ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228042/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228042</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228043</identifier>
+        <datestamp>2020-08-25T12:32:56Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 12, Fall 1996</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:title>ARTLIES</dc:title>
+          <dc:creator>Grover, Andrea</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:contributor>Huerta, Benito</dc:contributor>
+          <dc:contributor>Precision Graphics Center</dc:contributor>
+          <dc:date>1996</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>46 p. : ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228043/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228043</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228044</identifier>
+        <datestamp>2020-08-25T12:33:17Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 13, Winter 1996-1997</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>AL ArtLies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:creator>Lark, Laura</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:contributor>Grover, Andrea</dc:contributor>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:contributor>Precision Graphics Center</dc:contributor>
+          <dc:contributor>Huerta, Benito</dc:contributor>
+          <dc:date>1996</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>46 p. : ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228044/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228044</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228045</identifier>
+        <datestamp>2020-08-25T12:33:33Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 14, Spring 1997</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:title>ArtLies, Number 14, Texas Art Journal, Spring 1997</dc:title>
+          <dc:creator>Lunde, Paige</dc:creator>
+          <dc:creator>Meyer, Janet</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Gazer Design Group</dc:contributor>
+          <dc:contributor>Calladare, Donald E.</dc:contributor>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:contributor>Huerta, Benito</dc:contributor>
+          <dc:date>1997</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>52 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228045/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228045</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228040</identifier>
+        <datestamp>2020-08-25T12:32:04Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 8, August-September 1995</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>Artlies</dc:title>
+          <dc:title>artlies, contemporary art magazine</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:creator>Allen, Mark</dc:creator>
+          <dc:creator>Carroll, Donald</dc:creator>
+          <dc:creator>Huerta, Benito</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Allen, Mark</dc:contributor>
+          <dc:contributor>Grover, Andrea</dc:contributor>
+          <dc:contributor>Frohman, Mark</dc:contributor>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:date>1995-08</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>42 p. : ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228040/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228040</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228041</identifier>
+        <datestamp>2020-08-25T12:32:20Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 10, April-June 1996</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:creator>Reece, Garry</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:contributor>Huerta, Benito</dc:contributor>
+          <dc:date>1996-04</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>40 p. : ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228041/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228041</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228036</identifier>
+        <datestamp>2020-08-25T12:30:49Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 3, October-November 1994</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>Artlies</dc:title>
+          <dc:creator>Huerta, Benito</dc:creator>
+          <dc:creator>Ballou, Chris</dc:creator>
+          <dc:creator>Loftus, Kelley</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art 2</dc:publisher>
+          <dc:contributor>Dewan, Shaila</dc:contributor>
+          <dc:contributor>Smith, Stephanie</dc:contributor>
+          <dc:contributor>Night Rider</dc:contributor>
+          <dc:contributor>Inman, Kerry</dc:contributor>
+          <dc:contributor>Bush, Martha</dc:contributor>
+          <dc:contributor>Allen, Joe</dc:contributor>
+          <dc:date>1994-10</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>26 p. : ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228036/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228036</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228037</identifier>
+        <datestamp>2020-08-25T12:31:11Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 4, December 1994-January 1995</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>artlies</dc:title>
+          <dc:title>Artlies</dc:title>
+          <dc:creator>Huerta, Benito</dc:creator>
+          <dc:creator>Ballou, Chris</dc:creator>
+          <dc:creator>Loftus, Kelley</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art 2</dc:publisher>
+          <dc:contributor>Smith, Stephanie</dc:contributor>
+          <dc:contributor>Night Rider</dc:contributor>
+          <dc:date>1994-12</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>27 p. : ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228037/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228037</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228034</identifier>
+        <datestamp>2020-08-25T12:29:55Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 1, March 1994</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>Artlies: Contemporary Art Issues in Houston</dc:title>
+          <dc:creator>Carroll, Don</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art 2</dc:publisher>
+          <dc:contributor>Schwab, Eric Jonah</dc:contributor>
+          <dc:contributor>McGettigan, Fiona</dc:contributor>
+          <dc:contributor>Krathaus, Alan</dc:contributor>
+          <dc:contributor>Ofshe, Linda</dc:contributor>
+          <dc:contributor>White, Kevin</dc:contributor>
+          <dc:contributor>Boucher, Leo</dc:contributor>
+          <dc:contributor>Eagle, Amber</dc:contributor>
+          <dc:contributor>Logan, Diane</dc:contributor>
+          <dc:date>1994-03</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>23 p. : ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228034/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228034</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228035</identifier>
+        <datestamp>2020-08-25T12:30:20Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 2, May-June 1994</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>artlies</dc:title>
+          <dc:title>ARTlies</dc:title>
+          <dc:title>Artlies</dc:title>
+          <dc:creator>Chandler, Wade</dc:creator>
+          <dc:creator>Schwab, Eric Jonah</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art 2</dc:publisher>
+          <dc:contributor>McGettigan, Fiona</dc:contributor>
+          <dc:contributor>Krathaus, Alan</dc:contributor>
+          <dc:contributor>Calladare, Donald E.</dc:contributor>
+          <dc:contributor>Dewan, Shaila</dc:contributor>
+          <dc:contributor>Driscoll, Gina</dc:contributor>
+          <dc:contributor>Murray, Susan</dc:contributor>
+          <dc:contributor>Makela, Scott</dc:contributor>
+          <dc:contributor>O'Keefe, Timothy</dc:contributor>
+          <dc:contributor>Bates, Richard</dc:contributor>
+          <dc:contributor>Sylvester, Mark</dc:contributor>
+          <dc:contributor>Sheilds, David</dc:contributor>
+          <dc:contributor>Smith, Brian</dc:contributor>
+          <dc:contributor>Schorn, Brian</dc:contributor>
+          <dc:contributor>Wall Company Printing</dc:contributor>
+          <dc:date>1994-05</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>22 p. : ill. ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228035/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228035</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas - Harris County - Houston</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228058</identifier>
+        <datestamp>2020-08-25T12:37:15Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 28, Fall 2000</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:title>Texas Art Journal # 28</dc:title>
+          <dc:creator>Angelini, Surpik</dc:creator>
+          <dc:creator>HernÃ¡ndez, Abdel</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>French, Christopher</dc:contributor>
+          <dc:contributor>Kalil, Susie</dc:contributor>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:date>2000</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>112 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228058/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228058</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth228059</identifier>
+        <datestamp>2020-08-25T12:37:35Z</datestamp>
+        <setSpec>partner:UNT</setSpec>
+        <setSpec>collection:ARTL</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Art Lies, Volume 29, Winter 2000-2001</dc:title>
+          <dc:title>Art Lies</dc:title>
+          <dc:title>ArtLies</dc:title>
+          <dc:creator>Bryant, John</dc:creator>
+          <dc:creator>Huerta, Benito</dc:creator>
+          <dc:creator>Kalil, Susie</dc:creator>
+          <dc:subject>Art, Modern -- 20th century -- Periodicals.</dc:subject>
+          <dc:subject>Art, Modern -- 21st century -- Periodicals.</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>Art -- Texas -- Periodicals.</dc:subject>
+          <dc:subject>journals</dc:subject>
+          <dc:subject>art appreciation</dc:subject>
+          <dc:subject>art analysis</dc:subject>
+          <dc:description>Journal containing essays, commentaries, and exhibition information regarding Texas artwork and other contemporary art issues.</dc:description>
+          <dc:publisher>Art Lies</dc:publisher>
+          <dc:contributor>French, Christopher</dc:contributor>
+          <dc:contributor>Bryant, John</dc:contributor>
+          <dc:date>2000</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>87 p. : ill. (some col.) ; 28 cm.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>oclc: 36932144</dc:identifier>
+          <dc:identifier>issn: 1521-1606</dc:identifier>
+          <dc:identifier>lccn: sn 98-2333</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth228059/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth228059</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States</dc:coverage>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+  </ListRecords>
+</OAI-PMH>
