@@ -57,6 +57,8 @@ keyword_limiters = [
 
 # REVIEW: See https://docs.google.com/document/d/1cD559D8JANAGrs5pwGZqaxa7oHTwid0mxQG0PmAKhLQ/edit for how to pull data.
 
+# REVIEW: stopped at XIV. Partner Austin Presbyterian Theological Seminary because it requires subject filter
+
 DATA_PULL_LOGIC = {
 
     # # Not sure how to handle system-wide searches like this.
@@ -65,6 +67,20 @@ DATA_PULL_LOGIC = {
     # }
 
     "partner": {
+
+        #  Hispanic Heritage Center
+        "HHCT": {
+            "filters": {
+                "type": {
+                    "type": "include",
+                    "values": [ "Photograph" ]
+                }
+            },
+            "results" : {
+                "number": 119
+            },
+            "ignore": True
+        },
 
         # Mexic-Arte Museum
         "MAMU": {
@@ -75,30 +91,64 @@ DATA_PULL_LOGIC = {
             "ignore": True
         },
 
-        # UNT Libraries
-        "UNT": {
+         # Museum of South Texas History
+        "MSTH": {
+            "results": {
+                "number": 99,
+            },
+            "ignore": False
+        },
+
+        # Texas A&M University Kingsville
+        "AMKV": {
+            "filters": {
+                "type": {
+                    "type": "include",
+                    "values": [ "Photograph" ]
+                }
+            },
+            "results" : {
+                "number": 112
+            },
+            "ignore": True
+        },
+
+        # Pharr Memorial Library
+        "PHRML": {
             "filters": {
                 "keywords": {
                     "type": "include",
-                    "values": keyword_limiters
+                    "values": [ "chicano art", "lowriders club", "xochil art center" ]
                 }
             },
-            "ignore": False
+            "results" : {
+                "number": 112
+            },
+            "ignore": True
         },
 
         # # UNT Libraries Special Collections
         # "UNTA": keyword_limiters,
 
-        # # UNT Libraries Government Documents Department
-        # "UNTGD": keyword_limiters,
-
-        # TCU Mary Couts Burnett Library
-        "TCU": {
-            "results": {
-                "number": 528
+        # UNT Libraries Government Documents Department
+        "UNTGD": {
+            "filters": {
+                "keywords": {
+                    "type": "include",
+                    "values": [ "mexican american art", "chicano art" ]
+                }
             },
             "ignore": True
         },
+
+
+        # # TCU Mary Couts Burnett Library
+        # "TCU": {
+        #     "results": {
+        #         "number": 528
+        #     },
+        #     "ignore": True
+        # },
     },
 
     "collection" : {
@@ -111,9 +161,57 @@ DATA_PULL_LOGIC = {
             "ignore": True
         },
 
-        # # Texas Borderlands Newspaper Collection
-        # "BORDE": [ "obra de arte", "artista", "arte" ]
+        # Texas Borderlands Newspaper Collection
+        "BORDE": {
+            "filters": {
+                "keywords": {
+                    "type": "include",
+                    "values": [ "obra de arte", "artista", "arte" ]
+                }
+            },
+            "ignore": True
+        },
 
+        # Civil Rights in Black and Brown (part of TCU Mary Couts Burnett Library)
+        "CRBB": {
+            "filters": {
+                "type": {
+                    "type": "include"
+                }
+            },
+            "ignore": True
+        },
+
+        # Diversity in the Desert
+        "MDID": {
+            "results" : {
+                "min": 1740,
+                "max": 1760,
+            },
+            "ignore": True
+        },
+
+        # The Mexican American Family and Photo Collection (part of Houston Metropolitan Research Center at Houston Public Library)
+        "MAFP": {
+            "filters": {
+                "type": {
+                    "type": "include",
+                    "values": [ "Photograph" ]
+                }
+            },
+            "results" : {
+                "number": 431
+            },
+            "ignore": True
+        },
+
+         # Texas Trends in Art Education
+        "TTAE" : {
+            "results" : {
+                "number": 56
+            },
+            "ignore": True
+        },
     },
 }
 
@@ -125,10 +223,8 @@ def has_number(value):
 
     return re.search(r'\d', value)
 
-def does_record_match(record, filters):
-    "Returns True if the record matches the filters."
-
-    does_match = False
+def do_include_record(record, filters):
+    "Returns True if the record should be added, based on the filters."
 
     for name, filter_ in filters.items():
 
@@ -141,15 +237,24 @@ def does_record_match(record, filters):
 
                 if keyword in title or keyword in description:
 
-                    does_match = True
+                    return filter_["type"] == "include"
 
         else:
 
+            desired_values = filter_["values"]
 
-            pdb.set_trace()
+            values = record.get(name)
+            if type(values) is not list:
 
+                values = [values]
 
-    return does_match
+            for desired_value in desired_values:
+
+                if desired_value in values:
+
+                    return filter_["type"] == "include"
+
+    return False
 
 def extract_records(records, config={}):
 
@@ -166,7 +271,7 @@ def extract_records(records, config={}):
 
         if filters:
 
-            do_add = does_record_match(record=record_data, filters=filters)
+            do_add = do_include_record(record=record_data, filters=filters)
 
         if do_add:
 
@@ -191,14 +296,14 @@ def extract_data_set(key_name, key, config={}, resumption_token=None):
 
     else:
 
+        url = f"{resume_records_url}&resumptionToken={resumption_token}"
+
         if ETLEnv.instance().are_tests_running():
 
             return []
 
-        url = f"{resume_records_url}&resumptionToken={resumption_token}"
-
     response = requests.get(url)
-    if not response.ok:
+    if not response.ok:    # pragma: no cover (should never be True during testing)
 
         raise Exception(f"Error retrieving data from PTH for {key_name} {key}, keywords: {keywords}, status code: {response.status_code}, reason: {response.reason}")
 
@@ -229,22 +334,26 @@ def check_results(results, key_name='', key='', config={}):
     results_info = config.get("results", {})
     msg = None
 
+    if not results:
+
+        msg = f"ERROR: NO results were extracted from PTH {key_name} {key}"    # pragma: no cover (should not get here)
+
     number = results_info.get("number")
     if number and num_results != number:
 
-        msg = f"ERROR: {number} results were expected from PTH {key_name} {key}, {num_results} extracted"
+        msg = f"ERROR: {number} results were expected from PTH {key_name} {key}, {num_results} extracted"    # pragma: no cover (should not get here)
 
     min_ = results_info.get("min")
     if min_ and num_results < min_:
 
-        msg = f"ERROR: at least {min_} results were expected from PTH {key_name} {key}, {num_results} extracted"
+        msg = f"ERROR: at least {min_} results were expected from PTH {key_name} {key}, {num_results} extracted"    # pragma: no cover (should not get here)
 
     max_ = results_info.get("max")
     if max_ and num_results > max_:
 
-        msg = f"ERROR: no more than {max_} results were expected from PTH {key_name} {key}, {num_results} extracted"
+        msg = f"ERROR: no more than {max_} results were expected from PTH {key_name} {key}, {num_results} extracted"    # pragma: no cover (should not get here)
 
-    if msg:
+    if msg:    # pragma: no cover (should not get here)
 
         if ETLEnv.instance().are_tests_running():
 
