@@ -69,8 +69,8 @@ DATA_PULL_LOGIC = {
         # Mexic-Arte Museum
         "MAMU": {
             "results": {
-                "min": 1480,
-                "max": 1510
+                "min": 290,
+                "max": 310
             },
             "ignore": True
         },
@@ -83,7 +83,7 @@ DATA_PULL_LOGIC = {
                     "values": keyword_limiters
                 }
             },
-            "ignore": True
+            "ignore": False
         },
 
         # # UNT Libraries Special Collections
@@ -97,7 +97,7 @@ DATA_PULL_LOGIC = {
             "results": {
                 "number": 528
             },
-            "ignore": False
+            "ignore": True
         },
     },
 
@@ -191,6 +191,10 @@ def extract_data_set(key_name, key, config={}, resumption_token=None):
 
     else:
 
+        if ETLEnv.instance().are_tests_running():
+
+            return []
+
         url = f"{resume_records_url}&resumptionToken={resumption_token}"
 
     response = requests.get(url)
@@ -223,7 +227,6 @@ def check_results(results, key_name='', key='', config={}):
 
     num_results = len(results)
     results_info = config.get("results", {})
-    are_tests_running = ETLEnv.instance().are_tests_running()
     msg = None
 
     number = results_info.get("number")
@@ -243,7 +246,7 @@ def check_results(results, key_name='', key='', config={}):
 
     if msg:
 
-        if are_tests_running:
+        if ETLEnv.instance().are_tests_running():
 
             raise Exception(msg)
 
