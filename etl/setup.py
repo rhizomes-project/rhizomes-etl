@@ -56,3 +56,20 @@ class ETLEnv(object):
         "Returns True if tests are runnning."
 
         return self.running_tests
+
+    class TestInfo():
+
+        def __init__(self, institution, tag=''):
+
+            self.institution = institution
+            self.tag = tag
+
+    def get_test_info(self):
+        "Returns test config info."
+
+        return self.test_info
+
+    def set_test_info(self, test_info):
+        "Sets test config info."
+
+        self.test_info = test_info

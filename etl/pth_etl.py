@@ -66,13 +66,14 @@ DATA_PULL_LOGIC = {
 
     "partner": {
 
-        # # Mexic-Arte Museum
-        # "MAMU": {
-        #     "results": {
-        #         "min": 1480,
-        #         "max": 1510
-        #     }
-        # },
+        # Mexic-Arte Museum
+        "MAMU": {
+            "results": {
+                "min": 1480,
+                "max": 1510
+            },
+            "ignore": True
+        },
 
         # UNT Libraries
         "UNT": {
@@ -95,7 +96,8 @@ DATA_PULL_LOGIC = {
         "TCU": {
             "results": {
                 "number": 528
-            }
+            },
+            "ignore": False
         },
     },
 
@@ -220,40 +222,52 @@ def check_results(results, key_name='', key='', config={}):
     "Output error info if results are not what was expected."
 
     num_results = len(results)
-
     results_info = config.get("results", {})
+    are_tests_running = ETLEnv.instance().are_tests_running()
+    msg = None
 
     number = results_info.get("number")
     if number and num_results != number:
 
-        print(f"ERROR: {number} results were expected from PTH {key_name} {key}, {num_results} extracted", file=sys.stderr)
+        msg = f"ERROR: {number} results were expected from PTH {key_name} {key}, {num_results} extracted"
 
     min_ = results_info.get("min")
     if min_ and num_results < min_:
 
-        print(f"ERROR: at least {min_} results were expected from PTH {key_name} {key}, {num_results} extracted", file=sys.stderr)
+        msg = f"ERROR: at least {min_} results were expected from PTH {key_name} {key}, {num_results} extracted"
 
     max_ = results_info.get("max")
     if max_ and num_results > max_:
 
-        print(f"ERROR: no more than {max_} results were expected from PTH {key_name} {key}, {num_results} extracted", file=sys.stderr)
+        msg = f"ERROR: no more than {max_} results were expected from PTH {key_name} {key}, {num_results} extracted"
+
+    if msg:
+
+        if are_tests_running:
+
+            raise Exception(msg)
+
+        print(msg, file=sys.stderr)
 
 
 class PTHETLProcess(BaseETLProcess):
 
     def init_testing(self):
 
-        # global partners
-        # global RECORD_LIMIT
+        # Disable all data pulls except the one being tested.
+        test_info = ETLEnv.instance().get_test_info()
+        pos = test_info.tag.find('_')
+        test_key_name = test_info.tag[ : pos]
+        test_key = test_info.tag[pos + 1 : ].upper()
 
-        # partners = {
-        #     "MAMU": None,
-        #     "TCU": keyword_limiters,
-        # }
+        for key_name, keys in DATA_PULL_LOGIC.items():
 
+            for key, config in keys.items():
 
-        DATA_PULL_LOGIC
+                ignore = not( key_name == test_key_name and key == test_key)
+                config["ignore"] = ignore
 
+        # Set record very low for testing.
         RECORD_LIMIT = 1
 
     def get_field_map(self):
