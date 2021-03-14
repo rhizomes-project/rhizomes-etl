@@ -12,6 +12,9 @@ from etl.tools import RhizomeField, get_oaipmh_record
 from bs4 import BeautifulSoup
 
 
+import pdb
+
+
 protocol = "https://"
 domain = "texashistory.unt.edu"
 
@@ -21,8 +24,6 @@ list_sets_url = protocol + domain + list_sets_path
 RECORD_LIMIT = None
 record_count = 0
 
-
-# REVIEW: TODO Pull in all desired PTH partners
 
 records_path =       "/oai/?verb=ListRecords"
 start_records_path = records_path + "&metadataPrefix=oai_dc&set="
@@ -54,39 +55,65 @@ keyword_limiters = [
     "mexican-american", "mexican american",
 ]
 
-partners = {
-
-    # Mexic-Arte Museum
-    "MAMU": None,
-
-    # UNT Libraries
-    "UNT": keyword_limiters,
-
-    # UNT Libraries Special Collections
-    "UNTA": keyword_limiters,
-
-    # UNT Libraries Government Documents Department
-    "UNTGD": keyword_limiters,
-
-    # TCU Mary Couts Burnett Library
-    "TCU": None
-}
-
-collections = {
-
-    # Art Lies
-    "ARTL": None,
-
-    # Texas Borderlands Newspaper Collection
-    "BORDE": [ "obra de arte", "artista", "arte" ]
-}
-
-
-# REVIEW TODO: For UNT Libraries, use keywords: Collections La Presna, Texas Borderlands (or search by collection)
-# see https://docs.google.com/spreadsheets/d/14SI3V1zBTcIq_ASz48ZB12ykD662N-TfdP9bxypSRQI/edit#gid=0
-
 # REVIEW: See https://docs.google.com/document/d/1cD559D8JANAGrs5pwGZqaxa7oHTwid0mxQG0PmAKhLQ/edit for how to pull data.
 
+DATA_PULL_LOGIC = {
+
+    # # Not sure how to handle system-wide searches like this.
+    # "subject": {
+    #     "code": "Arts & Crafts"
+    # }
+
+    "partner": {
+
+        # # Mexic-Arte Museum
+        # "MAMU": {
+        #     "results": {
+        #         "min": 1480,
+        #         "max": 1510
+        #     }
+        # },
+
+        # UNT Libraries
+        "UNT": {
+            "filters": {
+                "keywords": {
+                    "type": "include",
+                    "values": keyword_limiters
+                }
+            },
+            "ignore": True
+        },
+
+        # # UNT Libraries Special Collections
+        # "UNTA": keyword_limiters,
+
+        # # UNT Libraries Government Documents Department
+        # "UNTGD": keyword_limiters,
+
+        # TCU Mary Couts Burnett Library
+        "TCU": {
+            "results": {
+                "number": 528
+            }
+        },
+    },
+
+    "collection" : {
+
+        # Art Lies
+        "ARTL": {
+            "results" : {
+                "number": 64
+            },
+            "ignore": True
+        },
+
+        # # Texas Borderlands Newspaper Collection
+        # "BORDE": [ "obra de arte", "artista", "arte" ]
+
+    },
+}
 
 # REVIEW TODO Get canonical list of PTH formats.
 KNOWN_FORMATS = ('image', 'text')
@@ -96,40 +123,61 @@ def has_number(value):
 
     return re.search(r'\d', value)
 
-def do_keep_record(record, keywords):
-    "Returns True if the record should be retained"
+def does_record_match(record, filters):
+    "Returns True if the record matches the filters."
 
-    title = ''.join(record.get('title', [])).lower()
-    description = ''.join(record.get('description', [])).lower()
+    does_match = False
 
-    for keyword in keywords:
+    for name, filter_ in filters.items():
 
-        if keyword in title or keyword in description:
+        if name == "keywords":
 
-            return True
+            title = ''.join(record.get('title', [])).lower()
+            description = ''.join(record.get('description', [])).lower()
 
-    return False
+            for keyword in filter_["values"]:
 
-def extract_records(records, keywords=None):
+                if keyword in title or keyword in description:
+
+                    does_match = True
+
+        else:
+
+
+            pdb.set_trace()
+
+
+    return does_match
+
+def extract_records(records, config={}):
+
+    keywords = config.get("keywords")
+
+    filters = config.get("filters")
 
     data = []
     for record in records:
 
         record_data = get_oaipmh_record(record=record)
 
-        if keywords:
+        do_add = True
 
-            if do_keep_record(record=record_data, keywords=keywords):
+        if filters:
 
-                data.append(record_data)
+            do_add = does_record_match(record=record_data, filters=filters)
 
-        else:
+        if do_add:
 
             data.append(record_data)
 
     return data
 
-def extract_partner(partner=None, collection=None, keywords=None, resumption_token=None):
+def extract_data_set(key_name, key, config={}, resumption_token=None):
+    """
+    Extract all records for the given data set.
+
+    Note: 'data set' can be a PTH partner, collection, subject, etc.
+    """
 
     global record_count
 
@@ -137,13 +185,7 @@ def extract_partner(partner=None, collection=None, keywords=None, resumption_tok
 
         record_count = 0
 
-        if partner:
-
-            url = f"{start_records_url}partner:{partner}"
-
-        else:
-
-            url = f"{start_records_url}collection:{collection}"
+        url = f"{start_records_url}{key_name}:{key}"
 
     else:
 
@@ -152,12 +194,12 @@ def extract_partner(partner=None, collection=None, keywords=None, resumption_tok
     response = requests.get(url)
     if not response.ok:
 
-        raise Exception(f"Error retrieving data from PTH for {partner} {collection}, keywords: {keywords}, status code: {response.status_code}, reason: {response.reason}")
+        raise Exception(f"Error retrieving data from PTH for {key_name} {key}, keywords: {keywords}, status code: {response.status_code}, reason: {response.reason}")
 
     xml_data = BeautifulSoup(markup=response.content, features="lxml-xml", from_encoding="utf-8")
 
     # Extract records from this partner.
-    records = extract_records(records=xml_data.find_all("record"), keywords=keywords)
+    records = extract_records(records=xml_data.find_all("record"), config=config)
 
     # Loop through next set of data (if any).
     resumption_tokens = xml_data.find_all("resumptionToken")
@@ -169,25 +211,50 @@ def extract_partner(partner=None, collection=None, keywords=None, resumption_tok
         # Make recursive call to extract all records.
         if not RECORD_LIMIT or record_count < RECORD_LIMIT:
 
-            next_records = extract_partner(partner=partner, keywords=keywords, resumption_token=resumption_tokens[0].text)
+            next_records = extract_data_set(key_name=key_name, key=key, config=config, resumption_token=resumption_tokens[0].text)
             records += next_records
 
     return records
+
+def check_results(results, key_name='', key='', config={}):
+    "Output error info if results are not what was expected."
+
+    num_results = len(results)
+
+    results_info = config.get("results", {})
+
+    number = results_info.get("number")
+    if number and num_results != number:
+
+        print(f"ERROR: {number} results were expected from PTH {key_name} {key}, {num_results} extracted", file=sys.stderr)
+
+    min_ = results_info.get("min")
+    if min_ and num_results < min_:
+
+        print(f"ERROR: at least {min_} results were expected from PTH {key_name} {key}, {num_results} extracted", file=sys.stderr)
+
+    max_ = results_info.get("max")
+    if max_ and num_results > max_:
+
+        print(f"ERROR: no more than {max_} results were expected from PTH {key_name} {key}, {num_results} extracted", file=sys.stderr)
 
 
 class PTHETLProcess(BaseETLProcess):
 
     def init_testing(self):
 
-        global partners
-        global RECORD_LIMIT
+        # global partners
+        # global RECORD_LIMIT
 
-        partners = {
-            "MAMU": None,
-            "TCU": keyword_limiters,
-        }
+        # partners = {
+        #     "MAMU": None,
+        #     "TCU": keyword_limiters,
+        # }
+
+
+        DATA_PULL_LOGIC
+
         RECORD_LIMIT = 1
-
 
     def get_field_map(self):
 
@@ -197,33 +264,26 @@ class PTHETLProcess(BaseETLProcess):
 
         data = []
 
-        for partner, keywords in partners.items():
+        for key_name, keys in DATA_PULL_LOGIC.items():
 
-            print(f"\nExtracting PTH partner {partner}:", file=sys.stderr)
+            for key, config in keys.items():
 
-            partner_data = extract_partner(partner=partner, keywords=keywords)
+                if config.get("ignore"):
 
-            if ETLEnv.instance().are_tests_running():
+                    continue
 
-                partner_data = partner_data[ : 1 ]
+                print(f"\nExtracting PTH {key_name} {key}:", file=sys.stderr)
 
-            data += partner_data
+                curr_data = extract_data_set(key_name=key_name, key=key, config=config)
 
-            print(f"\n... extracted {len(partner_data)} records for partner {partner}", file=sys.stderr)
+                check_results(results=curr_data, key_name=key_name, key=key, config=config)
 
-        for collection, keywords in collections.items():
 
-            print(f"\nExtracting PTH collection {collection}:", file=sys.stderr)
+                if ETLEnv.instance().are_tests_running():
 
-            collection_data = extract_partner(collection=collection, keywords=keywords)
+                    curr_data = curr_data[ : 1 ]
 
-            if ETLEnv.instance().are_tests_running():
-
-                collection_data = collection_data[ : 1 ]
-
-            data += collection_data
-
-            print(f"\n... extracted {len(partner_data)} records for partner {partner}", file=sys.stderr)
+                data += curr_data
 
         return data
 
