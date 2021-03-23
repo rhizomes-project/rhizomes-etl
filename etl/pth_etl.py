@@ -12,9 +12,6 @@ from etl.tools import RhizomeField, get_oaipmh_record
 from bs4 import BeautifulSoup
 
 
-import pdb
-
-
 protocol = "https://"
 domain = "texashistory.unt.edu"
 
@@ -50,19 +47,31 @@ field_map = {
     "thumbnail":                              RhizomeField.IMAGES,
 }
 
-keyword_limiters = [
-    "chicano", "chicana", "chicanx",
-    "mexican-american", "mexican american",
-]
 
 # REVIEW: See https://docs.google.com/document/d/1cD559D8JANAGrs5pwGZqaxa7oHTwid0mxQG0PmAKhLQ/edit for how to pull data.
 
 DATA_PULL_LOGIC = {
 
-    # # Not sure how to handle system-wide searches like this.
-    # "subject": {
-    #     "code": "Arts & Crafts"
-    # }
+    # Note: getting no hits for this.
+    "subject": {
+        "Arts and Crafts": {
+            "filters": {
+                "keywords": {
+                    "type": "include",
+                    "values": [
+                        "chicano", "chicana", "chicanx",
+                        "mexican-american", "mexican american",
+                        "hispanic", "arte",
+                    ]
+                }
+            },
+            "results" : {
+                "min": 230,
+                "max": 240
+            },
+            "ignore": False
+        },
+    },
 
     "partner": {
 
@@ -78,7 +87,7 @@ DATA_PULL_LOGIC = {
                 "min": 230,
                 "max": 240
             },
-            "ignore": False
+            "ignore": True
         },
 
         #  Dallas Museum of Art
@@ -120,7 +129,7 @@ DATA_PULL_LOGIC = {
             "results" : {
                 "number": 3,
             },
-            "ignore": False
+            "ignore": True
         },
 
         #  Hispanic Heritage Center
@@ -134,7 +143,7 @@ DATA_PULL_LOGIC = {
             "results" : {
                 "number": 119
             },
-            "ignore": False
+            "ignore": True
         },
 
         # Mexic-Arte Museum
@@ -143,7 +152,7 @@ DATA_PULL_LOGIC = {
                 "min": 290,
                 "max": 310
             },
-            "ignore": False
+            "ignore": True
         },
 
          # Museum of South Texas History
@@ -151,7 +160,7 @@ DATA_PULL_LOGIC = {
             "results": {
                 "number": 99,
             },
-            "ignore": False
+            "ignore": True
         },
 
         # Texas A&M University Kingsville
@@ -165,7 +174,7 @@ DATA_PULL_LOGIC = {
             "results" : {
                 "number": 112
             },
-            "ignore": False
+            "ignore": True
         },
 
         # Pharr Memorial Library
@@ -181,11 +190,8 @@ DATA_PULL_LOGIC = {
             "results" : {
                 "number": 112
             },
-            "ignore": False
+            "ignore": True
         },
-
-        # # UNT Libraries Special Collections
-        # "UNTA": keyword_limiters,
 
         # UNT Libraries Government Documents Department
         "UNTGD": {
@@ -195,7 +201,7 @@ DATA_PULL_LOGIC = {
                     "values": [ "mexican american art", "chicano art" ]
                 }
             },
-            "ignore": False
+            "ignore": True
         },
     },
 
@@ -206,7 +212,7 @@ DATA_PULL_LOGIC = {
             "results" : {
                 "number": 64
             },
-            "ignore": False
+            "ignore": True
         },
 
         # Texas Borderlands Newspaper Collection
@@ -217,7 +223,7 @@ DATA_PULL_LOGIC = {
                     "values": [ "obra de arte", "artista", "arte" ]
                 }
             },
-            "ignore": False
+            "ignore": True
         },
 
         # Civil Rights in Black and Brown (part of TCU Mary Couts Burnett Library)
@@ -227,7 +233,7 @@ DATA_PULL_LOGIC = {
                     "type": "include"
                 }
             },
-            "ignore": False
+            "ignore": True
         },
 
         # Diversity in the Desert (part of Marfa Public Library)
@@ -236,7 +242,7 @@ DATA_PULL_LOGIC = {
                 "min": 1740,
                 "max": 1760,
             },
-            "ignore": False
+            "ignore": True
         },
 
         # The Mexican American Family and Photo Collection (part of Houston Metropolitan Research Center at Houston Public Library)
@@ -250,7 +256,7 @@ DATA_PULL_LOGIC = {
             "results" : {
                 "number": 431
             },
-            "ignore": False
+            "ignore": True
         },
 
          # Texas Trends in Art Education (part of Texas Art Education Association)
@@ -258,7 +264,7 @@ DATA_PULL_LOGIC = {
             "results" : {
                 "number": 56
             },
-            "ignore": False
+            "ignore": True
         },
     },
 }
@@ -283,16 +289,6 @@ def add_filter_match(filter_, value):
 def do_include_record(record, filters):
     "Returns True if the record should be added, based on the filters."
 
-
-    # pdb.set_trace()
-
-
-    do_ignore = False
-    if do_ignore:
-
-        return False
-
-
     for name, filter_ in filters.items():
 
         if name == "keywords":
@@ -300,20 +296,7 @@ def do_include_record(record, filters):
             title = ''.join(record.get('title', [])).lower()
             description = ''.join(record.get('description', [])).lower()
 
-
-            do_break = False
-
-            if "the hand and the spirit" in description:
-
-                do_break = True
-
             for keyword in filter_["values"]:
-
-                if "the hand and the spirit" in keyword and do_break:
-
-
-                    pdb.set_trace()
-
 
                 if keyword in title or keyword in description:
 
@@ -416,6 +399,12 @@ def extract_data_set(key_name, key, config={}, resumption_token=None):
         raise Exception(f"Error retrieving data from PTH for {key_name} {key}, keywords: {keywords}, status code: {response.status_code}, reason: {response.reason}")
 
     xml_data = BeautifulSoup(markup=response.content, features="lxml-xml", from_encoding="utf-8")
+
+    # Check for search errors.
+    errors = xml_data.find_all("error")
+    if errors:
+
+        raise Exception(errors[0].text)
 
     # Extract records from this partner.
     records = extract_records(records=xml_data.find_all("record"), config=config)
