@@ -57,8 +57,6 @@ keyword_limiters = [
 
 # REVIEW: See https://docs.google.com/document/d/1cD559D8JANAGrs5pwGZqaxa7oHTwid0mxQG0PmAKhLQ/edit for how to pull data.
 
-# REVIEW: stopped at XIV. Partner Austin Presbyterian Theological Seminary because it requires subject filter
-
 DATA_PULL_LOGIC = {
 
     # # Not sure how to handle system-wide searches like this.
@@ -67,6 +65,63 @@ DATA_PULL_LOGIC = {
     # }
 
     "partner": {
+
+        #  Austin Presbyterian Theological Seminary
+        "ATPS": {
+            "filters": {
+                "subject": {
+                    "type": "include",
+                    "values": [ "Arts and Crafts", "People - Ethnic Groups - Hispanics" ]
+                }
+            },
+            "results" : {
+                "min": 230,
+                "max": 240
+            },
+            "ignore": False
+        },
+
+        #  Dallas Museum of Art
+        "DMA": {
+            "filters": {
+                "keywords": {
+                    "type": "include",
+                    "case-sensitive": False,
+                    "exact-match": False,
+                    "values": [
+                        "texas panorama",
+                        "american printmaking, 1913-1947",
+                        "catalog list: the aldrich collection",
+                        "modern american color prints",
+                        "six latin american painters",
+                        "visions of the west: american art from dallas collections",
+                        "handbook of american painting and sculpture in the collection of the dallas museum of fine arts",
+                        "concentrations 11: luis jimenez opens at the dallas museum of art",
+                        "1930's expositions",
+                        "handbook of collections, exhibitions and activities",
+                        "texas painting and sculpture in the collection of the dallas museum of fine arts",
+                        "twelfth annual dallas allied arts exhibition",
+                        "christmas at the museum",
+                        "the hand and the spirit: religious art in america",
+                        "robert graham exhibition",
+                        "poets of the cities: new york and san francisco",
+                        "25th annual dallas county painting, sculpture and drawing",
+                        "dallas museum of fine arts bulletin",
+                        "dallas museum of art installation: museum of the americas, 1993",
+                        "fifteenth exhibition of southwestern prints and drawings, january 27–february 17, 1965",
+                        "twenty fourth annual texas painting and sculpture exhibition, 1962-1963",
+                        "first annual exhibition by texas sculptors group",
+                        "eighth texas general exhibition",
+                        "26th annual dallas county exhibition: painting, drawing, sculpture",
+                        "john hernandez",
+                    ]
+                },
+            },
+            "results" : {
+                "number": 3,
+            },
+            "ignore": False
+        },
 
         #  Hispanic Heritage Center
         "HHCT": {
@@ -79,7 +134,7 @@ DATA_PULL_LOGIC = {
             "results" : {
                 "number": 119
             },
-            "ignore": True
+            "ignore": False
         },
 
         # Mexic-Arte Museum
@@ -88,7 +143,7 @@ DATA_PULL_LOGIC = {
                 "min": 290,
                 "max": 310
             },
-            "ignore": True
+            "ignore": False
         },
 
          # Museum of South Texas History
@@ -110,21 +165,23 @@ DATA_PULL_LOGIC = {
             "results" : {
                 "number": 112
             },
-            "ignore": True
+            "ignore": False
         },
 
         # Pharr Memorial Library
+        # Note: We unfortunately are getting zero results for Pharr Memorial Library via the current data pull.
         "PHRML": {
             "filters": {
                 "keywords": {
                     "type": "include",
-                    "values": [ "chicano art", "lowriders club", "xochil art center" ]
+                    # "values": [ "chicano art", "lowriders club", "xochil art center" ]
+                    "values": [ "chicana", "chicano", "lowrider", "xochil" ]
                 }
             },
             "results" : {
                 "number": 112
             },
-            "ignore": True
+            "ignore": False
         },
 
         # # UNT Libraries Special Collections
@@ -138,17 +195,8 @@ DATA_PULL_LOGIC = {
                     "values": [ "mexican american art", "chicano art" ]
                 }
             },
-            "ignore": True
+            "ignore": False
         },
-
-
-        # # TCU Mary Couts Burnett Library
-        # "TCU": {
-        #     "results": {
-        #         "number": 528
-        #     },
-        #     "ignore": True
-        # },
     },
 
     "collection" : {
@@ -158,7 +206,7 @@ DATA_PULL_LOGIC = {
             "results" : {
                 "number": 64
             },
-            "ignore": True
+            "ignore": False
         },
 
         # Texas Borderlands Newspaper Collection
@@ -169,7 +217,7 @@ DATA_PULL_LOGIC = {
                     "values": [ "obra de arte", "artista", "arte" ]
                 }
             },
-            "ignore": True
+            "ignore": False
         },
 
         # Civil Rights in Black and Brown (part of TCU Mary Couts Burnett Library)
@@ -179,16 +227,16 @@ DATA_PULL_LOGIC = {
                     "type": "include"
                 }
             },
-            "ignore": True
+            "ignore": False
         },
 
-        # Diversity in the Desert
+        # Diversity in the Desert (part of Marfa Public Library)
         "MDID": {
             "results" : {
                 "min": 1740,
                 "max": 1760,
             },
-            "ignore": True
+            "ignore": False
         },
 
         # The Mexican American Family and Photo Collection (part of Houston Metropolitan Research Center at Houston Public Library)
@@ -202,15 +250,15 @@ DATA_PULL_LOGIC = {
             "results" : {
                 "number": 431
             },
-            "ignore": True
+            "ignore": False
         },
 
-         # Texas Trends in Art Education
+         # Texas Trends in Art Education (part of Texas Art Education Association)
         "TTAE" : {
             "results" : {
                 "number": 56
             },
-            "ignore": True
+            "ignore": False
         },
     },
 }
@@ -223,8 +271,27 @@ def has_number(value):
 
     return re.search(r'\d', value)
 
+def add_filter_match(filter_, value):
+    "Increment the hit count for the given filter."
+
+    if not filter_.get("matches"):
+
+        filter_["matches"] = {}
+
+    filter_["matches"][value] = filter_.get(value, 0) + 1
+
 def do_include_record(record, filters):
     "Returns True if the record should be added, based on the filters."
+
+
+    # pdb.set_trace()
+
+
+    do_ignore = False
+    if do_ignore:
+
+        return False
+
 
     for name, filter_ in filters.items():
 
@@ -233,14 +300,31 @@ def do_include_record(record, filters):
             title = ''.join(record.get('title', [])).lower()
             description = ''.join(record.get('description', [])).lower()
 
+
+            do_break = False
+
+            if "the hand and the spirit" in description:
+
+                do_break = True
+
             for keyword in filter_["values"]:
 
+                if "the hand and the spirit" in keyword and do_break:
+
+
+                    pdb.set_trace()
+
+
                 if keyword in title or keyword in description:
+
+                    add_filter_match(filter_=filter_, value=keyword)
 
                     return filter_["type"] == "include"
 
         else:
 
+            case_sensitive = filter_.get("case-sensitive", False)
+            exact_match = filter_.get("exact-match", False)
             desired_values = filter_["values"]
 
             values = record.get(name)
@@ -248,9 +332,33 @@ def do_include_record(record, filters):
 
                 values = [values]
 
+            if not case_sensitive:
+
+                for idx, value in enumerate(values):
+
+                    values[idx] = value.lower()
+
             for desired_value in desired_values:
 
-                if desired_value in values:
+                desired_value_copy = desired_value if case_sensitive else desired_value.lower()
+
+                matched = False
+
+                if exact_match:
+
+                    matched = desired_value_copy in values
+
+                else:
+
+                    for value in values:
+
+                        if desired_value_copy in value:
+
+                            matched = True
+
+                if matched:
+
+                    add_filter_match(filter_=filter_, value=desired_value)
 
                     return filter_["type"] == "include"
 
@@ -330,6 +438,7 @@ def extract_data_set(key_name, key, config={}, resumption_token=None):
 def check_results(results, key_name='', key='', config={}):
     "Output error info if results are not what was expected."
 
+    # Did we get the number of results we expected?
     num_results = len(results)
     results_info = config.get("results", {})
     msg = None
@@ -354,6 +463,30 @@ def check_results(results, key_name='', key='', config={}):
         msg = f"ERROR: no more than {max_} results were expected from PTH {key_name} {key}, {num_results} extracted"    # pragma: no cover (should not get here)
 
     if msg:    # pragma: no cover (should not get here)
+
+        if ETLEnv.instance().are_tests_running():
+
+            raise Exception(msg)
+
+        print(msg, file=sys.stderr)
+
+    msgs = []
+
+    # Now check how well the filters performed.
+    for name, filter_ in DATA_PULL_LOGIC[key_name][key]["filters"].items():
+
+        matches = filter_.get("matches", {})
+        if not matches:
+
+            msgs.append(f"ERROR: the {name} filter got no matches.")
+
+        for value in filter_.get("values"):
+
+            if not matches.get(value, 0):
+
+                msgs.append(f"ERROR: the {name} filter '{value}' got no matches.")
+
+    for msg in msgs:    # pragma: no cover (should not get here)
 
         if ETLEnv.instance().are_tests_running():
 
