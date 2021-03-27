@@ -13,6 +13,8 @@ etl_env = ETLEnv.instance()
 etl_env.start()
 api_key = etl_env.get_api_key(name="calisphere")
 
+# Note: data pull instructions are here: https://docs.google.com/document/d/1m4mxCY_tbAOrPEwjrCsBKjsPT8NEcBFtgPsOzWezj3k/edit
+
 rows = 5000
 
 SOLR_KEYS = [

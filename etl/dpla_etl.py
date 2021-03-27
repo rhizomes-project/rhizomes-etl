@@ -26,6 +26,8 @@ list_collections_url = protocol + domain + list_collections_path + "?api_key=" +
 list_items_path = "/v2/items"
 list_items_url = protocol + domain + list_items_path + "?page=1&page_size=500&api_key=" + api_key
 
+# data pull instructions are here https://docs.google.com/document/d/1MYmyuWFZ8HDfZZYGMwEV9s5-LEA_z48y6gtG0qa2OtQ/edit
+
 dpla_terms = [
     "id", "dataProvider", "isShownAt", "object",
     { "sourceResource": [ "title", "description", "creator", "contributor", "date", "format", "type", { "subject" : [ "name" ] }, "dataProvider", { "date" : [ "displayDate" ] } ] },
