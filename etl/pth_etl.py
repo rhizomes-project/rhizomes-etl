@@ -20,10 +20,11 @@ list_sets_url = protocol + domain + list_sets_path
 
 RECORD_LIMIT = None
 record_count = 0
+num_calls = 0
 
 
 records_path =       "/oai/?verb=ListRecords"
-start_records_path = records_path + "&metadataPrefix=oai_dc&set="
+start_records_path = records_path + "&metadataPrefix=oai_dc"
 start_records_url = protocol + domain + start_records_path
 resume_records_url = protocol + domain + records_path
 
@@ -53,9 +54,13 @@ field_map = {
 DATA_PULL_LOGIC = {
 
     # Note: getting no hits for this.
-    "subject": {
-        "Arts and Crafts": {
+    None: {
+        "dummy": {
             "filters": {
+                "subject": {
+                    "type": "include",
+                    "values": [ "Arts and Crafts" ]
+                },
                 "keywords": {
                     "type": "include",
                     "values": [
@@ -70,7 +75,7 @@ DATA_PULL_LOGIC = {
                 "max": 240
             },
             "ignore": False
-        },
+        }
     },
 
     "partner": {
@@ -377,13 +382,19 @@ def extract_data_set(key_name, key, config={}, resumption_token=None):
     Note: 'data set' can be a PTH partner, collection, subject, etc.
     """
 
+
     global record_count
+    global num_calls
 
     if not resumption_token:
 
         record_count = 0
+        num_calls = 0
 
-        url = f"{start_records_url}{key_name}:{key}"
+        url = start_records_url
+        if key_name:
+
+            url += "&set={key_name}:{key}"
 
     else:
 
@@ -414,7 +425,8 @@ def extract_data_set(key_name, key, config={}, resumption_token=None):
     if resumption_tokens:
 
         record_count += len(records)
-        print(f"{record_count} records ...", file=sys.stderr)
+        num_calls += 1
+        print(f"{record_count} records extracted from {num_calls * 1000} records ...", file=sys.stderr)
 
         # Make recursive call to extract all records.
         if not RECORD_LIMIT or record_count < RECORD_LIMIT:
