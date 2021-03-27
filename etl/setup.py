@@ -44,6 +44,16 @@ class ETLEnv(object):
 
         return self.secrets["apis"]["keys"][name]
 
+    def set_use_cache(self, use_cached_metadata):
+        "Sets flag indicating if we should use cached metadata files."
+
+        self.use_cached_metadata = use_cached_metadata
+
+    def use_cache(self):
+        "Returns True if we should use cached metadata files."
+
+        return self.use_cached_metadata
+
     def init_testing(self):
         "Set system up for testing."
 

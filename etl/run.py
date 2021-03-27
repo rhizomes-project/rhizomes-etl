@@ -4,10 +4,10 @@
 import sys
 
 from etl import setup
-from etl.calisphere_etl import CalisphereETLProcess
-from etl.dpla_etl import DPLAETLProcess
-from etl.pth_etl import PTHETLProcess
-from etl.si_etl import SIETLProcess
+from etl.etl_calisphere import CalisphereETLProcess
+from etl.etl_dpla import DPLAETLProcess
+from etl.etl_pth import PTHETLProcess
+from etl.etl_si import SIETLProcess
 
 
 # REVIEW: look into date issues:
@@ -42,6 +42,7 @@ def run_etl(institutions, format):
 def run_cmd_line(args):
 
     format_ = "csv" # default output format.
+    use_cache = "no"
     institutions = []
 
     # Parse command-line args.
@@ -56,6 +57,17 @@ def run_cmd_line(args):
             pos = arg.find('=')
             format_ = arg[ pos + 1 : ]
 
+        elif arg.startswith("--use_cache="):
+
+            if len(arg) not in [ 14, 15 ]:
+
+                raise Exception(f"Invalid format: {arg}")
+
+            pos = arg.find('=')
+            use_cache = arg[ pos + 1 : ]
+
+            setup.ETLEnv.instance().set_use_cache(use_cached_metadata=(use_cache == "yes"))
+
         else:
 
             if arg not in INST_ETL_MAP:
@@ -66,7 +78,7 @@ def run_cmd_line(args):
 
     if not institutions:
 
-        raise Exception(f"Usage: run.py institution1 ... institutionN --format[=csv]")
+        raise Exception(f"Usage: run.py institution1 ... institutionN --format[=csv] --use_cache=[yes|no]")
 
     # Run the ETL.
     run_etl(institutions=institutions, format=format_)
