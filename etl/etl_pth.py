@@ -495,6 +495,70 @@ def check_results(results, key_name='', key='', config={}):
 
         print(msg, file=sys.stderr)
 
+def get_data(resumption_token=None):
+    """
+    Download PTH's metadata.
+    """
+
+    global num_calls
+
+    if not resumption_token:
+
+        # Rename current metadata directory first to indicate it is old.
+        if os.path.exists("etl/data/pth"):
+
+            if os.path.exists("etl/data/pth_old"):
+
+                os.rmdir("etl/data/pth_old")
+
+            os.rename("etl/data/pth", "etl/data/pth_old")
+
+        os.mkdir("etl/data/pth")
+
+        num_calls = 0
+
+        url = start_records_url
+
+    else:
+
+        url = f"{resume_records_url}&resumptionToken={resumption_token}"
+
+        if ETLEnv.instance().are_tests_running():
+
+            return
+
+    response = requests.get(url)
+    if not response.ok:    # pragma: no cover (should never be True during testing)
+
+        raise Exception(f"Error retrieving data from PTH, status code: {response.status_code}, reason: {response.reason}")
+
+    xml_data = BeautifulSoup(markup=response.content, features="lxml-xml", from_encoding="utf-8")
+
+    # Oheck for search errors.
+    errors = xml_data.find_all("error")
+    if errors:
+
+        raise Exception(errors[0].text)
+
+    with open(f"etl/data/pth/pth_{num_calls}.xml", "w") as output:
+
+        output.write(response.text)
+
+    resumption_tokens = xml_data.find_all("resumptionToken")
+
+    # Loop through next set of data (if any).
+    if resumption_tokens:
+
+        num_calls += 1
+        curr_record_count = num_calls * 1000
+
+        print(f"{curr_record_count} PTH records retrieved ...", file=sys.stderr)
+
+        # Make recursive call to extract all records.
+        if not RECORD_LIMIT or curr_record_count < RECORD_LIMIT:
+
+            get_data(resumption_token=resumption_tokens[0].text)
+
 
 class PTHETLProcess(BaseETLProcess):
 
@@ -521,6 +585,11 @@ class PTHETLProcess(BaseETLProcess):
         return field_map
 
     def extract(self):
+
+        # Rebuild metadata cached?
+        if not ETLEnv.instance().use_cache():
+
+            get_data()
 
         data = []
 

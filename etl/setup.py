@@ -24,6 +24,7 @@ class ETLEnv(object):
             raise Exception("ETLEnv should only be accessed via ETLEnv.instance()")
 
         self.running_tests = False
+        self.use_cached_metadata = False
 
     @staticmethod
     def instance():
