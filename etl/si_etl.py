@@ -28,6 +28,8 @@ keys_to_not_label = ("content", )
 # REVIEW: Why isn't date coming out correctly? answer: because smithsonian metadata does not really have a date field consistently
 # REVIEW: map "name" to author? problem: 'name' is all over the place in smithsonian's metadata - not consistent
 
+# Note: data pull instructions are here https://docs.google.com/document/d/1Pub60G6w9QxhWamNssoV6tY303oMvfxME97waaj77hs/edit
+
 
 # Important SI collections (Use https://api.si.edu/openaccess/api/v1.0/terms/unit_code?q=online_media_type:Images&api_key=api_key to get updated list.)
 providers = [
@@ -136,6 +138,74 @@ def get_image_urls(id_):
 
     return urls
 
+def transform_coalesce(data):
+
+    cnt = 0
+
+    for record in data:
+
+        cnt += 1
+        if cnt % 25 == 0:
+
+            print(f"Transformed {cnt} of {len(data)} records", file=sys.stderr)
+
+        # Extract relevant author info.
+        names = record.get("content/indexedStructured/name", [])
+        if names:
+
+            new_names = []
+            for name in names:
+
+                if type(name) is dict:
+
+                    if name["type"] == "personal_main":
+
+                        new_names.append(name["content"])
+
+                else:
+
+                    new_names.append(name)
+
+            record["content/indexedStructured/name"] = new_names
+
+        # # Retrieve urls to any images for the record.
+        urls = get_image_urls(id_=record["id"])
+        if urls:
+
+            record["image_urls"] = urls
+
+        # Clean up notes.
+        notes = record.get('content/freetext/notes')
+        if notes:
+
+            new_notes = []
+            for note in notes:
+
+                new_notes.append(f"- {note['label']}: {note['content']}")
+
+            record['content/freetext/notes'] = new_notes
+
+        # Clean up geolocations.
+        locations = record.get('content/indexedStructured/geoLocation')
+        if locations:
+
+            new_locations = set()
+            for location in locations:
+
+                for value in location.values():
+
+                    if type(value) is dict:
+
+                        if value.get('content'):
+
+                            new_locations.add(value['content'])
+
+                    else:
+
+                        new_locations.add(value)
+
+            record['content/indexedStructured/geoLocation'] = new_locations
+
 
 class SIETLProcess(BaseETLProcess):
 
@@ -178,71 +248,7 @@ class SIETLProcess(BaseETLProcess):
 
     def transform(self, data):
 
-        cnt = 0
-
-        for record in data:
-
-            cnt += 1
-            if cnt % 25 == 0:
-
-                print(f"Transformed {cnt} of {len(data)} records", file=sys.stderr)
-
-            # Extract relevant author info.
-            names = record.get("content/indexedStructured/name", [])
-            if names:
-
-                new_names = []
-                for name in names:
-
-                    if type(name) is dict:
-
-                        if name["type"] == "personal_main":
-
-                            new_names.append(name["content"])
-
-                    else:
-
-                        new_names.append(name)
-
-                record["content/indexedStructured/name"] = new_names
-
-            # # Retrieve urls to any images for the record.
-            urls = get_image_urls(id_=record["id"])
-            if urls:
-
-                record["image_urls"] = urls
-
-            # Clean up notes.
-            notes = record.get('content/freetext/notes')
-            if notes:
-
-                new_notes = []
-                for note in notes:
-
-                    new_notes.append(f"- {note['label']}: {note['content']}")
-
-                record['content/freetext/notes'] = new_notes
-
-            # Clean up geolocations.
-            locations = record.get('content/indexedStructured/geoLocation')
-            if locations:
-
-                new_locations = set()
-                for location in locations:
-
-                    for value in location.values():
-
-                        if type(value) is dict:
-
-                            if value.get('content'):
-
-                                new_locations.add(value['content'])
-
-                        else:
-
-                            new_locations.add(value)
-
-                record['content/indexedStructured/geoLocation'] = new_locations
+        transform_coalesce(data=data)
 
         super().transform(data=data)
 
