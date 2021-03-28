@@ -3,6 +3,7 @@
 import os
 import re
 import requests
+import shutil
 import sys
 
 from etl.etl_process import BaseETLProcess
@@ -10,6 +11,9 @@ from etl.setup import ETLEnv
 from etl.tools import RhizomeField, get_oaipmh_record
 
 from bs4 import BeautifulSoup
+
+
+import pdb
 
 
 protocol = "https://"
@@ -53,7 +57,6 @@ field_map = {
 
 DATA_PULL_LOGIC = {
 
-    # Note: getting no hits for this.
     None: {
         "dummy": {
             "filters": {
@@ -92,7 +95,7 @@ DATA_PULL_LOGIC = {
                 "min": 230,
                 "max": 240
             },
-            "ignore": True
+            "ignore": False
         },
 
         #  Dallas Museum of Art
@@ -132,9 +135,9 @@ DATA_PULL_LOGIC = {
                 },
             },
             "results" : {
-                "number": 3,
+                "expected_number": 3,
             },
-            "ignore": True
+            "ignore": False
         },
 
         #  Hispanic Heritage Center
@@ -146,9 +149,9 @@ DATA_PULL_LOGIC = {
                 }
             },
             "results" : {
-                "number": 119
+                "expected_number": 119
             },
-            "ignore": True
+            "ignore": False
         },
 
         # Mexic-Arte Museum
@@ -157,15 +160,15 @@ DATA_PULL_LOGIC = {
                 "min": 290,
                 "max": 310
             },
-            "ignore": True
+            "ignore": False
         },
 
          # Museum of South Texas History
         "MSTH": {
             "results": {
-                "number": 99,
+                "expected_number": 99,
             },
-            "ignore": True
+            "ignore": False
         },
 
         # Texas A&M University Kingsville
@@ -177,9 +180,9 @@ DATA_PULL_LOGIC = {
                 }
             },
             "results" : {
-                "number": 112
+                "expected_number": 112
             },
-            "ignore": True
+            "ignore": False
         },
 
         # Pharr Memorial Library
@@ -193,9 +196,9 @@ DATA_PULL_LOGIC = {
                 }
             },
             "results" : {
-                "number": 112
+                "expected_number": 112
             },
-            "ignore": True
+            "ignore": False
         },
 
         # UNT Libraries Government Documents Department
@@ -206,7 +209,7 @@ DATA_PULL_LOGIC = {
                     "values": [ "mexican american art", "chicano art" ]
                 }
             },
-            "ignore": True
+            "ignore": False
         },
     },
 
@@ -215,9 +218,9 @@ DATA_PULL_LOGIC = {
         # Art Lies
         "ARTL": {
             "results" : {
-                "number": 64
+                "expected_number": 64
             },
-            "ignore": True
+            "ignore": False
         },
 
         # Texas Borderlands Newspaper Collection
@@ -228,7 +231,7 @@ DATA_PULL_LOGIC = {
                     "values": [ "obra de arte", "artista", "arte" ]
                 }
             },
-            "ignore": True
+            "ignore": False
         },
 
         # Civil Rights in Black and Brown (part of TCU Mary Couts Burnett Library)
@@ -238,7 +241,7 @@ DATA_PULL_LOGIC = {
                     "type": "include"
                 }
             },
-            "ignore": True
+            "ignore": False
         },
 
         # Diversity in the Desert (part of Marfa Public Library)
@@ -247,7 +250,7 @@ DATA_PULL_LOGIC = {
                 "min": 1740,
                 "max": 1760,
             },
-            "ignore": True
+            "ignore": False
         },
 
         # The Mexican American Family and Photo Collection (part of Houston Metropolitan Research Center at Houston Public Library)
@@ -259,17 +262,17 @@ DATA_PULL_LOGIC = {
                 }
             },
             "results" : {
-                "number": 431
+                "expected_number": 431
             },
-            "ignore": True
+            "ignore": False
         },
 
          # Texas Trends in Art Education (part of Texas Art Education Association)
         "TTAE" : {
             "results" : {
-                "number": 56
+                "expected_number": 56
             },
-            "ignore": True
+            "ignore": False
         },
     },
 }
@@ -281,219 +284,6 @@ KNOWN_FORMATS = ('image', 'text')
 def has_number(value):
 
     return re.search(r'\d', value)
-
-def add_filter_match(filter_, value):
-    "Increment the hit count for the given filter."
-
-    if not filter_.get("matches"):
-
-        filter_["matches"] = {}
-
-    filter_["matches"][value] = filter_.get(value, 0) + 1
-
-def do_include_record(record, filters):
-    "Returns True if the record should be added, based on the filters."
-
-    for name, filter_ in filters.items():
-
-        if name == "keywords":
-
-            title = ''.join(record.get('title', [])).lower()
-            description = ''.join(record.get('description', [])).lower()
-
-            for keyword in filter_["values"]:
-
-                if keyword in title or keyword in description:
-
-                    add_filter_match(filter_=filter_, value=keyword)
-
-                    return filter_["type"] == "include"
-
-        else:
-
-            case_sensitive = filter_.get("case-sensitive", False)
-            exact_match = filter_.get("exact-match", False)
-            desired_values = filter_["values"]
-
-            values = record.get(name)
-            if type(values) is not list:
-
-                values = [values]
-
-            if not case_sensitive:
-
-                for idx, value in enumerate(values):
-
-                    values[idx] = value.lower()
-
-            for desired_value in desired_values:
-
-                desired_value_copy = desired_value if case_sensitive else desired_value.lower()
-
-                matched = False
-
-                if exact_match:
-
-                    matched = desired_value_copy in values
-
-                else:
-
-                    for value in values:
-
-                        if desired_value_copy in value:
-
-                            matched = True
-
-                if matched:
-
-                    add_filter_match(filter_=filter_, value=desired_value)
-
-                    return filter_["type"] == "include"
-
-    return False
-
-def extract_records(records, config={}):
-
-    keywords = config.get("keywords")
-
-    filters = config.get("filters")
-
-    data = []
-    for record in records:
-
-        record_data = get_oaipmh_record(record=record)
-
-        do_add = True
-
-        if filters:
-
-            do_add = do_include_record(record=record_data, filters=filters)
-
-        if do_add:
-
-            data.append(record_data)
-
-    return data
-
-def extract_data_set(key_name, key, config={}, resumption_token=None):
-    """
-    Extract all records for the given data set.
-
-    Note: 'data set' can be a PTH partner, collection, subject, etc.
-    """
-
-
-    global record_count
-    global num_calls
-
-    if not resumption_token:
-
-        record_count = 0
-        num_calls = 0
-
-        url = start_records_url
-        if key_name:
-
-            url += "&set={key_name}:{key}"
-
-    else:
-
-        url = f"{resume_records_url}&resumptionToken={resumption_token}"
-
-        if ETLEnv.instance().are_tests_running():
-
-            return []
-
-    response = requests.get(url)
-    if not response.ok:    # pragma: no cover (should never be True during testing)
-
-        raise Exception(f"Error retrieving data from PTH for {key_name} {key}, keywords: {keywords}, status code: {response.status_code}, reason: {response.reason}")
-
-    xml_data = BeautifulSoup(markup=response.content, features="lxml-xml", from_encoding="utf-8")
-
-    # Check for search errors.
-    errors = xml_data.find_all("error")
-    if errors:
-
-        raise Exception(errors[0].text)
-
-    # Extract records from this partner.
-    records = extract_records(records=xml_data.find_all("record"), config=config)
-
-    # Loop through next set of data (if any).
-    resumption_tokens = xml_data.find_all("resumptionToken")
-    if resumption_tokens:
-
-        record_count += len(records)
-        num_calls += 1
-        print(f"{record_count} records extracted from {num_calls * 1000} records ...", file=sys.stderr)
-
-        # Make recursive call to extract all records.
-        if not RECORD_LIMIT or record_count < RECORD_LIMIT:
-
-            next_records = extract_data_set(key_name=key_name, key=key, config=config, resumption_token=resumption_tokens[0].text)
-            records += next_records
-
-    return records
-
-def check_results(results, key_name='', key='', config={}):
-    "Output error info if results are not what was expected."
-
-    # Did we get the number of results we expected?
-    num_results = len(results)
-    results_info = config.get("results", {})
-    msg = None
-
-    if not results:
-
-        msg = f"ERROR: NO results were extracted from PTH {key_name} {key}"    # pragma: no cover (should not get here)
-
-    number = results_info.get("number")
-    if number and num_results != number:
-
-        msg = f"ERROR: {number} results were expected from PTH {key_name} {key}, {num_results} extracted"    # pragma: no cover (should not get here)
-
-    min_ = results_info.get("min")
-    if min_ and num_results < min_:
-
-        msg = f"ERROR: at least {min_} results were expected from PTH {key_name} {key}, {num_results} extracted"    # pragma: no cover (should not get here)
-
-    max_ = results_info.get("max")
-    if max_ and num_results > max_:
-
-        msg = f"ERROR: no more than {max_} results were expected from PTH {key_name} {key}, {num_results} extracted"    # pragma: no cover (should not get here)
-
-    if msg:    # pragma: no cover (should not get here)
-
-        if ETLEnv.instance().are_tests_running():
-
-            raise Exception(msg)
-
-        print(msg, file=sys.stderr)
-
-    msgs = []
-
-    # Now check how well the filters performed.
-    for name, filter_ in DATA_PULL_LOGIC[key_name][key]["filters"].items():
-
-        matches = filter_.get("matches", {})
-        if not matches:
-
-            msgs.append(f"ERROR: the {name} filter got no matches.")
-
-        for value in filter_.get("values"):
-
-            if not matches.get(value, 0):
-
-                msgs.append(f"ERROR: the {name} filter '{value}' got no matches.")
-
-    for msg in msgs:    # pragma: no cover (should not get here)
-
-        if ETLEnv.instance().are_tests_running():
-
-            raise Exception(msg)
-
-        print(msg, file=sys.stderr)
 
 def get_data(resumption_token=None):
     """
@@ -509,7 +299,7 @@ def get_data(resumption_token=None):
 
             if os.path.exists("etl/data/pth_old"):
 
-                os.rmdir("etl/data/pth_old")
+                shutil.rmtree("etl/data/pth_old")
 
             os.rename("etl/data/pth", "etl/data/pth_old")
 
@@ -559,6 +349,310 @@ def get_data(resumption_token=None):
 
             get_data(resumption_token=resumption_tokens[0].text)
 
+def add_filter_match(key_name, key, filter_name, filter_, match):
+    "Increment the hit count for the given filter."
+
+    global DATA_PULL_LOGIC
+
+    if not DATA_PULL_LOGIC[key_name][key].get("results"):
+
+        DATA_PULL_LOGIC[key_name][key]["results"] = {}
+
+    DATA_PULL_LOGIC[key_name][key]["results"]["number"] = DATA_PULL_LOGIC[key_name][key]["results"].get("number", 0) + 1
+
+    if not filter_.get("matches"):
+
+        filter_["matches"] = {}
+
+    filter_["matches"][match] = filter_.get(match, 0) + 1
+
+def do_include_record(record):
+    """
+    Returns True if the record should be added, based on the filters.
+
+    Possible effects of a given filter:
+
+    - For a filter that tries to exclude records:
+        - if matched, then add a False include vote.
+        - if not matched, then add a True include vote.
+
+    - For a filter that tries to include records:
+        - if matched, then add a True include vote.
+        - if not matched, then add a False include vote.
+
+    If, after all filters have been applied, there are no include votes,
+    or if there are any False include votes, then do not include the record.
+
+    """
+
+    class IncludeVote():
+
+        def __init__(self, key_name, key, filter_name, filter_, match, filter_includes, include_vote_value):
+
+            self.key_name = key_name
+            self.key = key
+            self.filter_name = filter_name
+            self.filter_ = filter_
+            self.match = match
+            self.filter_includes = filter_includes
+            self.include_vote_value = include_vote_value
+
+    include_votes = []
+
+    # Loops through all the filters and check each one.
+    for key_name, keys in DATA_PULL_LOGIC.items():
+
+        for key, config in keys.items():
+
+            # Ignore this filter completely?
+            if config.get("ignore") and False:
+
+                continue
+
+            # First verify the list set matches.
+            if key_name:
+
+                if key_name not in [ "collection", "partner" ]:
+
+
+                    pdb.set_trace()
+
+
+                elif key_name + ":" + key not in record["setSpec"]:
+
+                    continue
+
+            # Now apply any filters.
+            filters = config.get("filters", {})
+            for filter_name, filter_ in filters.items():
+
+                match = None
+
+                if filter_name == "keywords":
+
+                    title = ''.join(record.get('title', [])).lower()
+                    description = ''.join(record.get('description', [])).lower()
+
+                    for keyword in filter_["values"]:
+
+                        if keyword in title or keyword in description:
+
+                            match = keyword
+                            break
+
+                else:
+
+                    case_sensitive = filter_.get("case-sensitive", False)
+                    exact_match = filter_.get("exact-match", False)
+                    desired_values = filter_["values"]
+
+                    values = record.get(filter_name, [])
+                    if type(values) is not list:
+
+                        values = [ values ]
+
+                    if not case_sensitive:
+
+                        for idx, value in enumerate(values):
+
+                            # if type(value) is None:
+                            if not value:
+
+
+                                pdb.set_trace()
+
+
+                            values[idx] = value.lower()
+
+                    for desired_value in desired_values:
+
+                        desired_value_copy = desired_value if case_sensitive else desired_value.lower()
+
+                        if exact_match:
+
+                            matched = desired_value_copy in values
+
+                        else:
+
+                            for value in values:
+
+                                if desired_value_copy in value:
+
+                                    match = desired_value
+                                    break
+
+                # - For a filter that tries to exclude records:
+                #     - if matched, then add a False include vote.
+                #     - if not matched, then add a True include vote.
+                # 
+                # - For a filter that tries to include records:
+                #     - if matched, then add a True include vote.
+                #     - if not matched, then add a False include vote.
+
+                filter_includes = filter_["type"] == "include"
+                include_vote_value = filter_includes if match else not filter_includes
+
+                include_votes.append(IncludeVote(key_name=key_name, key=key, filter_name=filter_name, filter_=filter_, match=match, filter_includes=filter_includes, include_vote_value=include_vote_value))
+
+    # If, after all filters have been applied, there are no include votes,
+    # or if there are any False include votes, then do not include the record.
+    # return False if not include_votes or False in include_votes else True
+
+    if not include_votes:
+
+        return False
+
+    final_answer = True
+    for vote in include_votes:
+
+        if not vote.include_vote_value:
+
+            final_answer = False
+            break
+
+    # Now record which filters caused the record to be included or excluded.
+    category_set = set()
+    for vote in include_votes:
+
+        if (final_answer and vote.filter_includes) or (not final_answer and not vote.filter_includes):
+
+            if vote.key_name not in category_set:
+
+                category_set.add(vote.key_name)
+
+                add_filter_match(key_name=vote.key_name, key=vote.key, filter_name=vote.filter_name, filter_=vote.filter_, match=vote.match)
+
+    return final_answer
+
+def check_filter_results(key_name, key, config):
+    "Output error info if results for this filter are not what was expected."
+
+    results_info = config.get("results", {})
+    msg = None
+
+
+    # REVIEW: Finish this.
+    pdb.set_trace()
+
+
+    expected_number = results_info.get("expected_number")
+    num_results = DATA_PULL_LOGIC[key_name][key]["results"].get("number", 0)
+
+    if expected_number and num_results != expected_number:
+
+        msg = f"ERROR: {number} results were expected from PTH {key_name} {key}, {num_results} extracted"    # pragma: no cover (should not get here)
+
+    min_ = results_info.get("min")
+    if min_ and num_results < min_:
+
+        msg = f"ERROR: at least {min_} results were expected from PTH {key_name} {key}, {num_results} extracted"    # pragma: no cover (should not get here)
+
+    max_ = results_info.get("max")
+    if max_ and num_results > max_:
+
+        msg = f"ERROR: no more than {max_} results were expected from PTH {key_name} {key}, {num_results} extracted"    # pragma: no cover (should not get here)
+
+    if msg:    # pragma: no cover (should not get here)
+
+        if ETLEnv.instance().are_tests_running():
+
+            raise Exception(msg)
+
+        print(msg, file=sys.stderr)
+
+    msgs = []
+
+    # Now check how well the filters performed.
+    for filter_name, filter_ in DATA_PULL_LOGIC[key_name][key]["filters"].items():
+
+        matches = filter_.get("matches", {})
+        if not matches:
+
+            msgs.append(f"ERROR: the {filter_name} filter got no matches.")
+
+        for value in filter_.get("values"):
+
+            if not matches.get(value, 0):
+
+                msgs.append(f"ERROR: the {filter_name} filter '{value}' got no matches.")
+
+    for msg in msgs:    # pragma: no cover (should not get here)
+
+        if ETLEnv.instance().are_tests_running():
+
+            raise Exception(msg)
+
+        print(msg, file=sys.stderr)
+
+def check_results():
+    "Output error info if results for any filters are not what was expected."
+
+    for key_name, keys in DATA_PULL_LOGIC.items():
+
+        for key, config in keys.items():
+
+            if not config.get("ignore") or True:
+
+                check_filter_results(key_name=key_name, key=key, config=config)
+
+def read_file(file_num):
+    "Returns the contents of the current file."
+
+    file_path = f"etl/data/pth/pth_{file_num}.xml"
+
+    if not os.path.exists(file_path):
+
+        return None
+
+    with open(file_path, "r") as input:
+
+        data = input.read()
+
+    # if testing, use test data?
+    etl_env = ETLEnv.instance()
+    if etl_env.are_tests_running():
+
+        from etl.tests.test_tools import try_to_read_file
+
+        data, format_ = try_to_read_file()
+
+    return data
+
+def extract_data(records=[], file_num=0):
+    """
+    Extract all relevant PTH records.
+    """
+
+    if file_num and  ETLEnv.instance().are_tests_running():
+
+        return records
+
+    # Read current file and parse the xml.
+    data = read_file(file_num=file_num)
+    if not data:
+
+        return records
+
+    xml_data = BeautifulSoup(markup=data, features="lxml-xml", from_encoding="utf-8")
+
+    # Check for search errors.
+    errors = xml_data.find_all("error")
+    if errors:
+
+        raise Exception(errors[0].text)
+
+    # Get relevant records.
+    for record in xml_data.find_all("record"):
+
+        record = get_oaipmh_record(record=record)
+
+        if do_include_record(record=record):
+
+            records.append(record)
+
+    # Keep going until we have gone through all of PTH's metadata.
+    return extract_data(records=records, file_num=file_num+1)
+
 
 class PTHETLProcess(BaseETLProcess):
 
@@ -591,30 +685,11 @@ class PTHETLProcess(BaseETLProcess):
 
             get_data()
 
-        data = []
+        records = extract_data()
 
-        for key_name, keys in DATA_PULL_LOGIC.items():
+        check_results()
 
-            for key, config in keys.items():
-
-                if config.get("ignore"):
-
-                    continue
-
-                print(f"\nExtracting PTH {key_name} {key}:", file=sys.stderr)
-
-                curr_data = extract_data_set(key_name=key_name, key=key, config=config)
-
-                check_results(results=curr_data, key_name=key_name, key=key, config=config)
-
-
-                if ETLEnv.instance().are_tests_running():
-
-                    curr_data = curr_data[ : 1 ]
-
-                data += curr_data
-
-        return data
+        return records
 
     def transform(self, data):
 
@@ -693,8 +768,12 @@ class PTHETLProcess(BaseETLProcess):
 
 if __name__ == "__main__":    # pragma: no cover
 
-    etl_process = PTHETLProcess(format="csv")
+    from etl.run import run_cmd_line
 
-    data = etl_process.extract()
-    etl_process.transform(data=data)
-    etl_process.load(data=data)
+    args_ = [ "pth" ]
+
+    if len(sys.argv) > 1:
+
+        args_ += sys.argv[1:]
+
+    run_cmd_line(args=args_)

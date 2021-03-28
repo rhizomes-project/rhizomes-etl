@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="/media/oai/oai2.xsl"?>
+<OAI-PMH xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.openarchives.org/OAI/2.0/" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+  <responseDate>2021-03-15T22:28:18Z</responseDate>
+  <request verb="GetRecord" metadataPrefix="oai_dc" identifier="info:ark/67531/metapth224566">https://texashistory.unt.edu/oai/</request>
+  <GetRecord>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth224692</identifier>
+        <datestamp>2021-01-19T14:17:34Z</datestamp>
+        <setSpec>partner:DMA</setSpec>
+        <setSpec>collection:DMAEC</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Christmas at the Museum [Press Release]</dc:title>
+          <dc:creator>Dallas Museum of Fine Arts</dc:creator>
+          <dc:subject>Museum exhibits -- Texas -- Dallas.</dc:subject>
+          <dc:subject>Press releases</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>exhibitions</dc:subject>
+          <dc:subject>artworks</dc:subject>
+          <dc:description>Press release related to the exhibition The Hand and the Spirit: Religious Art in America, 1700–1900, December 10, 1972–January 14, 1973, at the Dallas Museum of Fine Arts.</dc:description>
+          <dc:publisher>Dallas Museum of Fine Arts</dc:publisher>
+          <dc:date>1972</dc:date>
+          <dc:type>Text</dc:type>
+          <dc:format>2 p. ; 8 x 11 in.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>local-cont-no: 1227_ReligiousArt_1973_PR</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth224692/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth224692</dc:identifier>
+          <dc:source>The Hand and the Spirit: Religious Art in America, 1700–1900, December 10, 1972–January 14, 1973</dc:source>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas - Dallas County - Dallas</dc:coverage>
+          <dc:coverage>Into Modern Times, 1939-Present</dc:coverage>
+          <dc:rights>Public</dc:rights>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth224566</identifier>
+        <datestamp>2021-01-08T14:43:11Z</datestamp>
+        <setSpec>partner:DMA</setSpec>
+        <setSpec>collection:DMAEC</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Texas Panorama [Checklist]</dc:title>
+          <dc:creator>The American Federation of Arts</dc:creator>
+          <dc:subject>Museum exhibits -- Texas -- Dallas.</dc:subject>
+          <dc:subject>Checklists</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>exhibitions</dc:subject>
+          <dc:subject>artworks</dc:subject>
+          <dc:description>Checklist from the exhibition, "Texas Panorama," October 10–November 28, 1943, held at the Dallas Museum of Fine Arts.</dc:description>
+          <dc:publisher>Dallas Museum of Fine Arts</dc:publisher>
+          <dc:contributor>Dallas Museum of Fine Arts</dc:contributor>
+          <dc:contributor>Bywaters, Jerry</dc:contributor>
+          <dc:date>1943</dc:date>
+          <dc:type>Text</dc:type>
+          <dc:format>[2] p. ; 11 in.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>local-cont-no: 065_TexasPanorama_1943_CL</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth224566/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth224566</dc:identifier>
+          <dc:source>Texas Panorama, October 10–November 28, 1943</dc:source>
+          <dc:language>English</dc:language>
+          <dc:relation>Texas Panorama exhibition catalog; ark:/67531/metapth183309</dc:relation>
+          <dc:relation>Texas Panorama fact sheet; ark:/67531/metapth224567</dc:relation>
+          <dc:relation>Texas Panorama review; ark:/67531/metapth224568</dc:relation>
+          <dc:coverage>United States - Texas - Dallas County - Dallas</dc:coverage>
+          <dc:coverage>Into Modern Times, 1939-Present</dc:coverage>
+          <dc:rights>Public</dc:rights>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth224833</identifier>
+        <datestamp>2021-01-20T15:40:57Z</datestamp>
+        <setSpec>partner:DMA</setSpec>
+        <setSpec>collection:DMAEC</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Dallas Museum of Fine Arts Bulletin, Fall 1981</dc:title>
+          <dc:title>Dallas Museum of Fine Arts Bulletin (1980-1983)</dc:title>
+          <dc:creator>Dallas Museum of Fine Arts</dc:creator>
+          <dc:subject>Museum exhibits -- Texas -- Dallas.</dc:subject>
+          <dc:subject>Newsletters</dc:subject>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:subject>exhibitions</dc:subject>
+          <dc:subject>artworks</dc:subject>
+          <dc:description>Issue Contents: Naum Gabo's Constructed Head No. 2; Arshile Gorky Retrospective; Collaboration: Artists &amp; Architects; Concentrations IV: Alain Kirili: Recent Sculpture; Impressionism and the Modern Vision; John Wise, 1901-1981; Future DMFA Progress Report; Membership Campaign Rated A Success; The Permanent Collection in Motion; Beaux Arts Ball; DMFA Recent Acquisitions; Volunteers; Education Film Programs; Gallery Talks; Lectures; Education Department Has Greatest Year Ever!; Fall Children's Classes; Mu Phi Epsilon Concerts; DMFA Notes</dc:description>
+          <dc:publisher>Dallas Museum of Fine Arts</dc:publisher>
+          <dc:date>1981</dc:date>
+          <dc:type>Journal/Magazine/Newsletter</dc:type>
+          <dc:format>[24] p. ; 10 in.</dc:format>
+          <dc:format>Text</dc:format>
+          <dc:identifier>local-cont-no: 1306_ArtistsArchitects_1981_O3</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth224833/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth224833</dc:identifier>
+          <dc:language>English</dc:language>
+          <dc:coverage>United States - Texas - Dallas County - Dallas</dc:coverage>
+          <dc:coverage>Into Modern Times, 1939-Present</dc:coverage>
+          <dc:rights>Public</dc:rights>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+  </GetRecord>
+</OAI-PMH>

@@ -31,11 +31,17 @@ class TestPTH(TestBase):
 
     #     self.run_etl_test(institution="pth", tag="collection_mafp", format="csv", expected=expected)
 
-    def test_partner_title_search(self):
+    def test_partner_unta(self):
 
-        expected = 'Resource Identifier,Title,Author/Artist,Description,Date,ResourceType,Digital Format,Dimensions,URL,Source,Language,Subjects (Historic Era),Subjects (Topic/Keywords),Subjects (Geographic),Notes,Copyright Status,Collection Information,Credit Line,Images\r\nark: ark:/67531/metapth222215 | info:ark/67531/metapth222215 | local-cont-no: HPLM_MSS282-b2-f08-06,[Band of children on Fiestas Patrias float],,"Photograph of a band of children on a Fiestas Patrias float, 1982. A sign on the float reads, ""Ripley.""",1982,Photograph,Image,1 photograph : b&amp;w ; 5 x 7 in.,https://texashistory.unt.edu/ark:/67531/metapth222215/,,No Language,"Into Modern Times, 1939-Present",Fiestas Patrias International Parade | Hispanic Americans. | Parades. | People - Ethnic Groups - Hispanics | downtown | people,United States - Texas - Harris County - Houston,,,,,https://texashistory.unt.edu/ark:/67531/metapth222215/thumbnail\r\n\n'
+        expected = 'Resource Identifier,Title,Author/Artist,Description,Date,ResourceType,Digital Format,Dimensions,URL,Source,Language,Subjects (Historic Era),Subjects (Topic/Keywords),Subjects (Geographic),Notes,Copyright Status,Collection Information,Credit Line,Images\r\nark: ark:/67531/metapth24471 | info:ark/67531/metapth24471 | local-cont-no: PICT3411,Colima Fest | [Side view of man speaking into microphone],"Castillo, JosÃ© L.","More than 100 persons from Dallas contributed to the Mexican state of Colima to be entered in the next Guinness book of world records for having created the world\'s largest lemonade at 3500 liters.\r\n\r\n20,000 lemons, or one ton, from the valleys of Colima along with 3750 liters of water and 56 liters of syrup beat out the previous record holder of 2500 liters that was created in Victoria, Australia in 1996.",2006-08-06,Photograph,Image,"1 photograph : digital, col.",https://texashistory.unt.edu/ark:/67531/metapth24471/,,Spanish,"2006-08-06 | Into Modern Times, 1939-Present",arts and crafts,United States - Texas - Dallas County - Dallas,,,,,https://texashistory.unt.edu/ark:/67531/metapth24471/thumbnail\r\n\n'
 
-        self.run_etl_test(institution="pth", tag="partner_dma", format="csv", expected=expected)
+        self.run_etl_test(institution="pth", tag="partner_unta", format="csv", expected=expected)
+
+    # def test_partner_title_search(self):
+
+    #     expected = 'Resource Identifier,Title,Author/Artist,Description,Date,ResourceType,Digital Format,Dimensions,URL,Source,Language,Subjects (Historic Era),Subjects (Topic/Keywords),Subjects (Geographic),Notes,Copyright Status,Collection Information,Credit Line,Images\r\nark: ark:/67531/metapth222215 | info:ark/67531/metapth222215 | local-cont-no: HPLM_MSS282-b2-f08-06,[Band of children on Fiestas Patrias float],,"Photograph of a band of children on a Fiestas Patrias float, 1982. A sign on the float reads, ""Ripley.""",1982,Photograph,Image,1 photograph : b&amp;w ; 5 x 7 in.,https://texashistory.unt.edu/ark:/67531/metapth222215/,,No Language,"Into Modern Times, 1939-Present",Fiestas Patrias International Parade | Hispanic Americans. | Parades. | People - Ethnic Groups - Hispanics | downtown | people,United States - Texas - Harris County - Houston,,,,,https://texashistory.unt.edu/ark:/67531/metapth222215/thumbnail\r\n\n'
+
+    #     self.run_etl_test(institution="pth", tag="partner_dma", format="csv", expected=expected)
 
 
 if __name__ == '__main__':    # pragma: no cover

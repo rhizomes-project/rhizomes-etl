@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="/media/oai/oai2.xsl"?>
+<OAI-PMH xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.openarchives.org/OAI/2.0/" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+  <responseDate>2021-03-28T20:42:19Z</responseDate>
+  <request verb="ListRecords" resumptionToken="metadataPrefix=oai_dc&amp;batch_size=1001&amp;cursor=20000">https://texashistory.unt.edu/oai/</request>
+  <ListRecords>
+    <record>
+      <header>
+        <identifier>info:ark/67531/metapth24471</identifier>
+        <datestamp>2020-01-31T16:14:36Z</datestamp>
+        <setSpec>partner:UNTA</setSpec>
+        <setSpec>collection:JCPC</setSpec>
+        <setSpec>access_rights:public</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>[Side view of man speaking into microphone]</dc:title>
+          <dc:title>Colima Fest</dc:title>
+          <dc:creator>Castillo, JosÃ© L.</dc:creator>
+          <dc:subject>Arts and Crafts</dc:subject>
+          <dc:description>More than 100 Chicanos from Dallas contributed to the Mexican state of Colima to be entered in the next Guinness book of world records for having created the world's largest lemonade at 3500 liters.&#13;
+&#13;
+20,000 lemons, or one ton, from the valleys of Colima along with 3750 liters of water and 56 liters of syrup beat out the previous record holder of 2500 liters that was created in Victoria, Australia in 1996.</dc:description>
+          <dc:date>2006-08-06</dc:date>
+          <dc:type>Photograph</dc:type>
+          <dc:format>1 photograph : digital, col.</dc:format>
+          <dc:format>Image</dc:format>
+          <dc:identifier>local-cont-no: PICT3411</dc:identifier>
+          <dc:identifier>https://texashistory.unt.edu/ark:/67531/metapth24471/</dc:identifier>
+          <dc:identifier>ark: ark:/67531/metapth24471</dc:identifier>
+          <dc:language>Spanish</dc:language>
+          <dc:coverage>United States - Texas - Dallas County - Dallas</dc:coverage>
+          <dc:coverage>Into Modern Times, 1939-Present</dc:coverage>
+          <dc:coverage>2006-08-06</dc:coverage>
+          <dc:rights>Public</dc:rights>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+  </ListRecords>
+</OAI-PMH>

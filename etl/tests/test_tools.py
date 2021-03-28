@@ -17,6 +17,39 @@ import pdb
 REAL_GET = requests.get
 
 
+def try_to_read_file(num_calls=0):
+    "Check if there is sample data in a file to use for testing - if found, return the contents of the file."
+
+    test_info = ETLEnv.instance().get_test_info()
+
+    for format_ in [ "json", "xml" ]:
+
+        data_path = f"etl/tests/data/{test_info.institution}"
+        if test_info.tag:
+
+            data_path += f"_{test_info.tag}"
+
+        data_paths = [ data_path + f".{format_}", data_path + f"_{num_calls}.{format_}" ]
+
+        for data_path in data_paths:
+
+            if os.path.exists(data_path):
+
+                with open(data_path, "r") as input:
+
+                    if format_ == "json":
+
+                        data = json.loads(input.read())
+
+                    else:
+
+                        data = input.read()
+
+                    return data, format_
+
+    return None, None
+
+
 class MockResponse():
 
     def __init__(self, data=None, content=None):
@@ -38,32 +71,18 @@ class MockGetter():
 
     def __call__(self, url, params=None, **kwargs):
 
-        test_info = ETLEnv.instance().get_test_info()
-
         self.num_calls = 0 if self.num_calls is None else self.num_calls + 1
 
-        for format_ in [ "json", "xml" ]:
+        data, format_ = try_to_read_file(num_calls=self.num_calls)
+        if data:
 
-            data_path = f"etl/tests/data/{test_info.institution}"
-            if test_info.tag:
+            if format_ == "json":
 
-                data_path += f"_{test_info.tag}"
+                return MockResponse(data=data)
 
-            data_paths = [ data_path + f".{format_}", data_path + f"_{self.num_calls}.{format_}" ]
+            else:
 
-            for data_path in data_paths:
-
-                if os.path.exists(data_path):
-
-                    with open(data_path, "r") as input:
-
-                        if format_ == "json":
-
-                            return MockResponse(data=json.loads(input.read()))
-
-                        else:
-
-                            return MockResponse(content=input.read())
+                return MockResponse(content=data)
 
         # No test data exists for this institutions: Just do the actual http get.
         data = REAL_GET(url=url, params=params, **kwargs)
@@ -84,10 +103,12 @@ class TestBase(unittest.TestCase):
     def setUp(self):
 
         self.maxDiff = None
-        self.debug = False
+        self.debug = True
         self.inspect_output = False
 
-        ETLEnv.instance().init_testing()
+        etl_env = ETLEnv.instance()
+        etl_env.init_testing()
+        etl_env.set_use_cache(use_cached_metadata=True)
 
     def run_etl_test(self, institution, format, expected, tag=''):
 
