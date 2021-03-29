@@ -13,9 +13,6 @@ from etl.tools import RhizomeField, get_oaipmh_record
 from bs4 import BeautifulSoup
 
 
-import pdb
-
-
 protocol = "https://"
 domain = "texashistory.unt.edu"
 
@@ -24,7 +21,6 @@ list_sets_url = protocol + domain + list_sets_path
 
 RECORD_LIMIT = None
 record_count = 0
-num_calls = 0
 
 
 records_path =       "/oai/?verb=ListRecords"
@@ -53,7 +49,7 @@ field_map = {
 }
 
 
-# REVIEW: See https://docs.google.com/document/d/1cD559D8JANAGrs5pwGZqaxa7oHTwid0mxQG0PmAKhLQ/edit for how to pull data.
+# Note: data pull instructions are here: https://docs.google.com/document/d/1cD559D8JANAGrs5pwGZqaxa7oHTwid0mxQG0PmAKhLQ
 
 DATA_PULL_LOGIC = {
 
@@ -69,7 +65,10 @@ DATA_PULL_LOGIC = {
                     "values": [
                         "chicano", "chicana", "chicanx",
                         "mexican-american", "mexican american",
-                        "hispanic", "arte",
+                        "hispanic",
+
+                        # Note: arte is matching too many things, like 'quartet'
+                        # "arte",
                     ]
                 }
             },
@@ -285,12 +284,27 @@ def has_number(value):
 
     return re.search(r'\d', value)
 
-def get_data(resumption_token=None):
+def get_data(resumption_token=None, num_calls=0, resume=False):
     """
     Download PTH's metadata.
     """
 
-    global num_calls
+    # Resume a previous download?
+    if resume:
+
+        if not num_calls:
+
+            raise Exception("num_calls is required to resume get_data()")
+
+        data = read_file(file_num=num_calls)
+        if not data:
+
+            raise Exception(f"File not found for num_calls: {num_calls}")
+
+        last_xml_data = BeautifulSoup(markup=data, features="lxml-xml", from_encoding="utf-8")
+
+        resumption_tokens = last_xml_data.find_all("resumptionToken")
+        resumption_token = resumption_tokens[0].text
 
     if not resumption_token:
 
@@ -317,7 +331,7 @@ def get_data(resumption_token=None):
 
             return
 
-    response = requests.get(url)
+    response = requests.get(url, timeout=120)
     if not response.ok:    # pragma: no cover (should never be True during testing)
 
         raise Exception(f"Error retrieving data from PTH, status code: {response.status_code}, reason: {response.reason}")
@@ -347,7 +361,7 @@ def get_data(resumption_token=None):
         # Make recursive call to extract all records.
         if not RECORD_LIMIT or curr_record_count < RECORD_LIMIT:
 
-            get_data(resumption_token=resumption_tokens[0].text)
+            get_data(resumption_token=resumption_tokens[0].text, num_calls=num_calls)
 
 def add_filter_match(key_name, key, filter_name, filter_, match):
     "Increment the hit count for the given filter."
@@ -410,15 +424,7 @@ def do_include_record(record):
                 continue
 
             # First verify the list set matches.
-            if key_name:
-
-                if key_name not in [ "collection", "partner" ]:
-
-
-                    pdb.set_trace()
-
-
-                elif key_name + ":" + key not in record["setSpec"]:
+            if key_name and key_name + ":" + key not in record["setSpec"]:
 
                     continue
 
@@ -457,9 +463,7 @@ def do_include_record(record):
 
                             if not value:
 
-
-                                pdb.set_trace()
-
+                                raise Exception(f"Error: somehow we have an empty list value for {filter_name}.")
 
                             values[idx] = value.lower()
 
@@ -529,17 +533,12 @@ def check_filter_results(key_name, key, config):
     results_info = config.get("results", {})
     msg = None
 
-
-    # REVIEW: Finish this.
-    pdb.set_trace()
-
-
     expected_number = results_info.get("expected_number")
-    num_results = DATA_PULL_LOGIC[key_name][key]["results"].get("number", 0)
+    num_results = DATA_PULL_LOGIC[key_name][key].get("results", {}).get("number", 0)
 
     if expected_number and num_results != expected_number:
 
-        msg = f"ERROR: {number} results were expected from PTH {key_name} {key}, {num_results} extracted"    # pragma: no cover (should not get here)
+        msg = f"ERROR: {expected_number} results were expected from PTH {key_name} {key}, {num_results} extracted"    # pragma: no cover (should not get here)
 
     min_ = results_info.get("min")
     if min_ and num_results < min_:
@@ -559,29 +558,31 @@ def check_filter_results(key_name, key, config):
 
         print(msg, file=sys.stderr)
 
-    msgs = []
+    # REVIEW: finish this.
 
-    # Now check how well the filters performed.
-    for filter_name, filter_ in DATA_PULL_LOGIC[key_name][key]["filters"].items():
+    # msgs = []
 
-        matches = filter_.get("matches", {})
-        if not matches:
+    # # Now check how well the filters performed.
+    # for filter_name, filter_ in DATA_PULL_LOGIC[key_name][key]["filters"].items():
 
-            msgs.append(f"ERROR: the {filter_name} filter got no matches.")
+    #     matches = filter_.get("matches", {})
+    #     if not matches:
 
-        for value in filter_.get("values"):
+    #         msgs.append(f"ERROR: the {filter_name} filter got no matches.")
 
-            if not matches.get(value, 0):
+    #     for value in filter_.get("values"):
 
-                msgs.append(f"ERROR: the {filter_name} filter '{value}' got no matches.")
+    #         if not matches.get(value, 0):
 
-    for msg in msgs:    # pragma: no cover (should not get here)
+    #             msgs.append(f"ERROR: the {filter_name} filter '{value}' got no matches.")
 
-        if ETLEnv.instance().are_tests_running():
+    # for msg in msgs:    # pragma: no cover (should not get here)
 
-            raise Exception(msg)
+    #     if ETLEnv.instance().are_tests_running():
 
-        print(msg, file=sys.stderr)
+    #         raise Exception(msg)
+
+    #     print(msg, file=sys.stderr)
 
 def check_results():
     "Output error info if results for any filters are not what was expected."
@@ -596,7 +597,7 @@ def check_results():
 
         for key, config in keys.items():
 
-            if not config.get("ignore") or True:
+            if not config.get("ignore"):
 
                 check_filter_results(key_name=key_name, key=key, config=config)
 
@@ -685,10 +686,13 @@ class PTHETLProcess(BaseETLProcess):
 
     def extract(self):
 
-        # Rebuild metadata cached?
-        if not ETLEnv.instance().use_cache():
+        etl_env = ETLEnv.instance()
 
-            get_data()
+        # Rebuild metadata cached?
+        if not etl_env.use_cache():
+
+            offset = etl_env.get_call_offset()
+            get_data(num_calls=offset, resume=(offset != None))
 
         records = extract_data()
 

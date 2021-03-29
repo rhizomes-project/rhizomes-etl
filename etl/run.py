@@ -46,7 +46,7 @@ def do_usage(msg=None):
 
         print(msg, file=sys.stderr)
 
-    print("Usage: run.py institution1 ... institutionN --format[=csv] --use_cache=[yes|no]", file=sys.stderr)
+    print("Usage: run.py institution1 ... institutionN --format[=csv] --use_cache=[yes|no] --resume_download=[offset]", file=sys.stderr)
 
     raise Exception("Invalid usage")
 
@@ -78,6 +78,17 @@ def run_cmd_line(args):
             use_cache = arg[ pos + 1 : ]
 
             setup.ETLEnv.instance().set_use_cache(use_cached_metadata=(use_cache == "yes"))
+
+        elif arg.startswith("--resume_download="):
+
+            if len(arg) < 19:
+
+                raise Exception(f"Invalid offset value: {arg}")
+
+            pos = arg.find('=')
+            offset = arg[ pos + 1 : ]
+
+            setup.ETLEnv.instance().set_call_offset(offset=int(offset))
 
         else:
 

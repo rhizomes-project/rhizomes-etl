@@ -25,6 +25,7 @@ class ETLEnv(object):
 
         self.running_tests = False
         self.use_cached_metadata = False
+        self.offset = None
 
     @staticmethod
     def instance():
@@ -54,6 +55,14 @@ class ETLEnv(object):
         "Returns True if we should use cached metadata files."
 
         return self.use_cached_metadata
+
+    def set_call_offset(self, offset):
+
+        self.offset = offset
+
+    def get_call_offset(self):
+
+        return self.offset
 
     def init_testing(self):
         "Set system up for testing."
