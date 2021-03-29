@@ -39,6 +39,17 @@ def run_etl(institutions, format):
         etl_process.transform(data=data)
         etl_process.load(data=data)
 
+def do_usage(msg=None):
+    "Output usage exception."
+
+    if msg:
+
+        print(msg, file=sys.stderr)
+
+    print("Usage: run.py institution1 ... institutionN --format[=csv] --use_cache=[yes|no]", file=sys.stderr)
+
+    raise Exception("Invalid usage")
+
 def run_cmd_line(args):
 
     format_ = "csv" # default output format.
@@ -52,7 +63,7 @@ def run_cmd_line(args):
 
             if len(arg) < 12:
 
-                raise Exception(f"Invalid format: {arg}")
+                do_usage(msg=f"Invalid format: {arg}")
 
             pos = arg.find('=')
             format_ = arg[ pos + 1 : ]
@@ -72,13 +83,13 @@ def run_cmd_line(args):
 
             if arg not in INST_ETL_MAP:
 
-                raise Exception(f"Invalid institution: {arg}")
+                do_usage(msg=f"Invalid institution: {arg}")
 
             institutions.append(arg)
 
     if not institutions:
 
-        raise Exception(f"Usage: run.py institution1 ... institutionN --format[=csv] --use_cache=[yes|no]")
+        do_usage()
 
     # Run the ETL.
     run_etl(institutions=institutions, format=format_)
