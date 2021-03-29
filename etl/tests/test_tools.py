@@ -103,7 +103,7 @@ class TestBase(unittest.TestCase):
     def setUp(self):
 
         self.maxDiff = None
-        self.debug = True
+        self.debug = False
         self.inspect_output = False
 
         etl_env = ETLEnv.instance()
