@@ -28,7 +28,7 @@ keys_to_not_label = ("content", )
 # REVIEW: Why isn't date coming out correctly? answer: because smithsonian metadata does not really have a date field consistently
 # REVIEW: map "name" to author? problem: 'name' is all over the place in smithsonian's metadata - not consistent
 
-# Note: data pull instructions are here https://docs.google.com/document/d/1Pub60G6w9QxhWamNssoV6tY303oMvfxME97waaj77hs/edit
+# Note: data pull instructions are here: https://docs.google.com/document/d/1Pub60G6w9QxhWamNssoV6tY303oMvfxME97waaj77hs
 
 
 # Important SI collections (Use https://api.si.edu/openaccess/api/v1.0/terms/unit_code?q=online_media_type:Images&api_key=api_key to get updated list.)
@@ -52,6 +52,13 @@ search_terms = [
     "chicana", "chicano", "chicanx",
     "mexican-american",
 ]
+
+# REVIEW: Need to add the following filters (and should support include or exclude)
+#
+# Author/Artist
+# Title
+# Institution
+# Resource Type
 
 
 field_map = {
@@ -118,7 +125,7 @@ def get_image_urls(id_):
 
     url = f"https://api.si.edu/openaccess/api/v1.0/content/{id_}?api_key={api_key}"
 
-    response = requests.get(url=url)
+    response = requests.get(url=url, timeout=60)
     if not response.ok:
 
         return None
@@ -230,7 +237,7 @@ class SIETLProcess(BaseETLProcess):
 
             for search_term in search_terms:
 
-                response = requests.get(query_url + f"&q={search_term}+AND+unit_code:{provider}")
+                response = requests.get(query_url + f"&q={search_term}+AND+unit_code:{provider}", timeout=60)
                 if not response.ok:
 
                     raise Exception(f"Error retrieving data from SI: {response.reason} - status code: {response.status_code}")
@@ -255,23 +262,8 @@ class SIETLProcess(BaseETLProcess):
 
 if __name__ == "__main__":    # pragma: no cover
 
-    if True:
+    etl_process = SIETLProcess(format="csv")
 
-        from etl import setup
-
-        etl_env = setup.ETLEnv()
-        etl_env.start()
-
-        urls = get_image_urls(id_="edanmdm-nmaahc_2012.36.4ab")
-
-        # urls = get_image_urls(id_="edanmdm-nmah_1051480")
-
-        print(urls)
-
-    else:
-
-        etl_process = SIETLProcess(format="csv")
-
-        data = etl_process.extract()
-        etl_process.transform(data=data)
-        etl_process.load(data=data)
+    data = etl_process.extract()
+    etl_process.transform(data=data)
+    etl_process.load(data=data)

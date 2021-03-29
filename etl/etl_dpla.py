@@ -58,6 +58,9 @@ field_map = {
 # returns no results for the providers we are using.
 search_terms = [ "chicano", "chicana", "%22mexican+american%22", ]
 
+# REVIEW: Would be nice to put something in place to check that we get expected # of results back for each
+# partner (like the logic in the PTH data pull).
+
 providers = {
     "UC Santa Barbara, Library, Department of Special Research Collections": search_terms,
     "UC San Diego, Library, Digital Library Development Program": search_terms,
@@ -187,7 +190,7 @@ def extract_provider_records(provider, search_term=None):
 
             url += f"&q={search_term}"
 
-        response = requests.get(url=url)
+        response = requests.get(url=url, timeout=60)
         if not response.ok:
 
             raise Exception(f"Error retrieving data from PTH for {partner}, search_term: {search_term}, status code: {response.status_code}, reason: {response.reason}")

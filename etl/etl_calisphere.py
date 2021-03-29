@@ -59,6 +59,9 @@ field_map = {
     # REVIEW Add type here?
 }
 
+# REVIEW: Would be nice to put something in place to check that we get expected # of results back for each
+# collection (like the logic in the PTH data pull).
+
 collections = [
 
     #
@@ -192,7 +195,7 @@ class CalisphereETLProcess(BaseETLProcess):
             url = f"https://solr.calisphere.org/solr/query/?q=collection_url:https://registry.cdlib.org/api/v1/collection/{collection}/&wt=json&indent=true&rows={rows}"
 
             headers = { "X-Authentication-Token": api_key }
-            response = requests.get(url, headers=headers)
+            response = requests.get(url, headers=headers, timeout=60)
 
             for hit in response.json()['response']['docs']:
 
