@@ -15,12 +15,13 @@ from bs4 import BeautifulSoup
 
 # REVIEW: Things to check:
 #
-# - do the tests still work?
+# - do the tests still work? YES
 # - how long does the category search take?
 # - case sensitivity: try disabling it
-# - profile running extract on one file only.
+# - profile running extract on one file only. DONE
 # - profile runnning extract on different filters.
-# - check error handling on the "values" lookup.
+# - check error handling on the "values" lookup. DONE
+# - add a lot more stderr output to indicate progress of extracting data, etc.
 
 
 protocol = "https://"
@@ -652,13 +653,15 @@ def extract_data(records=[], file_num=0):
 
     etl_env = ETLEnv.instance()
 
-    if file_num and  etl_env.are_tests_running():
+    if file_num and etl_env.are_tests_running():
 
         return records
 
     # Read current file and parse the xml.
     data = read_file(file_num=file_num)
     if not data:
+
+        print(f"Finished extracting data, {len(records)} PTH records extracted ...", file=sys.stderr)
 
         return records
 
@@ -682,6 +685,8 @@ def extract_data(records=[], file_num=0):
             if etl_env.are_tests_running():
 
                 break
+
+    print(f"Extracted data from file {file_num}, {len(records)} PTH records extracted ...", file=sys.stderr)
 
     # Keep going until we have gone through all of PTH's metadata.
     return extract_data(records=records, file_num=file_num+1)
