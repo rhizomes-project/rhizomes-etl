@@ -295,6 +295,9 @@ def has_number(value):
 
     return re.search(r'\d', value)
 
+
+# REVIEW: make get_data() not be recursive anymore.
+
 def get_data(resumption_token=None, num_calls=0, resume=False):
     """
     Download PTH's metadata.
