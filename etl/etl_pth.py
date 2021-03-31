@@ -13,17 +13,6 @@ from etl.tools import RhizomeField, get_oaipmh_record
 from bs4 import BeautifulSoup
 
 
-# REVIEW: Things to check:
-#
-# - do the tests still work? YES
-# - how long does the category search take?
-# - case sensitivity: try disabling it
-# - profile running extract on one file only. DONE
-# - profile runnning extract on different filters.
-# - check error handling on the "values" lookup. DONE
-# - add a lot more stderr output to indicate progress of extracting data, etc.
-
-
 protocol = "https://"
 domain = "texashistory.unt.edu"
 
@@ -65,7 +54,7 @@ field_map = {
 DATA_PULL_LOGIC = {
 
     None: {
-        "dummy": {
+        "site_wide_subject": {
             "filters": {
                 "subject": {
                     "type": "include",
@@ -86,6 +75,26 @@ DATA_PULL_LOGIC = {
             "results" : {
                 "min": 230,
                 "max": 240
+            },
+            "ignore": False
+        },
+
+        "site_wide_creator": {
+            "filters": {
+                "creator": {
+                    "type": "include",
+                    "values": [
+                        "Medellin, Octavio",
+                        "Salinas, Porfirio",
+                        "Jimenez, Luis",
+                        "Munoz, Celia Alvarez",
+                        "Casas, Mel",
+                    ]
+                }
+            },
+            "results" : {
+                "min": 550,
+                "max": 575
             },
             "ignore": False
         }
@@ -204,6 +213,25 @@ DATA_PULL_LOGIC = {
                     # "values": [ "chicano art", "lowriders club", "xochil art center" ]
                     "values": [ "chicana", "chicano", "lowrider", "xochil" ]
                 }
+            },
+            "results" : {
+                "expected_number": 112
+            },
+            "ignore": False
+        },
+
+        "UNT": {
+            "filters": {
+                "subject": {
+                    "type": "include",
+                    "values": [ "Arts and Crafts" ]
+                },
+
+                # REVIEW: I think mary thomas wants these 2 filters to be OR, not AND.
+                # "keywords": {
+                #     "type": "include",
+                #     "values": [ "charreada" ]
+                # },
             },
             "results" : {
                 "expected_number": 112
