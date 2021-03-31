@@ -13,6 +13,16 @@ from etl.tools import RhizomeField, get_oaipmh_record
 from bs4 import BeautifulSoup
 
 
+# REVIEW: Things to check:
+#
+# - do the tests still work?
+# - how long does the category search take?
+# - case sensitivity: try disabling it
+# - profile running extract on one file only.
+# - profile runnning extract on different filters.
+# - check error handling on the "values" lookup.
+
+
 protocol = "https://"
 domain = "texashistory.unt.edu"
 
@@ -304,7 +314,14 @@ def get_data(resumption_token=None, num_calls=0, resume=False):
         last_xml_data = BeautifulSoup(markup=data, features="lxml-xml", from_encoding="utf-8")
 
         resumption_tokens = last_xml_data.find_all("resumptionToken")
-        resumption_token = resumption_tokens[0].text
+
+        if resumption_tokens:
+
+            resumption_token = resumption_tokens[0].text
+
+        else:
+
+            return
 
     if not resumption_token:
 
@@ -313,7 +330,7 @@ def get_data(resumption_token=None, num_calls=0, resume=False):
 
             if os.path.exists("etl/data/pth_old"):
 
-                shutil.rmtree("etl/data/pth_old")
+                raise Exception("Error: it looks like etl/data/pth_old still exists - please back it up or remove it.")
 
             os.rename("etl/data/pth", "etl/data/pth_old")
 
@@ -363,6 +380,10 @@ def get_data(resumption_token=None, num_calls=0, resume=False):
 
             get_data(resumption_token=resumption_tokens[0].text, num_calls=num_calls)
 
+    else:
+
+        print(f"Finished retrieving PTH records - {curr_record_count} records retrieved ...", file=sys.stderr)
+
 def add_filter_match(key_name, key, filter_name, filter_, match):
     "Increment the hit count for the given filter."
 
@@ -374,34 +395,70 @@ def add_filter_match(key_name, key, filter_name, filter_, match):
 
     DATA_PULL_LOGIC[key_name][key]["results"]["number"] = DATA_PULL_LOGIC[key_name][key]["results"].get("number", 0) + 1
 
-    if not filter_.get("matches"):
+    if match:
 
-        filter_["matches"] = {}
+        if not filter_.get("matches"):
 
-    filter_["matches"][match] = filter_.get(match, 0) + 1
+            filter_["matches"] = {}
+
+        filter_["matches"][match] = filter_.get(match, 0) + 1
+
+def find_keyword_match(record, filter_):
+
+    title = ''.join(record.get('title', [])).lower()
+    description = ''.join(record.get('description', [])).lower()
+
+    for keyword in filter_.get("values", []):
+
+        if keyword in title or keyword in description:
+
+            return keyword
+
+def find_filter_match(record, filter_name, filter_):
+
+    case_sensitive = filter_.get("case-sensitive", False)
+    exact_match = filter_.get("exact-match", False)
+    desired_values = filter_.get("values", [])
+
+    values = record.get(filter_name, [])
+    if type(values) is not list:
+
+        values = [ values ]
+
+    for desired_value in desired_values:
+
+        desired_value_copy = desired_value if case_sensitive else desired_value.lower()
+
+        if exact_match:
+
+            if desired_value_copy in values:
+
+                return desired_value
+
+        else:
+
+            for value in values:
+
+                if case_sensitive:
+
+                    if desired_value_copy in value:
+
+                        return desired_value
+
+                else:
+
+                    if desired_value_copy in value.lower():
+
+                        return desired_value
 
 def do_include_record(record):
     """
     Returns True if the record should be added, based on the filters.
-
-    Possible effects of a given filter:
-
-    - For a filter that tries to exclude records:
-        - if matched, then add a False include vote.
-        - if not matched, then add a True include vote.
-
-    - For a filter that tries to include records:
-        - if matched, then add a True include vote.
-        - if not matched, then add a False include vote.
-
-    If, after all filters have been applied, there are no include votes,
-    or if there are any False include votes, then do not include the record.
-
     """
 
     class IncludeVote():
 
-        def __init__(self, key_name, key, filter_name, filter_, match, filter_includes, include_vote_value):
+        def __init__(self, key_name, key, filter_name=None, filter_=None, match=None, filter_includes=True, include_vote_value=True):
 
             self.key_name = key_name
             self.key = key
@@ -410,8 +467,6 @@ def do_include_record(record):
             self.match = match
             self.filter_includes = filter_includes
             self.include_vote_value = include_vote_value
-
-    include_votes = []
 
     # Loops through all the filters and check each one.
     for key_name, keys in DATA_PULL_LOGIC.items():
@@ -423,109 +478,75 @@ def do_include_record(record):
 
                 continue
 
-            # First verify the list set matches.
+            # First verify record belongs to this category.
             if key_name and key_name + ":" + key not in record["setSpec"]:
 
                     continue
 
+            include_votes = []
+
             # Now apply any filters.
             filters = config.get("filters", {})
-            for filter_name, filter_ in filters.items():
 
-                match = None
+            # If the category matches and has no filters, then that is a vote to include the record.
+            if not filters:
 
-                if filter_name == "keywords":
+                include_votes.append(IncludeVote(key_name=key_name, key=key, filter_includes=True, include_vote_value=True))
 
-                    title = ''.join(record.get('title', [])).lower()
-                    description = ''.join(record.get('description', [])).lower()
+            else:
 
-                    for keyword in filter_["values"]:
+                for filter_name, filter_ in filters.items():
 
-                        if keyword in title or keyword in description:
+                    match = None
 
-                            match = keyword
-                            break
+                    if filter_name == "keywords":
 
-                else:
+                        match = find_keyword_match(record=record, filter_=filter_)
 
-                    case_sensitive = filter_.get("case-sensitive", False)
-                    exact_match = filter_.get("exact-match", False)
-                    desired_values = filter_["values"]
+                    else:
 
-                    values = record.get(filter_name, [])
-                    if type(values) is not list:
+                        match = find_filter_match(record=record, filter_name=filter_name, filter_=filter_)
 
-                        values = [ values ]
+                    # - For a filter that tries to exclude records:
+                    #     - if matched, then add a False include vote.
+                    #     - if not matched, then add a True include vote.
+                    #
+                    # - For a filter that tries to include records:
+                    #     - if matched, then add a True include vote.
+                    #     - if not matched, then add a False include vote.
 
-                    if not case_sensitive:
+                    filter_includes = filter_["type"] == "include"
+                    include_vote_value = filter_includes if match else not filter_includes
 
-                        for idx, value in enumerate(values):
+                    include_votes.append(IncludeVote(key_name=key_name, key=key, filter_name=filter_name, filter_=filter_, match=match, filter_includes=filter_includes, include_vote_value=include_vote_value))
 
-                            if not value:
+            # If nothing in this category matched, or any of the include votes were False,
+            # then this category does not indicate the record should be included.
+            category_matches = len(include_votes) > 0
+            for vote in include_votes:
 
-                                raise Exception(f"Error: somehow we have an empty list value for {filter_name}.")
+                if not vote.include_vote_value:
 
-                            values[idx] = value.lower()
+                    category_matches = False
 
-                    for desired_value in desired_values:
+            # Now record which filters caused the record to be included or excluded.
+            category_set = set()
+            for vote in include_votes:
 
-                        desired_value_copy = desired_value if case_sensitive else desired_value.lower()
+                if (category_matches and vote.filter_includes) or (not category_matches and not vote.filter_includes):
 
-                        if exact_match:
+                    if vote.key_name not in category_set:
 
-                            matched = desired_value_copy in values
+                        category_set.add(vote.key_name)
 
-                        else:
+                        add_filter_match(key_name=vote.key_name, key=vote.key, filter_name=vote.filter_name, filter_=vote.filter_, match=vote.match)
 
-                            for value in values:
+            if category_matches:
 
-                                if desired_value_copy in value:
+                return True
 
-                                    match = desired_value
-                                    break
-
-                # - For a filter that tries to exclude records:
-                #     - if matched, then add a False include vote.
-                #     - if not matched, then add a True include vote.
-                # 
-                # - For a filter that tries to include records:
-                #     - if matched, then add a True include vote.
-                #     - if not matched, then add a False include vote.
-
-                filter_includes = filter_["type"] == "include"
-                include_vote_value = filter_includes if match else not filter_includes
-
-                include_votes.append(IncludeVote(key_name=key_name, key=key, filter_name=filter_name, filter_=filter_, match=match, filter_includes=filter_includes, include_vote_value=include_vote_value))
-
-    # If, after all filters have been applied, there are no include votes,
-    # or if there are any False include votes, then do not include the record.
-    # return False if not include_votes or False in include_votes else True
-
-    if not include_votes:
-
-        return False
-
-    final_answer = True
-    for vote in include_votes:
-
-        if not vote.include_vote_value:
-
-            final_answer = False
-            break
-
-    # Now record which filters caused the record to be included or excluded.
-    category_set = set()
-    for vote in include_votes:
-
-        if (final_answer and vote.filter_includes) or (not final_answer and not vote.filter_includes):
-
-            if vote.key_name not in category_set:
-
-                category_set.add(vote.key_name)
-
-                add_filter_match(key_name=vote.key_name, key=vote.key, filter_name=vote.filter_name, filter_=vote.filter_, match=vote.match)
-
-    return final_answer
+    # None of the categories indicated the record should be included.
+    return False
 
 def check_filter_results(key_name, key, config):
     "Output error info if results for this filter are not what was expected."
@@ -629,7 +650,9 @@ def extract_data(records=[], file_num=0):
     Extract all relevant PTH records.
     """
 
-    if file_num and  ETLEnv.instance().are_tests_running():
+    etl_env = ETLEnv.instance()
+
+    if file_num and  etl_env.are_tests_running():
 
         return records
 
@@ -655,6 +678,10 @@ def extract_data(records=[], file_num=0):
         if do_include_record(record=record):
 
             records.append(record)
+
+            if etl_env.are_tests_running():
+
+                break
 
     # Keep going until we have gone through all of PTH's metadata.
     return extract_data(records=records, file_num=file_num+1)
@@ -694,13 +721,17 @@ class PTHETLProcess(BaseETLProcess):
             offset = etl_env.get_call_offset()
             get_data(num_calls=offset, resume=(offset != None))
 
-        records = extract_data()
+        records = extract_data(records=[])
 
         check_results()
 
         return records
 
     def transform(self, data):
+
+
+        # pdb.set_trace()
+
 
         for record in data:
 
