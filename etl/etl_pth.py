@@ -729,10 +729,6 @@ class PTHETLProcess(BaseETLProcess):
 
     def transform(self, data):
 
-
-        # pdb.set_trace()
-
-
         for record in data:
 
             # Split 'format' into digital format and dimensions.
