@@ -646,7 +646,7 @@ def read_file(file_num):
 
     return data
 
-def extract_data(records=[], file_num=0):
+def extract_data_impl(file_num=0):
     """
     Extract all relevant PTH records.
     """
@@ -655,15 +655,13 @@ def extract_data(records=[], file_num=0):
 
     if file_num and etl_env.are_tests_running():
 
-        return records
+        return None
 
     # Read current file and parse the xml.
     data = read_file(file_num=file_num)
     if not data:
 
-        print(f"Finished extracting data, {len(records)} PTH records extracted ...", file=sys.stderr)
-
-        return records
+        return None
 
     xml_data = BeautifulSoup(markup=data, features="lxml-xml", from_encoding="utf-8")
 
@@ -672,6 +670,8 @@ def extract_data(records=[], file_num=0):
     if errors:
 
         raise Exception(errors[0].text)
+
+    records = []
 
     # Get relevant records.
     for record in xml_data.find_all("record"):
@@ -686,10 +686,31 @@ def extract_data(records=[], file_num=0):
 
                 break
 
-    print(f"Extracted data from file {file_num}, {len(records)} PTH records extracted ...", file=sys.stderr)
+    return records
 
-    # Keep going until we have gone through all of PTH's metadata.
-    return extract_data(records=records, file_num=file_num+1)
+    # # Keep going until we have gone through all of PTH's metadata.
+    # return extract_data(records=records, file_num=file_num+1)
+
+def extract_data():
+
+    file_num = 0
+    records = []
+    tmp = 1
+
+    while tmp is not None:
+
+        tmp = extract_data_impl(file_num=file_num)
+        if tmp:
+
+            records += tmp
+
+        print(f"Extracted data from file {file_num}, {len(records)} PTH records extracted ...", file=sys.stderr)
+
+        file_num += 1
+
+    print(f"Finished extracting data, {len(records)} PTH records extracted ...", file=sys.stderr)
+
+    return records
 
 
 class PTHETLProcess(BaseETLProcess):
@@ -726,7 +747,7 @@ class PTHETLProcess(BaseETLProcess):
             offset = etl_env.get_call_offset()
             get_data(num_calls=offset, resume=(offset != None))
 
-        records = extract_data(records=[])
+        records = extract_data()
 
         check_results()
 
