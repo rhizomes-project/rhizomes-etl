@@ -24,32 +24,58 @@ keys_to_ignore = ("title_sort", "type", "label")
 keys_to_not_label = ("content", )
 
 
-# REVIEW: map "name" to author? problem: 'name' is all over the place in smithsonian's metadata - not consistent
-
 # Note: data pull instructions are here: https://docs.google.com/document/d/1Pub60G6w9QxhWamNssoV6tY303oMvfxME97waaj77hs
-
-
 # Important SI collections (Use https://api.si.edu/openaccess/api/v1.0/terms/unit_code?q=online_media_type:Images&api_key=api_key to get updated list.)
-providers = [
 
-    # archives of american art
-    "AAA",
-
-    # smithsonian american art museum
-    "SAAM",
-
-    # national museum of american history
-    "NMAH",
-
-    # national portrait gallery
-    "NPG",
-]
 
 # REVIEW double-check that "mexican-american" and "mexican american" get the same results.
 search_terms = [
     "chicana", "chicano", "chicanx",
     "mexican-american",
 ]
+
+RHIZONES_KEYSTONE_ARTIST_LIST = (
+    "Abarca Marco",
+    "Abaroa Eduardo",
+)
+
+DATA_PULL_INSTRUCTIONS = {
+
+    # archives of american art
+    "AAA": {
+        "filters": {
+            "content/indexedStructured/name": {
+                # "type": "include",
+                # "values": RHIZONES_KEYSTONE_ARTIST_LIST
+                "type": "exclude",
+                "values": [
+                    "Dows, Olin | Phillips, Harlan B",
+                    "Penney, James | Trovato, Joseph S",
+                ]
+            }
+        },
+        "results" : {
+            "min": 230,
+            "max": 240
+        },
+        "ignore": False
+    },
+
+    # smithsonian american art museum
+    "SAAM": {
+        "ignore": True
+    },
+
+    # national museum of american history
+    "NMAH": {
+        "ignore": True
+    },
+
+    # national portrait gallery
+    "NPG": {
+        "ignore": True
+    },
+}
 
 # REVIEW: Need to add the following filters (and should support include or exclude)
 #
@@ -143,16 +169,18 @@ def get_image_urls(id_):
 
     return urls
 
-def transform_coalesce(data):
+def coalesce(data):
 
-    cnt = 0
+    # REVIEW Make this work on 1 record at a time.
+
+    # cnt = 0
 
     for record in data:
 
-        cnt += 1
-        if cnt % 25 == 0:
+        # cnt += 1
+        # if cnt % 25 == 0:
 
-            print(f"Transformed {cnt} of {len(data)} records", file=sys.stderr)
+        #     print(f"Coalesced {cnt} of {len(data)} records", file=sys.stderr)
 
         # Extract relevant author info.
         names = record.get("content/indexedStructured/name", [])
@@ -211,16 +239,43 @@ def transform_coalesce(data):
 
             record['content/indexedStructured/geoLocation'] = new_locations
 
+def do_include_record(record, config):
+    """
+    Returns True if the record should be added, based on the filters.
+    """
+
+    votes = []
+
+    for filter_name, filter_ in config.get("filters", {}).items():
+
+        desired_values = filter_.get("values", [])
+
+        values = record.get(filter_name, [])
+        for value in values:
+
+            if value in desired_values:
+
+                votes.append(config["type"] == "include")
+                break
+
+    if not votes or False in votes:
+
+        return False
+
+    else:
+
+        return True
+
 
 class SIETLProcess(BaseETLProcess):
 
     def init_testing(self):
 
-        global providers
-        global search_terms
+        global DATA_PULL_INSTRUCTIONS
 
-        providers = [ providers[0] ]
-        search_terms = [ search_terms[0] ]
+        first_provider = list(DATA_PULL_INSTRUCTIONS.keys())[0]
+
+        DATA_PULL_INSTRUCTIONS = { first_provider : DATA_PULL_INSTRUCTIONS[first_provider] }
 
     def get_field_map(self):
 
@@ -231,7 +286,7 @@ class SIETLProcess(BaseETLProcess):
         data = []
 
         # Constrain results by keyword and institution.
-        for provider in providers:
+        for provider, config in DATA_PULL_INSTRUCTIONS.items():
 
             for search_term in search_terms:
 
@@ -242,18 +297,25 @@ class SIETLProcess(BaseETLProcess):
 
                 for row in response.json()["response"]["rows"]:
 
+                    # Retrieve the raw json.
                     record = traverse(record=row)
-                    data.append(record)
 
-                    if etl_env.are_tests_running():
+                    # Clean it up so it's easier to work with.
+                    coalesce(data=[record])
 
-                        break
+                    if do_include_record(record=record, config=config):
+
+                        data.append(record)
+
+                        if etl_env.are_tests_running():
+
+                            break
 
         return data
 
     def transform(self, data):
 
-        transform_coalesce(data=data)
+        # REVIEW: What needs to happen here?
 
         super().transform(data=data)
 

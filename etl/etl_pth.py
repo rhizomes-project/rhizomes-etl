@@ -643,9 +643,9 @@ def read_file(file_num):
     etl_env = ETLEnv.instance()
     if etl_env.are_tests_running():
 
-        from etl.tests.test_tools import try_to_read_file
+        from etl.tests.test_tools import try_to_read_test_data
 
-        data, format_ = try_to_read_file()
+        data, format_ = try_to_read_test_data()
 
     return data
 
