@@ -317,8 +317,12 @@ class DPLAETLProcess(BaseETLProcess):
 
 if __name__ == "__main__":    # pragma: no cover
 
-    etl_process = DPLAETLProcess(format="csv")
+    from etl.run import run_cmd_line
 
-    data = etl_process.extract()
-    etl_process.transform(data=data)
-    etl_process.load(data=data)
+    args_ = [ "dpla" ]
+
+    if len(sys.argv) > 1:
+
+        args_ += sys.argv[1:]
+
+    run_cmd_line(args=args_)

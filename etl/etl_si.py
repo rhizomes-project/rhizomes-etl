@@ -24,8 +24,6 @@ keys_to_ignore = ("title_sort", "type", "label")
 keys_to_not_label = ("content", )
 
 
-# REVIEW: is there a way to constrain results by institution?
-# REVIEW: Why isn't date coming out correctly? answer: because smithsonian metadata does not really have a date field consistently
 # REVIEW: map "name" to author? problem: 'name' is all over the place in smithsonian's metadata - not consistent
 
 # Note: data pull instructions are here: https://docs.google.com/document/d/1Pub60G6w9QxhWamNssoV6tY303oMvfxME97waaj77hs
@@ -262,8 +260,12 @@ class SIETLProcess(BaseETLProcess):
 
 if __name__ == "__main__":    # pragma: no cover
 
-    etl_process = SIETLProcess(format="csv")
+    from etl.run import run_cmd_line
 
-    data = etl_process.extract()
-    etl_process.transform(data=data)
-    etl_process.load(data=data)
+    args_ = [ "si" ]
+
+    if len(sys.argv) > 1:
+
+        args_ += sys.argv[1:]
+
+    run_cmd_line(args=args_)
