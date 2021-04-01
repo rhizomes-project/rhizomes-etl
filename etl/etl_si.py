@@ -18,7 +18,7 @@ etl_env.start()
 api_key = etl_env.get_api_key(name="smithsonian")
 
 query_path = "/openaccess/api/v1.0/search"
-query_url = protocol + domain + query_path + "?api_key=" + api_key + "&rows=1000"
+query_url = protocol + domain + query_path + "?api_key=" + api_key
 
 keys_to_ignore = ("title_sort", "type", "label")
 keys_to_not_label = ("content", )
@@ -169,75 +169,66 @@ def get_image_urls(id_):
 
     return urls
 
-def coalesce(data):
+def coalesce(record):
 
-    # REVIEW Make this work on 1 record at a time.
+    # Extract relevant author info.
+    names = record.get("content/indexedStructured/name", [])
+    if names:
 
-    # cnt = 0
+        new_names = []
+        for name in names:
 
-    for record in data:
+            if type(name) is dict:
 
-        # cnt += 1
-        # if cnt % 25 == 0:
+                if name["type"] == "personal_main":
 
-        #     print(f"Coalesced {cnt} of {len(data)} records", file=sys.stderr)
+                    new_names.append(name["content"])
 
-        # Extract relevant author info.
-        names = record.get("content/indexedStructured/name", [])
-        if names:
+            else:
 
-            new_names = []
-            for name in names:
+                new_names.append(name)
 
-                if type(name) is dict:
+        record["content/indexedStructured/name"] = new_names
 
-                    if name["type"] == "personal_main":
+    # # Retrieve urls to any images for the record.
+    urls = get_image_urls(id_=record["id"])
+    if urls:
 
-                        new_names.append(name["content"])
+        record["image_urls"] = urls
+
+    # Clean up notes.
+    notes = record.get('content/freetext/notes')
+    if notes:
+
+        new_notes = []
+        for note in notes:
+
+            new_notes.append(f"- {note['label']}: {note['content']}")
+
+        record['content/freetext/notes'] = new_notes
+
+    # Clean up geolocations.
+    locations = record.get('content/indexedStructured/geoLocation')
+    if locations:
+
+        new_locations = set()
+        for location in locations:
+
+            for value in location.values():
+
+                if type(value) is dict:
+
+                    if value.get('content'):
+
+                        new_locations.add(value['content'])
 
                 else:
 
-                    new_names.append(name)
+                    new_locations.add(value)
 
-            record["content/indexedStructured/name"] = new_names
+        record['content/indexedStructured/geoLocation'] = new_locations
 
-        # # Retrieve urls to any images for the record.
-        urls = get_image_urls(id_=record["id"])
-        if urls:
-
-            record["image_urls"] = urls
-
-        # Clean up notes.
-        notes = record.get('content/freetext/notes')
-        if notes:
-
-            new_notes = []
-            for note in notes:
-
-                new_notes.append(f"- {note['label']}: {note['content']}")
-
-            record['content/freetext/notes'] = new_notes
-
-        # Clean up geolocations.
-        locations = record.get('content/indexedStructured/geoLocation')
-        if locations:
-
-            new_locations = set()
-            for location in locations:
-
-                for value in location.values():
-
-                    if type(value) is dict:
-
-                        if value.get('content'):
-
-                            new_locations.add(value['content'])
-
-                    else:
-
-                        new_locations.add(value)
-
-            record['content/indexedStructured/geoLocation'] = new_locations
+    return record
 
 def do_include_record(record, config):
     """
@@ -290,26 +281,41 @@ class SIETLProcess(BaseETLProcess):
 
             for search_term in search_terms:
 
-                response = requests.get(query_url + f"&q={search_term}+AND+unit_code:{provider}", timeout=60)
-                if not response.ok:
+                # Loop through all records for each provider via start / rows logic - see http://edan.si.edu/openaccess/apidocs/
 
-                    raise Exception(f"Error retrieving data from SI: {response.reason} - status code: {response.status_code}")
+                start = 0
+                rows = 1000
+                row_count = 1
 
-                for row in response.json()["response"]["rows"]:
+                while start < row_count:
 
-                    # Retrieve the raw json.
-                    record = traverse(record=row)
+                    response = requests.get(query_url + f"&q={search_term}+AND+unit_code:{provider}&start={start}&rows={rows}", timeout=60)
+                    if not response.ok:
 
-                    # Clean it up so it's easier to work with.
-                    coalesce(data=[record])
+                        raise Exception(f"Error retrieving data from SI: {response.reason} - status code: {response.status_code}")
 
-                    if do_include_record(record=record, config=config):
+                    json_data = response.json()
+                    row_count = json_data["response"]["rowCount"]
 
-                        data.append(record)
+                    for row in json_data["response"]["rows"]:
 
-                        if etl_env.are_tests_running():
+                        # Retrieve the raw json.
+                        record = traverse(record=row)
 
-                            break
+                        # Clean it up so it's easier to work with.
+                        record = coalesce(record=record)
+
+                        if do_include_record(record=record, config=config):
+
+                            data.append(record)
+
+                            if etl_env.are_tests_running():
+
+                                break
+
+                    start += rows
+
+            print(f"Extracted {len(data)} records from provider {provider}", file=sys.stderr)
 
         return data
 
