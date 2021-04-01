@@ -74,8 +74,8 @@ pyvenv.cfg
 secrets.json
 
 # Data file formats
-*.csv
-*.json
-*.txt
-*.xml
+/*.csv
+/*.json
+/*.txt
+/*.xml
 
