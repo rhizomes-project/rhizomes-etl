@@ -197,6 +197,10 @@ class CalisphereETLProcess(BaseETLProcess):
             headers = { "X-Authentication-Token": api_key }
             response = requests.get(url, headers=headers, timeout=60)
 
+            if not response.ok:    # pragma: no cover (should never be True during testing)
+
+                raise Exception(f"Error retrieving data from Calisphere, status code: {response.status_code}, reason: {response.reason}")
+
             for hit in response.json()['response']['docs']:
 
                 # Filter colletion results by term?
