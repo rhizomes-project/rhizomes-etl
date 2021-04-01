@@ -16,20 +16,24 @@ import pdb
 
 REAL_GET = requests.get
 
-
-def try_to_read_file(num_calls=0):
-    "Check if there is sample data in a file to use for testing - if found, return the contents of the file."
+def get_test_data_paths(format_, num_calls):
+    "Returns list of possible paths to test data files."
 
     test_info = ETLEnv.instance().get_test_info()
 
+    data_path = f"etl/tests/data/{test_info.institution}"
+    if test_info.tag:
+
+        data_path += f"_{test_info.tag}"
+
+    return [ data_path + f".{format_}", data_path + f"_{num_calls}.{format_}" ]
+
+def try_to_read_test_data(num_calls=0):
+    "Check if there is sample data in a file to use for testing - if found, return the contents of the file."
+
     for format_ in [ "json", "xml" ]:
 
-        data_path = f"etl/tests/data/{test_info.institution}"
-        if test_info.tag:
-
-            data_path += f"_{test_info.tag}"
-
-        data_paths = [ data_path + f".{format_}", data_path + f"_{num_calls}.{format_}" ]
+        data_paths = get_test_data_paths(format_=format_, num_calls=num_calls)
 
         for data_path in data_paths:
 
@@ -73,7 +77,7 @@ class MockGetter():
 
         self.num_calls = 0 if self.num_calls is None else self.num_calls + 1
 
-        data, format_ = try_to_read_file(num_calls=self.num_calls)
+        data, format_ = try_to_read_test_data(num_calls=self.num_calls)
         if data:
 
             if format_ == "json":
@@ -89,6 +93,8 @@ class MockGetter():
 
         if True:
 
+            data_paths = get_test_data_paths(format_="txt", num_calls=self.num_calls)
+
             with open(data_paths[0], "w") as output:
 
                 output.write(data.text)
@@ -103,8 +109,8 @@ class TestBase(unittest.TestCase):
     def setUp(self):
 
         self.maxDiff = None
-        self.debug = False
-        self.inspect_output = False
+        self.debug = True
+        self.inspect_output = True
 
         etl_env = ETLEnv.instance()
         etl_env.init_testing()
