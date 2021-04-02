@@ -11,6 +11,9 @@ from etl.setup import ETLEnv
 from etl.tools import RhizomeField
 
 
+import pdb
+
+
 protocol = "https://"
 domain = "api.si.edu"
 etl_env = ETLEnv.instance()
@@ -44,15 +47,45 @@ DATA_PULL_INSTRUCTIONS = {
     # archives of american art
     "AAA": {
         "filters": {
+            "keywords": {
+                "type": "include",
+                "values": search_terms
+            },
             "content/indexedStructured/name": {
                 # "type": "include",
                 # "values": RHIZONES_KEYSTONE_ARTIST_LIST
                 "type": "exclude",
                 "values": [
-                    "Dows, Olin | Phillips, Harlan B",
-                    "Penney, James | Trovato, Joseph S",
+                    "Dows, Olin",
+                    "Phillips, Harlan B",
+                    "Penney, James",
+                    "Trovato, Joseph S",
+                    "Biberman, Edward",
+                    "McGlynn, Betty Hoag",
+                    "Laigo, Val M",
+                    "Nakane, Kazuko",
+                    "Lau, Alan Chong",
+                    "Lechay, James",
+                    "Brown, Robert F",
+                    "Berkowitz, Leon",
+                    "Fox, Ida",
+                    "Goodman, Wally",
+                    "Picher, William Stanton",
+                    "Spencer, Niles",
+                    "True, Allen Tupper",
+                    "Cook, Lia",
+                    "Baizerman, Suzanne",
+                    "Lamarque, Abril",
+                    "Bartlett, John Russell",
                 ]
-            }
+            },
+            "title": {
+                "type": "exclude",
+                "values": [
+                    "Ankrum Gallery records, circa 1900-circa 1990s bulk 1960-1990",
+                    "Carnegie Institute, Museum of Art records, 1883-1962, bulk 1885-1940",
+                ]
+            },
         },
         "results" : {
             "min": 230,
@@ -130,7 +163,7 @@ def get_value(record, keys):
         return value
 
 def traverse(record, key=None, indents=0):
-    # Retrieves desired data from each record.
+    "Retrieve desired data from each record."
 
     data = {}
 
@@ -138,6 +171,13 @@ def traverse(record, key=None, indents=0):
 
         value = get_value(record=record, keys=key)
         if value:
+
+
+            if "Trovato" in value:
+
+
+                pdb.set_trace()
+
 
             data[key] = value
 
@@ -190,11 +230,13 @@ def coalesce(record):
 
         record["content/indexedStructured/name"] = new_names
 
-    # # Retrieve urls to any images for the record.
-    urls = get_image_urls(id_=record["id"])
-    if urls:
+    # REVIEW restore this.
 
-        record["image_urls"] = urls
+    # # Retrieve urls to any images for the record.
+    # urls = get_image_urls(id_=record["id"])
+    # if urls:
+
+    #     record["image_urls"] = urls
 
     # Clean up notes.
     notes = record.get('content/freetext/notes')
@@ -239,15 +281,27 @@ def do_include_record(record, config):
 
     for filter_name, filter_ in config.get("filters", {}).items():
 
-        desired_values = filter_.get("values", [])
+        if filter_name == "keywords":
 
+            continue
+
+        desired_values = filter_.get("values", [])
         values = record.get(filter_name, [])
+
+        matched = False
+
+        # Count individual matches.
         for value in values:
 
             if value in desired_values:
 
-                votes.append(config["type"] == "include")
+                matched = True
                 break
+
+        # Does this record match the filter?
+        if matched:
+
+            votes.append(filter_["type"] == "include")
 
     if not votes or False in votes:
 
@@ -256,6 +310,15 @@ def do_include_record(record, config):
     else:
 
         return True
+
+
+# class QueryInfo():
+
+#     def __init__(self, provider, keywords=None):
+
+#         self.provider = None
+#         self.keywords = keywords
+
 
 
 class SIETLProcess(BaseETLProcess):
@@ -276,44 +339,62 @@ class SIETLProcess(BaseETLProcess):
 
         data = []
 
+
+        pdb.set_trace()
+
+
         # Constrain results by keyword and institution.
         for provider, config in DATA_PULL_INSTRUCTIONS.items():
 
-            for search_term in search_terms:
+            # Loop through all records for each provider via start / rows logic - see http://edan.si.edu/openaccess/apidocs/
 
-                # Loop through all records for each provider via start / rows logic - see http://edan.si.edu/openaccess/apidocs/
+            start = 0
+            row_limit = 1000
+            row_count = 1
 
-                start = 0
-                rows = 1000
-                row_count = 1
+            while start < row_count:
 
-                while start < row_count:
+                # if "keywords" in config.get("filters", {}):
 
-                    response = requests.get(query_url + f"&q={search_term}+AND+unit_code:{provider}&start={start}&rows={rows}", timeout=60)
-                    if not response.ok:
+                #     for keyword in config["filters"]["keywords"]["values"]:
 
-                        raise Exception(f"Error retrieving data from SI: {response.reason} - status code: {response.status_code}")
+                #     response = requests.get(query_url + f"&q={search_term}+AND+unit_code:{provider}&start={start}&rows={row_limit}", timeout=60)
 
-                    json_data = response.json()
-                    row_count = json_data["response"]["rowCount"]
+                # else:
 
-                    for row in json_data["response"]["rows"]:
+                response = requests.get(query_url + f"&q=unit_code:{provider}&start={start}&rows={row_limit}", timeout=60)
 
-                        # Retrieve the raw json.
-                        record = traverse(record=row)
+                if not response.ok:
 
-                        # Clean it up so it's easier to work with.
-                        record = coalesce(record=record)
+                    raise Exception(f"Error retrieving data from SI: {response.reason} - status code: {response.status_code}")
 
-                        if do_include_record(record=record, config=config):
+                json_data = response.json()
+                row_count = json_data["response"]["rowCount"]
+                rows = json_data["response"]["rows"]
 
-                            data.append(record)
+                for row in rows:
 
-                            if etl_env.are_tests_running():
+                    # Retrieve the raw json.
+                    record = traverse(record=row)
 
-                                break
+                    # Clean it up so it's easier to work with.
+                    record = coalesce(record=record)
 
-                    start += rows
+                    if do_include_record(record=record, config=config):
+
+                        data.append(record)
+
+                        if etl_env.are_tests_running():
+
+                            break
+
+
+                # pdb.set_trace()
+
+
+                start += row_limit
+
+                print(f"Queried {start} records from provider {provider}", file=sys.stderr)
 
             print(f"Extracted {len(data)} records from provider {provider}", file=sys.stderr)
 
