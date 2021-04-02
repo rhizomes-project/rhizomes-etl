@@ -11,9 +11,6 @@ from etl.setup import ETLEnv
 from etl.tools import RhizomeField
 
 
-import pdb
-
-
 protocol = "https://"
 domain = "api.si.edu"
 etl_env = ETLEnv.instance()
@@ -172,13 +169,6 @@ def traverse(record, key=None, indents=0):
         value = get_value(record=record, keys=key)
         if value:
 
-
-            if "Trovato" in value:
-
-
-                pdb.set_trace()
-
-
             data[key] = value
 
     return data
@@ -283,6 +273,8 @@ def do_include_record(record, config):
 
         if filter_name == "keywords":
 
+            votes.append(True)
+
             continue
 
         desired_values = filter_.get("values", [])
@@ -311,14 +303,64 @@ def do_include_record(record, config):
 
         return True
 
+def extract_response(response, config):
 
-# class QueryInfo():
+    if not response.ok:
 
-#     def __init__(self, provider, keywords=None):
+        raise Exception(f"Error retrieving data from SI: {response.reason} - status code: {response.status_code}")
 
-#         self.provider = None
-#         self.keywords = keywords
+    data = []
 
+    json_data = response.json()
+    row_count = json_data["response"]["rowCount"]
+    rows = json_data["response"]["rows"]
+
+    print(f"Querying {len(rows)} records ...", file=sys.stderr)
+
+    for row in rows:
+
+        # Retrieve the raw json.
+        record = traverse(record=row)
+
+        # Clean it up so it's easier to work with.
+        record = coalesce(record=record)
+
+        if do_include_record(record=record, config=config):
+
+            data.append(record)
+
+            if etl_env.are_tests_running():
+
+                break
+
+    return data
+
+def extract_query(provider, config, keyword=None):
+
+    data = []
+
+    start = 0
+    row_limit = 1000
+    row_count = 1
+
+    # Loop through all records for each provider via start / rows logic - see http://edan.si.edu/openaccess/apidocs/
+    while start <= row_count:
+
+        if keyword:
+
+            url = query_url + f"&q={keyword}+AND+unit_code:{provider}&start={start}&rows={row_limit}"
+
+        else:
+
+            url = query_url + f"&q=unit_code:{provider}&start={start}&rows={row_limit}"
+
+        response = requests.get(url=url, timeout=60)
+        data += extract_response(response=response, config=config)
+
+        start += row_limit
+        print(f"Queried {start} records from provider {provider}", file=sys.stderr)
+
+    return data
 
 
 class SIETLProcess(BaseETLProcess):
@@ -339,64 +381,24 @@ class SIETLProcess(BaseETLProcess):
 
         data = []
 
-
-        pdb.set_trace()
-
-
         # Constrain results by keyword and institution.
         for provider, config in DATA_PULL_INSTRUCTIONS.items():
 
-            # Loop through all records for each provider via start / rows logic - see http://edan.si.edu/openaccess/apidocs/
+            print(f"Querying provider {provider} ...", file=sys.stderr)
 
-            start = 0
-            row_limit = 1000
-            row_count = 1
+            if "keywords" in config.get("filters", {}):
 
-            while start < row_count:
+                for keyword in config["filters"]["keywords"]["values"]:
 
-                # if "keywords" in config.get("filters", {}):
+                    curr_data = extract_query(provider=provider, config=config, keyword=keyword)
 
-                #     for keyword in config["filters"]["keywords"]["values"]:
+            else:
 
-                #     response = requests.get(query_url + f"&q={search_term}+AND+unit_code:{provider}&start={start}&rows={row_limit}", timeout=60)
+                curr_data = extract_query(provider=provider, config=config)
 
-                # else:
+            print(f"Extracted {len(curr_data)} records from provider {provider}", file=sys.stderr)
 
-                response = requests.get(query_url + f"&q=unit_code:{provider}&start={start}&rows={row_limit}", timeout=60)
-
-                if not response.ok:
-
-                    raise Exception(f"Error retrieving data from SI: {response.reason} - status code: {response.status_code}")
-
-                json_data = response.json()
-                row_count = json_data["response"]["rowCount"]
-                rows = json_data["response"]["rows"]
-
-                for row in rows:
-
-                    # Retrieve the raw json.
-                    record = traverse(record=row)
-
-                    # Clean it up so it's easier to work with.
-                    record = coalesce(record=record)
-
-                    if do_include_record(record=record, config=config):
-
-                        data.append(record)
-
-                        if etl_env.are_tests_running():
-
-                            break
-
-
-                # pdb.set_trace()
-
-
-                start += row_limit
-
-                print(f"Queried {start} records from provider {provider}", file=sys.stderr)
-
-            print(f"Extracted {len(data)} records from provider {provider}", file=sys.stderr)
+            data += curr_data
 
         return data
 
