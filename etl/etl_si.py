@@ -47,6 +47,7 @@ DATA_PULL_INSTRUCTIONS = {
             "keywords": {
                 "type": "include",
                 "values": search_terms
+                # 71 hits
             },
             "content/indexedStructured/name": {
                 # "type": "include",
@@ -279,6 +280,9 @@ def do_include_record(record, config):
 
         desired_values = filter_.get("values", [])
         values = record.get(filter_name, [])
+        if type(values) is not list:
+
+            values = [values]
 
         matched = False
 
@@ -383,6 +387,10 @@ class SIETLProcess(BaseETLProcess):
 
         # Constrain results by keyword and institution.
         for provider, config in DATA_PULL_INSTRUCTIONS.items():
+
+            if config.get("ignore", False):
+
+                continue
 
             print(f"Querying provider {provider} ...", file=sys.stderr)
 
