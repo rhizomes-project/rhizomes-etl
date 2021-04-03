@@ -1,0 +1,344 @@
+{
+  "status": 200,
+  "responseCode": 1,
+  "response": {
+    "id": "edanmdm-siris_arc_211752",
+    "title": "Louis Pomerantz papers, 1937-1988, bulk 1950s-1988",
+    "unitCode": "AAA",
+    "type": "edanmdm",
+    "url": "edanmdm:siris_arc_211752",
+    "content": {
+      "descriptiveNonRepeating": {
+        "record_ID": "siris_arc_211752",
+        "unit_code": "AAA",
+        "title_sort": "LOUIS POMERANTZ PAPERS 19371988 BULK 1950S1988",
+        "title": {
+          "label": "Title",
+          "content": "Louis Pomerantz papers, 1937-1988, bulk 1950s-1988"
+        },
+        "metadata_usage": {
+          "access": "CC0"
+        },
+        "data_source": "Archives of American Art"
+      },
+      "indexedStructured": {
+        "date": [
+          "1940s",
+          "1930s",
+          "1960s",
+          "1950s",
+          "1980s",
+          "1970s"
+        ],
+        "object_type": [
+          "Archival materials",
+          "Collection descriptions",
+          "Sound recordings",
+          "Interviews"
+        ],
+        "name": [
+          {
+            "type": "personal_main",
+            "content": "Pomerantz, Louis"
+          },
+          {
+            "type": "personal_subj",
+            "content": "Feller, Robert L"
+          },
+          {
+            "type": "personal_subj",
+            "content": "Konrad, Anton"
+          },
+          {
+            "type": "personal_subj",
+            "content": "Stolow, Nathan"
+          },
+          {
+            "type": "personal_subj",
+            "content": "Stout, George L"
+          },
+          {
+            "type": "personal_subj",
+            "content": "Wilke, Ulfert"
+          },
+          {
+            "type": "corporate_subj",
+            "content": "American Institute for Conservation of Historic and Artistic Works"
+          },
+          {
+            "type": "corporate_subj",
+            "content": "Art Institute of Chicago"
+          },
+          {
+            "type": "corporate_subj",
+            "content": "Eastman Kodak Company"
+          },
+          {
+            "type": "corporate_subj",
+            "content": "International Institute for Conservation of Historic and Artistic Works"
+          },
+          {
+            "type": "corporate_subj",
+            "content": "Rijksmuseum (Netherlands)"
+          },
+          {
+            "type": "corporate_subj",
+            "content": "United States"
+          }
+        ],
+        "topic": [
+          "Art",
+          "Conservation and restoration",
+          "Museum conservation methods",
+          "Study and teaching",
+          "Technique",
+          "Flood damage"
+        ],
+        "place": [
+          "Florence",
+          "Italy"
+        ],
+        "usage_flag": [
+          "SuppressFromCSC"
+        ]
+      },
+      "freetext": {
+        "date": [
+          {
+            "label": "Date",
+            "content": "1937"
+          },
+          {
+            "label": "Date",
+            "content": "1937-1988"
+          },
+          {
+            "label": "Date",
+            "content": "bulk 1950s-1988"
+          }
+        ],
+        "setName": [
+          {
+            "label": "See more items in",
+            "content": "Louis Pomerantz papers, 1937-1988, bulk 1950s-1988"
+          }
+        ],
+        "identifier": [
+          {
+            "label": "Local number",
+            "content": "AAA"
+          },
+          {
+            "label": "Local number",
+            "content": "AAA pomeloui"
+          }
+        ],
+        "notes": [
+          {
+            "label": "Notes",
+            "content": "Funding for the processing of this collection is provided by the Terra Foundation for American Art, Smithsonian Institution."
+          },
+          {
+            "label": "Notes",
+            "content": "Chicago art conservator Louis Pomerantz (1919-1988), established and operated the conservation lab at the Art Institute of Chicago and then maintained a private practice conducting conservation work for individual collectors and various museums and art institutions in the midwest."
+          },
+          {
+            "label": "Notes",
+            "content": "The Louis Pomerantz papers were donated to the Archives of American Art by Else Pomerantz."
+          },
+          {
+            "label": "Occupation",
+            "content": "Conservators Illinois Chicago"
+          },
+          {
+            "label": "Summary",
+            "content": "The papers of Chicago art conservator, Louis Pomerantz, measure 34.2 linear feet and date from 1937 to 1988, with the bulk of the material dating from the 1950s-1980s. The papers document two principal aspects of Pomerantz's professional life: his conservation work for institutions and individuals, and the development of his professional expertise as documented through his writings and teachings, his continued conservation training, and his involvement in professional organizations. Files include scattered biographical material, professional correspondence, interviews, writings, project and client files, teaching and reference files, printed material, and photographic material primarily documenting conservation treatments and techniques."
+          },
+          {
+            "label": "Summary",
+            "content": "Biographical material includes military and educational records, as well as resumés and references from various art institutions and individuals."
+          },
+          {
+            "label": "Summary",
+            "content": "Pomerantz's professional correspondence is with other conservators including Anton J. Konrad, Nathan Stolow, and Jean Volkmer, conservation scientists such as Robert L. Feller, and people who assisted Pomerantz early in his career such as George Stout. Also documented is Pomerantz's relationship with the Smithsonian Institution Traveling Exhibition Service (SITES) which undertook his traveling Know What You See exhibition, his involvement with museums and other art institutions, and companies who developed and manufactured conservation equipment such as Eastman Kodak."
+          },
+          {
+            "label": "Summary",
+            "content": "Interviews include circa 9 radio station interviews on sound tape reels and sound cassettes of Pomerantz individually or with others, including a recording of a conversation regarding the Florence flood."
+          },
+          {
+            "label": "Summary",
+            "content": "Writings and notes are by Pomerantz and include typescripts, notes and background material for lectures and papers delivered from the 1950s-1980s. Also found is a portfolio of his writings from 1962-1978, and a notebook Pomerantz compiled while working at the Rijksmuseum which includes notes, hand-drawn colored illustrations and photographs of conservation technique."
+          },
+          {
+            "label": "Summary",
+            "content": "Project/client files form the largest series and document Pomerantz's work, both in private practice and as conservator at the Art Institute of Chicago, through conditions reports, recommendations for and records of treatment, related correspondence, financial documentation, and photographic material."
+          },
+          {
+            "label": "Summary",
+            "content": "Teaching and reference files comprise material gathered by Pomerantz during participation in professional organizations and events, such as the American Institute for Conservation of Historic and Artistic Works, and the International Institute for Conservation of Historic and Artistic Works. Also found are subject files, consisting of reference material and correspondence, on a wide range of conservation-related subjects."
+          },
+          {
+            "label": "Summary",
+            "content": "Personal business records from the 1950s consist of receipts for conservation-related supplies and one folder of business tax records."
+          },
+          {
+            "label": "Summary",
+            "content": "Printed material primarily includes news clippings documenting Pomerantz's career up to and including the 1970s, clippings on conservation-related news, blank postcards of artwork, and two exhibition catalogs."
+          },
+          {
+            "label": "Summary",
+            "content": "Photographic material includes images demonstrating a wide variety of conservation techniques, including sets of slides used for lectures and presentations, and images of Pomerantz at work. Also found are photos of artists including Ulfert Wilke. Photographic media include black and white and color photos, slides, glass slides, X-rays and corresponding prints, negatives and 5 glass plate negatives."
+          },
+          {
+            "label": "Cite as",
+            "content": "Louis Pomerantz papers, 1937-1988, bulk 1950s-1988. Archives of American Art, Smithsonian Institution"
+          },
+          {
+            "label": "Repository Loc.",
+            "content": "Archives of American Art, Smithsonian Institution, Washington, D.C. 20560"
+          },
+          {
+            "label": "Repository Loc.",
+            "content": "(33 bxs, #1-32, 36) VC1B3-VC1C3"
+          },
+          {
+            "label": "Repository Loc.",
+            "content": "(1 hol, #35) V3C8"
+          },
+          {
+            "label": "Repository Loc.",
+            "content": "(2 sol, #33-34) V4D6"
+          },
+          {
+            "label": "Repository Loc.",
+            "content": "(1 ov, #37) dr168"
+          },
+          {
+            "label": "Repository Loc.",
+            "content": "(5 glass plate negs.) MGP1"
+          }
+        ],
+        "name": [
+          {
+            "label": "Creator",
+            "content": "Pomerantz, Louis"
+          },
+          {
+            "label": "Subject",
+            "content": "Feller, Robert L"
+          },
+          {
+            "label": "Subject",
+            "content": "Konrad, Anton"
+          },
+          {
+            "label": "Subject",
+            "content": "Stolow, Nathan"
+          },
+          {
+            "label": "Subject",
+            "content": "Stout, George L (George Leslie)"
+          },
+          {
+            "label": "Subject",
+            "content": "Wilke, Ulfert 1907-1987"
+          },
+          {
+            "label": "Subject",
+            "content": "American Institute for Conservation of Historic and Artistic Works"
+          },
+          {
+            "label": "Subject",
+            "content": "Art Institute of Chicago"
+          },
+          {
+            "label": "Subject",
+            "content": "Eastman Kodak Company"
+          },
+          {
+            "label": "Subject",
+            "content": "International Institute for Conservation of Historic and Artistic Works"
+          },
+          {
+            "label": "Subject",
+            "content": "Rijksmuseum (Netherlands)"
+          },
+          {
+            "label": "Subject",
+            "content": "United States Army"
+          }
+        ],
+        "topic": [
+          {
+            "label": "Topic",
+            "content": "Art--Conservation and restoration--Study and teaching"
+          },
+          {
+            "label": "Topic",
+            "content": "Art--Conservation and restoration--Technique"
+          },
+          {
+            "label": "Topic",
+            "content": "Flood damage"
+          },
+          {
+            "label": "Topic",
+            "content": "Museum conservation methods--Study and teaching"
+          },
+          {
+            "label": "Topic",
+            "content": "Museum conservation methods--Technique"
+          }
+        ],
+        "place": [
+          {
+            "label": "Place",
+            "content": "Italy"
+          },
+          {
+            "label": "Place",
+            "content": "Florence"
+          }
+        ],
+        "physicalDescription": [
+          {
+            "label": "Physical description",
+            "content": "34.2 linear feet"
+          }
+        ],
+        "dataSource": [
+          {
+            "label": "Data Source",
+            "content": "Archives of American Art"
+          }
+        ],
+        "objectRights": [
+          {
+            "label": "Restrictions & Rights",
+            "content": "Use of original papers requires an appointment. Use of audiovisual recordings with no duplicate copy requires advance notice"
+          }
+        ],
+        "objectType": [
+          {
+            "label": "Type",
+            "content": "Interviews"
+          },
+          {
+            "label": "Type",
+            "content": "Collection descriptions"
+          },
+          {
+            "label": "Type",
+            "content": "Sound recordings"
+          }
+        ]
+      }
+    },
+    "hash": "ab60d3e43f5f6addd06f6da0d885f431afafab80",
+    "docSignature": "3e0b2a3d5907a00661c32ea76c4875cb23fe8f8f_5e787fe004b0768887fca79d7303365f",
+    "timestamp": "1607419345",
+    "lastTimeUpdated": "1607419335",
+    "version": ""
+  }
+}

@@ -26,7 +26,13 @@ def get_test_data_paths(format_, num_calls):
 
         data_path += f"_{test_info.tag}"
 
-    return [ data_path + f".{format_}", data_path + f"_{num_calls}.{format_}" ]
+    if num_calls:
+
+        return [ data_path + f"_{num_calls}.{format_}" ]
+
+    else:
+
+        return [ data_path + f".{format_}", data_path + f"_{num_calls}.{format_}" ]
 
 def try_to_read_test_data(num_calls=0):
     "Check if there is sample data in a file to use for testing - if found, return the contents of the file."
@@ -109,8 +115,8 @@ class TestBase(unittest.TestCase):
     def setUp(self):
 
         self.maxDiff = None
-        self.debug = True
-        self.inspect_output = True
+        self.debug = False
+        self.inspect_output = False
 
         etl_env = ETLEnv.instance()
         etl_env.init_testing()

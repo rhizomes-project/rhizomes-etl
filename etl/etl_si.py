@@ -174,31 +174,6 @@ def traverse(record, key=None, indents=0):
 
     return data
 
-def get_image_urls(id_):
-    "Returns urls to images, if any, for the given object."
-
-    url = f"https://api.si.edu/openaccess/api/v1.0/content/{id_}?api_key={api_key}"
-
-    response = requests.get(url=url, timeout=60)
-    if not response.ok:
-
-        return None
-
-    data = response.json()
-    urls = []
-
-    media_objects = data["response"]["content"].get("descriptiveNonRepeating", {}).get("online_media", {}).get("media", [])
-    for media_object in media_objects:
-
-        for resource in media_object.get("resources", []):
-
-            url = resource.get("url", None)
-            if url and url.endswith(".jpg"):
-
-                urls.append(url)
-
-    return urls
-
 def coalesce(record):
 
     # Extract relevant author info.
@@ -219,14 +194,6 @@ def coalesce(record):
                 new_names.append(name)
 
         record["content/indexedStructured/name"] = new_names
-
-    # REVIEW restore this.
-
-    # # Retrieve urls to any images for the record.
-    # urls = get_image_urls(id_=record["id"])
-    # if urls:
-
-    #     record["image_urls"] = urls
 
     # Clean up notes.
     notes = record.get('content/freetext/notes')
@@ -261,6 +228,40 @@ def coalesce(record):
         record['content/indexedStructured/geoLocation'] = new_locations
 
     return record
+
+def get_image_urls(id_):
+    "Returns urls to images, if any, for the given object."
+
+    url = f"https://api.si.edu/openaccess/api/v1.0/content/{id_}?api_key={api_key}"
+
+    response = requests.get(url=url, timeout=60)
+    if not response.ok:
+
+        return None
+
+    data = response.json()
+    urls = []
+
+    media_objects = data["response"]["content"].get("descriptiveNonRepeating", {}).get("online_media", {}).get("media", [])
+    for media_object in media_objects:
+
+        for resource in media_object.get("resources", []):
+
+            url = resource.get("url", None)
+            if url and url.endswith(".jpg"):
+
+                urls.append(url)
+
+    return urls
+
+def finish_record(record):
+    "Get any remaining data."
+
+    # Retrieve urls to any images for the record.
+    urls = get_image_urls(id_=record["id"])
+    if urls:
+
+        record["image_urls"] = urls
 
 def do_include_record(record, config):
     """
@@ -322,6 +323,8 @@ def extract_response(rows, config):
 
         if do_include_record(record=record, config=config):
 
+            finish_record(record=record)
+
             data.append(record)
 
             if etl_env.are_tests_running():
@@ -364,6 +367,10 @@ def extract_query(provider, config, keyword=None):
         start += row_limit
         print(f"Queried {start} records from provider {provider}", file=sys.stderr)
 
+        if ETLEnv.instance().are_tests_running():
+
+            break
+
     return data
 
 
@@ -376,6 +383,8 @@ class SIETLProcess(BaseETLProcess):
         first_provider = list(DATA_PULL_INSTRUCTIONS.keys())[0]
 
         DATA_PULL_INSTRUCTIONS = { first_provider : DATA_PULL_INSTRUCTIONS[first_provider] }
+
+        DATA_PULL_INSTRUCTIONS[first_provider]["filters"]["keywords"]["values"] = [ DATA_PULL_INSTRUCTIONS[first_provider]["filters"]["keywords"]["values"][0] ]
 
     def get_field_map(self):
 
