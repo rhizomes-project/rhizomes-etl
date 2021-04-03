@@ -85,16 +85,43 @@ DATA_PULL_INSTRUCTIONS = {
                 ]
             },
         },
-        "results" : {
-            "min": 230,
-            "max": 240
-        },
-        "ignore": False
+        "ignore": True
     },
 
     # smithsonian american art museum
     "SAAM": {
-        "ignore": True
+        "filters": {
+            "keywords": {
+                "type": "include",
+                "values": search_terms
+                # keyword search combined with filters below yields 109 hits
+            },
+            "content/indexedStructured/name": {
+                # "type": "include",
+                # "values": RHIZONES_KEYSTONE_ARTIST_LIST
+                "type": "exclude",
+                "values": [
+                    "Walcott, Mary Vaux",
+                    "Stanley, John Mix",
+                    "Black Knife",
+                    "Hartley, Marsden",
+                    "Gaines, Edmund Pendleton",
+                    "Powers, Hiram",
+                    "Catlin, George",
+                    "Hyde, Helen",
+                    "Posada",
+                    "Picart, Bernard",
+                ]
+            },
+            "title": {
+                "type": "exclude",
+                "values": [
+                    "Ankrum Gallery records, circa 1900-circa 1990s bulk 1960-1990",
+                    "Carnegie Institute, Museum of Art records, 1883-1962, bulk 1885-1940",
+                ]
+            },
+        },
+        "ignore": False
     },
 
     # national museum of american history
