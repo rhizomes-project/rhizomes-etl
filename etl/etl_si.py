@@ -85,7 +85,7 @@ DATA_PULL_INSTRUCTIONS = {
                 ]
             },
         },
-        "ignore": True
+        "ignore": False
     },
 
     # smithsonian american art museum
@@ -112,26 +112,89 @@ DATA_PULL_INSTRUCTIONS = {
                     "Posada",
                     "Picart, Bernard",
                 ]
-            },
-            "title": {
-                "type": "exclude",
-                "values": [
-                    "Ankrum Gallery records, circa 1900-circa 1990s bulk 1960-1990",
-                    "Carnegie Institute, Museum of Art records, 1883-1962, bulk 1885-1940",
-                ]
-            },
+            }
         },
         "ignore": False
     },
 
     # national museum of american history
     "NMAH": {
-        "ignore": True
+        "filters": {
+            "keywords": {
+                "type": "include",
+                "values": search_terms
+                # keyword search combined with filters below yields ??? hits
+            },
+            "content/indexedStructured/name": {
+                # "type": "include",
+                # "values": RHIZONES_KEYSTONE_ARTIST_LIST
+                "type": "exclude",
+                "values": [
+                    "Whitney, Eli",
+                    "Taylor, Zachary",
+                    "Graham, Samuel",
+                    "Wilson, M. W.",
+                    "Grant, Ulysses S. (Ulysses Simpson)",
+                    "Lee, Robert E.",
+                    "Giles, John Lawrence",
+                    "Robertson, William C.",
+                    "J. Kelly and Sons",
+                    "Inger, Christian",
+                    "Grant, Ulysses S. (Ulysses Simpson)",
+                    "Lee, Robert E.",
+                    "Hohenstein, Anton",
+                    "Spohni, G.",
+                    "Kelly, Thomas",
+                    "Kurz & Allison-Art Studio",
+                    "McClellan, George B.",
+                    "Strong, Thomas W.",
+                    "Sarony & Major",
+                    "Skinner, Charles",
+                    "American Bank Note Company",
+                    "Sartain, John",
+                    "Taylor, Zachary",
+                    "Wilson, Woodrow",
+                    "Twiggs, Levi",
+                ]
+            },
+            "content/indexedStructured/object_type": {
+                "type": "exclude",
+                "values": [
+                    "Coins (Money)",
+                    "Medals",
+                    "Army",
+                    "Navy",
+                    "Military",
+                    "Sound Recording",
+                    "Sound Recordings",
+                    "Note",
+                    "Fire Hats",
+                    "Record",
+                    "Tokens",
+                ]
+            }
+        },
+        "ignore": False
     },
 
     # national portrait gallery
     "NPG": {
-        "ignore": True
+        "filters": {
+            "keywords": {
+                "type": "include",
+                "values": search_terms + [ "Chavez", "Kahlo", "Huerta", "Ruben Salazar", "Selena", "Mendoza, Lydia", "Antonio Orendain" ]
+                # keyword search combined with filters below yields ??? hits
+            },
+            "content/indexedStructured/name": {
+                # "type": "include",
+                # "values": RHIZONES_KEYSTONE_ARTIST_LIST
+                "type": "exclude",
+                "values": [
+                    "United States Army",
+                ]
+            }
+        },
+        "ignore": False
     },
 }
 
