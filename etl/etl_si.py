@@ -47,7 +47,7 @@ DATA_PULL_INSTRUCTIONS = {
             "keywords": {
                 "type": "include",
                 "values": search_terms
-                # 71 hits
+                # keyword search combined with filters below yields 71 hits
             },
             "content/indexedStructured/name": {
                 # "type": "include",
@@ -173,7 +173,6 @@ def traverse(record, key=None, indents=0):
             data[key] = value
 
     return data
-
 
 def get_image_urls(id_):
     "Returns urls to images, if any, for the given object."
@@ -307,17 +306,9 @@ def do_include_record(record, config):
 
         return True
 
-def extract_response(response, config):
-
-    if not response.ok:
-
-        raise Exception(f"Error retrieving data from SI: {response.reason} - status code: {response.status_code}")
+def extract_response(rows, config):
 
     data = []
-
-    json_data = response.json()
-    row_count = json_data["response"]["rowCount"]
-    rows = json_data["response"]["rows"]
 
     print(f"Querying {len(rows)} records ...", file=sys.stderr)
 
@@ -359,7 +350,16 @@ def extract_query(provider, config, keyword=None):
             url = query_url + f"&q=unit_code:{provider}&start={start}&rows={row_limit}"
 
         response = requests.get(url=url, timeout=60)
-        data += extract_response(response=response, config=config)
+
+        if not response.ok:
+
+            raise Exception(f"Error retrieving data from SI: {response.reason} - status code: {response.status_code}")
+
+        json_data = response.json()
+        row_count = json_data["response"]["rowCount"]
+        rows = json_data["response"]["rows"]
+
+        data += extract_response(rows=rows, config=config)
 
         start += row_limit
         print(f"Queried {start} records from provider {provider}", file=sys.stderr)
