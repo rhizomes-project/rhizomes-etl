@@ -349,11 +349,15 @@ def finish_record(record):
 
     # REVIEW: Figure out how to get the image urls without using up all allowed calls.
 
-    # # Retrieve urls to any images for the record.
-    # urls = get_image_urls(id_=record["id"])
-    # if urls:
+    if not ETLEnv.instance().are_tests_running():
 
-    #     record["image_urls"] = urls
+        return
+
+    # Retrieve urls to any images for the record.
+    urls = get_image_urls(id_=record["id"])
+    if urls:
+
+        record["image_urls"] = urls
 
 def do_include_record(record, config):
     """
