@@ -123,7 +123,7 @@ DATA_PULL_INSTRUCTIONS = {
             "keywords": {
                 "type": "include",
                 "values": search_terms
-                # keyword search combined with filters below yields ??? hits
+                # keyword search combined with filters below yields 2799 hits
             },
             "content/indexedStructured/name": {
                 # "type": "include",
@@ -183,7 +183,7 @@ DATA_PULL_INSTRUCTIONS = {
             "keywords": {
                 "type": "include",
                 "values": search_terms + [ "Chavez", "Kahlo", "Huerta", "Ruben Salazar", "Selena", "Mendoza, Lydia", "Antonio Orendain" ]
-                # keyword search combined with filters below yields ??? hits
+                # keyword search combined with filters below yields 65 hits
             },
             "content/indexedStructured/name": {
                 # "type": "include",
@@ -347,11 +347,13 @@ def get_image_urls(id_):
 def finish_record(record):
     "Get any remaining data."
 
-    # Retrieve urls to any images for the record.
-    urls = get_image_urls(id_=record["id"])
-    if urls:
+    # REVIEW: Figure out how to get the image urls without using up all allowed calls.
 
-        record["image_urls"] = urls
+    # # Retrieve urls to any images for the record.
+    # urls = get_image_urls(id_=record["id"])
+    # if urls:
+
+    #     record["image_urls"] = urls
 
 def do_include_record(record, config):
     """
@@ -455,7 +457,7 @@ def extract_query(provider, config, keyword=None):
         data += extract_response(rows=rows, config=config)
 
         start += row_limit
-        print(f"Queried {start} records from provider {provider}", file=sys.stderr)
+        print(f"Filtered {len(rows)} records from provider {provider}", file=sys.stderr)
 
         if ETLEnv.instance().are_tests_running():
 
@@ -499,13 +501,15 @@ class SIETLProcess(BaseETLProcess):
 
                     curr_data = extract_query(provider=provider, config=config, keyword=keyword)
 
+                    data += curr_data
+
             else:
 
                 curr_data = extract_query(provider=provider, config=config)
 
-            print(f"Extracted {len(curr_data)} records from provider {provider}", file=sys.stderr)
+                data += curr_data
 
-            data += curr_data
+        print(f"Extracted {len(data)} records from provider {provider}", file=sys.stderr)
 
         return data
 
