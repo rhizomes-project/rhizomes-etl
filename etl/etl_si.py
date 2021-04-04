@@ -9,6 +9,7 @@ import sys
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
 from etl.tools import RhizomeField
+from etl.rhizomes_keystone_artist_list import ARTIST_NAMES
 
 
 protocol = "https://"

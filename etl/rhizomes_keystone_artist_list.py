@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-NAMES = [
+ARTIST_NAMES = [
     "A", "",
     "Abarca", "Marco",
     "Abaroa", "Eduardo",
