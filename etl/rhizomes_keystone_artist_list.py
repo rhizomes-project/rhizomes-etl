@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-ARTIST_NAMES = [
+RHIZONES_KEYSTONE_ARTIST_LIST = [
     "A", "",
     "Abarca", "Marco",
     "Abaroa", "Eduardo",

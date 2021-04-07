@@ -9,7 +9,7 @@ import sys
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
 from etl.tools import RhizomeField
-from etl.rhizomes_keystone_artist_list import ARTIST_NAMES
+from etl.rhizomes_keystone_artist_list import RHIZONES_KEYSTONE_ARTIST_LIST
 
 
 protocol = "https://"
@@ -35,12 +35,7 @@ search_terms = [
     "mexican-american",
 ]
 
-RHIZONES_KEYSTONE_ARTIST_LIST = (
-    "Abarca Marco",
-    "Abaroa Eduardo",
-)
-
-DATA_PULL_INSTRUCTIONS = {
+DATA_PULL_INSTRUCTIONS_VIA_KEYWORDS = {
 
     # archives of american art
     "AAA": {
@@ -51,8 +46,6 @@ DATA_PULL_INSTRUCTIONS = {
                 # keyword search combined with filters below yields 71 hits
             },
             "content/indexedStructured/name": {
-                # "type": "include",
-                # "values": RHIZONES_KEYSTONE_ARTIST_LIST
                 "type": "exclude",
                 "values": [
                     "Dows, Olin",
@@ -98,8 +91,6 @@ DATA_PULL_INSTRUCTIONS = {
                 # keyword search combined with filters below yields 109 hits
             },
             "content/indexedStructured/name": {
-                # "type": "include",
-                # "values": RHIZONES_KEYSTONE_ARTIST_LIST
                 "type": "exclude",
                 "values": [
                     "Walcott, Mary Vaux",
@@ -127,8 +118,6 @@ DATA_PULL_INSTRUCTIONS = {
                 # keyword search combined with filters below yields 2799 hits
             },
             "content/indexedStructured/name": {
-                # "type": "include",
-                # "values": RHIZONES_KEYSTONE_ARTIST_LIST
                 "type": "exclude",
                 "values": [
                     "Whitney, Eli",
@@ -187,8 +176,6 @@ DATA_PULL_INSTRUCTIONS = {
                 # keyword search combined with filters below yields 65 hits
             },
             "content/indexedStructured/name": {
-                # "type": "include",
-                # "values": RHIZONES_KEYSTONE_ARTIST_LIST
                 "type": "exclude",
                 "values": [
                     "United States Army",
@@ -199,12 +186,143 @@ DATA_PULL_INSTRUCTIONS = {
     },
 }
 
-# REVIEW: Need to add the following filters (and should support include or exclude)
-#
-# Author/Artist
-# Title
-# Institution
-# Resource Type
+
+DATA_PULL_INSTRUCTIONS_VIA_ARTIST_LIST = {
+
+    # archives of american art
+    "AAA": {
+        "filters": {
+            "keywords": {
+                "type": "include",
+                "values": search_terms
+                # keyword search combined with filters below yields 71 hits
+            },
+            "content/indexedStructured/name": {
+                "type": "exclude",
+                "values": [
+                    "Dows, Olin",
+                    "Phillips, Harlan B",
+                    "Penney, James",
+                    "Trovato, Joseph S",
+                    "Biberman, Edward",
+                    "McGlynn, Betty Hoag",
+                    "Laigo, Val M",
+                    "Nakane, Kazuko",
+                    "Lau, Alan Chong",
+                    "Lechay, James",
+                    "Brown, Robert F",
+                    "Berkowitz, Leon",
+                    "Fox, Ida",
+                    "Goodman, Wally",
+                    "Picher, William Stanton",
+                    "Spencer, Niles",
+                    "True, Allen Tupper",
+                    "Cook, Lia",
+                    "Baizerman, Suzanne",
+                    "Lamarque, Abril",
+                    "Bartlett, John Russell",
+                ]
+            },
+            "title": {
+                "type": "exclude",
+                "values": [
+                    "Ankrum Gallery records, circa 1900-circa 1990s bulk 1960-1990",
+                    "Carnegie Institute, Museum of Art records, 1883-1962, bulk 1885-1940",
+                ]
+            },
+        },
+        "ignore": False
+    },
+
+    # smithsonian american art museum
+    "SAAM": {
+        "filters": {
+            "content/indexedStructured/name": {
+                "type": "include",
+                "values": RHIZONES_KEYSTONE_ARTIST_LIST
+            }
+        },
+        "ignore": False
+    },
+
+    # national museum of american history
+    "NMAH": {
+        "filters": {
+            "keywords": {
+                "type": "include",
+                "values": search_terms
+                # keyword search combined with filters below yields 2799 hits
+            },
+            "content/indexedStructured/name": {
+                "type": "exclude",
+                "values": [
+                    "Whitney, Eli",
+                    "Taylor, Zachary",
+                    "Graham, Samuel",
+                    "Wilson, M. W.",
+                    "Grant, Ulysses S. (Ulysses Simpson)",
+                    "Lee, Robert E.",
+                    "Giles, John Lawrence",
+                    "Robertson, William C.",
+                    "J. Kelly and Sons",
+                    "Inger, Christian",
+                    "Grant, Ulysses S. (Ulysses Simpson)",
+                    "Lee, Robert E.",
+                    "Hohenstein, Anton",
+                    "Spohni, G.",
+                    "Kelly, Thomas",
+                    "Kurz & Allison-Art Studio",
+                    "McClellan, George B.",
+                    "Strong, Thomas W.",
+                    "Sarony & Major",
+                    "Skinner, Charles",
+                    "American Bank Note Company",
+                    "Sartain, John",
+                    "Taylor, Zachary",
+                    "Wilson, Woodrow",
+                    "Twiggs, Levi",
+                ]
+            },
+            "content/indexedStructured/object_type": {
+                "type": "exclude",
+                "values": [
+                    "Coins (Money)",
+                    "Medals",
+                    "Army",
+                    "Navy",
+                    "Military",
+                    "Sound Recording",
+                    "Sound Recordings",
+                    "Note",
+                    "Fire Hats",
+                    "Record",
+                    "Tokens",
+                ]
+            }
+        },
+        "ignore": False
+    },
+
+    # national portrait gallery
+    "NPG": {
+        "filters": {
+            "content/indexedStructured/name": {
+                "type": "include",
+                "values": RHIZONES_KEYSTONE_ARTIST_LIST
+            },
+            # "content/indexedStructured/name": {
+            #     "type": "include",
+
+            #     # REVIEW: These don't seem to be working.
+            #     "values": search_terms + [ "Chavez", "Kahlo", "Huerta", "Ruben Salazar", "Selena", "Mendoza, Lydia", "Antonio Orendain" ]
+            # }
+        },
+        "ignore": False
+    },
+}
+
+
+DATA_PULL_INSTRUCTIONS = DATA_PULL_INSTRUCTIONS_VIA_ARTIST_LIST
 
 
 field_map = {
@@ -293,7 +411,9 @@ def coalesce(record):
         new_notes = []
         for note in notes:
 
-            new_notes.append(f"- {note['label']}: {note['content']}")
+            if note.get('content'):
+
+                new_notes.append(f"- {note['label']}: {note['content']}")
 
         record['content/freetext/notes'] = new_notes
 
@@ -461,8 +581,8 @@ def extract_query(provider, config, keyword=None):
 
         data += extract_response(rows=rows, config=config)
 
-        start += row_limit
-        print(f"Filtered {len(rows)} records from provider {provider}", file=sys.stderr)
+        start += len(rows) if rows else row_limit
+        print(f"Filtered {start} records from provider {provider}, of {row_count}", file=sys.stderr)
 
         if ETLEnv.instance().are_tests_running():
 
@@ -491,10 +611,16 @@ class SIETLProcess(BaseETLProcess):
 
         data = []
 
+        category = ETLEnv.instance().get_category()
+
         # Constrain results by keyword and institution.
         for provider, config in DATA_PULL_INSTRUCTIONS.items():
 
             if config.get("ignore", False):
+
+                continue
+
+            if category and category != provider:
 
                 continue
 
@@ -514,7 +640,7 @@ class SIETLProcess(BaseETLProcess):
 
                 data += curr_data
 
-        print(f"Extracted {len(data)} records from provider {provider}", file=sys.stderr)
+            print(f"Extracted {len(data)} records from provider {provider}", file=sys.stderr)
 
         return data
 

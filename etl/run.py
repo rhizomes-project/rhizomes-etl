@@ -46,7 +46,7 @@ def do_usage(msg=None):
 
         print(msg, file=sys.stderr)
 
-    print("Usage: run.py institution1 ... institutionN --format[=csv] --use_cache=[yes|no] --resume_download=[offset]", file=sys.stderr)
+    print("Usage: run.py institution1 ... institutionN --format[=csv] --use_cache=[yes|no] --resume_download=[offset] --category", file=sys.stderr)
 
     raise Exception("Invalid usage")
 
@@ -89,6 +89,17 @@ def run_cmd_line(args):
             offset = arg[ pos + 1 : ]
 
             setup.ETLEnv.instance().set_call_offset(offset=int(offset))
+
+        elif arg.startswith("--category"):
+
+            if len(arg) < 11:
+
+                raise Exception(f"Invalid category value: {arg}")
+
+            pos = arg.find('=')
+            category = arg[ pos + 1 : ]
+
+            setup.ETLEnv.instance().set_category(category=category)
 
         else:
 

@@ -26,6 +26,7 @@ class ETLEnv(object):
         self.running_tests = False
         self.use_cached_metadata = False
         self.offset = None
+        self.category = None
 
     @staticmethod
     def instance():
@@ -63,6 +64,14 @@ class ETLEnv(object):
     def get_call_offset(self):
 
         return self.offset
+
+    def set_category(self, category):
+
+        self.category = category
+
+    def get_category(self):
+
+        return self.category
 
     def init_testing(self):
         "Set system up for testing."
