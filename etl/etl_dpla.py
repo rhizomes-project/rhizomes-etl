@@ -258,9 +258,11 @@ class DPLAETLProcess(BaseETLProcess):
 
             if search_terms:
 
+                provider_data = []
+
                 for search_term in search_terms:
 
-                    provider_data = extract_provider_records(provider=provider, search_term=search_term)
+                    provider_data += extract_provider_records(provider=provider, search_term=search_term)
 
             else:
 
