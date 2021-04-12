@@ -13,12 +13,13 @@ fieldnames = [ 'Resource Identifier', 'Title', 'Author/Artist', 'Description', '
 if __name__ == "__main__":
 
     input_file = sys.argv[1]
+    row_len = len(fieldnames)
 
     with open(input_file, 'r') as csvfile:
 
         datareader = csv.reader(csvfile)
         datawriter = csv.DictWriter(sys.stdout, fieldnames=fieldnames)
-        writer.writeheader()
+        datawriter.writeheader()
 
         first_row = True
 
@@ -35,11 +36,18 @@ if __name__ == "__main__":
 
                 pass
 
-            urls = get_image_urls(id_=id_)
 
-            if urls:
+            import pdb
+            pdb.set_trace()
 
-                urls = '|'.join(urls)
-                row.append(urls)
 
-            writer.writerow(row)
+            urls = row[row_len - 1]
+            if not urls:
+
+                urls = get_image_urls(id_=id_)
+                if urls:
+
+                    urls = '|'.join(urls)
+                    row.append(urls)
+
+            datawriter.writerow(row)
