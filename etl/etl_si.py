@@ -237,10 +237,10 @@ DATA_PULL_INSTRUCTIONS_VIA_ARTIST_LIST = {
     # smithsonian american art museum
     "SAAM": {
         "filters": {
-            "content/indexedStructured/name": {
-                "type": "include",
-                "values": RHIZONES_KEYSTONE_ARTIST_LIST
-            }
+            # "content/indexedStructured/name": {
+            #     "type": "include",
+            #     "values": RHIZONES_KEYSTONE_ARTIST_LIST
+            # }
         },
         "ignore": False
     },
@@ -306,10 +306,10 @@ DATA_PULL_INSTRUCTIONS_VIA_ARTIST_LIST = {
     # national portrait gallery
     "NPG": {
         "filters": {
-            "content/indexedStructured/name": {
-                "type": "include",
-                "values": RHIZONES_KEYSTONE_ARTIST_LIST
-            },
+            # "content/indexedStructured/name": {
+            #     "type": "include",
+            #     "values": RHIZONES_KEYSTONE_ARTIST_LIST
+            # },
             # "content/indexedStructured/name": {
             #     "type": "include",
 
@@ -486,8 +486,13 @@ def do_include_record(record, config):
     """
 
     votes = []
+    filters = config.get("filters", {})
 
-    for filter_name, filter_ in config.get("filters", {}).items():
+    if not filters:
+
+        votes.append(True)
+
+    for filter_name, filter_ in filters.items():
 
         if filter_name == "keywords":
 
@@ -506,9 +511,15 @@ def do_include_record(record, config):
         # Count individual matches.
         for value in values:
 
-            if value in desired_values:
+            for desired_value in desired_values:
 
-                matched = True
+                if value.lower() in desired_value.lower():
+
+                    matched = True
+                    break
+
+            if matched:
+
                 break
 
         # Does this record match the filter?
