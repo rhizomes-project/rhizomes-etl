@@ -7,6 +7,9 @@ from etl.setup import ETLEnv
 from etl.tools import MetadataWriter, RhizomeField
 
 
+# REVIEW: Pull initial data from ICAA via standard keyword search.
+
+
 def clean_value(value):
     "Cleans value, including removing bad whitespace."
 
