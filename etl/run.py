@@ -6,6 +6,7 @@ import sys
 from etl import setup
 from etl.etl_calisphere import CalisphereETLProcess
 from etl.etl_dpla import DPLAETLProcess
+from etl.etl_icaa import ICAAETLProcess
 from etl.etl_pth import PTHETLProcess
 from etl.etl_si import SIETLProcess
 
@@ -22,6 +23,7 @@ from etl.etl_si import SIETLProcess
 INST_ETL_MAP = {
     "cali": CalisphereETLProcess,
     "dpla": DPLAETLProcess,
+    "icaa": ICAAETLProcess,
     "pth": PTHETLProcess,
     "si": SIETLProcess,
 }
