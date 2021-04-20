@@ -10,17 +10,20 @@ from etl.tools import RhizomeField
 
 
 field_map = {
-    "o:id":                         RhizomeField.ID,
-    "o:title":                      RhizomeField.TITLE,
-    "dcterms:creator/o:label":      RhizomeField.AUTHOR_ARTIST,
+    "o:id":                             RhizomeField.ID,
+    "o:title":                          RhizomeField.TITLE,
+    "dcterms:creator/o:label":          RhizomeField.AUTHOR_ARTIST,
     # "@id":                          RhizomeField.URL, # Note: this is the url to the item's metadata in the API
     # https://icaa.mfah.org/s/en/item/1468561
-    "id":                           RhizomeField.URL, # Note; this is "https://icaa.mfah.org/s/en/item/{id}"
-    "dcterms:description/@value":   RhizomeField.DESCRIPTION,
-    "o:created/@value":             RhizomeField.DATE,
+    "id":                               RhizomeField.URL, # Note; this is "https://icaa.mfah.org/s/en/item/{id}"
+    "dcterms:language/o:label":         RhizomeField.LANGUAGE,
+    "dcterms:description/@value":       RhizomeField.DESCRIPTION,
+    "o:created/@value":                 RhizomeField.DATE,
     # "type":                         RhizomeField.DIGITAL_FORMAT,
+    "dcterms:type/o:label":             RhizomeField.RESOURCE_TYPE,
     # "sort_collection_data":         RhizomeField.SOURCE,
-    # "subject":                      RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
+    "icaa:topicDescriptor/o:label":     RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
+    "bibo:annotates/@value":            RhizomeField.NOTES,
     # "reference_image_md5":          RhizomeField.IMAGES,
 }
 
@@ -38,9 +41,12 @@ def extract_field(record, field):
         if type(sub_data) is list:
 
             list_vals = []
-            for tmp in sub_data:
+            for sub_data_val in sub_data:
 
-                list_vals.append(extract_field(record=tmp, field=sub_field))
+                tmp = extract_field(record=sub_data_val, field=sub_field)
+                if tmp:
+
+                    list_vals.append(tmp)
 
             return list_vals
 
@@ -86,7 +92,9 @@ class ICAAETLProcess(BaseETLProcess):
 
         self.keywords = [
             "chicano", "chicana", "chicanx",
-            "mexican-american", "mexican american",
+            "%22mexican-american%22",
+
+            # Note: "%22mexican american%22" and "%22mexican-american%22" return the same results.
         ]
 
         super().__init__(format=format)
