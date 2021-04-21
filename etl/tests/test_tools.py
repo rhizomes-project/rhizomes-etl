@@ -103,7 +103,15 @@ class MockGetter():
 
             with open(data_paths[0], "w") as output:
 
-                output.write(data.text)
+                if "application/json" in data.headers.get("Content-Type"):
+
+                    text = json.dumps(data.json())
+
+                else:
+
+                    text = data.text
+
+                output.write(text)
 
             print(f"Wrote data to test data file '{data_paths[0]}'", file=sys.stderr)
 
