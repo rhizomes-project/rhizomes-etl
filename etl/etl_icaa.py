@@ -92,6 +92,7 @@ class ICAAETLProcess(BaseETLProcess):
 
         self.keywords = [
             "chicano", "chicana", "chicanx",
+            "border",
             "%22mexican-american%22",
 
             # Note: "%22mexican american%22" and "%22mexican-american%22" return the same results.
