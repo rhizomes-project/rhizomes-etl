@@ -129,6 +129,10 @@ class ICAAETLProcess(BaseETLProcess):
                 record = extract_record(record=record)
                 data.append(record)
 
+                if ETLEnv.instance().are_tests_running():
+
+                    break
+
         return data
 
     def transform(self, data):
