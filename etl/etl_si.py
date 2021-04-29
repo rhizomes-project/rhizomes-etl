@@ -237,10 +237,10 @@ DATA_PULL_INSTRUCTIONS_VIA_ARTIST_LIST = {
     # smithsonian american art museum
     "SAAM": {
         "filters": {
-            # "content/indexedStructured/name": {
-            #     "type": "include",
-            #     "values": RHIZONES_KEYSTONE_ARTIST_LIST
-            # }
+            "content/indexedStructured/name": {
+                "type": "include",
+                "values": RHIZONES_KEYSTONE_ARTIST_LIST
+            }
         },
         "ignore": False
     },
@@ -306,16 +306,16 @@ DATA_PULL_INSTRUCTIONS_VIA_ARTIST_LIST = {
     # national portrait gallery
     "NPG": {
         "filters": {
-            # "content/indexedStructured/name": {
-            #     "type": "include",
-            #     "values": RHIZONES_KEYSTONE_ARTIST_LIST
-            # },
-            # "content/indexedStructured/name": {
-            #     "type": "include",
+            "content/indexedStructured/name": {
+                "type": "include",
+                "values": RHIZONES_KEYSTONE_ARTIST_LIST
+            },
+            "content/indexedStructured/name": {
+                "type": "include",
 
-            #     # REVIEW: These don't seem to be working.
-            #     "values": search_terms + [ "Chavez", "Kahlo", "Huerta", "Ruben Salazar", "Selena", "Mendoza, Lydia", "Antonio Orendain" ]
-            # }
+                # REVIEW: These don't seem to be working.
+                "values": search_terms + [ "Chavez", "Kahlo", "Huerta", "Ruben Salazar", "Selena", "Mendoza, Lydia", "Antonio Orendain" ]
+            }
         },
         "ignore": False
     },
