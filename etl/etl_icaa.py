@@ -3,6 +3,7 @@
 import json
 import requests
 import sys
+import time
 
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
@@ -24,9 +25,32 @@ field_map = {
     # "sort_collection_data":         RhizomeField.SOURCE,
     "icaa:topicDescriptor/o:label":     RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
     "bibo:annotates/@value":            RhizomeField.NOTES,
-    # "reference_image_md5":          RhizomeField.IMAGES,
+    "o:media":                          RhizomeField.IMAGES,
 }
 
+
+def extract_image_url(record):
+
+    media = record.get("o:media")
+    if media:
+
+        media_url = media[0]["@id"]
+
+        response = requests.get(media_url, timeout=60)
+        if not response.ok:
+
+            raise Exception(f"ICAA API returned error {response.status_code} trying to retrieve image url")
+
+        image_json = response.json()
+        thumbnail_urls = image_json.get("o:thumbnail_urls")
+        if thumbnail_urls:
+
+            image_url = thumbnail_urls.get("large")
+            if image_url:
+
+                return "https://icaa.mfah.org" + image_url
+
+    return None
 
 def extract_field(record, field):
     "Extract metadata for the given field for the record."
@@ -72,6 +96,10 @@ def extract_record(record):
         if field == "id":
 
             value = f"https://icaa.mfah.org/s/en/item/{record_data.get('o:id')}"
+
+        elif field == "o:media":
+
+            value = extract_image_url(record=record)
 
         else:
 
@@ -124,6 +152,9 @@ class ICAAETLProcess(BaseETLProcess):
 
             json_data = response.json()
 
+            print(f"\nProcessing {len(json_data)} ICAA records for keyword {keyword}...\n", file=sys.stderr)
+            num_retrieved = 0
+
             for record in json_data:
 
                 record = extract_record(record=record)
@@ -132,6 +163,14 @@ class ICAAETLProcess(BaseETLProcess):
                 if ETLEnv.instance().are_tests_running():
 
                     break
+
+                num_retrieved += 1
+                if num_retrieved % 25 == 0:
+
+                    print(f"{num_retrieved} ICAA records retrieved ...", file=sys.stderr)
+
+                    # Sleep a bit to try to keep from overwhelming the server.
+                    time.sleep(5)
 
         return data
 
