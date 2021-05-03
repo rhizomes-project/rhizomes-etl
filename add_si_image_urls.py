@@ -13,7 +13,12 @@ fieldnames = [ 'Resource Identifier', 'Title', 'Author/Artist', 'Description', '
 if __name__ == "__main__":
 
     input_file = sys.argv[1]
+    first_row = int(sys.argv[2])
+
     row_len = len(fieldnames)
+
+    row_num = 0
+    batch_size = 250
 
     with open(input_file, 'r') as csvfile:
 
@@ -36,18 +41,18 @@ if __name__ == "__main__":
 
                 pass
 
+            if row_num >= first_row and row_num < (first_row + batch_size):
 
-            import pdb
-            pdb.set_trace()
+                urls = row[row_len - 1]
+                if not urls:
 
+                    urls = get_image_urls(id_=id_)
+                    if urls:
 
-            urls = row[row_len - 1]
-            if not urls:
+                        urls = '|'.join(urls)
+                        row.append(urls)
 
-                urls = get_image_urls(id_=id_)
-                if urls:
+            row_data = { name : row[idx] for idx, name in enumerate(fieldnames) }
 
-                    urls = '|'.join(urls)
-                    row.append(urls)
-
-            datawriter.writerow(row)
+            datawriter.writerow(row_data)
+            row_num += 1
