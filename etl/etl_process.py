@@ -1,13 +1,49 @@
 #!/usr/bin/env python
 
 import abc
+import re
 import os
 
 from etl.setup import ETLEnv
 from etl.tools import MetadataWriter, RhizomeField
 
 
-# REVIEW: Pull initial data from ICAA via standard keyword search.
+# REVIEW: Add a step to ETL process to create 1 display date and 1 searchable date, which should be a year.
+# REVIEW: Add a step to ETL process to change title values of "[Unknown]" to "Unknown Title" ?
+# REVIEW: Add collection name as a field to all metadata.
+
+
+def get_date_first_four(date_val):
+
+    return date_val[ : 4]
+
+DATE_PARSERS = {
+
+    r'\d{4}\-\d{2}\-\d{2}': get_date_first_four,
+}
+
+def get_searchable_date(record):
+    "Parse the date val and extract a year from it."
+
+    date_vals = record.get(RhizomeField.DATE.value, [])
+    if type(date_vals) is not list:
+
+        date_vals = [ date_vals ]
+
+    searchable_date = None
+
+    for date_val in date_vals:
+
+        print(date_val)
+
+        for pattern, parser in DATE_PARSERS.items():
+
+            if re.match(pattern, date_val):
+
+                searchable_date = parser(date_val=date_val)
+                if searchable_date:
+
+                    return int(searchable_date)
 
 
 def clean_value(value):
@@ -131,6 +167,12 @@ class BaseETLProcess(abc.ABC):
                             record[description] = clean_value(value=value)
 
                         del record[name]
+
+        # Populate our Searchable Date.
+        searchable_date = get_searchable_date(record=record)
+
+        record[RhizomeField.SEARCHABLE_DATE] = searchable_date
+
 
     def load(self, data):
         "Load the data (into csv, json, database, etc.)"
