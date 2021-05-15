@@ -381,6 +381,12 @@ def traverse(record, key=None, indents=0):
 
             data[key] = value
 
+    # Is there media available online for this record?
+    online_media_type = get_value(record=record, keys="content/indexedStructured/online_media_type")
+    if online_media_type:
+
+        data["online_media_type"] = online_media_type
+
     return data
 
 def coalesce(record):
@@ -468,17 +474,14 @@ def get_image_urls(id_):
 def finish_record(record):
     "Get any remaining data."
 
-    # REVIEW: Figure out how to get the image urls without using up all allowed calls.
+    # Is there media available online for this record?
+    if record.get("online_media_type"):
 
-    if not ETLEnv.instance().are_tests_running():
+        # Retrieve urls to any images for the record.
+        urls = get_image_urls(id_=record["id"])
+        if urls:
 
-        return
-
-    # Retrieve urls to any images for the record.
-    urls = get_image_urls(id_=record["id"])
-    if urls:
-
-        record["image_urls"] = urls
+            record["image_urls"] = urls[0]
 
 def do_include_record(record, config):
     """
@@ -590,6 +593,14 @@ def extract_query(provider, config, keyword=None):
         row_count = json_data["response"]["rowCount"]
         rows = json_data["response"]["rows"]
 
+        if not rows:
+
+            if keyword:
+
+                print(f"ERROR: keyword '{keyword}' returned zero rows for provider {provider}", file=sys.stderr)
+
+            return []
+
         data += extract_response(rows=rows, config=config)
 
         start += len(rows) if rows else row_limit
@@ -645,13 +656,15 @@ class SIETLProcess(BaseETLProcess):
 
                     data += curr_data
 
+                    print(f"Extracted {len(curr_data)} records from provider {provider}", file=sys.stderr)
+
             else:
 
                 curr_data = extract_query(provider=provider, config=config)
 
                 data += curr_data
 
-            print(f"Extracted {len(data)} records from provider {provider}", file=sys.stderr)
+                print(f"Extracted {len(curr_data)} records from provider {provider}", file=sys.stderr)
 
         return data
 
