@@ -32,11 +32,11 @@ def get_date_second_four(date_val):
 
 def get_date_third_four(date_val):
 
-
-    pdb.set_trace()
-
-
     return get_date_four_chars(date_val=date_val, offset=2)
+
+def get_date_fourth_four(date_val):
+
+    return get_date_four_chars(date_val=date_val, offset=3)
 
 def get_pth_year_range(date_val):
 
@@ -86,7 +86,9 @@ DATE_PARSERS = {
     r'^\d{3}X':                                             get_pth_decade,             # 192X
 
     r'^\.\.\d{4}':                                          get_date_third_four,        # ..1840
+    r'^\[\.\.\d{4}\]':                                      get_date_fourth_four,       # [..1840]
     r'^\d{4}\-\d{2}\-\d{2}\.\.':                            get_date_first_four,        # 1840-01-28..
+    r'^\[\d{4}\-\d{2}\-\d{2}\.\.\]':                        get_date_second_four,        # [1840-01-28..]
 
 }
 
