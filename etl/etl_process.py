@@ -8,22 +8,95 @@ from etl.setup import ETLEnv
 from etl.tools import MetadataWriter, RhizomeField
 
 
+import pdb
+
+
+
 # REVIEW: Add a step to ETL process to create 1 display date and 1 searchable date, which should be a year.
 # REVIEW: Add a step to ETL process to change title values of "[Unknown]" to "Unknown Title" ?
 # REVIEW: Add collection name as a field to all metadata.
+# REVIEW: TODO pull list of unique keywords (column M) for each provider. keep phrases in tact, get a count of # of occurrences of each and make it case-insensitive.
 
+
+def get_date_four_chars(date_val, offset=0):
+
+    return date_val[offset : 4 + offset]
 
 def get_date_first_four(date_val):
 
-    return date_val[ : 4]
+    return get_date_four_chars(date_val=date_val, offset=0)
+
+def get_date_second_four(date_val):
+
+    return get_date_four_chars(date_val=date_val, offset=1)
+
+def get_date_third_four(date_val):
+
+
+    pdb.set_trace()
+
+
+    return get_date_four_chars(date_val=date_val, offset=2)
+
+def get_pth_year_range(date_val):
+
+    yr1 = int(date_val[1 : 5])
+    yr2 = int(date_val[7 : 11])
+
+    return int(((yr2 + yr1) / 2) + .5)
+
+def get_pth_date_range(date_val, offset=1):
+
+    try:
+
+        yr1 = int(date_val[1 : 5])
+        yr2 = int(date_val[11 + offset : 15 + offset])
+
+        return int(((yr2 + yr1) / 2) + .5)
+
+    except:
+
+        # REVIEW: This should not be necessary.
+
+        pdb.set_trace()
+
+def get_pth_date_range_2del(date_val):
+
+    return get_pth_date_range(date_val=date_val, offset=2)
+
+def get_pth_decade(date_val):
+
+    yr = int(date_val.replace('X', '0'))
+    return yr + 5
+
+
 
 DATE_PARSERS = {
 
-    r'\d{4}\-\d{2}\-\d{2}': get_date_first_four,
+    r'^\d{4}\-\d{2}\-\d{2}':                                get_date_first_four,        # 1992-02-03
+    r'^\d{4}':                                              get_date_first_four,        # 1992
+    r'^\[\d{4}\.\.\]':                                      get_date_second_four,       # [1920..]
+    r'^\{\d{4}\-\d{2}\-\d{2}':                              get_date_second_four,       # '{1843-10-01,1843-10-20}']
+    r'^\[\d{4}\,\d{4}\]':                                   get_date_second_four,       # '[1930,1932]'
+    r'^\[\d{4}\.\.\d{4}\]$':                                get_pth_year_range,         # [1992..1998]
+    r'^\[\d{4}\-\d{2}\-\d{2}\.\.\d{4}\-\d{2}\-\d{2}\]$':    get_pth_date_range_2del,    # [1900-01-22..1900-01-24]
+
+    r'^\[\d{4}\-\d{2}\-\d{2}\,\d{4}\-\d{2}\-\d{2}\]$':      get_pth_date_range,         # [1900-01-22,1900-01-24]
+
+    r'^\d{3}X':                                             get_pth_decade,             # 192X
+
+    r'^\.\.\d{4}':                                          get_date_third_four,        # ..1840
+    r'^\d{4}\-\d{2}\-\d{2}\.\.':                            get_date_first_four,        # 1840-01-28..
+
 }
 
 def get_searchable_date(record):
     "Parse the date val and extract a year from it."
+
+
+    import pdb
+    # pdb.set_trace()
+
 
     date_vals = record.get(RhizomeField.DATE.value, [])
     if type(date_vals) is not list:
@@ -34,8 +107,6 @@ def get_searchable_date(record):
 
     for date_val in date_vals:
 
-        print(date_val)
-
         for pattern, parser in DATE_PARSERS.items():
 
             if re.match(pattern, date_val):
@@ -43,7 +114,23 @@ def get_searchable_date(record):
                 searchable_date = parser(date_val=date_val)
                 if searchable_date:
 
-                    return int(searchable_date)
+                    searchable_date = int(searchable_date)
+                    if searchable_date < 1000 or searchable_date > 3000:
+
+
+                        pdb.set_trace()
+
+
+                        raise Exception(f"Error: invalid searchable date found: {searchable_date}")
+
+                    return searchable_date
+
+
+    # REVIEW: remove this
+    if date_vals:
+
+
+        pdb.set_trace()
 
 
 def clean_value(value):
@@ -169,9 +256,10 @@ class BaseETLProcess(abc.ABC):
                         del record[name]
 
         # Populate our Searchable Date.
-        searchable_date = get_searchable_date(record=record)
+        for record in data:
 
-        record[RhizomeField.SEARCHABLE_DATE] = searchable_date
+            searchable_date = get_searchable_date(record=record)
+            record[RhizomeField.SEARCHABLE_DATE] = searchable_date
 
 
     def load(self, data):
