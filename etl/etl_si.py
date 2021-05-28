@@ -629,6 +629,12 @@ class SIETLProcess(BaseETLProcess):
 
         return field_map
 
+    def get_date_parsers(self):
+
+        # REVIEW finish this.
+
+        return {}
+
     def extract(self):
 
         data = []

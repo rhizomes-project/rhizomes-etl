@@ -9,6 +9,7 @@ import sys
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
 from etl.tools import RhizomeField, get_oaipmh_record
+from etl.date_parsers import *
 
 from bs4 import BeautifulSoup
 
@@ -500,6 +501,12 @@ def do_include_record(record):
             self.filter_includes = filter_includes
             self.include_vote_value = include_vote_value
 
+
+
+    # REVIEW: remove this
+    return True
+
+
     # Loops through all the filters and check each one.
     for key_name, keys in DATA_PULL_LOGIC.items():
 
@@ -767,6 +774,46 @@ class PTHETLProcess(BaseETLProcess):
     def get_field_map(self):
 
         return field_map
+
+    def get_date_parsers(self):
+
+        # REVIEW finish this.
+
+        return {}
+
+    def get_date_parsers(self):
+
+        return {
+
+            r'^\d{4}\-\d{2}\-\d{2}':                                get_date_first_four,        # 1992-02-03
+            r'^\d{4}':                                              get_date_first_four,        # 1992
+            r'^\[\d{4}\.\.\]':                                      get_date_second_four,       # [1920..]
+            r'^\{\d{4}\-\d{2}\-\d{2}':                              get_date_second_four,       # '{1843-10-01,1843-10-20}']
+            r'^\[\d{4}\,\d{4}\]':                                   get_date_second_four,       # '[1930,1932]'
+            r'^\[\d{4}\.\.\d{4}\]$':                                get_pth_year_range_skip2,   # [1992..1998]
+            r'^\[\d{4}\-\d{2}\-\d{2}\.\.\d{4}\-\d{2}\-\d{2}\]$':    get_pth_date_range_2del,    # [1900-01-22..1900-01-24]
+            r'^\[\d{4}\-\d{2}\-\d{2}\,\d{4}\-\d{2}\-\d{2}\]$':      get_pth_date_range,         # [1900-01-22,1900-01-24]
+            r'^\d{3}X':                                             get_pth_decade,             # 192X
+            r'^\.\.\d{4}':                                          get_date_third_four,        # ..1840
+            r'^\[\.\.\d{4}\]':                                      get_date_fourth_four,       # [..1840]
+            r'^\d{4}\-\d{2}\-\d{2}\.\.':                            get_date_first_four,        # 1840-01-28..
+            r'^\[\d{4}\-\d{2}\-\d{2}\.\.\]':                        get_date_second_four,       # [1840-01-28..]
+
+            r'^\d{3}[u\?\~]':                                       get_pth_decade_estimate,    # '188u' , '192?' , '196~'
+
+            r'^\{\d{4}\,\d{4}\}':                                   get_pth_year_range,         # {1930,1949}
+
+            r'^\{\d{4}\,\d{4}\,\d{4}\}':                            get_pth_year_range_offset6, # {1947,1956,1966}
+
+            # Final catch-all: try to extract 1st year.
+            r'^[\{\[]\d{4}':                                            get_date_second_four,       # {1936,1958~,1961,1962}
+
+            # Other PTH date vals we do not handle (yet?):
+            #
+            # 'unknown/1896'
+            # '19uu'
+
+        }
 
     def extract(self):
 

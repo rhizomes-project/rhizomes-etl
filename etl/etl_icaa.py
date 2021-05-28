@@ -8,6 +8,7 @@ import time
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
 from etl.tools import RhizomeField
+from etl.date_parsers import get_date_first_four
 
 
 field_map = {
@@ -136,6 +137,14 @@ class ICAAETLProcess(BaseETLProcess):
 
         return field_map
 
+    def get_date_parsers(self):
+
+        # "@value": "2020-02-14T02:06:44+00:00"
+
+        return {
+            r'^\d{4}\-\d{2}\-\d{2}':  get_date_first_four
+        }
+
     def extract(self):
 
         data = []
@@ -171,6 +180,11 @@ class ICAAETLProcess(BaseETLProcess):
 
                     # Sleep a bit to try to keep from overwhelming the server.
                     time.sleep(5)
+
+                # REVIEW: remove this.
+                if len(data) > 5:
+
+                    return data
 
         return data
 
