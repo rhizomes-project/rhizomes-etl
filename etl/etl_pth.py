@@ -835,6 +835,23 @@ class PTHETLProcess(BaseETLProcess):
 
         for record in data:
 
+            # Strip brackets from titles.
+            titles = record.get("title")
+            if type(titles) is not list:
+
+                titles = [ titles ]
+
+            new_titles = []
+            for title in titles:
+
+                if title.startswith("[") and title.endswith("]"):
+
+                    title = title[ 1 : -1]
+
+                new_titles.append(title)
+
+            record["title"] = new_titles
+
             # Split 'format' into digital format and dimensions.
             formats = record.get("format", [])
             if formats:
