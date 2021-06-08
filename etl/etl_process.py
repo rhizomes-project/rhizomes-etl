@@ -193,7 +193,7 @@ class BaseETLProcess(abc.ABC):
         for record in data:
 
             searchable_date = get_searchable_date(record=record, date_parsers=self.date_parsers)
-            record[RhizomeField.SEARCHABLE_DATE] = searchable_date
+            record[RhizomeField.SEARCHABLE_DATE.value] = searchable_date
 
 
     def load(self, data):

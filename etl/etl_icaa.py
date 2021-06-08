@@ -181,11 +181,6 @@ class ICAAETLProcess(BaseETLProcess):
                     # Sleep a bit to try to keep from overwhelming the server.
                     time.sleep(5)
 
-                # REVIEW: remove this.
-                if len(data) > 5:
-
-                    return data
-
         return data
 
     def transform(self, data):
