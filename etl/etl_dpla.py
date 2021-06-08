@@ -253,6 +253,28 @@ class DPLAETLProcess(BaseETLProcess):
 
         # REVIEW finish this.
 
+        # REVIEW possibly do a "catch-all" at the end that just looks for \d{4} and extracts first 4 digit number?
+
+        # 12/31/78
+        # 4/2/73
+        # 7-Apr-93
+        # 1983
+        # ca. early 1970's
+        # ca. October 1990
+        # ca. 1989
+        # circa late 1950s -circa Early 1960s
+        # circa late 1950s-circa early 1960s
+        # Circa 1955
+        # ca1933
+        # between 1915 and 1940
+        # November 17, 1989-January 21, 1990
+        # 197X?
+        # Oct-75
+        # January-February 1984
+        # 1986-01
+        # undated
+        # unknown
+
         return {}
 
     def extract(self):
