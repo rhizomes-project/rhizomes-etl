@@ -6,7 +6,7 @@ import os
 import sys
 
 from etl.setup import ETLEnv
-from etl.tools import MetadataWriter, RhizomeField
+from etl.tools import MetadataWriter, RhizomeField, FIELDS_TO_DEDUPE
 
 
 import pdb
@@ -17,6 +17,20 @@ import pdb
 # REVIEW: Add a step to ETL process to change title values of "[Unknown]" to "Unknown Title" ?
 # REVIEW: Add collection name as a field to all metadata.
 # REVIEW: TODO pull list of unique keywords (column M) for each provider. keep phrases in tact, get a count of # of occurrences of each and make it case-insensitive.
+
+# REVIEW: TODO: De-dupe all subject columns, in a case-insensitive manner, and make all subjects use title case.
+# REVIEW: TODO: Strip opening and closing brackets from PTH titles.
+# REVIEW: TODO: de-dupe PTH resource ids, and possibly choose one of them as *the* resource id (e.g., line 2073 - ark: ark:/67531/metapth279657 | info:ark/67531/metapth279657 | issn: 0495-3460 | lccn: sn 86-11780 | oclc: 4742678)
+# REVIEW: TODO: check if PTH has better titles? or if they can be improved somehow? e.g., "art lies" does not show up in row 2073
+# REVIEW: TODO: try to figure out a way to "choose better title" (use "Main Title")
+# - see ark: ark:/67531/metapth225042 | info:ark/67531/metapth225042 | local-cont-no: 1390_VisionsWest_1986_PR1 Visions of the West: American Art from Dallas Collections | Visions of the West: American Art from Dallas Collections [Press Release]
+# - possibly add a new "sub-title" or "alternate title" field?
+# - check if each title is a substring of one of the other titles, and if it is then remove the substring title?
+# REVIEW: check why so many PTH records have no artist?
+
+# REVIEW DPLA (and possibley calisphere) TODO: remove ", artist" and ", creator" and ", organizer" and ", photographer" and ", painter" from end of artist field?
+# REVIEW Calisphere: change "(title unknown)" to "Title Unknown" ... same for "(artist unknown)"
+
 
 
 def get_searchable_date(record, date_parsers):
@@ -79,6 +93,27 @@ def clean_value(value):
             value[idx] = tmp.strip()
 
     return value
+
+
+def title_value(value):
+    "Make value use title case."
+
+    return value.title()
+
+
+def de_dupe_list(values):
+
+    if type(values) is not list:
+
+        return values
+
+    unique_values = set()
+
+    for value in values:
+
+        unique_values.add(title_value(value=value))
+
+    return list(unique_values)
 
 
 class BaseETLProcess(abc.ABC):
@@ -188,6 +223,17 @@ class BaseETLProcess(abc.ABC):
                             record[description] = clean_value(value=value)
 
                         del record[name]
+
+            # De-dupe individual values.
+            for record in data:
+
+                for field in FIELDS_TO_DEDUPE:
+
+                    values = record.get(field.value)
+                    if values:
+
+                        values = de_dupe_list(values=values)
+                        record[field.value] = values
 
         # Populate our Searchable Date.
         for record in data:

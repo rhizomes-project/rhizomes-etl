@@ -37,6 +37,15 @@ class RhizomeField(Enum):
         return [ value.value for value in RhizomeField.__members__.values() ]
 
 
+FIELDS_TO_DEDUPE = [
+    RhizomeField.AUTHOR_ARTIST,
+    RhizomeField.TITLE,
+    RhizomeField.SUBJECTS_HISTORICAL_ERA,
+    RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
+    RhizomeField.SUBJECTS_GEOGRAPHIC,
+]
+
+
 def add_oaipmh_value(data, value):
 
     if not value.name:
