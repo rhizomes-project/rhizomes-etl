@@ -502,11 +502,6 @@ def do_include_record(record):
             self.include_vote_value = include_vote_value
 
 
-
-    # REVIEW: remove this
-    return True
-
-
     # Loops through all the filters and check each one.
     for key_name, keys in DATA_PULL_LOGIC.items():
 
@@ -777,12 +772,6 @@ class PTHETLProcess(BaseETLProcess):
 
     def get_date_parsers(self):
 
-        # REVIEW finish this.
-
-        return {}
-
-    def get_date_parsers(self):
-
         return {
 
             r'^\d{4}\-\d{2}\-\d{2}':                                get_date_first_four,        # 1992-02-03
@@ -849,6 +838,15 @@ class PTHETLProcess(BaseETLProcess):
                     title = title[ 1 : -1]
 
                 new_titles.append(title)
+
+            # If any of the titles are substrings of the other titles, remove the substring titles.
+            for title in new_titles:
+
+                for other_title in new_titles:
+
+                    if title != other_title and title in other_title:
+
+                        new_titles.remove(title)
 
             record["title"] = new_titles
 
