@@ -326,12 +326,37 @@ def has_number(value):
     return re.search(r'\d', value)
 
 
-# REVIEW: make get_data() not be recursive anymore.
+class ResumptionToken():
 
-def get_data(resumption_token=None, num_calls=0, resume=False):
+    # Singleton instance.
+    __instance = None
+
+    def __init__(self):
+        # Make sure only 1 instance of ResumptionToken is created
+
+        if ResumptionToken.__instance:    # pragma: no cover (should never get here)
+
+            raise Exception("call ResumptionToken.instance() to get access to ResumptionToken")
+
+        self.token = None
+
+    def instance():
+        """
+        Should return one-and-only instance of this class.
+        """
+
+        if ResumptionToken.__instance is None:
+            ResumptionToken.__instance = ResumptionToken()
+
+        return ResumptionToken.__instance
+
+
+def get_data_impl(num_calls=0, resume=False):
     """
     Download PTH's metadata.
     """
+
+    resumption_token = ResumptionToken.instance()
 
     # Resume a previous download?
     if resume:
@@ -351,13 +376,13 @@ def get_data(resumption_token=None, num_calls=0, resume=False):
 
         if resumption_tokens:
 
-            resumption_token = resumption_tokens[0].text
+            resumption_token.token = resumption_tokens[0].text
 
         else:
 
-            return
+            return False
 
-    if not resumption_token:
+    if not resumption_token.token:
 
         # Rename current metadata directory first to indicate it is old.
         if os.path.exists("etl/data/pth"):
@@ -376,7 +401,7 @@ def get_data(resumption_token=None, num_calls=0, resume=False):
 
     else:
 
-        url = f"{resume_records_url}&resumptionToken={resumption_token}"
+        url = f"{resume_records_url}&resumptionToken={resumption_token.token}"
 
         if ETLEnv.instance().are_tests_running():
 
@@ -404,19 +429,43 @@ def get_data(resumption_token=None, num_calls=0, resume=False):
     # Loop through next set of data (if any).
     if resumption_tokens:
 
+        resumption_token.token = resumption_tokens[0].text
+
         num_calls += 1
         curr_record_count = num_calls * 1000
 
         print(f"{curr_record_count} PTH records retrieved ...", file=sys.stderr)
 
-        # Make recursive call to extract all records.
-        if not RECORD_LIMIT or curr_record_count < RECORD_LIMIT:
+        if RECORD_LIMIT and curr_record_count >= RECORD_LIMIT:
 
-            get_data(resumption_token=resumption_tokens[0].text, num_calls=num_calls)
+            return False
+
+        else:
+
+            return True
 
     else:
 
         print(f"Finished retrieving PTH records - {curr_record_count} records retrieved ...", file=sys.stderr)
+
+        return False
+
+def get_data(num_calls=0, resume=False):
+    """
+    Download PTH's metadata.
+    """
+
+    num_calls = 0
+    continue_ = True
+
+    while continue_:
+
+        if not get_data_impl(num_calls=num_calls, resume=resume):
+
+            continue_ = False
+
+        num_calls += 1
+
 
 def add_filter_match(key_name, key, filter_name, filter_, match):
     "Increment the hit count for the given filter."
