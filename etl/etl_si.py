@@ -629,6 +629,10 @@ class SIETLProcess(BaseETLProcess):
 
         return field_map
 
+    def get_collection_name(self):
+
+        return "Smithsonian"
+
     def get_date_parsers(self):
 
         # REVIEW finish this.

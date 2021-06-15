@@ -177,6 +177,10 @@ class CalisphereETLProcess(BaseETLProcess):
 
         return field_map
 
+    def get_collection_name(self):
+
+        return "Calisphere"
+
     def get_date_parsers(self):
 
         # REVIEW finish this.

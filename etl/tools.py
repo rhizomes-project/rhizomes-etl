@@ -29,6 +29,7 @@ class RhizomeField(Enum):
     NOTES                           = "Notes"
     COPYRIGHT_STATUS                = "Copyright Status"
     COLLECTION_INFORMATION          = "Collection Information"
+    COLLECTION_NAME                 = "Collection Name"
     CREDIT_LINE                     = "Credit Line"
     IMAGES                          = "Images"
 
@@ -41,6 +42,7 @@ class RhizomeField(Enum):
 FIELDS_TO_DEDUPE = [
     RhizomeField.AUTHOR_ARTIST,
     RhizomeField.TITLE,
+    RhizomeField.ALTERNATE_TITLES,
     RhizomeField.SUBJECTS_HISTORICAL_ERA,
     RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
     RhizomeField.SUBJECTS_GEOGRAPHIC,

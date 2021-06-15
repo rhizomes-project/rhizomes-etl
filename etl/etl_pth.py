@@ -771,6 +771,10 @@ class PTHETLProcess(BaseETLProcess):
 
         return field_map
 
+    def get_collection_name(self):
+
+        return "Portal to Texas History"
+
     def get_date_parsers(self):
 
         return {
@@ -837,6 +841,10 @@ class PTHETLProcess(BaseETLProcess):
                 if title.startswith("[") and title.endswith("]"):
 
                     title = title[ 1 : -1]
+
+                if title == "Unknown":
+
+                    title = "Unknown Title"
 
                 new_titles.append(title)
 

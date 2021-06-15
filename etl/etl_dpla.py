@@ -249,6 +249,10 @@ class DPLAETLProcess(BaseETLProcess):
 
         return field_map
 
+    def get_collection_name(self):
+
+        return "DPLA"
+
     def get_date_parsers(self):
 
         # REVIEW finish this.
