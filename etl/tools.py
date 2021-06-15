@@ -12,6 +12,7 @@ class RhizomeField(Enum):
 
     ID                              = "Resource Identifier"
     TITLE                           = "Title"
+    ALTERNATE_TITLES                = "Alternate Titles"
     AUTHOR_ARTIST                   = "Author/Artist"
     DESCRIPTION                     = "Description"
     DATE                            = "Date"
