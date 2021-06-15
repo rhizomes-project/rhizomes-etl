@@ -33,6 +33,7 @@ resume_records_url = protocol + domain + records_path
 field_map = {
     "identifier":                             RhizomeField.ID,
     "title":                                  RhizomeField.TITLE,
+    "alternate_titles":                       RhizomeField.ALTERNATE_TITLES,
     "creator":                                RhizomeField.AUTHOR_ARTIST,
     "contributor":                            RhizomeField.AUTHOR_ARTIST,
     "description":                            RhizomeField.DESCRIPTION,
@@ -848,7 +849,12 @@ class PTHETLProcess(BaseETLProcess):
 
                         new_titles.remove(title)
 
-            record["title"] = new_titles
+            record["title"] = new_titles[0]
+
+            # Add in alternate titles?
+            if len(new_titles) > 1:
+
+                record["alternate_titles"] = new_titles[ 1 : ]
 
             # Split 'format' into digital format and dimensions.
             formats = record.get("format", [])
