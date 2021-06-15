@@ -326,6 +326,33 @@ def has_number(value):
     return re.search(r'\d', value)
 
 
+def de_dupe_substrings_impl(values):
+
+    for value in values:
+
+        for other_value in values:
+
+            if value is not other_value and value in other_value:
+
+                values.remove(value)
+                return 1
+
+    return 0
+
+def de_dupe_substrings(values):
+
+    values = set(values)
+
+    continue_ = True
+    while continue_:
+
+        if not de_dupe_substrings_impl(values=values):
+
+            continue_ = False
+
+    return list(values)
+
+
 class ResumptionToken():
 
     # Singleton instance.
@@ -363,7 +390,7 @@ def get_data_impl(num_calls=0, resume=False):
 
         if not num_calls:
 
-            raise Exception("num_calls is required to resume get_data()")
+            raise Exception("num_calls is required to resume get_data_impl()")
 
         data = read_file(file_num=num_calls)
         if not data:
@@ -425,24 +452,16 @@ def get_data_impl(num_calls=0, resume=False):
         output.write(response.text)
 
     resumption_tokens = xml_data.find_all("resumptionToken")
+    curr_record_count = (num_calls + 1) * 1000
 
     # Loop through next set of data (if any).
     if resumption_tokens:
 
         resumption_token.token = resumption_tokens[0].text
 
-        num_calls += 1
-        curr_record_count = num_calls * 1000
-
         print(f"{curr_record_count} PTH records retrieved ...", file=sys.stderr)
 
-        if RECORD_LIMIT and curr_record_count >= RECORD_LIMIT:
-
-            return False
-
-        else:
-
-            return True
+        return False if RECORD_LIMIT and curr_record_count >= RECORD_LIMIT else True
 
     else:
 
@@ -455,15 +474,14 @@ def get_data(num_calls=0, resume=False):
     Download PTH's metadata.
     """
 
-    num_calls = 0
     continue_ = True
-
     while continue_:
 
         if not get_data_impl(num_calls=num_calls, resume=resume):
 
             continue_ = False
 
+        resume = False
         num_calls += 1
 
 
@@ -898,13 +916,7 @@ class PTHETLProcess(BaseETLProcess):
                 new_titles.append(title)
 
             # If any of the titles are substrings of the other titles, remove the substring titles.
-            for title in new_titles:
-
-                for other_title in new_titles:
-
-                    if title != other_title and title in other_title:
-
-                        new_titles.remove(title)
+            new_titles = de_dupe_substrings(values=new_titles)
 
             record["title"] = new_titles[0]
 
