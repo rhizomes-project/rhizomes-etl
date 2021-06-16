@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import json
+import re
 import requests
 import sys
 import time
@@ -137,6 +138,10 @@ class ICAAETLProcess(BaseETLProcess):
 
         return field_map
 
+    def get_collection_name(self):
+
+        return "ICAA"
+
     def get_date_parsers(self):
 
         # "@value": "2020-02-14T02:06:44+00:00"
@@ -184,6 +189,34 @@ class ICAAETLProcess(BaseETLProcess):
         return data
 
     def transform(self, data):
+
+        for record in data:
+
+            artists = record.get("dcterms:creator/o:label")
+            if artists:
+
+                if type(artists) is not list:
+
+                    artists = [ artists ]
+
+                for idx, artist in enumerate(artists):
+
+
+                    # Try to remove trailing years from artist name. e.g., "artist name, 1932-" and "artist name, 1932-1934".
+                    patterns = [
+                        r'\,\ \d{4}',
+                        r'\,\ \d{4}\-\d{4}'
+                    ]
+
+                    for pattern in patterns:
+
+                        match = re.search(pattern, artist)
+                        if match:
+
+                            artists[idx] = artist[ : match.start()]
+                            break
+
+                record["dcterms:creator/o:label"] = artists
 
         super().transform(data=data)
 
