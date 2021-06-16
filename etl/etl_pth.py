@@ -884,7 +884,13 @@ class PTHETLProcess(BaseETLProcess):
         if not etl_env.use_cache():
 
             offset = etl_env.get_call_offset()
-            get_data(num_calls=offset, resume=(offset != None))
+            resume = True
+            if not offset:
+
+                offset = 0
+                resume = False
+
+            get_data(num_calls=offset, resume=resume)
 
         records = extract_data()
 
