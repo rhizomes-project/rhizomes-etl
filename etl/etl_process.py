@@ -194,22 +194,20 @@ class BaseETLProcess(abc.ABC):
         # Now map all the other values in the raw metadata to the correct output rhizome fields.
         for record in data:
 
+            if record['id'] == 'https://icaa.mfah.org/s/en/item/1082145':
+
+
+                import pdb
+                pdb.set_trace()
+
             # Has this record been flagged to be skipped?
             if record.get("ignore", False):
 
                 continue
 
-            # Add collection name.
-            record[RhizomeField.COLLECTION_NAME.value] = self.get_collection_name()
+            for name, rhizome_fields in field_map.items():
 
-            # Replace null artist name with "Artist Unknown"
-            if not record.get(RhizomeField.AUTHOR_ARTIST.value):
-
-                record[RhizomeField.AUTHOR_ARTIST.value] = "Artist Unknown"
-
-            for name, descriptions in field_map.items():
-
-                if not descriptions:
+                if not rhizome_fields:
 
                     continue
 
@@ -217,34 +215,53 @@ class BaseETLProcess(abc.ABC):
 
                     name = name.value
 
-                if type(descriptions) is not list:
+                if type(rhizome_fields) is not list:
 
-                    descriptions = [ descriptions ]
+                    rhizome_fields = [ rhizome_fields ]
 
                 value = record.get(name)
                 if value:
 
-                    for description in descriptions:
+                    for rhizome_field in rhizome_fields:
 
-                        description = description.value
+                        rhizome_field = rhizome_field.value
 
-                        if description == name:
+                        if rhizome_field == name:
 
                             continue
 
-                        if record.get(description):
+                        if record.get(rhizome_field):
 
-                            record[description] += clean_value(value=value)
+                            prev_vals = record[rhizome_field]
+                            if type(prev_vals) is not list:
+
+                                prev_vals = [ prev_vals ]
+
+                            clean_vals = clean_value(value=value)
+                            if type(clean_vals) is not list:
+
+                                clean_vals = [ clean_vals ]
+
+                            record[rhizome_field] = prev_vals + clean_vals
 
                         else:
 
-                            record[description] = clean_value(value=value)
+                            record[rhizome_field] = clean_value(value=value)
 
                         del record[name]
 
-            # De-dupe individual values.
+            # Do some more tweaks to each record's data.
             for record in data:
 
+                # Add collection name.
+                record[RhizomeField.COLLECTION_NAME.value] = self.get_collection_name()
+
+                # Replace null artist name with "Artist Unknown"
+                if not record.get(RhizomeField.AUTHOR_ARTIST.value):
+
+                    record[RhizomeField.AUTHOR_ARTIST.value] = "Artist Unknown"
+
+                # De-dupe individual values.
                 for field in FIELDS_TO_DEDUPE:
 
                     values = record.get(field.value)
