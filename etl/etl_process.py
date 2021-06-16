@@ -34,6 +34,8 @@ import pdb
 # REVIEW DPLA (and possibley calisphere) TODO: remove ", artist" and ", creator" and ", organizer" and ", photographer" and ", painter" from end of artist field?
 # REVIEW Calisphere: change "(title unknown)" to "Title Unknown" ... same for "(artist unknown)"
 
+# REVIEW: for ICAA, try to remove trailing years from artist name. e.g., "artist name, 1932-" and "artist name, 1932-1934" (DONE for ICAA)
+
 
 
 def get_searchable_date(record, date_parsers):
@@ -199,6 +201,11 @@ class BaseETLProcess(abc.ABC):
 
             # Add collection name.
             record[RhizomeField.COLLECTION_NAME.value] = self.get_collection_name()
+
+            # Replace null artist name with "Artist Unknown"
+            if not record.get(RhizomeField.AUTHOR_ARTIST.value):
+
+                record[RhizomeField.AUTHOR_ARTIST.value] = "Artist Unknown"
 
             for name, descriptions in field_map.items():
 
