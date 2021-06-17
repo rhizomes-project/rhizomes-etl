@@ -9,9 +9,6 @@ from etl.setup import ETLEnv
 from etl.tools import MetadataWriter, RhizomeField, FIELDS_TO_DEDUPE
 
 
-import pdb
-
-
 
 # REVIEW: Add a step to ETL process to create 1 display date and 1 searchable date, which should be a year.
 # REVIEW: Add a step to ETL process to change title values of "[Unknown]" to "Unknown Title" ? (DONE for PTH)
@@ -60,10 +57,6 @@ def get_searchable_date(record, date_parsers):
                     searchable_date = int(searchable_date)
                     if searchable_date < 1000 or searchable_date > 3000:
 
-
-                        pdb.set_trace()
-
-
                         raise Exception(f"Error: invalid searchable date found: {searchable_date}")
 
                     return searchable_date
@@ -71,10 +64,6 @@ def get_searchable_date(record, date_parsers):
 
     # REVIEW: remove this?
     if date_vals:
-
-
-        pdb.set_trace()
-
 
         print(f"Ignoring date val '{date_vals[0]}' - could not parse searchable date", file=sys.stderr)
 
@@ -194,12 +183,6 @@ class BaseETLProcess(abc.ABC):
         # Now map all the other values in the raw metadata to the correct output rhizome fields.
         for record in data:
 
-            if record['id'] == 'https://icaa.mfah.org/s/en/item/1082145':
-
-
-                import pdb
-                pdb.set_trace()
-
             # Has this record been flagged to be skipped?
             if record.get("ignore", False):
 
@@ -250,25 +233,25 @@ class BaseETLProcess(abc.ABC):
 
                         del record[name]
 
-            # Do some more tweaks to each record's data.
-            for record in data:
+        # Do some more tweaks to each record's data.
+        for record in data:
 
-                # Add collection name.
-                record[RhizomeField.COLLECTION_NAME.value] = self.get_collection_name()
+            # Add collection name.
+            record[RhizomeField.COLLECTION_NAME.value] = self.get_collection_name()
 
-                # Replace null artist name with "Artist Unknown"
-                if not record.get(RhizomeField.AUTHOR_ARTIST.value):
+            # Replace null artist name with "Artist Unknown"
+            if not record.get(RhizomeField.AUTHOR_ARTIST.value):
 
-                    record[RhizomeField.AUTHOR_ARTIST.value] = "Artist Unknown"
+                record[RhizomeField.AUTHOR_ARTIST.value] = "Artist Unknown"
 
-                # De-dupe individual values.
-                for field in FIELDS_TO_DEDUPE:
+            # De-dupe individual values.
+            for field in FIELDS_TO_DEDUPE:
 
-                    values = record.get(field.value)
-                    if values:
+                values = record.get(field.value)
+                if values:
 
-                        values = de_dupe_list(values=values)
-                        record[field.value] = values
+                    values = de_dupe_list(values=values)
+                    record[field.value] = values
 
         # Populate our Searchable Date.
         for record in data:
