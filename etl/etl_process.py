@@ -21,7 +21,7 @@ from etl.tools import MetadataWriter, RhizomeField, FIELDS_TO_DEDUPE
 # (e.g., line 2073 - ark: ark:/67531/metapth279657 | info:ark/67531/metapth279657 | issn: 0495-3460 | lccn: sn 86-11780 | oclc: 4742678)
 # ignore for now
 # REVIEW: TODO: check if PTH has better titles? or if they can be improved somehow? e.g., "art lies" does not show up in row 2073
-# REVIEW: TODO: try to figure out a way to "choose better title" (use "Main Title")
+# REVIEW: TODO: for PTH try to figure out a way to "choose better title" (use "Main Title") (DONE for PTH)
 # - see ark: ark:/67531/metapth225042 | info:ark/67531/metapth225042 | local-cont-no: 1390_VisionsWest_1986_PR1 Visions of the West: American Art from Dallas Collections | Visions of the West: American Art from Dallas Collections [Press Release]
 # - possibly add a new "sub-title" or "alternate title" field?
 # - check if each title is a substring of one of the other titles, and if it is then remove the substring title?
@@ -33,6 +33,22 @@ from etl.tools import MetadataWriter, RhizomeField, FIELDS_TO_DEDUPE
 
 # REVIEW: for ICAA, try to remove trailing years from artist name. e.g., "artist name, 1932-" and "artist name, 1932-1934" (DONE for ICAA)
 
+
+# REVIEW: for PTH, try to do a translation from their character entities to unicode - e.g., <dc:subject>Vela&amp;#769;zquez, Diego, 1599-1660.</dc:subject>
+# REVIEW: for ICAA, do a sample run removing html tags.
+# REVIEW: for DPLA & Caliphere, for now just spit out first 4-digit year I found as searchable date.
+# REVIEW: generate new csvs for DPLA and Calisphere
+# REVIEW: for DPLA & Calisphere, try to use URL to de-dupe records across institutions.
+# See https://dp.la/item/d0814ef8a3d58a351e32ffc183ccae49?q=Day%20of%20the%20Dead%20%2781 and
+#     https://calisphere.org/item/ark:/13030/hb2290044r/
+
+# REVIEW: for DPLA and Calisphere, remove the following from end of artist name:
+# ", Creator"
+# ", Artist"
+# ", Organizer"
+# ", Painter"
+# ", Photographer"
+# Also try removing everything within parenthese at end of artist name.
 
 
 def get_searchable_date(record, date_parsers):
@@ -239,10 +255,10 @@ class BaseETLProcess(abc.ABC):
             # Add collection name.
             record[RhizomeField.COLLECTION_NAME.value] = self.get_collection_name()
 
-            # Replace null artist name with "Artist Unknown"
+            # Replace null artist name with "Unknown"
             if not record.get(RhizomeField.AUTHOR_ARTIST.value):
 
-                record[RhizomeField.AUTHOR_ARTIST.value] = "Artist Unknown"
+                record[RhizomeField.AUTHOR_ARTIST.value] = "Unknown"
 
             # De-dupe individual values.
             for field in FIELDS_TO_DEDUPE:
