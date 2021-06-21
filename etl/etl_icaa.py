@@ -8,7 +8,7 @@ import time
 
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
-from etl.tools import RhizomeField
+from etl.tools import RhizomeField, remove_html_tags
 from etl.date_parsers import get_date_first_four
 
 
@@ -192,6 +192,7 @@ class ICAAETLProcess(BaseETLProcess):
 
         for record in data:
 
+            # Remove trailing year info from artists' names.
             artists = record.get("dcterms:creator/o:label")
             if artists:
 
@@ -200,7 +201,6 @@ class ICAAETLProcess(BaseETLProcess):
                     artists = [ artists ]
 
                 for idx, artist in enumerate(artists):
-
 
                     # Try to remove trailing years from artist name. e.g., "artist name, 1932-" and "artist name, 1932-1934".
                     patterns = [
@@ -217,6 +217,15 @@ class ICAAETLProcess(BaseETLProcess):
                             break
 
                 record["dcterms:creator/o:label"] = artists
+
+            # Remove html tags from certain values.
+            for field in [ "dcterms:description/@value", "bibo:annotates/@value" ]:
+
+                values = record.get(field)
+                if values:
+
+                    values = remove_html_tags(values=values)
+                    record[field] = values
 
         super().transform(data=data)
 

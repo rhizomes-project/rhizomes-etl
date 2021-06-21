@@ -66,6 +66,30 @@ def add_oaipmh_value(data, value):
 
     return True
 
+HTML_TAGS = {
+    '<br>':      "\n",
+    '<br/>':     "\n",
+    '<p>':       "\n",
+    '</p>':      "\n",
+    '<em>':      "",
+    '</em>':     "",
+}
+
+def remove_html_tags(values):
+
+    if type(values) is not list:
+
+        values = [ values ]
+
+    for idx, value in enumerate(values):
+
+        for tag, replacement in HTML_TAGS.items():
+
+            value = value.replace(tag, replacement)
+            values[idx] = value
+
+    return values
+
 
 def get_oaipmh_record(record):
 
