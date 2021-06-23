@@ -5,6 +5,8 @@ from enum import Enum
 import json
 import sys
 
+from bs4 import BeautifulSoup
+
 
 class RhizomeField(Enum):
 
@@ -66,14 +68,6 @@ def add_oaipmh_value(data, value):
 
     return True
 
-HTML_TAGS = {
-    '<br>':      "\n",
-    '<br/>':     "\n",
-    '<p>':       "\n",
-    '</p>':      "\n",
-    '<em>':      "",
-    '</em>':     "",
-}
 
 def remove_html_tags(values):
 
@@ -83,10 +77,8 @@ def remove_html_tags(values):
 
     for idx, value in enumerate(values):
 
-        for tag, replacement in HTML_TAGS.items():
-
-            value = value.replace(tag, replacement)
-            values[idx] = value
+        soup = BeautifulSoup(value, 'html.parser')
+        values[idx] = soup.text
 
     return values
 
