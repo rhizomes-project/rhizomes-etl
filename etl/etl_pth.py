@@ -5,6 +5,7 @@ import re
 import requests
 import shutil
 import sys
+import time
 
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
@@ -434,10 +435,25 @@ def get_data_impl(num_calls=0, resume=False):
 
             return
 
-    response = requests.get(url, timeout=120)
-    if not response.ok:    # pragma: no cover (should never be True during testing)
+    success = False
+    for reps in (range(0, 3)):
 
-        raise Exception(f"Error retrieving data from PTH, status code: {response.status_code}, reason: {response.reason}")
+        response = requests.get(url, timeout=120)
+        if response.ok:
+
+            success = True
+            break
+
+        else:
+
+            print(f"Error retrieving data from PTH, status code: {response.status_code}, reason: {response.reason}\nurl: {url}")
+
+
+            time.sleep(60)
+
+    if not success:
+
+        raise Exception(f"Error retrieving data from PTH (tried 3 times), status code: {response.status_code}, reason: {response.reason}\nurl: {url}")
 
     # Force the encoding to be utf-8 (apparently it looks like ISO-8859-1 to requests.get() ... )
     response.encoding = "utf-8"
