@@ -107,10 +107,6 @@ def extract_record(record):
 
             value = extract_field(record=record, field=field)
 
-        if field == "dcterms:description/@value" and value:
-
-            value = value[0][ : 256]
-
         record_data[field] = value
 
     return record_data
