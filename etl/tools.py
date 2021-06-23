@@ -69,6 +69,13 @@ def add_oaipmh_value(data, value):
     return True
 
 
+HTML_TAGS = {
+    '<br>':      "\n",
+    '<br/>':     "\n",
+    '<p>':       "\n",
+    '</p>':      "\n",
+}
+
 def remove_html_tags(values):
 
     if type(values) is not list:
@@ -77,8 +84,13 @@ def remove_html_tags(values):
 
     for idx, value in enumerate(values):
 
-        soup = BeautifulSoup(value, 'html.parser')
-        values[idx] = soup.text
+        for tag, replacement in HTML_TAGS.items():
+
+            value = value.replace(tag, replacement)
+
+            # Now use BeautifulSoup to replace any remaining tags and convert html character entities into unicode.
+            soup = BeautifulSoup(value, 'html.parser')
+            values[idx] = soup.text
 
     return values
 
