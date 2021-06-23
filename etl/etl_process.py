@@ -50,6 +50,9 @@ from etl.tools import MetadataWriter, RhizomeField, FIELDS_TO_DEDUPE
 # ", Photographer"
 # Also try removing everything within parenthese at end of artist name.
 
+# for ICAA, look into accented characters in description and notes, e.g., &oacute;
+# for ICAA, look into the seemingly truncated descriptions.
+
 
 def get_searchable_date(record, date_parsers):
     "Parse the date val and extract a year from it."

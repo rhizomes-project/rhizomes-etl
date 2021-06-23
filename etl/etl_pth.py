@@ -439,6 +439,9 @@ def get_data_impl(num_calls=0, resume=False):
 
         raise Exception(f"Error retrieving data from PTH, status code: {response.status_code}, reason: {response.reason}")
 
+    # Force the encoding to be utf-8 (apparently it looks like ISO-8859-1 to requests.get() ... )
+    response.encoding = "utf-8"
+
     xml_data = BeautifulSoup(markup=response.content, features="lxml-xml", from_encoding="utf-8")
 
     # Oheck for search errors.
