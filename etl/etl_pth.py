@@ -927,6 +927,9 @@ class PTHETLProcess(BaseETLProcess):
 
                 titles = [ titles ]
 
+            # Remove any titles that are null or empty string.
+            titles = [ title for title in titles if title ]
+
             new_titles = []
             for title in titles:
 
@@ -942,6 +945,10 @@ class PTHETLProcess(BaseETLProcess):
 
             # If any of the titles are substrings of the other titles, remove the substring titles.
             new_titles = de_dupe_substrings(values=new_titles)
+
+            if not new_titles:
+
+                new_titles.append("Title Unknown")
 
             record["title"] = new_titles[0]
 
