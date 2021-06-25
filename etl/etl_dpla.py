@@ -304,11 +304,6 @@ class DPLAETLProcess(BaseETLProcess):
 
                 del record["date"]
 
-
-            import pdb
-            pdb.set_trace()
-
-
             # Remove author description from author field.
             for field in [ "creator", "contributor" ]:
 
