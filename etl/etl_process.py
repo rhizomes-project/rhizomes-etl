@@ -41,6 +41,7 @@ from etl.tools import MetadataWriter, RhizomeField, FIELDS_TO_DEDUPE
 # REVIEW: for DPLA & Calisphere, try to use URL to de-dupe records across institutions.
 # See https://dp.la/item/d0814ef8a3d58a351e32ffc183ccae49?q=Day%20of%20the%20Dead%20%2781 and
 #     https://calisphere.org/item/ark:/13030/hb2290044r/
+# Note: in general, DPLA is more likely to contain Calisphere records than vice-versa...
 
 # REVIEW: for DPLA and Calisphere, remove the following from end of artist name:
 # , Artist

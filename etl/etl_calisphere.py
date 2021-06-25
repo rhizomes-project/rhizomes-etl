@@ -251,6 +251,13 @@ class CalisphereETLProcess(BaseETLProcess):
 
         for record in data:
 
+            # Remove author description from author field.
+            values = record.get("author")
+            if values:
+
+                values = remove_author_job_desc(values=values)
+                record["author"] = values
+
             # Transform the image md5's into urls, e.g.,
             # https://calisphere.org/clip/500x500/4d2a48ba900fccef9c01cae0fd5cf3bc
             reference_image_md5 = record.get("reference_image_md5")
