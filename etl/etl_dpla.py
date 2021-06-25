@@ -11,7 +11,8 @@ from bs4 import BeautifulSoup
 
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
-from etl.tools import RhizomeField
+from etl.tools import RhizomeField, remove_author_job_desc
+from etl.date_parsers import *
 
 
 protocol = "https://"
@@ -255,29 +256,16 @@ class DPLAETLProcess(BaseETLProcess):
 
     def get_date_parsers(self):
 
-        # REVIEW finish this.
+        return {
 
-        # REVIEW possibly do a "catch-all" at the end that just looks for \d{4} and extracts first 4 digit number?
+            r'\d+[\-\/]\d+[\-\/]\d+':   get_date_mm_dd_yy,         # 12/31/78
+            r'\d+\-[a-zA-Z]{3}\-\d+':   get_date_mm_mon_yy,        # 7-Apr-93
 
-        # 12/31/78
-        # 4/2/73
-        # 7-Apr-93
-        # 1983
-        # ca. early 1970's
-        # ca. October 1990
-        # ca. 1989
-        # circa late 1950s -circa Early 1960s
-        # circa late 1950s-circa early 1960s
-        # Circa 1955
-        # ca1933
-        # between 1915 and 1940
-        # November 17, 1989-January 21, 1990
-        # 197X?
-        # Oct-75
-        # January-February 1984
-        # 1986-01
-        # undated
-        # unknown
+            r'[a-zA-Z]{3}\-\d{2}':      get_date_mon_yy,           # Oct-75
+
+            r'\d{4}':                   get_date_first_avail_4_digit_year, # sometime around 1984 we think
+
+        }
 
         return {}
 
@@ -315,6 +303,20 @@ class DPLAETLProcess(BaseETLProcess):
             elif record.get("date") == [{}]:
 
                 del record["date"]
+
+
+            import pdb
+            pdb.set_trace()
+
+
+            # Remove author description from author field.
+            for field in [ "creator", "contributor" ]:
+
+                values = record.get(field)
+                if values:
+
+                    values = remove_author_job_desc(values=values)
+                    record[field] = values
 
             # Split 'format' into digital format and dimensions.
             formats = record.get("format", [])

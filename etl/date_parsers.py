@@ -1,3 +1,7 @@
+from datetime import datetime
+import re
+
+
 def get_date_four_chars(date_val, offset=0):
 
     return date_val[offset : 4 + offset]
@@ -52,3 +56,46 @@ def get_pth_decade(date_val):
 def get_pth_decade_estimate(date_val):
 
     return date_val[ : 3] + '5'
+
+
+def get_date_via_regex(date_val, pattern, date_fmts):
+
+    match = re.search(pattern, date_val)
+    if not match:
+
+        return None
+
+    for date_fmt in date_fmts:
+
+        date_val = date_val[match.start() : match.end()]
+
+        try:
+
+            dt = datetime.strptime(date_val, date_fmt)
+            return dt.year
+
+        except ValueError:
+
+            pass
+
+
+def get_date_mm_dd_yy(date_val):
+
+    return get_date_via_regex(date_val=date_val, pattern=r'\d+[\-\/]\d+[\-\/]\d+', date_fmts=["%d/%m/%y", "%d-%m-%y"])
+
+def get_date_mm_mon_yy(date_val):
+
+    return get_date_via_regex(date_val=date_val, pattern=r'\d+\-[a-zA-Z]{3}\-\d+', date_fmts=["%d-%b-%y"])
+
+def get_date_mon_yy(date_val):
+
+    return get_date_via_regex(date_val=date_val, pattern=r'[a-zA-Z]{3}\-\d{2}', date_fmts=["%b-%y"])
+
+def get_date_first_avail_4_digit_year(date_val):
+
+    match = re.search(r'\d{4}', date_val)
+    if not match:
+
+        return None
+
+    return date_val[match.start() : match.end()]

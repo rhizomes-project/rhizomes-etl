@@ -95,6 +95,49 @@ def remove_html_tags(values):
     return values
 
 
+def remove_author_job_desc(values):
+
+    DESC_LIST = [
+        ", Artist",
+        ", Author",
+        ", Collaborator",
+        ", Compiler",
+        ", Contributor",
+        ", Creator",
+        ", Editor",
+        ", Interviewer",
+        ", Occupant ",
+        ", Organizer",
+        ", Photographer",
+        ", Speaker",
+    ]
+
+    if type(values) is not list:
+
+        values = [ values ]
+
+    for idx, value in enumerate(values):
+
+        for desc in DESC_LIST:
+
+            if value.endswith(desc):
+
+                value = value[ : len(desc) * -1 ]
+                values[idx] = value
+                break
+
+    for idx, value in enumerate(values):
+
+        if value.endswith(")"):
+
+            pos = value.find("(")
+            if pos > 8:
+
+                values[idx] = value[ : pos]
+
+    return values
+
+
 def get_oaipmh_record(record):
 
     record_data = {}
