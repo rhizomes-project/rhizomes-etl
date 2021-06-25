@@ -267,8 +267,6 @@ class DPLAETLProcess(BaseETLProcess):
 
         }
 
-        return {}
-
     def extract(self):
 
         data = []

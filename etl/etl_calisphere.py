@@ -3,10 +3,12 @@
 import json
 import os
 import requests
+import sys
 
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
-from etl.tools import RhizomeField
+from etl.tools import RhizomeField, remove_author_job_desc
+from etl.date_parsers import *
 
 
 etl_env = ETLEnv.instance()
@@ -185,7 +187,14 @@ class CalisphereETLProcess(BaseETLProcess):
 
         # REVIEW finish this.
 
-        return {}
+        return {
+
+            r'\d{4}[\-\/]\d+[\-\/]\d+':   get_date_yyyy_mm_dd,       # 2000-02-08
+            r'[a-zA-Z]{3}\-\d{2}':        get_date_mon_yy,           # Oct-75
+
+            r'\d{4}':                     get_date_first_avail_4_digit_year, # sometime around 1984 we think
+
+        }
 
     def extract(self):
 
@@ -252,11 +261,11 @@ class CalisphereETLProcess(BaseETLProcess):
         for record in data:
 
             # Remove author description from author field.
-            values = record.get("author")
+            values = record.get("creator")
             if values:
 
                 values = remove_author_job_desc(values=values)
-                record["author"] = values
+                record["creator"] = values
 
             # Transform the image md5's into urls, e.g.,
             # https://calisphere.org/clip/500x500/4d2a48ba900fccef9c01cae0fd5cf3bc

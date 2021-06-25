@@ -87,6 +87,10 @@ def get_date_mm_mon_yy(date_val):
 
     return get_date_via_regex(date_val=date_val, pattern=r'\d+\-[a-zA-Z]{3}\-\d+', date_fmts=["%d-%b-%y"])
 
+def get_date_yyyy_mm_dd(date_val):
+
+    return get_date_via_regex(date_val=date_val, pattern=r'\d{4}[\-\/]\d+[\-\/]\d+', date_fmts=["%Y/%m/%d", "%Y-%m-%d"])
+
 def get_date_mon_yy(date_val):
 
     return get_date_via_regex(date_val=date_val, pattern=r'[a-zA-Z]{3}\-\d{2}', date_fmts=["%b-%y"])
