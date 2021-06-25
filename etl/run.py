@@ -48,7 +48,7 @@ def do_usage(msg=None):
 
         print(msg, file=sys.stderr)
 
-    print("Usage: run.py institution1 ... institutionN --format[=csv] --use_cache=[yes|no] --resume_download=[offset] --category", file=sys.stderr)
+    print("Usage: run.py institution1 ... institutionN --format[=csv] --use_cache=[yes|no] --resume_download=[offset] --dupes_file=[file_name] --category", file=sys.stderr)
 
     raise Exception("Invalid usage")
 
@@ -91,6 +91,17 @@ def run_cmd_line(args):
             offset = arg[ pos + 1 : ]
 
             setup.ETLEnv.instance().set_call_offset(offset=int(offset))
+
+        elif arg.startswith("--dupes_file="):
+
+            if len(arg) < 14:
+
+                raise Exception(f"Invalid dupes file name: {arg}")
+
+            pos = arg.find('=')
+            dupes_file = arg[ pos + 1 : ]
+
+            setup.ETLEnv.instance().set_dupes_file(dupes_file=dupes_file)
 
         elif arg.startswith("--category"):
 

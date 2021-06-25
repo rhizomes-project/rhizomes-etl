@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-
+import csv
 import requests
 import json
 import os
@@ -292,7 +292,38 @@ class DPLAETLProcess(BaseETLProcess):
 
     def transform(self, data):
 
+        # Find out which records have already been added by another institution.
+        url_offset = None
+        dupes = {}
+        dupes_file = ETLEnv.instance().get_dupes_file()
+
+        if dupes_file:
+
+             with open(dupes_file, "r") as csvfile:
+
+                datareader = csv.reader(csvfile, delimiter=",")
+                for row in datareader:
+
+                    if url_offset is None:
+
+                        url_offset = row.index(RhizomeField.URL.value)
+
+                    elif url_offset <= len(row):
+
+                        # Parse the row.
+                        URL = row[url_offset]
+                        dupes[URL] = True
+
+        records_ignore = 0
         for record in data:
+
+            # Is this a duplicate from another provider?
+            URL = record["isShownAt"]
+            if URL in dupes:
+
+                record["ignore"] = True
+                records_ignore += 1
+                continue
 
             if record.get("displayDate"):
 
@@ -340,6 +371,8 @@ class DPLAETLProcess(BaseETLProcess):
                 # del record['format']
                 record["format"] = new_formats
                 record["dimensions"] = new_dimensions
+
+        print(f"Ignoring {records_ignore} records in DPLA that have been imported from other collections")
 
         super().transform(data=data)
 
