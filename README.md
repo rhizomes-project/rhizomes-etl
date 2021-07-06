@@ -43,14 +43,21 @@ etl/etl_dpla.py --dupes_file=calisphere.csv > DPLA.csv
 
 # Features not yet supported 
 
-- In the near-future we will support only retrieving new records (i.e., records that are not-yet available in the website). This will
+- In the near-future we will support only retrieving new records (i.e., records that are not-yet available in the website). This should
 also make the need to de-dupe DPLA records that are also present in Calisphere unnecessary.
 
 # Description of metadata providers 
 
 ## Calisphere 
 
+Calisphere has a fairly well-documented, clean API - our ETL script queries it using a combination of collections and keywords to retrieve
+relevant records.
+
 ## DPLA 
+
+While DPLA's API is also fairly well-documented, their metadata arguably errs on the side of supplying too much possibly-unneeded information.
+One issue with DPLA is they ingest metadata from other sources, including Calisphere, which has meant that the resulting duplicate records
+has been an issue we have had to work around.
 
 ## ICAA 
 
@@ -65,4 +72,5 @@ PTH has excellent documentation for their OAIPMH API, and their support staff ar
 their API is not intended to support the sort of queries that our project ideally needs - it really is intended to copy the entire
 database of metadata to the user. Because of this, our PTH ETL scripts first download the entire PTH universe of metadata, and then
 filter the metadata locally to identify relavant records. Another aspect of PTH is the metadata is voluminous but not entirely consistent -
-for instance, PTH uses many different formats and notations to indicate what date or date range a record is associated with.
+for instance, PTH uses many different formats and notations to indicate what date or date range a record is associated with. Also, we
+occasionally receive error 500 messages from the server for reasons unknown (and the ETL script has error-handling to attempt to deal with this issue).
