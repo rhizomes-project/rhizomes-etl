@@ -57,7 +57,9 @@ relevant records.
 
 While DPLA's API is also fairly well-documented, their metadata arguably errs on the side of supplying too much possibly-unneeded information.
 One issue with DPLA is they ingest metadata from other sources, including Calisphere, which has meant that the resulting duplicate records
-has been an issue we have had to work around.
+has been an issue we have had to work around. In addition, DPLA includes a string under the key "originalRecord" in their JSON which contains
+the original metadata as it was received by DPLA from the original data source - parsing this string can be cumberson, since the format it
+uses varies considerably from one source to another.
 
 ## ICAA 
 
