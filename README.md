@@ -2,7 +2,28 @@
 
 # Overview 
 
-# How to Install 
+These Extract, Transform, Load (ETL) scripts pull metadata relevant to the Rhizomes project
+from the APIs of several institutions and ultimately output that metadata in csv format.
+The steps that the scripts use to do this can be described in 3 phases: Extract, Transform and Load:
+
+## Extract - each script first downloads relevant records from an institution's API - how relevancy is
+determined is accomplished in various ways, depending on the capabilities of each institution's API.
+
+## Transform - each script then performs transformations on the metadata to address any problems with the
+data, including inconsistent date formats, missing values and duplicate records.
+
+## Load - this final step involves outputing the metadata in csv format to standard out so that it can be written to
+a file.
+
+## Institutions Currently Supported:
+
+- Calisphere
+- Digital Public Library of America (DPLA)
+- Portal to Texas History (PTH)
+- International Center for the Arts of the Americas at the Museum of Fine Arts, Houston, Documents of Latin American and Latino Art (ICAA)
+
+
+# How to Install
 
 - Install python3.9 (see https://www.python.org/downloads/)
 - Install and activate pyvenv (optional - see https://docs.python.org/3/library/venv.html)
