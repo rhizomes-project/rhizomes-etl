@@ -3,7 +3,7 @@
 # Overview 
 
 These Extract, Transform, Load (ETL) scripts pull metadata relevant to the Rhizomes project
-from the APIs of several institutions and ultimately output that metadata in csv format.
+from several institutions' APIs and ultimately output that metadata in csv format.
 The steps that the scripts use to do this can be described in 3 phases: Extract, Transform and Load:
 
 #### Extract
@@ -11,7 +11,7 @@ The scripts first download relevant records from an institution's API - how rele
 determined is accomplished in various ways, depending on the capabilities of each institution's API.
 
 #### Transform
-Next, the scripts performs transformations on the metadata to address any problems with the
+Next, the scripts perform transformations on the metadata to address any problems with the
 data, including inconsistent date formats, missing values and duplicate records.
 
 #### Load
@@ -37,9 +37,9 @@ relevant records.
 
 While DPLA's API is also fairly well-documented, their metadata arguably errs on the side of supplying too much possibly-unneeded information.
 One issue with DPLA is they ingest metadata from other sources, including Calisphere, which has meant that the resulting duplicate records
-has been an issue we have had to work around. In addition, DPLA includes a string under the key "originalRecord" in their JSON which contains
-the original metadata as it was received by DPLA from the original data source - parsing this string can be cumberson, since the format it
-uses varies considerably from one source to another.
+has been an issue we have had to work around. In addition, DPLA includes a string (under the key "originalRecord") in their JSON which contains
+the original metadata as it was received by DPLA from the original data source - parsing this string can be cumberson and error-prone, since the 
+format of the original string varies considerably from one source to another.
 
 #### ICAA
 
@@ -52,8 +52,8 @@ has put extensive work into making their metadata exceedingly consistent.
 
 PTH has excellent documentation for their OAIPMH API, and their support staff are generally quite helpful via email, but unfortunately
 their API is not intended to support the sort of queries that our project ideally needs - it really is intended to copy the entire
-database of metadata to the user. Because of this, our PTH ETL scripts first download the entire PTH universe of metadata, and then
-filter the metadata locally to identify relavant records. Another aspect of PTH is the metadata is voluminous but not entirely consistent -
+database of metadata to the user. Because of this, our PTH ETL script first downloads the entire PTH universe of metadata, and then
+filters the metadata locally to identify relavant records. Another aspect of PTH is the metadata is voluminous but not terribly consistent -
 for instance, PTH uses many different formats and notations to indicate what date or date range a record is associated with. Also, we
 occasionally receive error 500 messages from the server for reasons unknown (and the ETL script has error-handling to attempt to deal with this issue).
 
@@ -85,7 +85,6 @@ etl/etl_pth.py > PTH.csv
 ```
 
 The same holds true for Calisphere, DPLA and ICAA. (Note that the python script filenames are in all lower-case).
-
 
 Note that DPLA tends to contain a lot of records that are originally from Calisphere, so in order to avoid duplicates, you should do the following (note
 that future functionality should make this unnecessary - see "Features not yet supported", below):
