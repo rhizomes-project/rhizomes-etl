@@ -3,6 +3,7 @@
 import csv
 from enum import Enum
 import json
+import requests
 import sys
 
 from bs4 import BeautifulSoup
@@ -161,6 +162,43 @@ def get_value(value, format="json"):
     else:
 
         return value
+
+
+def get_previous_item_ids():
+
+    num_per_page = 250
+    curr_page = 1
+
+    base_url = "https://romogis.frankromo.com/rhizomes-dev/api/items"
+
+    item_ids = []
+
+    # Do a loop that cannot go forever.
+    while curr_page < 1000:
+
+
+        if curr_page % 10 == 0:
+
+
+            pdb.set_trace()
+
+
+        response = requests.get(f"https://romogis.frankromo.com/rhizomes-dev/api/items?per_page={num_per_page}&page={curr_page}")
+        if not response.ok:
+
+            raise Exception(f"Omeka API returned error {response.status_code}, reason: '{response.reason}'")
+
+        curr_items = response.json()
+        if not curr_items:
+
+            return item_ids
+
+        ids = [ item["@id"] for item in curr_items ]
+        item_ids += ids
+
+        curr_page += 1
+
+    return item_ids
 
 
 class MetadataWriter():
