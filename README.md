@@ -90,7 +90,9 @@ Note that DPLA contains a lot of records that are originally from Calisphere, so
 
 - Load the Calisphere data into the Rhizomes database *before* running the ETL script for DPLA. The ETL transform
 process checks to see if each record is already present in the Rhizomes website (via the Omeka API) -
-any records already loaded will be ignored to avoid duplicates.
+any records already loaded will be ignored to avoid duplicates. Note: it may be helpful to make sure the Calisphere
+records are available via the Omeka API (currently at https://romogis.frankromo.com/rhizomes-dev/api/items) before 
+running the dpla ETL script, to ensure the previously-loaded items can be identied.
 
 - Store the Calisphere metadata first in a csv file. Now run the DPLA ETL script, and pass in the name of the Calisphere metadata file, so that the script knows how to de-dupe the DPLA metadata. For instance:
 
