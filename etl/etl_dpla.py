@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-
+import csv
 import requests
 import json
 import os
@@ -11,7 +11,8 @@ from bs4 import BeautifulSoup
 
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
-from etl.tools import RhizomeField
+from etl.tools import RhizomeField, remove_author_job_desc
+from etl.date_parsers import *
 
 
 protocol = "https://"
@@ -255,31 +256,16 @@ class DPLAETLProcess(BaseETLProcess):
 
     def get_date_parsers(self):
 
-        # REVIEW finish this.
+        return {
 
-        # REVIEW possibly do a "catch-all" at the end that just looks for \d{4} and extracts first 4 digit number?
+            r'\d+[\-\/]\d+[\-\/]\d+':   get_date_mm_dd_yy,         # 12/31/78
+            r'\d+\-[a-zA-Z]{3}\-\d+':   get_date_mm_mon_yy,        # 7-Apr-93
 
-        # 12/31/78
-        # 4/2/73
-        # 7-Apr-93
-        # 1983
-        # ca. early 1970's
-        # ca. October 1990
-        # ca. 1989
-        # circa late 1950s -circa Early 1960s
-        # circa late 1950s-circa early 1960s
-        # Circa 1955
-        # ca1933
-        # between 1915 and 1940
-        # November 17, 1989-January 21, 1990
-        # 197X?
-        # Oct-75
-        # January-February 1984
-        # 1986-01
-        # undated
-        # unknown
+            r'[a-zA-Z]{3}\-\d{2}':      get_date_mon_yy,           # Oct-75
 
-        return {}
+            r'\d{4}':                   get_date_first_avail_4_digit_year, # sometime around 1984 we think
+
+        }
 
     def extract(self):
 
@@ -306,7 +292,38 @@ class DPLAETLProcess(BaseETLProcess):
 
     def transform(self, data):
 
+        # Find out which records have already been added by another institution.
+        url_offset = None
+        dupes = {}
+        dupes_file = ETLEnv.instance().get_dupes_file()
+
+        if dupes_file:
+
+             with open(dupes_file, "r") as csvfile:
+
+                datareader = csv.reader(csvfile, delimiter=",")
+                for row in datareader:
+
+                    if url_offset is None:
+
+                        url_offset = row.index(RhizomeField.URL.value)
+
+                    elif url_offset <= len(row):
+
+                        # Parse the row.
+                        URL = row[url_offset]
+                        dupes[URL] = True
+
+        records_ignore = 0
         for record in data:
+
+            # Is this a duplicate from another provider?
+            URL = record["isShownAt"]
+            if URL in dupes:
+
+                record["ignore"] = True
+                records_ignore += 1
+                continue
 
             if record.get("displayDate"):
 
@@ -315,6 +332,15 @@ class DPLAETLProcess(BaseETLProcess):
             elif record.get("date") == [{}]:
 
                 del record["date"]
+
+            # Remove author description from author field.
+            for field in [ "creator", "contributor" ]:
+
+                values = record.get(field)
+                if values:
+
+                    values = remove_author_job_desc(values=values)
+                    record[field] = values
 
             # Split 'format' into digital format and dimensions.
             formats = record.get("format", [])
@@ -345,6 +371,8 @@ class DPLAETLProcess(BaseETLProcess):
                 # del record['format']
                 record["format"] = new_formats
                 record["dimensions"] = new_dimensions
+
+        print(f"Ignoring {records_ignore} records in DPLA that have been imported from other collections")
 
         super().transform(data=data)
 

@@ -34,24 +34,32 @@ from etl.tools import MetadataWriter, RhizomeField, FIELDS_TO_DEDUPE
 # REVIEW: for ICAA, try to remove trailing years from artist name. e.g., "artist name, 1932-" and "artist name, 1932-1934" (DONE for ICAA)
 
 
-# REVIEW: for PTH, try to do a translation from their character entities to unicode - e.g., <dc:subject>Vela&amp;#769;zquez, Diego, 1599-1660.</dc:subject>
-# REVIEW: for ICAA, do a sample run removing html tags.
+# REVIEW: for PTH, try to do a translation from their character entities to unicode - e.g., <dc:subject>Vela&amp;#769;zquez, Diego, 1599-1660.</dc:subject> (FIXED for PTH)
+# REVIEW: for ICAA, do a sample run removing html tags. (DONE for ICAA)
 # REVIEW: for DPLA & Caliphere, for now just spit out first 4-digit year I found as searchable date.
 # REVIEW: generate new csvs for DPLA and Calisphere
 # REVIEW: for DPLA & Calisphere, try to use URL to de-dupe records across institutions.
 # See https://dp.la/item/d0814ef8a3d58a351e32ffc183ccae49?q=Day%20of%20the%20Dead%20%2781 and
 #     https://calisphere.org/item/ark:/13030/hb2290044r/
+# Note: in general, DPLA is more likely to contain Calisphere records than vice-versa...
 
 # REVIEW: for DPLA and Calisphere, remove the following from end of artist name:
-# ", Creator"
-# ", Artist"
-# ", Organizer"
-# ", Painter"
-# ", Photographer"
-# Also try removing everything within parenthese at end of artist name.
+# , Artist
+# , Author
+# , Collaborator
+# , Compiler
+# , Contributor
+# , Creator
+# , Editor
+# , Interviewer
+# , Occupant 
+# , Organizer
+# , Photographer
+# , Speaker
+# Also try removing everything within parentheses at end of artist name.
 
-# for ICAA, look into accented characters in description and notes, e.g., &oacute;
-# for ICAA, look into the seemingly truncated descriptions.
+# for ICAA, look into accented characters in description and notes, e.g., &oacute; FIXED for ICAA
+# for ICAA, look into the seemingly truncated descriptions. FIXED for ICAA
 
 
 def get_searchable_date(record, date_parsers):
@@ -68,7 +76,7 @@ def get_searchable_date(record, date_parsers):
 
         for pattern, parser in date_parsers.items():
 
-            if re.match(pattern, date_val):
+            if re.search(pattern, date_val):
 
                 searchable_date = parser(date_val=date_val)
                 if searchable_date:

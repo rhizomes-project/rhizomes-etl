@@ -26,6 +26,7 @@ class ETLEnv(object):
         self.running_tests = False
         self.use_cached_metadata = False
         self.offset = None
+        self.dupes_file = None
         self.category = None
 
     @staticmethod
@@ -64,6 +65,14 @@ class ETLEnv(object):
     def get_call_offset(self):
 
         return self.offset
+
+    def set_dupes_file(self, dupes_file):
+
+        self.dupes_file = dupes_file
+
+    def get_dupes_file(self):
+
+        return self.dupes_file
 
     def set_category(self, category):
 
