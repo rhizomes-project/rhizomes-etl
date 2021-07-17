@@ -70,7 +70,7 @@ occasionally receive error 500 messages from the server for reasons unknown (and
 pip install -r requirements.txt
 ```
 
-# How to Run the etl scripts
+# How to Run the ETL scripts
 
 - From a terminal window (e.g., bash), run the script for the provider whose metadata you want, e.g., 
 
@@ -84,19 +84,16 @@ For instance, to get metadata for PTH, you can simply call the python script for
 etl/etl_pth.py > PTH.csv
 ```
 
-The same holds true for Calisphere, DPLA and ICAA. (Note that the python script filenames are in all lower-case).
+The same holds true for Calisphere, DPLA and ICAA. (Note that the python script filenames are all lower-case).
 
-Note that DPLA tends to contain a lot of records that are originally from Calisphere, so in order to avoid duplicates, you should do the following (note
-that future functionality should make this unnecessary - see "Features not yet supported", below):
+Note that DPLA contains a lot of records that are originally from Calisphere, so in order to avoid duplicates, you should do one of the following:
 
-- store Calisphere metadata first in a csv file
-- now store DPLA metadata, and pass in the name of the Calisphere metadata file, so that the script knows how to de-dupe the DPLA metadata:
+- Load the Calisphere data into the Rhizomes database *before* running the ETL script for DPLA. The ETL transform
+process checks to see if each record is already present in the Rhizomes website (via the Omeka API) -
+any records already loaded will be ignored to avoid duplicates.
+
+- Store the Calisphere metadata first in a csv file. Now run the DPLA ETL script, and pass in the name of the Calisphere metadata file, so that the script knows how to de-dupe the DPLA metadata. For instance:
 
 ```
 etl/etl_dpla.py --dupes_file=calisphere.csv > DPLA.csv
 ```
-
-# Features not yet supported 
-
-- In the near-future we will support only retrieving new records (i.e., records that are not-yet available in the website). This should
-also make the need to de-dupe DPLA records that are also present in Calisphere unnecessary.
