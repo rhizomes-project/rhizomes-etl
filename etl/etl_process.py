@@ -6,7 +6,7 @@ import os
 import sys
 
 from etl.setup import ETLEnv
-from etl.tools import MetadataWriter, RhizomeField, FIELDS_TO_DEDUPE
+from etl.tools import MetadataWriter, get_previous_item_ids, RhizomeField, FIELDS_TO_DEDUPE
 
 
 
@@ -259,6 +259,23 @@ class BaseETLProcess(abc.ABC):
                             record[rhizome_field] = clean_value(value=value)
 
                         del record[name]
+
+
+        # Remove records that are already loaded in the rhizomes website.
+        previous_record_urls = get_previous_item_ids()
+
+        for record in data:
+
+            url = record[RhizomeField.URL.value]
+
+            if type(url) is list:
+
+                raise Exception(f"URL for record {record[RhizomeField.ID.value]} is a list - lists of urls are not supported.")
+
+            if url in previous_record_urls:
+
+                record["ignore"] = True
+
 
         # Do some more tweaks to each record's data.
         for record in data:

@@ -293,6 +293,11 @@ class DPLAETLProcess(BaseETLProcess):
     def transform(self, data):
 
         # Find out which records have already been added by another institution.
+        #
+        # Note: This should no longer usually be necessary, since the base
+        # transform function checks which records have already been loaded in
+        # rhizomes and marks those records to be removed. An exception might be
+        # if we are doing a full reload of all records.
         url_offset = None
         dupes = {}
         dupes_file = ETLEnv.instance().get_dupes_file()

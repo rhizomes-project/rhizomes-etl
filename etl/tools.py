@@ -220,6 +220,10 @@ def get_value(value, format="json"):
 
 
 def get_previous_item_ids():
+    """
+    Returns a list of IDs (actually urls) of all currently-loaded
+    records in the Rhizomes website.
+    """
 
     num_per_page = 250
     curr_page = 1
@@ -230,13 +234,6 @@ def get_previous_item_ids():
 
     # Do a loop that cannot go forever.
     while curr_page < 1000:
-
-
-        if curr_page % 10 == 0:
-
-
-            pdb.set_trace()
-
 
         response = requests.get(f"https://romogis.frankromo.com/rhizomes-dev/api/items?per_page={num_per_page}&page={curr_page}")
         if not response.ok:
