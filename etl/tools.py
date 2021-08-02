@@ -36,6 +36,26 @@ class RhizomeField(Enum):
     CREDIT_LINE                     = "Credit Line"
     IMAGES                          = "Images"
 
+    # REVIEW: New column titles (in this order).
+    # REVIEW: Do something to make the ID column not be output.
+    # REVIEW: for collection name / contributor, use full human readable name instead of abbrevation.
+
+    #                           Resource Identifier
+    #                           Title
+    #                           Alternative Title
+    #                           Creator
+    #                           Image
+    # URL                       Weblog
+    #                           Description
+    # SUBJECTS_TOPIC_KEYWORDS   Subject
+    # SearchableDate            Date
+    # ResourceType              Type
+    #                           Format
+    # SOURCE                    Source
+    #                           Language
+    # COLLECTION_NAME           Contributor
+
+
     @staticmethod
     def values():
 

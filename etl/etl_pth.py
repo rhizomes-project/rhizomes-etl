@@ -996,6 +996,7 @@ class PTHETLProcess(BaseETLProcess):
             record["url"] = new_urls
 
             # Add in a link to the thumbnail image.
+            # REVIEW: change this to the medium res image that is not in PTH's metadata.
             if new_urls:
 
                 url = new_urls[0]
