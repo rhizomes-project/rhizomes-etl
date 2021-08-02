@@ -252,7 +252,7 @@ class DPLAETLProcess(BaseETLProcess):
 
     def get_collection_name(self):
 
-        return "DPLA"
+        return "Digital Public Library of America"
 
     def get_date_parsers(self):
 

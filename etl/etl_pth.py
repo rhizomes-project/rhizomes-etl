@@ -992,7 +992,7 @@ class PTHETLProcess(BaseETLProcess):
                     new_ids.append(identifier)
 
             record["identifier"] = new_ids
-            record["url"] = new_urls
+            record["url"] = new_urls[0]
 
             # Add in a link to the image.
             if new_urls:
