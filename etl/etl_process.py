@@ -6,7 +6,7 @@ import os
 import sys
 
 from etl.setup import ETLEnv
-from etl.tools import MetadataWriter, get_previous_item_ids, RhizomeField, FIELDS_TO_DEDUPE
+from etl.tools import MetadataWriter, get_previous_item_ids, RhizomeField, FIELDS_TO_DEDUPE, OUTPUT_COLS
 
 
 
@@ -318,7 +318,9 @@ class BaseETLProcess(abc.ABC):
 
             writer.start_record()
 
-            for name in RhizomeField.values():
+            for name in OUTPUT_COLS:
+
+                name = name.value
 
                 value = record.get(name)
                 if value and name:

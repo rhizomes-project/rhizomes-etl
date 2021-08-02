@@ -15,46 +15,26 @@ class RhizomeField(Enum):
 
     ID                              = "Resource Identifier"
     TITLE                           = "Title"
-    ALTERNATE_TITLES                = "Alternate Titles"
-    AUTHOR_ARTIST                   = "Author/Artist"
+    ALTERNATE_TITLES                = "Alternate Title"
+    AUTHOR_ARTIST                   = "Creator"
     DESCRIPTION                     = "Description"
     DATE                            = "Date"
     SEARCHABLE_DATE                 = "Searchable Date"
-    RESOURCE_TYPE                   = "ResourceType"
-    DIGITAL_FORMAT                  = "Digital Format"
+    RESOURCE_TYPE                   = "Type"
+    DIGITAL_FORMAT                  = "Format"
     DIMENSIONS                      = "Dimensions"
-    URL                             = "URL"
+    URL                             = "Weblog"
     SOURCE                          = "Source"
     LANGUAGE                        = "Language"
     SUBJECTS_HISTORICAL_ERA         = "Subjects (Historic Era)"
-    SUBJECTS_TOPIC_KEYWORDS         = "Subjects (Topic/Keywords)"
+    SUBJECTS_TOPIC_KEYWORDS         = "Subject"
     SUBJECTS_GEOGRAPHIC             = "Subjects (Geographic)"
     NOTES                           = "Notes"
     COPYRIGHT_STATUS                = "Copyright Status"
     COLLECTION_INFORMATION          = "Collection Information"
-    COLLECTION_NAME                 = "Collection Name"
+    COLLECTION_NAME                 = "Contributor"
     CREDIT_LINE                     = "Credit Line"
-    IMAGES                          = "Images"
-
-    # REVIEW: New column titles (in this order).
-    # REVIEW: Do something to make the ID column not be output.
-    # REVIEW: for collection name / contributor, use full human readable name instead of abbrevation.
-
-    #                           Resource Identifier
-    #                           Title
-    #                           Alternative Title
-    #                           Creator
-    #                           Image
-    # URL                       Weblog
-    #                           Description
-    # SUBJECTS_TOPIC_KEYWORDS   Subject
-    # SearchableDate            Date
-    # ResourceType              Type
-    #                           Format
-    # SOURCE                    Source
-    #                           Language
-    # COLLECTION_NAME           Contributor
-
+    IMAGES                          = "Image"
 
     @staticmethod
     def values():
@@ -69,6 +49,22 @@ FIELDS_TO_DEDUPE = [
     RhizomeField.SUBJECTS_HISTORICAL_ERA,
     RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
     RhizomeField.SUBJECTS_GEOGRAPHIC,
+]
+
+OUTPUT_COLS = [
+    RhizomeField.TITLE,
+    RhizomeField.ALTERNATE_TITLES,
+    RhizomeField.AUTHOR_ARTIST,
+    RhizomeField.IMAGES,
+    RhizomeField.URL,
+    RhizomeField.DESCRIPTION,
+    RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
+    RhizomeField.SEARCHABLE_DATE,
+    RhizomeField.RESOURCE_TYPE,
+    RhizomeField.DIGITAL_FORMAT,
+    RhizomeField.SOURCE,
+    RhizomeField.LANGUAGE,
+    RhizomeField.COLLECTION_NAME,
 ]
 
 
@@ -250,6 +246,9 @@ def get_previous_item_ids():
 
     base_url = "https://romogis.frankromo.com/rhizomes-dev/api/items"
 
+    # REVIEW: Once data is loaded here, switch to this as base url.
+    # base_url = "https://cla-rhizomes-prd.oit.umn.edu/api/items"
+
     item_ids = []
 
     # Do a loop that cannot go forever.
@@ -284,7 +283,9 @@ class MetadataWriter():
 
         elif self.format == "csv":
 
-            self.output = csv.DictWriter(sys.stdout, fieldnames=RhizomeField.values(), dialect=csv.QUOTE_ALL)
+            fieldnames = [ col.value for col in OUTPUT_COLS ]
+
+            self.output = csv.DictWriter(sys.stdout, fieldnames=fieldnames, dialect=csv.QUOTE_ALL)
             self.row_buf = {}
 
         else:
