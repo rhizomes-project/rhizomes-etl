@@ -48,7 +48,7 @@ field_map = {
     "subjects_hist":                          RhizomeField.SUBJECTS_HISTORICAL_ERA,
     "subject":                                RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
     "subjects_geo":                           RhizomeField.SUBJECTS_GEOGRAPHIC,
-    "thumbnail":                              RhizomeField.IMAGES,
+    "image":                                  RhizomeField.IMAGES,
 }
 
 
@@ -730,7 +730,6 @@ def check_results():
     "Output error info if results for any filters are not what was expected."
 
     # For now, don't check results when running tests.
-    # REVIEW: fix this.
     if ETLEnv.instance().are_tests_running():
 
         return
@@ -995,15 +994,14 @@ class PTHETLProcess(BaseETLProcess):
             record["identifier"] = new_ids
             record["url"] = new_urls
 
-            # Add in a link to the thumbnail image.
-            # REVIEW: change this to the medium res image that is not in PTH's metadata.
+            # Add in a link to the image.
             if new_urls:
 
                 url = new_urls[0]
                 if not url.endswith('/'):
                     url += '/'
 
-                record["thumbnail"] = url + "thumbnail"
+                record["image"] = url + "m1/1/med_res/"
 
             # Split 'coverage' into values dealing with geography and values dealing with history (dates).
             coverage_values = record.get("coverage", [])
