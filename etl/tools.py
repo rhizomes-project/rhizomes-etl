@@ -264,7 +264,7 @@ def get_previous_item_ids():
 
             return item_ids
 
-        ids = [ item["@id"] for item in curr_items ]
+        ids = [ item["foaf:weblog"][0]["@id"] for item in curr_items ]
         item_ids += ids
 
         curr_page += 1

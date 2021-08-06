@@ -86,6 +86,10 @@ etl/etl_pth.py > PTH.csv
 
 The same holds true for Calisphere, DPLA and ICAA. (Note that the python script filenames are all lower-case).
 
+Regarding the issue of avoiding loading the same record more than once, the ETL script uses the Omeka API to identify
+which records are already on the website (currently at https://romogis.frankromo.com/rhizomes-dev/api/items) - any records
+that are already loaded will not be put into the csv files.
+
 Note that DPLA contains a lot of records that are originally from Calisphere, so in order to avoid duplicates, you should do one of the following:
 
 - Load the Calisphere data into the Rhizomes database *before* running the ETL script for DPLA. The ETL transform
