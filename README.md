@@ -103,3 +103,9 @@ running the dpla ETL script, to ensure the previously-loaded items can be identi
 ```
 etl/etl_dpla.py --dupes_file=calisphere.csv > DPLA.csv
 ```
+
+Command line options for the ETL scripts:
+
+`--dupes_file` - pass in the name of a csv file (e.g., calisphere.csv) that contains items that may be duplicated by the current institution for whom you are running the ETL script (for more details, see note, above, about DPLA containing items from Calisphere)
+
+`--rebuild_previous_items` - pass in 'yes' or 'no', indicating whether the ETL script should output metadata for items that are already loaded in the website (default is 'no').
