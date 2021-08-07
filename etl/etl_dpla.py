@@ -390,7 +390,7 @@ class DPLAETLProcess(BaseETLProcess):
                 record["format"] = new_formats
                 record["dimensions"] = new_dimensions
 
-        print(f"Ignoring {records_ignore} records in DPLA that have been imported from other collections")
+        print(f"Ignoring {records_ignore} records in DPLA that have been imported from other collections", file=sys.stderr)
 
         super().transform(data=data)
 
