@@ -266,6 +266,10 @@ class BaseETLProcess(abc.ABC):
 
         for record in data:
 
+            if record.get("ignore", False):
+
+                continue
+
             url = record[RhizomeField.URL.value]
 
             if type(url) is list:

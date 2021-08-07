@@ -33,7 +33,7 @@ dpla_terms = [
     "id", "dataProvider", "isShownAt", "object",
     { "sourceResource": [ "title", "description", "creator", "contributor", "date", "format", "type", { "subject" : [ "name" ] }, "dataProvider", { "date" : [ "displayDate" ] } ] },
     ]
-json_original_data_terms = [ "title", "description", "creator", "contributor", "date", "subject", "language", "reference_image_dimensions", "collection_name", "type", "coverage" ]
+json_original_data_terms = [ "title", "description", "creator", "contributor", "date", "subject", "language", "reference_image_md5", "reference_image_dimensions", "collection_name", "type", "coverage" ]
 
 
 field_map = {
@@ -168,6 +168,16 @@ def parse_original_string(doc, record):
                 record[term] = original_data[term]
 
 
+def build_image_link(record):
+
+    # Transform the image md5's into urls, e.g.,
+    # https://calisphere.org/clip/500x500/4d2a48ba900fccef9c01cae0fd5cf3bc
+    reference_image_md5 = record.get("reference_image_md5")
+    if reference_image_md5:
+
+        record["object"] = f"https://calisphere.org/clip/500x500/{reference_image_md5}"
+
+
 def extract_provider_records(provider, search_term=None):
     """
     Extract all records for the given provider. Limit the results by the search
@@ -219,6 +229,9 @@ def extract_provider_records(provider, search_term=None):
 
             # Try to load metadata out of the original string as well.
             parse_original_string(doc=doc, record=record)
+
+            # Try to add in a link to an image.
+            build_image_link(record=record)
 
             data.append(record)
 
