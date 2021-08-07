@@ -261,24 +261,26 @@ class BaseETLProcess(abc.ABC):
                         del record[name]
 
 
-        # Remove records that are already loaded in the rhizomes website.
-        previous_record_urls = get_previous_item_ids()
+        # Remove records that are already loaded in the rhizomes website?
+        if not self.etl_env.do_rebuild_previous_items():
 
-        for record in data:
+            previous_record_urls = get_previous_item_ids()
 
-            if record.get("ignore", False):
+            for record in data:
 
-                continue
+                if record.get("ignore", False):
 
-            url = record[RhizomeField.URL.value]
+                    continue
 
-            if type(url) is list:
+                url = record[RhizomeField.URL.value]
 
-                raise Exception(f"URL for record {record[RhizomeField.ID.value]} is a list - lists of urls are not supported.")
+                if type(url) is list:
 
-            if url in previous_record_urls:
+                    raise Exception(f"URL for record {record[RhizomeField.ID.value]} is a list - lists of urls are not supported.")
 
-                record["ignore"] = True
+                if url in previous_record_urls:
+
+                    record["ignore"] = True
 
 
         # Do some more tweaks to each record's data.

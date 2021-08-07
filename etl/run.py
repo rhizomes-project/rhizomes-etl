@@ -48,13 +48,14 @@ def do_usage(msg=None):
 
         print(msg, file=sys.stderr)
 
-    print("Usage: run.py institution1 ... institutionN --format[=csv] --use_cache=[yes|no] --resume_download=[offset] --dupes_file=[file_name] --category", file=sys.stderr)
+    print("Usage: run.py institution1 ... institutionN --format[=csv] --rebuild_previous_items=[yes|no] --use_cache=[yes|no] --resume_download=[offset] --dupes_file=[file_name] --category", file=sys.stderr)
 
     raise Exception("Invalid usage")
 
 def run_cmd_line(args):
 
     format_ = "csv" # default output format.
+    rebuild_previous_items = "no"
     use_cache = "no"
     institutions = []
 
@@ -69,6 +70,17 @@ def run_cmd_line(args):
 
             pos = arg.find('=')
             format_ = arg[ pos + 1 : ]
+
+        elif arg.startswith("--rebuild_previous_items="):
+
+            if len(arg) not in [ 27, 28 ]:
+
+                raise Exception(f"Invalid format: {arg}")
+
+            pos = arg.find('=')
+            rebuild_previous_items = arg[ pos + 1 : ]
+
+            setup.ETLEnv.instance().set_rebuild_previous_items(rebuild_previous_items=(rebuild_previous_items == "yes"))
 
         elif arg.startswith("--use_cache="):
 

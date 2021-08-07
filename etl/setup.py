@@ -24,6 +24,7 @@ class ETLEnv(object):
             raise Exception("ETLEnv should only be accessed via ETLEnv.instance()")
 
         self.running_tests = False
+        self.rebuild_previous_items = False
         self.use_cached_metadata = False
         self.offset = None
         self.dupes_file = None
@@ -47,6 +48,15 @@ class ETLEnv(object):
     def get_api_key(self, name):
 
         return self.secrets["apis"]["keys"][name]
+
+    def set_rebuild_previous_items(self, rebuild_previous_items):
+        "Sets flag indicating if we should ignore items that are already loaded in the website."
+
+        self.rebuild_previous_items = rebuild_previous_items
+
+    def do_rebuild_previous_items(self):
+
+        return self.rebuild_previous_items
 
     def set_use_cache(self, use_cached_metadata):
         "Sets flag indicating if we should use cached metadata files."
