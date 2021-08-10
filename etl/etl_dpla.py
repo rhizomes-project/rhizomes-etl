@@ -63,9 +63,9 @@ search_terms = [ "chicano", "chicana", "%22mexican+american%22", ]
 # partner (like the logic in the PTH data pull).
 
 providers = {
+    "Center for the Study of Political Graphics": None,
     "UC Santa Barbara, Library, Department of Special Research Collections": search_terms,
     "UC San Diego, Library, Digital Library Development Program": search_terms,
-    "Center for the Study of Political Graphics": None,
     "UC San Diego, Library, Special Collections and Archives": search_terms,
     "University of Southern California Digital Library": search_terms,
     "Los Angeles Public Library": search_terms,
@@ -147,7 +147,9 @@ def parse_original_string(doc, record):
 
         if originalRecordString.startswith('<'):
 
-            raise Exception("OAIPMH format metadata is not currently supported for DPLA")    # pragma: no cover (should never get here)
+            # raise Exception("OAIPMH format metadata is not currently supported for DPLA")    # pragma: no cover (should never get here)
+
+            return
 
             # # Original record appears to be in OAIPMH...
             # xml_original_data_terms = [ "titleInfo", "abstract", "", "", "", "", "", "", ]datestamp, note
@@ -168,6 +170,19 @@ def parse_original_string(doc, record):
                 record[term] = original_data[term]
 
 
+        # if not record.get("reference_image_md5"):
+
+        #     url = record['isShownAt']
+        #     if "unt.edu" not in url:
+
+
+        #         import pdb
+        #         pdb.set_trace()
+
+
+        #         print("No image link found.")
+
+
 def build_image_link(record):
 
     # Transform the image md5's into urls, e.g.,
@@ -176,6 +191,13 @@ def build_image_link(record):
     if reference_image_md5:
 
         record["object"] = f"https://calisphere.org/clip/500x500/{reference_image_md5}"
+
+    else:
+
+        url = record['isShownAt']
+        if "unt.edu" in url:
+
+            record["object"] = url + "/m1/1/med_res/"
 
 
 def extract_provider_records(provider, search_term=None):
@@ -204,7 +226,7 @@ def extract_provider_records(provider, search_term=None):
         response = requests.get(url=url, timeout=60)
         if not response.ok:
 
-            raise Exception(f"Error retrieving data from PTH for {partner}, search_term: {search_term}, status code: {response.status_code}, reason: {response.reason}")
+            raise Exception(f"Error retrieving data from DPLA for {partner}, search_term: {search_term}, status code: {response.status_code}, reason: {response.reason}")
 
         json_content = response.json()
 
@@ -265,7 +287,7 @@ class DPLAETLProcess(BaseETLProcess):
 
     def get_collection_name(self):
 
-        return "Digital Public Library of America"
+        return "Digital Public Library of America (DPLA)"
 
     def get_date_parsers(self):
 

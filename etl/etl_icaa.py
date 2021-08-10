@@ -136,7 +136,7 @@ class ICAAETLProcess(BaseETLProcess):
 
     def get_collection_name(self):
 
-        return "International Center for the Arts of the Americas"
+        return "International Center for the Arts of the Americas (ICAA)"
 
     def get_date_parsers(self):
 
