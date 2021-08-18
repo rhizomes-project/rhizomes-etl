@@ -254,7 +254,7 @@ def get_previous_item_ids():
     # Do a loop that cannot go forever.
     while curr_page < 1000:
 
-        response = requests.get(f"https://romogis.frankromo.com/rhizomes-dev/api/items?per_page={num_per_page}&page={curr_page}")
+        response = requests.get(f"https://romogis.frankromo.com/rhizomes-dev/api/items?per_page={num_per_page}&page={curr_page}", timeout=60)
         if not response.ok:
 
             raise Exception(f"Omeka API returned error {response.status_code}, reason: '{response.reason}'")
