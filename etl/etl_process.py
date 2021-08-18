@@ -306,7 +306,14 @@ class BaseETLProcess(abc.ABC):
         # Populate our Searchable Date.
         for record in data:
 
-            searchable_date = get_searchable_date(record=record, date_parsers=self.date_parsers)
+            if self.date_parsers:
+
+                searchable_date = get_searchable_date(record=record, date_parsers=self.date_parsers)
+
+            else:
+
+                searchable_date = record.get(RhizomeField.DATE.value)
+
             record[RhizomeField.SEARCHABLE_DATE.value] = searchable_date
 
 
