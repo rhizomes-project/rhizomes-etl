@@ -23,6 +23,8 @@ from etl.date_parsers import *
 #
 #    https://api.si.edu/openaccess/api/v1.0/content/:id
 #
+#    See http://edan.si.edu/openaccess/apidocs/ to documentation on Smithsonian's API.
+#
 
 
 etl_env = ETLEnv.instance()
