@@ -57,7 +57,20 @@ def extract_image_url(record):
 def extract_field(record, field):
     "Extract metadata for the given field for the record."
 
-    if "/" in field:
+    if field in [ "dcterms:description/@value", "bibo:annotates/@value" ]:
+
+        pos = field.find('/')
+        field = field[ : pos]
+
+        for value in record.get(field, []):
+
+            if value["@language"] == "EN":
+
+                return value["@value"]
+
+        return None
+
+    elif "/" in field:
 
         pos = field.find("/")
         sub_field = field[ : pos]
