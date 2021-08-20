@@ -39,6 +39,7 @@ SOLR_KEYS = [
     'repository_name',
     'reference_image_md5',
     'repository_data',
+    'language',
     'rights'
     'collection_name',
     'campus_url',
@@ -55,10 +56,10 @@ field_map = {
     "description":           RhizomeField.DESCRIPTION,
     "date":                  RhizomeField.DATE,
     "type":                  RhizomeField.DIGITAL_FORMAT,
-    "sort_collection_data":  RhizomeField.SOURCE,
+    "repository_name":       RhizomeField.SOURCE,
     "subject":               RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
+    "language":              RhizomeField.LANGUAGE,
     "reference_image_md5":   RhizomeField.IMAGES,
-    # REVIEW Add type here?
 }
 
 # REVIEW: Would be nice to put something in place to check that we get expected # of results back for each
