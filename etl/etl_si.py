@@ -52,9 +52,7 @@ def get_record(artwork):
 
     record = {}
 
-    id_ = artwork["objectNumber"]
-    record["id"] = id_
-
+    record["id"] = artwork["objectNumber"]
     record["artist"] = artwork["artworkConstituentRelationships"][0]["displayName"]
     record["title"] = artwork["title"]
     record["type"] = artwork["classification"]
@@ -62,27 +60,10 @@ def get_record(artwork):
     record["date"] = artwork.get("dated")
     record["medium"] = artwork.get("medium")
 
-    # Now try to get a link to an image for the item.
+    images = artwork.get("images", [])
+    if images:
 
-    # REVIEW: would like to use edan API to retrieve metadata about the record, but it does not seem to work very often.
-
-    # url = f"https://api.si.edu/openaccess/api/v1.0/content/{id_}?api_key={api_key}"
-    # response = requests.get(url, timeout=60)
-
-
-    url = f"http://edan.si.edu/saam/id/object/{id_}"
-
-    response = requests.get(url, timeout=60, headers={'Accept': 'application/json'})
-    soup = BeautifulSoup(response.text, 'html.parser')
-
-    image_url = None
-
-    image = soup.find("img", {"class": "mainimg"})
-    if image:
-
-        image_url = image.attrs['src']
-
-    record["image_urls"] = image_url
+        record["image_urls"] = "https://ids.si.edu/ids/deliveryService?id=" + images[0]["fileName"]
 
     return record
 
