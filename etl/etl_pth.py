@@ -54,6 +54,20 @@ field_map = {
 
 # Note: data pull instructions are here: https://docs.google.com/document/d/1cD559D8JANAGrs5pwGZqaxa7oHTwid0mxQG0PmAKhLQ
 
+# REVIEW: Update expected results ...
+
+# ERROR: at least 230 results were expected from PTH None site_wide_subject, 61 extracted
+# ERROR: at least 550 results were expected from PTH None site_wide_creator, 0 extracted
+# ERROR: no more than 240 results were expected from PTH partner ATPS, 249 extracted
+# ERROR: 3 results were expected from PTH partner DMA, 179 extracted
+# ERROR: no more than 310 results were expected from PTH partner MAMU, 817 extracted
+# ERROR: 112 results were expected from PTH partner AMKV, 53 extracted
+# ERROR: 112 results were expected from PTH partner PHRML, 0 extracted
+# ERROR: 112 results were expected from PTH partner UNT, 244 extracted
+# ERROR: 64 results were expected from PTH collection ARTL, 1 extracted
+# ERROR: 431 results were expected from PTH collection MAFP, 428 extracted
+# ERROR: 56 results were expected from PTH collection TTAE, 50 extracted
+
 DATA_PULL_LOGIC = {
 
     None: {
