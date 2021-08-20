@@ -992,16 +992,21 @@ class PTHETLProcess(BaseETLProcess):
                     new_ids.append(identifier)
 
             record["identifier"] = new_ids
-            record["url"] = new_urls[0]
 
-            # Add in a link to the image.
             if new_urls:
 
+                record["url"] = new_urls[0]
+
+                # Add in a link to the image.
                 url = new_urls[0]
                 if not url.endswith('/'):
                     url += '/'
 
                 record["image"] = url + "m1/1/med_res/"
+
+            else:
+
+                record["ignore"] = True
 
             # Split 'coverage' into values dealing with geography and values dealing with history (dates).
             coverage_values = record.get("coverage", [])
