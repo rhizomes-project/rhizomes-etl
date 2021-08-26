@@ -35,6 +35,8 @@ class RhizomeField(Enum):
     COLLECTION_NAME                 = "Contributor"
     CREDIT_LINE                     = "Credit Line"
     IMAGES                          = "Image"
+    ANNOTATES                       = "Annotates"
+    ACCESS_RIGHTS                   = "Access Rights"
 
     @staticmethod
     def values():
@@ -65,6 +67,8 @@ OUTPUT_COLS = [
     RhizomeField.SOURCE,
     RhizomeField.LANGUAGE,
     RhizomeField.COLLECTION_NAME,
+    RhizomeField.ANNOTATES,
+    RhizomeField.ACCESS_RIGHTS,
 
     # REVIEW: add in "Access Rights" and "Annotates" columns once we know proper Omeka column names.
 ]
@@ -287,7 +291,7 @@ class MetadataWriter():
 
             fieldnames = [ col.value for col in OUTPUT_COLS ]
 
-            self.output = csv.DictWriter(sys.stdout, fieldnames=fieldnames, dialect=csv.QUOTE_ALL, delimiter="\t")
+            self.output = csv.DictWriter(sys.stdout, fieldnames=fieldnames, dialect=csv.QUOTE_ALL)
             self.row_buf = {}
 
         else:
