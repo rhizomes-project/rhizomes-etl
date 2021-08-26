@@ -46,7 +46,8 @@ field_map = {
     "medium":                                  RhizomeField.DIGITAL_FORMAT,
     "image_urls":                              RhizomeField.IMAGES,
 
-    # "description": "images[0]/caption"
+    "annotates":                               RhizomeField.ANNOTATES,
+    "access_rights":                           RhizomeField.ACCESS_RIGHTS,
     # "subject": "classification" + "subclassification"
 }
 
@@ -62,10 +63,12 @@ def get_record(artwork):
     record["url"] = artwork["guid"]
     record["date"] = artwork.get("dated")
     record["medium"] = artwork.get("medium")
+    record["access_rights"] = artwork.get("siUsageStatement")
 
     images = artwork.get("images", [])
     if images:
 
+        record["annotates"] = images[0]["caption"]
         record["image_urls"] = "https://ids.si.edu/ids/deliveryService?id=" + images[0]["fileName"]
 
     return record
