@@ -45,6 +45,9 @@ field_map = {
     # "content/freetext/notes":                  RhizomeField.NOTES,
     "medium":                                  RhizomeField.DIGITAL_FORMAT,
     "image_urls":                              RhizomeField.IMAGES,
+
+    # "description": "images[0]/caption"
+    # "subject": "classification" + "subclassification"
 }
 
 

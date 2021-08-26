@@ -65,6 +65,8 @@ OUTPUT_COLS = [
     RhizomeField.SOURCE,
     RhizomeField.LANGUAGE,
     RhizomeField.COLLECTION_NAME,
+
+    # REVIEW: add in legal column / copyright and description / annotations column once we know proper Omeka column names.
 ]
 
 
@@ -285,7 +287,7 @@ class MetadataWriter():
 
             fieldnames = [ col.value for col in OUTPUT_COLS ]
 
-            self.output = csv.DictWriter(sys.stdout, fieldnames=fieldnames, dialect=csv.QUOTE_ALL)
+            self.output = csv.DictWriter(sys.stdout, fieldnames=fieldnames, dialect=csv.QUOTE_ALL, delimiter="\t")
             self.row_buf = {}
 
         else:
