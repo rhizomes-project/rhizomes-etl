@@ -66,7 +66,7 @@ OUTPUT_COLS = [
     RhizomeField.LANGUAGE,
     RhizomeField.COLLECTION_NAME,
 
-    # REVIEW: add in legal column / copyright and description / annotations column once we know proper Omeka column names.
+    # REVIEW: add in "Access Rights" and "Annotates" columns once we know proper Omeka column names.
 ]
 
 
