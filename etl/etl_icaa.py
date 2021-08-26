@@ -26,9 +26,10 @@ field_map = {
     "dcterms:type/o:label":             RhizomeField.RESOURCE_TYPE,
     # "sort_collection_data":         RhizomeField.SOURCE,
     "icaa:topicDescriptor/o:label":     RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
-    "bibo:annotates/@value":            RhizomeField.NOTES,
     "o:media":                          RhizomeField.IMAGES,
+    "bibo:annotates/@value":            RhizomeField.ANNOTATES,
 }
+
 
 
 def extract_image_url(record):
