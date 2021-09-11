@@ -19,11 +19,7 @@ from etl.date_parsers import *
 #
 # 1. 'join' between constituents list and artworks list, using artist's constituentId.
 # 2. get the objectNumber from the artworks list.
-# 3. get metadata for the artwork from edan:
-#
-#    https://api.si.edu/openaccess/api/v1.0/content/:id
-#
-#    See http://edan.si.edu/openaccess/apidocs/ to documentation on Smithsonian's API.
+# 3. get metadata for the artwork from the artworks list, and supplement it with an image url from the deliveryService API
 #
 
 
@@ -36,6 +32,7 @@ field_map = {
     "id":                                      RhizomeField.ID,
     "artist":                                  RhizomeField.AUTHOR_ARTIST,
     "title":                                   RhizomeField.TITLE,
+    "caption":                                 RhizomeField.DESCRIPTION,
     "type":                                    RhizomeField.RESOURCE_TYPE,
     "url":                                     RhizomeField.URL,
     "date":                                    RhizomeField.DATE,
@@ -45,8 +42,6 @@ field_map = {
     # "content/freetext/notes":                  RhizomeField.NOTES,
     "medium":                                  RhizomeField.DIGITAL_FORMAT,
     "image_urls":                              RhizomeField.IMAGES,
-
-    "annotates":                               RhizomeField.ANNOTATES,
     "access_rights":                           RhizomeField.ACCESS_RIGHTS,
     # "subject": "classification" + "subclassification"
 }
@@ -68,7 +63,7 @@ def get_record(artwork):
     images = artwork.get("images", [])
     if images:
 
-        record["annotates"] = images[0]["caption"]
+        record["caption"] = images[0]["caption"]
         record["image_urls"] = "https://ids.si.edu/ids/deliveryService?id=" + images[0]["fileName"]
 
     return record
