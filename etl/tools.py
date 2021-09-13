@@ -250,17 +250,13 @@ def get_previous_item_ids():
     num_per_page = 250
     curr_page = 1
 
-    base_url = "https://romogis.frankromo.com/rhizomes-dev/api/items"
-
-    # REVIEW: Once data is loaded here, switch to this as base url.
-    # base_url = "https://cla-rhizomes-prd.oit.umn.edu/api/items"
-
+    base_url = "https://maas1848.umn.edu/api/items"
     item_ids = []
 
     # Do a loop that cannot go forever.
     while curr_page < 1000:
 
-        response = requests.get(f"https://romogis.frankromo.com/rhizomes-dev/api/items?per_page={num_per_page}&page={curr_page}", timeout=60)
+        response = requests.get(f"{base_url}?per_page={num_per_page}&page={curr_page}", timeout=60)
         if not response.ok:
 
             raise Exception(f"Omeka API returned error {response.status_code}, reason: '{response.reason}'")
