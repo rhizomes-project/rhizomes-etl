@@ -36,14 +36,10 @@ field_map = {
     "type":                                    RhizomeField.RESOURCE_TYPE,
     "url":                                     RhizomeField.URL,
     "date":                                    RhizomeField.DATE,
-    # "content/indexedStructured/date":          RhizomeField.SUBJECTS_HISTORICAL_ERA,
-    # "subjects":                                RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
-    # "content/indexedStructured/geoLocation":   RhizomeField.SUBJECTS_GEOGRAPHIC,
-    # "content/freetext/notes":                  RhizomeField.NOTES,
+    "subjects":                                RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
     "medium":                                  RhizomeField.DIGITAL_FORMAT,
     "image_urls":                              RhizomeField.IMAGES,
     "access_rights":                           RhizomeField.ACCESS_RIGHTS,
-    # "subject": "classification" + "subclassification"
 }
 
 
@@ -60,6 +56,17 @@ def get_record(artwork):
     record["medium"] = artwork.get("medium")
     record["access_rights"] = artwork.get("siUsageStatement")
 
+    # Use ontology to build a list of subjects.
+    subjects = []
+    for ontology in artwork.get("ontology", []):
+
+        path_term = ontology.get("pathTerm", "")
+        pos = path_term.rfind("\\")
+        subjects.append(path_term[ pos + 1 : ])
+
+    record["subjects"] = subjects
+
+    # Retrieve an image link for the record (if any).
     images = artwork.get("images", [])
     if images:
 
