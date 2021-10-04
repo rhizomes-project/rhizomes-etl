@@ -20,8 +20,9 @@ field_map = {
     # https://icaa.mfah.org/s/en/item/1468561
     "id":                               RhizomeField.URL, # Note; this is "https://icaa.mfah.org/s/en/item/{id}"
     "dcterms:language/o:label":         RhizomeField.LANGUAGE,
-    "dcterms:description/@value":       RhizomeField.DESCRIPTION,
-    "o:created/@value":                 RhizomeField.DATE,
+    # "dcterms:description/@value":       RhizomeField.DESCRIPTION,
+    "description":                      RhizomeField.DESCRIPTION,
+    "icaa:displayYear/@value":                 RhizomeField.DATE,
     # "type":                         RhizomeField.DIGITAL_FORMAT,
     "dcterms:type/o:label":             RhizomeField.RESOURCE_TYPE,
     # "sort_collection_data":         RhizomeField.SOURCE,
@@ -48,7 +49,7 @@ def extract_image_url(record):
         thumbnail_urls = image_json.get("o:thumbnail_urls")
         if thumbnail_urls:
 
-            image_url = thumbnail_urls.get("large")
+            image_url = thumbnail_urls.get("small")
             if image_url:
 
                 return "https://icaa.mfah.org" + image_url
@@ -117,6 +118,10 @@ def extract_record(record):
 
             value = extract_image_url(record=record)
 
+        elif field == "description":
+
+            value = "Interested in reading more? Visit our partner's homepage by clicking on the 'View Item' button or visiting the url in the website section"
+
         else:
 
             value = extract_field(record=record, field=field)
@@ -150,14 +155,12 @@ class ICAAETLProcess(BaseETLProcess):
 
     def get_collection_name(self):
 
-        return "International Center for the Arts of the Americas (ICAA)"
+        return "International Center for the Arts of the Americas at the Museum of Fine Arts, Houston (ICAA)"
 
     def get_date_parsers(self):
 
-        # "@value": "2020-02-14T02:06:44+00:00"
-
         return {
-            r'^\d{4}\-\d{2}\-\d{2}':  get_date_first_four
+            r'^\d{4}':  get_date_first_four
         }
 
     def extract(self):
