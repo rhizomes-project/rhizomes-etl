@@ -303,6 +303,9 @@ class BaseETLProcess(abc.ABC):
                     values = de_dupe_list(values=values)
                     record[field.value] = values
 
+            # Overwrite the access-rights.
+            record[RhizomeField.ACCESS_RIGHTS.value] = "Image is displayed for education and personal research only. For individual rights information about an item, please check the “Description” field, or follow the link to the digital object on the content provider’s website for more information. Reuse of copyright-protected images requires signed permission from the copyright holder. If you are the copyright holder of this item and its use online constitutes an infringement of your copyright, please contact us by email at rhizomes@umn.edu to discuss its removal from the portal."
+
         # Populate our Searchable Date.
         for record in data:
 
