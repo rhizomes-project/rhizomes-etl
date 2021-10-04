@@ -88,7 +88,7 @@ class SIETLProcess(BaseETLProcess):
 
     def get_collection_name(self):
 
-        return "Smithsonian"
+        return "Smithsonian American Art Museum (SAAM)"
 
     def get_date_parsers(self):
 
