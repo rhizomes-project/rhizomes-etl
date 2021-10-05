@@ -282,6 +282,14 @@ class BaseETLProcess(abc.ABC):
 
                     record["ignore"] = True
 
+        # Omit any records that do not have images (?)
+        if self.etl_env.do_images_only():
+
+            for record in data:
+
+                if not record.get(RhizomeField.IMAGES.value):
+
+                    record["ignore"] = True
 
         # Do some more tweaks to each record's data.
         for record in data:

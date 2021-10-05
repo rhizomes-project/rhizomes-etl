@@ -25,6 +25,7 @@ class ETLEnv(object):
 
         self.running_tests = False
         self.rebuild_previous_items = False
+        self.images_only = False
         self.use_cached_metadata = False
         self.offset = None
         self.dupes_file = None
@@ -57,6 +58,15 @@ class ETLEnv(object):
     def do_rebuild_previous_items(self):
 
         return self.rebuild_previous_items
+
+    def set_images_only(self, images_only):
+        "Sets flag indicating if we should ignore items that do not have images."
+
+        self.images_only = images_only
+
+    def do_images_only(self):
+
+        return self.images_only
 
     def set_use_cache(self, use_cached_metadata):
         "Sets flag indicating if we should use cached metadata files."

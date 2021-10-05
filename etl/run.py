@@ -48,7 +48,7 @@ def do_usage(msg=None):
 
         print(msg, file=sys.stderr)
 
-    print("Usage: run.py institution1 ... institutionN --format[=csv] --rebuild_previous_items=[yes|no] --use_cache=[yes|no] --resume_download=[offset] --dupes_file=[file_name] --category", file=sys.stderr)
+    print("Usage: run.py institution1 ... institutionN --format[=csv] --rebuild_previous_items=[yes|no] --images_only=[yes|no] --use_cache=[yes|no] --resume_download=[offset] --dupes_file=[file_name] --category", file=sys.stderr)
 
     raise Exception("Invalid usage")
 
@@ -56,6 +56,7 @@ def run_cmd_line(args):
 
     format_ = "csv" # default output format.
     rebuild_previous_items = "no"
+    images_only = "no"
     use_cache = "no"
     institutions = []
 
@@ -81,6 +82,17 @@ def run_cmd_line(args):
             rebuild_previous_items = arg[ pos + 1 : ]
 
             setup.ETLEnv.instance().set_rebuild_previous_items(rebuild_previous_items=(rebuild_previous_items == "yes"))
+
+        elif arg.startswith("--images_only="):
+
+            if len(arg) not in [ 16, 17 ]:
+
+                raise Exception(f"Invalid format: {arg}")
+
+            pos = arg.find('=')
+            images_only = arg[ pos + 1 : ]
+
+            setup.ETLEnv.instance().set_images_only(images_only=(images_only == "yes"))
 
         elif arg.startswith("--use_cache="):
 
