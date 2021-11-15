@@ -64,6 +64,9 @@ occasionally receive error 500 messages from the server for reasons unknown (and
 - Install and activate pyvenv (optional - see https://docs.python.org/3/library/venv.html)
 - Install pip (see https://pip.pypa.io/en/stable/installing/)
 - Clone this repo and navigate to it in a terminal window (e.g., bash)
+- Copy your secrets file to <ROOT>/etl/secrets.json, where <ROOT> is whereever you cloned the repo (see
+Karl Kaebnick or Colin McFadden if you need a copy of this file - its contents need to remain secret and so
+it is not in the repo)
 - Install required modules:
 
 ```
