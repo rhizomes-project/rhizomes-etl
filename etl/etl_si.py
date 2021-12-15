@@ -43,12 +43,12 @@ field_map = {
 }
 
 
-def get_record(artwork):
+def get_record(artwork, artist_name):
 
     record = {}
 
     record["id"] = artwork["objectNumber"]
-    record["artist"] = artwork["artworkConstituentRelationships"][0]["displayName"]
+    record["artist"] = artist_name
     record["title"] = artwork["title"]
     record["type"] = artwork["classification"]
     record["url"] = artwork["guid"]
@@ -113,7 +113,15 @@ class SIETLProcess(BaseETLProcess):
 
                 else:
 
-                    artists[int(row["\ufeffconstituentId"])] = True
+                    last_name = row.get("lastName")
+                    first_name = row.get("firstName")
+
+                    artist_name = last_name
+                    if first_name:
+
+                        artist_name += ", " + first_name
+
+                    artists[int(row["\ufeffconstituentId"])] = artist_name
 
         data = []
 
@@ -128,7 +136,9 @@ class SIETLProcess(BaseETLProcess):
 
                 if constituentId in artists:
 
-                    record = get_record(artwork=artwork)
+                    artist_name = artists[constituentId]
+
+                    record = get_record(artwork=artwork, artist_name=artist_name)
                     data.append(record)
 
 
