@@ -6,7 +6,7 @@ import os
 import sys
 
 from etl.setup import ETLEnv
-from etl.tools import MetadataWriter, get_previous_item_ids, RhizomeField, FIELDS_TO_DEDUPE, OUTPUT_COLS
+from etl.tools import MetadataWriter, get_current_metadata, RhizomeField, FIELDS_TO_DEDUPE, OUTPUT_COLS
 
 
 
@@ -177,6 +177,12 @@ class BaseETLProcess(abc.ABC):
 
         pass
 
+    def rectify(self, data, curr_metadata):
+        # This function gives ETL classes a chance to rectify
+        # metadata with any changes made via content admins.
+
+        pass
+
     def transform(self, data):
         "Transform the data."
 
@@ -260,11 +266,11 @@ class BaseETLProcess(abc.ABC):
 
                         del record[name]
 
+        # Get all metadata currently loaded.
+        curr_metadata = get_current_metadata()
 
         # Remove records that are already loaded in the rhizomes website?
         if not self.etl_env.do_rebuild_previous_items():
-
-            previous_record_urls = get_previous_item_ids()
 
             for record in data:
 
@@ -278,9 +284,12 @@ class BaseETLProcess(abc.ABC):
 
                     raise Exception(f"URL for record {record[RhizomeField.ID.value]} is a list - lists of urls are not supported.")
 
-                if url in previous_record_urls:
+                if url in curr_metadata:
 
                     record["ignore"] = True
+
+        # Rectify metadata with any changes made by content admins.
+        self.rectify(data=data, curr_metadata=curr_metadata)
 
         # Omit any records that do not have images (?)
         if self.etl_env.do_images_only():

@@ -148,6 +148,24 @@ class SIETLProcess(BaseETLProcess):
 
         return data
 
+    def rectify(self, data, curr_metadata):
+
+        print(f"Rectifying new smithsonian subject metadata for smithsonian with content admins' changes.", file=sys.stderr)
+
+        for item in data:
+
+            url = item[RhizomeField.URL.value]
+
+            # Is the record new?
+            if url not in curr_metadata:
+
+                continue
+
+            curr_subjects = curr_metadata[url].get("subjects", [])
+            if curr_subjects:
+
+                item[RhizomeField.SUBJECTS_TOPIC_KEYWORDS.value] = curr_subjects
+
 
     def transform(self, data):
 

@@ -241,10 +241,12 @@ def get_value(value, format="json"):
         return value
 
 
-def get_previous_item_ids():
+def get_current_metadata():
     """
-    Returns a list of IDs (actually urls) of all currently-loaded
-    records in the Rhizomes website.
+    Returns a dict of currently-loaded metadata.
+
+    Note: Info in the dict incudes the record's collection,
+    ID (actually url) and the record's subject.
     """
 
     num_per_page = 250
@@ -252,6 +254,10 @@ def get_previous_item_ids():
 
     base_url = "https://maas1848.umn.edu/api/items"
     item_ids = []
+
+    curr_metadata = {}
+
+    print(f"Retrieving current metadata from {base_url}", file=sys.stderr)
 
     # Do a loop that cannot go forever.
     while curr_page < 1000:
@@ -264,14 +270,32 @@ def get_previous_item_ids():
         curr_items = response.json()
         if not curr_items:
 
-            return item_ids
+            return curr_metadata
 
-        ids = [ item["foaf:weblog"][0]["@id"] for item in curr_items ]
-        item_ids += ids
+        for item in curr_items:
+
+            url = item.get("foaf:weblog", [{}])[0].get("@id")
+            if not url:
+
+                continue
+
+            collection = item.get("dcterms:contributor", [{}])[0].get("@value")
+
+            subjects = []
+            for subject in item.get("dcterms:subject", []):
+
+                subjects.append(subject["@value"])
+
+            item_data = {
+                "collection": collection,
+                "subjects": subjects
+            }
+
+            curr_metadata[url] = item_data
 
         curr_page += 1
 
-    return item_ids
+    return curr_metadata
 
 
 class MetadataWriter():
