@@ -293,6 +293,10 @@ def get_current_metadata():
 
             curr_metadata[url] = item_data
 
+            if len(curr_metadata) % 1000 == 0:
+
+                print(f"Retrieved {len(curr_metadata)} records", file=sys.stderr)
+
         curr_page += 1
 
     return curr_metadata
