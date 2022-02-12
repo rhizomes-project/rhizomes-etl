@@ -141,6 +141,7 @@ class ICAAETLProcess(BaseETLProcess):
             "%22mexican-american%22",
 
             # Note: "%22mexican american%22" and "%22mexican-american%22" return the same results.
+            # REVIEW: We might want to remove "border" since it can mean many different things.
         ]
 
         super().__init__(format=format)
