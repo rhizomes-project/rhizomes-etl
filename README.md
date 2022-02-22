@@ -24,6 +24,7 @@ a file.
 - Digital Public Library of America (DPLA)
 - Portal to Texas History (PTH)
 - International Center for the Arts of the Americas at the Museum of Fine Arts, Houston, Documents of Latin American and Latino Art (ICAA)
+- Smithsonian American Art Museum (SAAM)
 
 
 # Description of metadata providers 
@@ -56,6 +57,16 @@ database of metadata to the user. Because of this, our PTH ETL script first down
 filters the metadata locally to identify relavant records. Another aspect of PTH is the metadata is voluminous but not terribly consistent -
 for instance, PTH uses many different formats and notations to indicate what date or date range a record is associated with. Also, we
 occasionally receive error 500 messages from the server for reasons unknown (and the ETL script has error-handling to attempt to deal with this issue).
+
+### SAAM
+
+The Smithsonian Institution - SAAM included - has a nice (if somewhat poorly documented) API for pulling metadata. Unfortunately, a big
+problem we ran into with SAAM via their API was getting relevant results and, in particular, getting results for particular artists of
+interest to the Rhizomes project from Smithsonian's API - getting thorough coverage of particular artists through Smithsonian's API proved
+difficult due to inconsistencies in artists' names - varying spelling, abbreviations, nicknames, etc.  After considerable research and
+experimentation into how to get better results from the API, we reached out to SAAM staff and were able to get a list (in csv form) of
+artists relevant to our project, as well as an accompanying list (in JSON form) of metadata about artworks for each of the artists. Pulling
+metadata from these 2 files gave us much better results and became our much-preferred approach to gathering SAAM metadata.
 
 
 # How to Install
