@@ -68,6 +68,8 @@ experimentation into how to get better results from the API, we reached out to S
 artists relevant to our project, as well as an accompanying list (in JSON form) of metadata about artworks for each of the artists. Pulling
 metadata from these 2 files gave us much better results and became our much-preferred approach to gathering SAAM metadata.
 
+Note: these 2 metadata files are stored in this repo at etl/data/permanent/si/
+
 
 # How to Install
 
