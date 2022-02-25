@@ -88,7 +88,8 @@ pip install -r requirements.txt
 
 # How to Run the ETL scripts
 
-- unzip the contents of etl/data/current_loaded_metadata/ in the root of the repo.
+- Note: whenever the metadata for the site is updated, please update the zip file located
+at etl/data/current_loaded_metadata/ with the latest csv files.
 
 - From a terminal window (e.g., bash), run the script for the provider whose metadata you want, e.g., 
 
