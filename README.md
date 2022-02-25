@@ -27,14 +27,14 @@ a file.
 - Smithsonian American Art Museum (SAAM)
 
 
-# Description of metadata providers 
+# Description of metadata providers
 
 #### Calisphere
 
 Calisphere has a fairly well-documented, clean API - our ETL script queries it using a combination of collections and keywords to retrieve
 relevant records.
 
-#### DPLA
+#### Digital Public Library of America (DPLA)
 
 While DPLA's API is also fairly well-documented, their metadata arguably errs on the side of supplying too much possibly-unneeded information.
 One issue with DPLA is they ingest metadata from other sources, including Calisphere, which has meant that the resulting duplicate records
@@ -42,14 +42,14 @@ has been an issue we have had to work around. In addition, DPLA includes a strin
 the original metadata as it was received by DPLA from the original data source - parsing this string can be cumberson and error-prone, since the 
 format of the original string varies considerably from one source to another.
 
-#### ICAA
+#### International Center for the Arts of the Americas at the Museum of Fine Arts, Houston, Documents of Latin American and Latino Art (ICAA)
 
 As of this writing (early July, 2021), ICAA's documentation is quite new and sparse. However, their API and the metadata it serves
 are quite clean, well thought-out, and easy to work with. Our team received some direct instruction from Bruno Favaretto, who developed
 much of the ICAA API and was quite helpful in pointing us in the right direction in terms of how to use their API. Also, the ICAA team
 has put extensive work into making their metadata exceedingly consistent.
 
-#### PTH
+#### Portal to Texas History (PTH)
 
 PTH has excellent documentation for their OAIPMH API, and their support staff are generally quite helpful via email, but unfortunately
 their API is not intended to support the sort of queries that our project ideally needs - it really is intended to copy the entire
@@ -58,7 +58,7 @@ filters the metadata locally to identify relavant records. Another aspect of PTH
 for instance, PTH uses many different formats and notations to indicate what date or date range a record is associated with. Also, we
 occasionally receive error 500 messages from the server for reasons unknown (and the ETL script has error-handling to attempt to deal with this issue).
 
-### SAAM
+### Smithsonian American Art Museum (SAAM)
 
 The Smithsonian Institution - SAAM included - has a nice (if somewhat poorly documented) API for pulling metadata. Unfortunately, a big
 problem we ran into with SAAM via their API was getting relevant results and, in particular, getting results for particular artists of
@@ -105,7 +105,7 @@ etl/etl_pth.py > PTH.csv
 The same holds true for Calisphere, DPLA and ICAA. (Note that the python script filenames are all lower-case).
 
 Regarding the issue of avoiding loading the same record more than once, the ETL script uses the Omeka API to identify
-which records are already on the website (currently at https://romogis.frankromo.com/rhizomes-dev/api/items) - any records
+which records are already on the website (currently at https://maas1848.umn.edu/api/items) - any records
 that are already loaded will not be put into the csv files.
 
 Note that DPLA contains a lot of records that are originally from Calisphere, so in order to avoid duplicates, you should do one of the following:
@@ -113,7 +113,7 @@ Note that DPLA contains a lot of records that are originally from Calisphere, so
 - Load the Calisphere data into the Rhizomes database *before* running the ETL script for DPLA. The ETL transform
 process checks to see if each record is already present in the Rhizomes website (via the Omeka API) -
 any records already loaded will be ignored to avoid duplicates. Note: it may be helpful to make sure the Calisphere
-records are available via the Omeka API (currently at https://romogis.frankromo.com/rhizomes-dev/api/items) before 
+records are available via the Omeka API (currently at https://maas1848.umn.edu/api/items) before
 running the dpla ETL script, to ensure the previously-loaded items can be identied.
 
 - Store the Calisphere metadata first in a csv file. Now run the DPLA ETL script, and pass in the name of the Calisphere metadata file, so that the script knows how to de-dupe the DPLA metadata. For instance:
