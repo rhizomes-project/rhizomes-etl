@@ -77,15 +77,26 @@ Note: these 2 metadata files are stored in this repo at etl/data/permanent/si/
 - Install and activate pyvenv (optional - see https://docs.python.org/3/library/venv.html)
 - Install pip (see https://pip.pypa.io/en/stable/installing/)
 - Clone this repo and navigate to it in a terminal window (e.g., bash)
-- Copy your secrets file to <ROOT>/etl/secrets.json, where <ROOT> is whereever you cloned the repo (see
-Karl Kaebnick or Colin McFadden if you need a copy of this file - its contents need to remain secret and so
-it is not in the repo)
+- Copy your secrets file to <ROOT>/etl/secrets.json, where <ROOT> is whereever you cloned the repo. The secrets.json file will contain the API keys for the institutions you are accessing. You'll need to work with these institutions to obtain these keys. An example secrets file is below.
 - Install required modules:
 
 ```
 pip install -r requirements.txt
 ```
 
+Example Secrets file:
+  ```
+  {
+    "apis": {
+        "keys": {
+            "dpla": "YOUR-KEY-HERE",
+            "smithsonian": "YOUR-KEY-HERE",
+            "calisphere": "YOUR-KEY-HERE"
+        }
+    }
+}
+  e```
+  
 # How to Run the ETL scripts
 
 - Note: whenever the metadata for the site is updated, please update the zip file located
