@@ -52,8 +52,6 @@ field_map = {
 }
 
 
-# Note: data pull instructions are here: https://docs.google.com/document/d/1cD559D8JANAGrs5pwGZqaxa7oHTwid0mxQG0PmAKhLQ
-
 # REVIEW: Update expected results ...
 
 # ERROR: at least 230 results were expected from PTH None site_wide_subject, 61 extracted
