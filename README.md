@@ -31,8 +31,8 @@ a file.
 
 #### Calisphere
 
-Calisphere has a fairly well-documented, clean API - our ETL script queries it using a combination of collections and keywords to retrieve
-relevant records.
+Calisphere has a fairly well-documented, clean API - our ETL script (`etl_calisphere.py`) queries it using a combination of collections and keywords to retrieve
+relevant records. 
 
 #### Digital Public Library of America (DPLA)
 
@@ -40,20 +40,20 @@ While DPLA's API is also fairly well-documented, their metadata arguably errs on
 One issue with DPLA is they ingest metadata from other sources, including Calisphere, which has meant that the resulting duplicate records
 has been an issue we have had to work around. In addition, DPLA includes a string (under the key "originalRecord") in their JSON which contains
 the original metadata as it was received by DPLA from the original data source - parsing this string can be cumberson and error-prone, since the 
-format of the original string varies considerably from one source to another.
+format of the original string varies considerably from one source to another. The DPLA ETL is managed by `etl_dpla.py`.
 
 #### International Center for the Arts of the Americas at the Museum of Fine Arts, Houston, Documents of Latin American and Latino Art (ICAA)
 
 As of this writing (early July, 2021), ICAA's documentation is quite new and sparse. However, their API and the metadata it serves
 are quite clean, well thought-out, and easy to work with. Our team received some direct instruction from Bruno Favaretto, who developed
 much of the ICAA API and was quite helpful in pointing us in the right direction in terms of how to use their API. Also, the ICAA team
-has put extensive work into making their metadata exceedingly consistent.
+has put extensive work into making their metadata exceedingly consistent. The ICAA ETL is managed by `etl_icaa.py`.
 
 #### Portal to Texas History (PTH)
 
 PTH has excellent documentation for their OAIPMH API, and their support staff are generally quite helpful via email, but unfortunately
 their API is not intended to support the sort of queries that our project ideally needs - it really is intended to copy the entire
-database of metadata to the user. Because of this, our PTH ETL script first downloads the entire PTH universe of metadata, and then
+database of metadata to the user. Because of this, our PTH ETL script (`etl_pth.py`) first downloads the entire PTH universe of metadata, and then
 filters the metadata locally to identify relavant records. Another aspect of PTH is the metadata is voluminous but not terribly consistent -
 for instance, PTH uses many different formats and notations to indicate what date or date range a record is associated with. Also, we
 occasionally receive error 500 messages from the server for reasons unknown (and the ETL script has error-handling to attempt to deal with this issue).
@@ -66,7 +66,7 @@ interest to the Rhizomes project from Smithsonian's API - getting thorough cover
 difficult due to inconsistencies in artists' names - varying spelling, abbreviations, nicknames, etc.  After considerable research and
 experimentation into how to get better results from the API, we reached out to SAAM staff and were able to get a list (in csv form) of
 artists relevant to our project, as well as an accompanying list (in JSON form) of metadata about artworks for each of the artists. Pulling
-metadata from these 2 files gave us much better results and became our much-preferred approach to gathering SAAM metadata.
+metadata from these 2 files gave us much better results and became our much-preferred approach to gathering SAAM metadata. The ETL script (`etl_si.py`) that we use can, in principle, be used to ingest data from any Smithsonian Institute collection present in their api.
 
 Note: these 2 metadata files are stored in this repo at etl/data/permanent/si/
 
