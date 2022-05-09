@@ -11,8 +11,6 @@ from bs4 import BeautifulSoup
 
 class RhizomeField(Enum):
 
-    # Note: see 'schema mapping', see: https://docs.google.com/spreadsheets/d/1qaJGEewrOdaDwPKRoliZVWBWo9k-OgbyZFHmqU7SLzY
-
     ID                              = "Resource Identifier"
     TITLE                           = "Title"
     ALTERNATE_TITLES                = "Alternative Title"
