@@ -102,19 +102,19 @@ Example Secrets file:
 - Note: whenever the metadata for the site is updated, please update the zip file located
 at etl/data/current_loaded_metadata/ with the latest csv files.
 
-- From a terminal window (e.g., bash), run the script for the provider whose metadata you want, e.g., 
+- The scripts are all invoked via a central "run" task. You can invoke one or more institutional parsers by passing them in as arguments. 
 
 ```
-etl/etl_<data provider>.py
+run.py cali
 ```
 
 For instance, to get metadata for PTH, you can simply call the python script for that provider, and pipe the output to a csv file, e.g.,
 
 ```
-etl/etl_pth.py > PTH.csv
+run.py pth > PTH.csv
 ```
 
-The same holds true for Calisphere, DPLA and ICAA. (Note that the python script filenames are all lower-case).
+The same holds true for Calisphere (cali), DPLA (dpla) and ICAA (icaa) and SAAM (si). (Note that the python script filenames are all lower-case).
 
 Regarding the issue of avoiding loading the same record more than once, the ETL script uses the Omeka API to identify
 which records are already on the website (currently at https://maas1848.umn.edu/api/items) - any records
@@ -131,7 +131,7 @@ running the dpla ETL script, to ensure the previously-loaded items can be identi
 - Store the Calisphere metadata first in a csv file. Now run the DPLA ETL script, and pass in the name of the Calisphere metadata file, so that the script knows how to de-dupe the DPLA metadata. For instance:
 
 ```
-etl/etl_dpla.py --dupes_file=calisphere.csv > DPLA.csv
+run.py dpla --dupes_file=calisphere.csv > DPLA.csv
 ```
 
 Command line options for the ETL scripts:
@@ -141,3 +141,13 @@ Command line options for the ETL scripts:
 `--rebuild_previous_items` - pass in 'yes' or 'no', indicating whether the ETL script should output metadata for items that are already loaded in the website (default is 'no').
 
 `--images_only` - pass in 'yes' or 'no', indicating whether records that have no image should be ignored (default is 'no').
+
+# Other scripts in this repository
+
+The `setup.py`, `data_parsers.py` and `tools.py` files in the etl folder container helper code used by the main `run.py` application. 
+
+The `tests` folder contains basic automated tests to ensure that the ETL tools are executing as expected. These can be invoked by running `run_coverage.sh`. 
+
+The `sandbox` folder contains lightweight commandline interfaces for testing the various ETL pipelines. If you'd like to do your own development within this repository, these scripts provide you with scaffolding to get started.
+
+The `data` folder contains cached data used to track the import process, and some additional metadata used by the SAAM parser.
