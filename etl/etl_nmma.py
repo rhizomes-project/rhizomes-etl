@@ -3,9 +3,11 @@
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
 from etl.tools import RhizomeField
+from etl.date_parsers import get_date_first_four
+
+import openpyxl
 
 
-# REVIEW: TODO: update this for NMAA
 field_map = {
 
     "accession_num":                           RhizomeField.ID,
@@ -33,10 +35,33 @@ class NMAAETLProcess(BaseETLProcess):
 
         return "National Museum of Mexican Art (NMMA)"
 
+    def get_date_parsers(self):
+
+        return {
+            r'^\d{4}':  get_date_first_four
+        }
+
     def extract(self):
 
-        # REVIEW: TODO: add extraction
+        # Open the excel workbook.
+        wrkbk = openpyxl.load_workbook("etl/data/permanent/nmma/NMMA_Proj.Rhizome.xlsx")
+        sheet = wrkbk.active
 
+        data = []
+
+        # Iterate through the sheet by row & column and get the data.
+        # Note: row and col numbers in openpyxl are 1-based, and we skip header the row.
+        for row_num in range(1, sheet.max_row + 1):
+
+            row = {}
+
+            # Build each row.
+            for col_num, field_name in enumerate(field_map.keys()):
+
+                cell_obj = sheet.cell(row=row_num + 1, column=col_num + 1)
+                row[field_name] = cell_obj.value
+
+            data.append(row)
 
         return data
 
