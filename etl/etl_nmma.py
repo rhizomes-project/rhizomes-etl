@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import requests
+
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
 from etl.tools import RhizomeField
@@ -14,11 +16,68 @@ field_map = {
     "title":                                   RhizomeField.TITLE,
     "translation":                             RhizomeField.DESCRIPTION,
     "web_url":                                 RhizomeField.URL,
+    "image_url":                               RhizomeField.IMAGES,
     "creator_accessionPart_full_name":         RhizomeField.AUTHOR_ARTIST,
     "media":                                   RhizomeField.RESOURCE_TYPE,
     "a17dimensions":                           RhizomeField.DIMENSIONS,
     "creation_year":                           RhizomeField.DATE,
 }
+
+required_values = [
+    "accession_num",
+    "title",
+    "translation"
+]
+
+bad_strings = [
+    "\n"
+]
+
+
+def is_record_valid(record):
+
+    for required_value in required_values:
+
+        if not record.get(required_value):
+
+            return False
+
+    return True
+
+def clean_value(value):
+
+    # Is this value on a blank line?
+    if not value:
+
+        return None
+
+    for bad_string in bad_strings:
+
+        pos = value.find(bad_string)
+        if pos >= 0:
+
+
+            value = value.replace(bad_string, " ")
+
+        return value
+
+def extract_image_url(record):
+
+    accession_num = record["accession_num"]
+    url = record["web_url"]
+
+    response = requests.get(url=url, timeout=60)
+    content = response.text
+
+    url_beginning = 'data-srcset="'
+    url_end = ".png"
+
+    begin = content.find(url_beginning)
+    end = content.find(url_end, begin)
+
+    url = content[ begin + len(url_beginning) : end + len(url_end) ]
+
+    return "https://nationalmuseumofmexicanart.org" + url
 
 
 class NMAAETLProcess(BaseETLProcess):
@@ -53,15 +112,23 @@ class NMAAETLProcess(BaseETLProcess):
         # Note: row and col numbers in openpyxl are 1-based, and we skip header the row.
         for row_num in range(1, sheet.max_row + 1):
 
-            row = {}
+            record = {}
 
             # Build each row.
             for col_num, field_name in enumerate(field_map.keys()):
 
                 cell_obj = sheet.cell(row=row_num + 1, column=col_num + 1)
-                row[field_name] = cell_obj.value
 
-            data.append(row)
+                value = clean_value(value=cell_obj.value)
+                record[field_name] = value
+
+            # Skip any blank lines.
+            if is_record_valid(record=record):
+
+                # Parse the image url from the web page.
+                record["image_url"] = extract_image_url(record=record)
+
+                data.append(record)
 
         return data
 
