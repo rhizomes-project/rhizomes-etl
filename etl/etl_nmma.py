@@ -16,11 +16,11 @@ field_map = {
     "title":                                   RhizomeField.TITLE,
     "translation":                             RhizomeField.DESCRIPTION,
     "web_url":                                 RhizomeField.URL,
-    "image_url":                               RhizomeField.IMAGES,
     "creator_accessionPart_full_name":         RhizomeField.AUTHOR_ARTIST,
     "media":                                   RhizomeField.RESOURCE_TYPE,
     "a17dimensions":                           RhizomeField.DIMENSIONS,
     "creation_year":                           RhizomeField.DATE,
+    "image_url":                               RhizomeField.IMAGES,
 }
 
 required_values = [
