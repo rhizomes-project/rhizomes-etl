@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
+import re
 import requests
+import sys
 
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
@@ -14,19 +16,68 @@ field_map = {
 
     "accession_num":                           RhizomeField.ID,
     "title":                                   RhizomeField.TITLE,
-    "translation":                             RhizomeField.DESCRIPTION,
+    "translation":                             RhizomeField.ALTERNATE_TITLES,
+    "themes":                                  RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
     "web_url":                                 RhizomeField.URL,
     "creator_accessionPart_full_name":         RhizomeField.AUTHOR_ARTIST,
-    "media":                                   RhizomeField.RESOURCE_TYPE,
+
+    # REVIEW: removing media, for now at least
+    # "media":                                   RhizomeField.RESOURCE_TYPE,
     "a17dimensions":                           RhizomeField.DIMENSIONS,
     "creation_year":                           RhizomeField.DATE,
+    "webcredit":                               RhizomeField.SOURCE,
     "image_url":                               RhizomeField.IMAGES,
+    "add_to_description1":                     RhizomeField.DESCRIPTION_ADD_1,
+
 }
+
+
+field_map_keys = list(field_map.keys())
+
+
+# Map column name to column index in the input
+# data (in case NMMA changes column order or
+# adds columns)
+column_indices = {
+
+    # Accession y Part
+    field_map_keys[0]: 0,
+
+    # Title
+    field_map_keys[1]: 1,
+
+    # Translation
+    field_map_keys[2]: 2,
+
+    # Themes
+    field_map_keys[3]: 3,
+
+    # WebAddress
+    field_map_keys[4]: 4,
+
+    # Creator~Full Name
+    field_map_keys[5]: 5,
+
+    # # Media
+    # REVIEW: waiting on clarification on where to put 'media'
+    # field_map_keys[6]: 6,
+
+    # Dimensions
+    field_map_keys[6]: 7,
+
+    # Creation Year
+    field_map_keys[7]: 8,
+
+    # WebCredit
+    field_map_keys[8]: 9,
+}
+
+
 
 required_values = [
     "accession_num",
     "title",
-    "translation"
+    "web_url"
 ]
 
 bad_strings = [
@@ -40,9 +91,11 @@ def is_record_valid(record):
 
         if not record.get(required_value):
 
-            return False
+            message = f"Missing {required_value}"
 
-    return True
+            return False, message
+
+    return True, None
 
 def clean_value(value):
 
@@ -53,15 +106,102 @@ def clean_value(value):
 
     for bad_string in bad_strings:
 
-        pos = value.find(bad_string)
-        if pos >= 0:
+        value = value.replace(bad_string, " ")
 
+    return value.strip()
 
-            value = value.replace(bad_string, " ")
+def remove_parens(value):
+    # Remove parenthesis from beginning and end of value.
 
-        return value
+    if not value:
 
-def extract_image_url(record):
+        return None
+
+    value = value.strip()
+
+    if value.startswith("("):
+
+        value = value[ 1 : ]
+
+    if value.endswith(")"):
+
+        value = value[ : -1 ]
+
+    return clean_value(value=value)
+
+def parse_title(value):
+    # Separate title value into english title
+    # and translated title.
+
+    if not value:
+
+        return None
+
+    match =  re.search(r'\(.*\)', value)
+
+    if match:
+
+        title = value[ : match.start() ]
+        translation = value[ match.start() : match.end() ]
+
+    else:
+
+        title = value
+        translation = None
+
+    results = {
+        "title": clean_value(value=title),
+        "add_to_description1": remove_parens(value=translation)
+    }
+
+    return results
+
+def parse_alt_title(value):
+
+    return {
+        "translation": remove_parens(value=value)
+    }
+
+def parse_subject(value):
+
+    if not value:
+
+        return None
+
+    delimiters = [ ",", ";" ]
+
+    for delimiter in delimiters:
+
+        value = value.replace(delimiter, "|")
+
+    bad_strings = [ " |", "| " ]
+    for bad_string in bad_strings:
+
+        value = value.replace(bad_string, "|")
+
+    return {
+        "themes": clean_value(value=value)
+    }
+
+def parse_values(field_name, value):
+
+    if field_name == "title":
+
+        return parse_title(value=value)
+
+    elif field_name == "translation":
+
+        return parse_alt_title(value=value)
+
+    elif field_name == "themes":
+
+        return parse_subject(value=value)
+
+    else:
+
+        return { field_name: clean_value(value=value) }
+
+def get_image_url(record):
 
     accession_num = record["accession_num"]
     url = record["web_url"]
@@ -77,7 +217,13 @@ def extract_image_url(record):
 
     url = content[ begin + len(url_beginning) : end + len(url_end) ]
 
-    return "https://nationalmuseumofmexicanart.org" + url
+    if url:
+
+        return "https://nationalmuseumofmexicanart.org" + url
+
+    else:
+
+        return None
 
 
 class NMAAETLProcess(BaseETLProcess):
@@ -96,9 +242,13 @@ class NMAAETLProcess(BaseETLProcess):
 
     def get_date_parsers(self):
 
-        return {
-            r'^\d{4}':  get_date_first_four
-        }
+        # Not: we are just letting all date values come through.
+
+        # return {
+        #     r'^\d{4}':  get_date_first_four
+        # }
+
+        return None
 
     def extract(self):
 
@@ -115,20 +265,27 @@ class NMAAETLProcess(BaseETLProcess):
             record = {}
 
             # Build each row.
-            for col_num, field_name in enumerate(field_map.keys()):
+            for field_name, col_index in column_indices.items():
 
-                cell_obj = sheet.cell(row=row_num + 1, column=col_num + 1)
+                cell_obj = sheet.cell(row=row_num + 1, column=col_index + 1)
 
-                value = clean_value(value=cell_obj.value)
-                record[field_name] = value
+                values = parse_values(field_name=field_name, value=cell_obj.value)
+                if values:
+
+                    record |= values
 
             # Skip any blank lines.
-            if is_record_valid(record=record):
+            is_valid, message = is_record_valid(record=record)
+            if is_valid:
 
-                # Parse the image url from the web page.
-                record["image_url"] = extract_image_url(record=record)
+                # Scrape the image url from the web page.
+                record["image_url"] = get_image_url(record=record)
 
                 data.append(record)
+
+            else:
+
+                print(f"Row {row_num + 1} is invalid: {message}", file=sys.stderr)
 
         return data
 
