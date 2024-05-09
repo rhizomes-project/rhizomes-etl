@@ -20,14 +20,14 @@ field_map = {
     "themes":                                  RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
     "web_url":                                 RhizomeField.URL,
     "creator_accessionPart_full_name":         RhizomeField.AUTHOR_ARTIST,
-
-    # REVIEW: removing media, for now at least
-    # "media":                                   RhizomeField.RESOURCE_TYPE,
+    "media":                                   RhizomeField.RESOURCE_TYPE,
     "a17dimensions":                           RhizomeField.DIMENSIONS,
     "creation_year":                           RhizomeField.DATE,
     "webcredit":                               RhizomeField.SOURCE,
     "image_url":                               RhizomeField.IMAGES,
-    "add_to_description1":                     RhizomeField.DESCRIPTION_ADD_1,
+    "description":                              RhizomeField.DESCRIPTION,
+    "add_to_description_1":                    RhizomeField.DESCRIPTION_ADD_1,
+    "add_to_description_2":                    RhizomeField.DESCRIPTION_ADD_2,
 
 }
 
@@ -58,18 +58,17 @@ column_indices = {
     # Creator~Full Name
     field_map_keys[5]: 5,
 
-    # # Media
-    # REVIEW: waiting on clarification on where to put 'media'
-    # field_map_keys[6]: 6,
+    # Media
+    field_map_keys[6]: 6,
 
     # Dimensions
-    field_map_keys[6]: 7,
+    field_map_keys[7]: 7,
 
     # Creation Year
-    field_map_keys[7]: 8,
+    field_map_keys[8]: 8,
 
     # WebCredit
-    field_map_keys[8]: 9,
+    field_map_keys[9]: 9,
 }
 
 
@@ -151,16 +150,76 @@ def parse_title(value):
 
     results = {
         "title": clean_value(value=title),
-        "add_to_description1": remove_parens(value=translation)
+        "add_to_description_1": remove_parens(value=translation)
     }
 
     return results
 
 def parse_alt_title(value):
 
+    if not value:
+
+        return None
+
+    value = remove_parens(value=value)
+
+    # Move text within brackets in translation to
+    # "add to description 2"
+    match = re.search(r'\[.*\]', value)
+
+    if match:
+
+        translation = value[ : match.start() ]
+        add_to_description_2 = value[ match.start() + 1 : match.end() -1 ]
+
+    else:
+
+        translation = value
+        add_to_description_2 = None
+
     return {
-        "translation": remove_parens(value=value)
+        "translation": remove_parens(value=translation),
+        "add_to_description_2": add_to_description_2
     }
+
+class DescriptionBuilder():
+
+    def __init__(self):
+
+        self.reset()
+
+    def reset(self):
+
+        self.media = ""
+        self.dimensions = ""
+
+    def get_description(self):
+        # Description is media + dimension.
+
+        self.media = clean_value(self.media)
+        self.dimensions = clean_value(self.dimensions)
+
+        # Capitalize first letter of media.
+        self.media = self.media[0].upper() + self.media[1:]
+
+        # Handle periods.
+        if not self.media.endswith("."):
+
+            self.media += "."
+
+        self.media += " "
+
+        self.dimensions += "."
+
+        description = self.media + self.dimensions
+
+        self.reset()
+
+        return description
+
+
+description_builder = DescriptionBuilder()
+
 
 def parse_subject(value):
 
@@ -196,6 +255,14 @@ def parse_values(field_name, value):
     elif field_name == "themes":
 
         return parse_subject(value=value)
+
+    elif field_name == "media":
+
+        description_builder.media = value
+
+    elif field_name == "a17dimensions":
+
+        description_builder.dimensions = value
 
     else:
 
@@ -280,6 +347,9 @@ class NMAAETLProcess(BaseETLProcess):
 
                 # Scrape the image url from the web page.
                 record["image_url"] = get_image_url(record=record)
+
+                # Build the description and add it.
+                record["description"] = description_builder.get_description()
 
                 data.append(record)
 
