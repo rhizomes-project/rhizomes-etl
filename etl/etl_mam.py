@@ -24,6 +24,8 @@ field_map = {
     "COLLECTION":                           RhizomeField.SOURCE,
     "OBJECT IMAGE":                         RhizomeField.IMAGES,
 
+    "CREATOR2":                             RhizomeField.AUTHOR_ARTIST,
+
 }
 
 
@@ -60,6 +62,9 @@ column_indices = {
 
     # OBJECT IMAGE
     field_map_keys[8]: 23,
+
+    # CREATOR2
+    field_map_keys[9]: 4,
 
 }
 
@@ -151,25 +156,44 @@ def parse_subject(value):
         "themes": clean_value(value=value)
     }
 
+
+class SpecialValueHandler():
+
+    def __init__(self):
+
+        self.reset()
+
+    def reset(self):
+
+        self.creator = ""
+
+    def add_creator(self, value):
+
+        if not value:
+
+            return
+
+        if self.creator:
+
+            self.creator += ", "
+
+        self.creator += value
+
+
+special_value_handler = SpecialValueHandler()
+
+
 def parse_values(field_name, value):
 
-    # REVIEW: What do I do with all this?
+    if field_name.startswith("CREATOR"):
 
-    # if field_name == "themes":
+        special_value_handler.add_creator(value=value)
 
-    #     return parse_subject(value=value)
+        return { "CREATOR" : special_value_handler.creator }
 
-    # elif field_name == "media":
+    else:
 
-    #     description_builder.media = value
-
-    # elif field_name == "a17dimensions":
-
-    #     description_builder.dimensions = value
-
-    # else:
-
-    return { field_name: clean_value(value=value) }
+        return { field_name: clean_value(value=value) }
 
 
 class MAMETLProcess(BaseETLProcess):
@@ -205,6 +229,7 @@ class MAMETLProcess(BaseETLProcess):
         for row_num in range(1, sheet.max_row + 1):
 
             record = {}
+            special_value_handler.reset()
 
             # Build each row.
             for field_name, col_index in column_indices.items():
