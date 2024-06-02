@@ -11,6 +11,10 @@ from etl.date_parsers import get_date_first_four
 
 import openpyxl
 
+#
+# See Schema Review: https://docs.google.com/document/d/1iZLT6jTaqVDHl49jTIyBfUW1uAQUoX97-kKtKYaFdOI/edit#heading=h.rgi19g8xnr5
+#
+
 
 field_map = {
 
@@ -24,6 +28,7 @@ field_map = {
     "COLLECTION":                           RhizomeField.SOURCE,
     "OBJECT IMAGE":                         RhizomeField.IMAGES,
 
+    # "Place Holder" values used temporarily to fill in "real" values:
     "CREATOR2":                             RhizomeField.AUTHOR_ARTIST,
 
 }
@@ -156,6 +161,22 @@ def parse_subject(value):
         "themes": clean_value(value=value)
     }
 
+def ParseExcelValue(value):
+    # Remove things like "CONCAT()" and "SUBSTITUTE()" from excel cell values.
+
+    if not value:
+
+        return value
+
+
+    start = value.find('"')
+
+    end = value.find('"', start + 1)
+
+    value = value[ start + 1 : end ]
+
+    return clean_value(value=value)
+
 
 class SpecialValueHandler():
 
@@ -190,6 +211,10 @@ def parse_values(field_name, value):
         special_value_handler.add_creator(value=value)
 
         return { "CREATOR" : special_value_handler.creator }
+
+    elif field_name in [ "OBJECT URL", "OBJECT IMAGE" ]:
+
+        return { field_name : ParseExcelValue(value=value) }
 
     else:
 
