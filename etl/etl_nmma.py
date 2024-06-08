@@ -25,7 +25,7 @@ field_map = {
     "creation_year":                           RhizomeField.DATE,
     "webcredit":                               RhizomeField.SOURCE,
     "image_url":                               RhizomeField.IMAGES,
-    "description":                              RhizomeField.DESCRIPTION,
+    "description":                             RhizomeField.DESCRIPTION,
     "add_to_description_1":                    RhizomeField.DESCRIPTION_ADD_1,
     "add_to_description_2":                    RhizomeField.DESCRIPTION_ADD_2,
 
@@ -303,6 +303,28 @@ class NMAAETLProcess(BaseETLProcess):
 
         return field_map
 
+    def get_output_cols(self):
+
+        return [
+            RhizomeField.TITLE,
+            RhizomeField.ALTERNATE_TITLES,
+            RhizomeField.AUTHOR_ARTIST,
+            RhizomeField.IMAGES,
+            RhizomeField.URL,
+            RhizomeField.DESCRIPTION,
+            RhizomeField.DESCRIPTION_ADD_1,
+            RhizomeField.DESCRIPTION_ADD_2,
+            RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
+            RhizomeField.SEARCHABLE_DATE,
+            RhizomeField.RESOURCE_TYPE,
+            RhizomeField.DIGITAL_FORMAT,
+            RhizomeField.SOURCE,
+            RhizomeField.LANGUAGE,
+            RhizomeField.COLLECTION_NAME,
+            RhizomeField.ANNOTATES,
+            RhizomeField.ACCESS_RIGHTS,
+        ]
+
     def get_collection_name(self):
 
         return "National Museum of Mexican Art (NMMA)"
@@ -316,6 +338,12 @@ class NMAAETLProcess(BaseETLProcess):
         # }
 
         return None
+
+    def get_access_rights_stmt(self):
+
+        return """NMMA is committed to protecting the intellectual property rights of visual and performing artists and others who hold copyright. With the exception of fair use as defined by US copyright law, NMMA expressly prohibits the reproduction, distribution, downloading, transmission, sale, transfer, creation of derivative works, modification, public display, public performance, or publication of any materials on this website. Commercial use of any materials on the NMMA website is expressly forbidden.\n
+Images, text, software, documentation, electronic text and image files, audio and video clips, and other materials (the “Contents”) on this site are either © National Museum of Mexican Art or used with permission by NMMA; and are protected by under United States and international copyright laws.\n
+Please note that the NMMA does not hold the copyright to any works in its collection or on exhibition. Therefore, you are responsible for obtaining reproductions rights from any third-party rights holders."""
 
     def extract(self):
 

@@ -30,6 +30,8 @@ field_map = {
 
     # "Place Holder" values used temporarily to fill in "real" values:
     "CREATOR2":                             RhizomeField.AUTHOR_ARTIST,
+    "MEDIUM":                               RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
+    "OBJNAME":                              RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
 
 }
 
@@ -71,6 +73,11 @@ column_indices = {
     # CREATOR2
     field_map_keys[9]: 4,
 
+    # MEDIUM
+    field_map_keys[10]: 9,
+
+    # OBJNAME
+    field_map_keys[11]: 11,
 }
 
 
@@ -117,49 +124,33 @@ def clean_value(value):
 
     return value.strip()
 
-def remove_parens(value):
-    # Remove parenthesis from beginning and end of value.
-
-    # REVIEW: remove this?
+def parse_date(value):
 
     if not value:
 
         return None
 
-    value = value.strip()
+    elif type(value) is not str:
 
-    if value.startswith("("):
+        return value
 
-        value = value[ 1 : ]
+    # remove "ca. " from the date - e.g., "ca. 1960"
+    invalid_prefixes = [
+        "ca.",
+        "c.a.",
+        "ca",
+    ]
 
-    if value.endswith(")"):
+    value = value.lower()
 
-        value = value[ : -1 ]
+    for invalid_prefix in invalid_prefixes:
+
+        if value.startswith(invalid_prefix):
+
+            value = value[ len(invalid_prefix) : ]
+            break
 
     return clean_value(value=value)
-
-def parse_subject(value):
-
-    # REVIEW: remove this?
-
-    if not value:
-
-        return None
-
-    delimiters = [ ",", ";" ]
-
-    for delimiter in delimiters:
-
-        value = value.replace(delimiter, "|")
-
-    bad_strings = [ " |", "| " ]
-    for bad_string in bad_strings:
-
-        value = value.replace(bad_string, "|")
-
-    return {
-        "themes": clean_value(value=value)
-    }
 
 def ParseExcelValue(value):
     # Remove things like "CONCAT()" and "SUBSTITUTE()" from excel cell values.
@@ -187,6 +178,7 @@ class SpecialValueHandler():
     def reset(self):
 
         self.creator = ""
+        self.subject = ""
 
     def add_creator(self, value):
 
@@ -196,9 +188,25 @@ class SpecialValueHandler():
 
         if self.creator:
 
-            self.creator += ", "
+            self.creator += ". "
 
         self.creator += value
+
+    def add_subject(self, value):
+
+        if not value:
+
+            return None
+
+        value = clean_value(value=value)
+
+        if self.subject:
+
+            self.subject += ". "
+
+        self.subject += value
+
+        return self.subject
 
 
 special_value_handler = SpecialValueHandler()
@@ -211,6 +219,14 @@ def parse_values(field_name, value):
         special_value_handler.add_creator(value=value)
 
         return { "CREATOR" : special_value_handler.creator }
+
+    elif field_name == "DATE":
+
+        return { "DATE" : parse_date(value=value) }
+
+    elif field_name in [ "STERMS", "MEDIUM", "OBJNAME" ]:
+
+        return { "STERMS": special_value_handler.add_subject(value=value) }
 
     elif field_name in [ "OBJECT URL", "OBJECT IMAGE" ]:
 
@@ -234,6 +250,10 @@ class MAMETLProcess(BaseETLProcess):
     def get_collection_name(self):
 
         return "Mexic-Arte Museum (MAM)"
+
+    def get_access_rights_stmt(self):
+
+        return """Mexic-Arte Museum has created and maintains websites and other digital properties to support its mission to enrich the community through education programs, exhibitions, and interpretations of the collection. These Websites include https://mexic-artemuseum.org/ and https://mexicartemuseum.pastperfectonline.com/. This does not mean that Mexic-Arte Museum owns each component of the compilation, some of which may be owned by others and used with their permission or used in accordance with applicable law (e.g., fair use). Mexic-Arte Museum is committed to protecting the intellectual property rights of visual and performing artists and others who hold copyright. Most items in the collection are protected by copyright and/or related rights. Private study, educational, and non-commercial use of digital images from our websites is permitted, with attribution to the Mexic-Arte Museum. Commercial use of any materials on the Mexic-Arte Museum website is expressly forbidden. Users who wish to obtain permission for publication, display, distribution, or other uses of these materials should contact the rights holder(s)."""
 
     def get_date_parsers(self):
 

@@ -60,8 +60,6 @@ OUTPUT_COLS = [
     RhizomeField.IMAGES,
     RhizomeField.URL,
     RhizomeField.DESCRIPTION,
-    RhizomeField.DESCRIPTION_ADD_1,
-    RhizomeField.DESCRIPTION_ADD_2,
     RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
     RhizomeField.SEARCHABLE_DATE,
     RhizomeField.RESOURCE_TYPE,
@@ -71,15 +69,7 @@ OUTPUT_COLS = [
     RhizomeField.COLLECTION_NAME,
     RhizomeField.ANNOTATES,
     RhizomeField.ACCESS_RIGHTS,
-
-    # REVIEW: add in "Access Rights" and "Annotates" columns once we know proper Omeka column names.
 ]
-
-
-ACCESS_RIGHTS_STMT = """NMMA is committed to protecting the intellectual property rights of visual and performing artists and others who hold copyright. With the exception of fair use as defined by US copyright law, NMMA expressly prohibits the reproduction, distribution, downloading, transmission, sale, transfer, creation of derivative works, modification, public display, public performance, or publication of any materials on this website. Commercial use of any materials on the NMMA website is expressly forbidden.\n
-Images, text, software, documentation, electronic text and image files, audio and video clips, and other materials (the “Contents”) on this site are either © National Museum of Mexican Art or used with permission by NMMA; and are protected by under United States and international copyright laws.\n
-Please note that the NMMA does not hold the copyright to any works in its collection or on exhibition. Therefore, you are responsible for obtaining reproductions rights from any third-party rights holders."""
-
 
 def add_oaipmh_value(data, value):
 
