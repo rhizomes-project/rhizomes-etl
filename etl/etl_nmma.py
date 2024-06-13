@@ -306,6 +306,8 @@ class NMAAETLProcess(BaseETLProcess):
     def get_output_cols(self):
 
         return [
+
+            RhizomeField.ID,
             RhizomeField.TITLE,
             RhizomeField.ALTERNATE_TITLES,
             RhizomeField.AUTHOR_ARTIST,
@@ -323,6 +325,7 @@ class NMAAETLProcess(BaseETLProcess):
             RhizomeField.COLLECTION_NAME,
             RhizomeField.ANNOTATES,
             RhizomeField.ACCESS_RIGHTS,
+
         ]
 
     def get_collection_name(self):

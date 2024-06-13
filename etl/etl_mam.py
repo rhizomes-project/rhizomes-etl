@@ -28,10 +28,11 @@ field_map = {
     "COLLECTION":                           RhizomeField.SOURCE,
     "OBJECT IMAGE":                         RhizomeField.IMAGES,
 
-    # "Place Holder" values used temporarily to fill in "real" values:
+    # "Place Holder" values used to temporarily to fill in "real" values:
     "CREATOR2":                             RhizomeField.AUTHOR_ARTIST,
     "MEDIUM":                               RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
     "OBJNAME":                              RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
+    "IMAGEFILE":                            RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
 
 }
 
@@ -78,6 +79,10 @@ column_indices = {
 
     # OBJNAME
     field_map_keys[11]: 11,
+
+    # IMAGEFILE
+    field_map_keys[12]: 7,
+
 }
 
 
@@ -179,6 +184,7 @@ class SpecialValueHandler():
 
         self.creator = ""
         self.subject = ""
+        self.image_url = ""
 
     def add_creator(self, value):
 
@@ -208,6 +214,22 @@ class SpecialValueHandler():
 
         return self.subject
 
+    def add_image_url(self, value):
+
+        if not value:
+
+            return None
+
+        elif "\\" in value:
+
+            value = value.replace("\\", "/")
+
+        # Image url seems to not resolve correctly unless it
+        # is all lower-case
+        self.image_url += value.lower()
+
+        return self.image_url
+
 
 special_value_handler = SpecialValueHandler()
 
@@ -228,9 +250,18 @@ def parse_values(field_name, value):
 
         return { "STERMS": special_value_handler.add_subject(value=value) }
 
-    elif field_name in [ "OBJECT URL", "OBJECT IMAGE" ]:
+    elif field_name == "OBJECT URL":
 
         return { field_name : ParseExcelValue(value=value) }
+
+    elif field_name == "OBJECT IMAGE":
+
+        value = ParseExcelValue(value=value)
+        return { field_name : special_value_handler.add_image_url(value=value) }
+
+    elif field_name == "IMAGEFILE":
+
+        return { field_name : special_value_handler.add_image_url(value=value) }
 
     else:
 
@@ -285,6 +316,12 @@ class MAMETLProcess(BaseETLProcess):
                 if values:
 
                     record |= values
+
+            # Finalize the record.
+            record["OBJECT IMAGE"] = special_value_handler.image_url
+
+            # REVIEW: Update this once correct value for object url is available.
+            record["OBJECT URL"] = None
 
             # Skip any blank lines.
             is_valid, message = is_record_valid(record=record)

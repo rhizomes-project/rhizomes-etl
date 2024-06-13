@@ -45,15 +45,19 @@ class RhizomeField(Enum):
 
 
 FIELDS_TO_DEDUPE = [
+
     RhizomeField.AUTHOR_ARTIST,
     RhizomeField.TITLE,
     RhizomeField.ALTERNATE_TITLES,
     RhizomeField.SUBJECTS_HISTORICAL_ERA,
     RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
     RhizomeField.SUBJECTS_GEOGRAPHIC,
+
 ]
 
 OUTPUT_COLS = [
+
+    RhizomeField.ID,
     RhizomeField.TITLE,
     RhizomeField.ALTERNATE_TITLES,
     RhizomeField.AUTHOR_ARTIST,
@@ -69,6 +73,7 @@ OUTPUT_COLS = [
     RhizomeField.COLLECTION_NAME,
     RhizomeField.ANNOTATES,
     RhizomeField.ACCESS_RIGHTS,
+
 ]
 
 def add_oaipmh_value(data, value):
