@@ -74,6 +74,10 @@ def get_searchable_date(record, date_parsers):
 
     for date_val in date_vals:
 
+        if type(date_val) is not str:
+
+            date_val = str(date_val)
+
         for pattern, parser in date_parsers.items():
 
             if re.search(pattern, date_val):
@@ -167,8 +171,17 @@ class BaseETLProcess(abc.ABC):
 
         pass
 
+    def get_output_cols(self):
+
+        return OUTPUT_COLS
+
     @abc.abstractmethod
     def get_collection_name(self):    # pragma: no cover (should never get called)
+
+        pass
+
+    @abc.abstractmethod
+    def get_access_rights_stmt(self):    # pragma: no cover (should never get called)
 
         pass
 
@@ -321,7 +334,7 @@ class BaseETLProcess(abc.ABC):
                     record[field.value] = values
 
             # Overwrite the access-rights.
-            record[RhizomeField.ACCESS_RIGHTS.value] = "Image is displayed for education and personal research only. For individual rights information about an item, please check the “Description” field, or follow the link to the digital object on the content provider’s website for more information. Reuse of copyright-protected images requires signed permission from the copyright holder. If you are the copyright holder of this item and its use online constitutes an infringement of your copyright, please contact us by email at rhizomes@umn.edu to discuss its removal from the portal."
+            record[RhizomeField.ACCESS_RIGHTS.value] = self.get_access_rights_stmt()
 
         # Populate our Searchable Date.
         for record in data:
@@ -351,7 +364,7 @@ class BaseETLProcess(abc.ABC):
 
             writer.start_record()
 
-            for name in OUTPUT_COLS:
+            for name in self.get_output_cols():
 
                 name = name.value
 
