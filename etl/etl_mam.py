@@ -30,9 +30,9 @@ field_map = {
 
     # "Place Holder" values used to temporarily to fill in "real" values:
     "CREATOR2":                             RhizomeField.AUTHOR_ARTIST,
-    "MEDIUM":                               RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
-    "OBJNAME":                              RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
-    "IMAGEFILE":                            RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
+    "MEDIUM":                               None,
+    "OBJNAME":                              None,
+    "IMAGEFILE":                            None,
 
 }
 
@@ -84,7 +84,6 @@ column_indices = {
     field_map_keys[12]: 7,
 
 }
-
 
 
 required_values = [
@@ -239,8 +238,7 @@ def parse_values(field_name, value):
     if field_name.startswith("CREATOR"):
 
         special_value_handler.add_creator(value=value)
-
-        return { "CREATOR" : special_value_handler.creator }
+        return None
 
     elif field_name == "DATE":
 
@@ -248,7 +246,8 @@ def parse_values(field_name, value):
 
     elif field_name in [ "STERMS", "MEDIUM", "OBJNAME" ]:
 
-        return { "STERMS": special_value_handler.add_subject(value=value) }
+        special_value_handler.add_subject(value=value)
+        return None
 
     elif field_name == "OBJECT URL":
 
@@ -257,15 +256,21 @@ def parse_values(field_name, value):
     elif field_name == "OBJECT IMAGE":
 
         value = ParseExcelValue(value=value)
-        return { field_name : special_value_handler.add_image_url(value=value) }
+        special_value_handler.add_image_url(value=value)
+        return None
 
     elif field_name == "IMAGEFILE":
 
-        return { field_name : special_value_handler.add_image_url(value=value) }
+        special_value_handler.add_image_url(value=value)
+        return None
 
     else:
 
         return { field_name: clean_value(value=value) }
+
+def do_ignore_field(field_name):
+
+    return not field_map[field_name]
 
 
 class MAMETLProcess(BaseETLProcess):
@@ -313,11 +318,13 @@ class MAMETLProcess(BaseETLProcess):
                 cell_obj = sheet.cell(row=row_num + 1, column=col_index + 1)
 
                 values = parse_values(field_name=field_name, value=cell_obj.value)
-                if values:
+                if values and not do_ignore_field(field_name=field_name):
 
                     record |= values
 
             # Finalize the record.
+            record["CREATOR"] = special_value_handler.creator
+            record["STERMS"] = special_value_handler.subject
             record["OBJECT IMAGE"] = special_value_handler.image_url
 
             # REVIEW: Update this once correct value for object url is available.
