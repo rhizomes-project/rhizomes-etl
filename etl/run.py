@@ -4,10 +4,12 @@
 import sys
 
 from etl import setup
+
 from etl.etl_calisphere import CalisphereETLProcess
 from etl.etl_dpla import DPLAETLProcess
 from etl.etl_icaa import ICAAETLProcess
 from etl.etl_mam import MAMETLProcess
+from etl.etl_nhccnm import NHCCNMETLProcess
 from etl.etl_nmma import NMAAETLProcess
 from etl.etl_pth import PTHETLProcess
 from etl.etl_si import SIETLProcess
@@ -27,6 +29,7 @@ INST_ETL_MAP = {
     "dpla": DPLAETLProcess,
     "icaa": ICAAETLProcess,
     "mam": MAMETLProcess,
+    "nhccnm": NHCCNMETLProcess,
     "nmma": NMAAETLProcess,
     "pth": PTHETLProcess,
     "si": SIETLProcess,

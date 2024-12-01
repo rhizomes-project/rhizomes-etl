@@ -6,6 +6,7 @@ import sys
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
 from etl.tools import RhizomeField
+from etl.date_parsers import get_date_first_four
 
 
 # Start up secrets engine and get our api key.
