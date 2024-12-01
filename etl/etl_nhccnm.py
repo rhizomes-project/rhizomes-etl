@@ -1,11 +1,17 @@
 #!/usr/bin/env python
 
 import requests
+import sys
 
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
 from etl.tools import RhizomeField
 
+
+# Start up secrets engine and get our api key.
+etl_env = ETLEnv.instance()
+etl_env.start()
+api_key = etl_env.get_api_key(name="nhccnm")
 
 # REVIEW: Is this the correct URL? (currently returns html)
 url = "https://collections.nhccnm.org/objects/json"
@@ -18,9 +24,6 @@ headers = {
 # REVIEW: is this right?
 url += "?key=" + api_key
 
-etl_env = ETLEnv.instance()
-etl_env.start()
-api_key = etl_env.get_api_key(name="nhccnm")
 
 
 field_map = {
