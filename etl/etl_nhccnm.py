@@ -2,6 +2,7 @@
 
 import requests
 import sys
+import time
 
 from etl.etl_process import BaseETLProcess
 from etl.setup import ETLEnv
@@ -14,87 +15,32 @@ etl_env = ETLEnv.instance()
 etl_env.start()
 api_key = etl_env.get_api_key(name="nhccnm")
 
-# REVIEW: Is this the correct URL? (currently returns html)
-url = "https://collections.nhccnm.org/objects/json"
 
-headers = {
-    "Authorization": "Basic " + api_key,
-    "Content-Type": "application/json",
-}
+native_field_map = {
 
-# REVIEW: is this right?
-url += "?key=" + api_key
-
-
-
-field_map = {
-
-    # "ACCESSNO":                             RhizomeField.ID,
-    # "TITLE":                                RhizomeField.TITLE,
-    # "CREATOR":                              RhizomeField.AUTHOR_ARTIST,
-    # "OBJECT URL":                           RhizomeField.URL,
-    # "DESCRIP":                              RhizomeField.DESCRIPTION,
-    # "STERMS":                               RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
-    # "DATE":                                 RhizomeField.DATE,
-    # "COLLECTION":                           RhizomeField.SOURCE,
-    # "OBJECT IMAGE":                         RhizomeField.IMAGES,
-
-    # # "Place Holder" values used to temporarily to fill in "real" values:
-    # "CREATOR2":                             RhizomeField.AUTHOR_ARTIST,
-    # "MEDIUM":                               None,
-    # "OBJNAME":                              None,
-    # "IMAGEFILE":                            None,
+    "sourceId":                             RhizomeField.ID,
+    "title":                                RhizomeField.TITLE,
+    "description":                          RhizomeField.DESCRIPTION,
+    "medium":                               RhizomeField.RESOURCE_TYPE,
+    "dimensions":                           RhizomeField.DIMENSIONS,
+    "creation_year":                        RhizomeField.DATE,
+    "creditline":                           RhizomeField.SOURCE,
+    "primaryMedia":                         RhizomeField.IMAGES,
+    "description":                          RhizomeField.DESCRIPTION,
 
 }
 
+# REVIEW: Unclear how to get date and artist / author
+
+derived_field_map = {
+
+    "web_url":                            RhizomeField.URL, # ?
+
+}
+
+field_map = derived_field_map | native_field_map
 
 field_map_keys = list(field_map.keys())
-
-
-# Map column name to column index in the input
-# data (in case the column order changes)
-column_indices = {
-
-    # # ACCESSNO
-    # field_map_keys[0]: 0,
-
-    # # TITLE
-    # field_map_keys[1]: 16,
-
-    # # CREATOR
-    # field_map_keys[2]: 3,
-
-    # # OBJECT URL
-    # field_map_keys[3]: 22,
-
-    # # DESCRIP
-    # field_map_keys[4]: 6,
-
-    # # STERMS
-    # field_map_keys[5]: 14,
-
-    # # DATE
-    # field_map_keys[6]: 5,
-
-    # # COLLECTION
-    # field_map_keys[7]: 1,
-
-    # # OBJECT IMAGE
-    # field_map_keys[8]: 23,
-
-    # # CREATOR2
-    # field_map_keys[9]: 4,
-
-    # # MEDIUM
-    # field_map_keys[10]: 9,
-
-    # # OBJNAME
-    # field_map_keys[11]: 11,
-
-    # # IMAGEFILE
-    # field_map_keys[12]: 7,
-
-}
 
 
 required_values = [
@@ -157,6 +103,28 @@ required_values = [
 #     return clean_value(value=value)
 
 
+def extract_value(elt):
+
+    return elt["value"]
+
+def extract_values(object_):
+
+    record = {}
+
+    for field in native_field_map:
+
+        elt = object_.get(field)
+
+        if elt:
+
+            record[field] = extract_value(elt=elt)
+
+    source_id = record["sourceId"]
+    record["web_url"] = f"https://collections.nhccnm.org/objects/{source_id}"
+
+    return record
+
+
 class NHCCNMETLProcess(BaseETLProcess):
 
     def init_testing(self):
@@ -184,12 +152,33 @@ class NHCCNMETLProcess(BaseETLProcess):
     def extract(self):
 
         # Make one call to the eMuseum API to get a list of all records.
-        response = requests.get(url=url)
+        # REVIEW pagination does not seem to be working (can only get first 100 records).
+        url = "https://collections.nhccnm.org/objects/json?key=" + api_key
+        response = requests.get(url=url, timeout=60)
 
         data = []
+        collection_json = response.json()
 
-        # REVIEW: TODO: Parse all records.
+        # Parse all records.
+        for object_ in collection_json["objects"]:
 
+            source_id = object_["sourceId"]["value"]
+
+            object_url = f"https://collections.nhccnm.org/objects/{source_id}/json?key={api_key}"
+            response = requests.get(url=object_url, timeout=60)
+
+            object_json = response.json()
+
+            record = extract_values(object_=object_json["object"][0])
+            data += [ record ]
+
+            # REVIEW: remove this once we go live.
+            if len(data) > 20:
+
+                break
+
+            # Sleep a moment to avoid overwhelming the API server.
+            time.sleep(3)
 
         return data
 
