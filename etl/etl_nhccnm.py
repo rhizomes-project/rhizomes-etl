@@ -23,7 +23,7 @@ native_field_map = {
     "description":                          RhizomeField.DESCRIPTION,
     "medium":                               RhizomeField.RESOURCE_TYPE,
     "dimensions":                           RhizomeField.DIMENSIONS,
-    "creation_year":                        RhizomeField.DATE,
+    "displayDate":                          RhizomeField.DATE,
     "creditline":                           RhizomeField.SOURCE,
     "primaryMedia":                         RhizomeField.IMAGES,
     "description":                          RhizomeField.DESCRIPTION,
@@ -34,7 +34,8 @@ native_field_map = {
 
 derived_field_map = {
 
-    "web_url":                            RhizomeField.URL, # ?
+    "web_url":                              RhizomeField.URL,
+    "creation_year":                        RhizomeField.DATE,
 
 }
 
@@ -119,8 +120,17 @@ def extract_values(object_):
 
             record[field] = extract_value(elt=elt)
 
+
+    # Fill in missing values.
     source_id = record["sourceId"]
     record["web_url"] = f"https://collections.nhccnm.org/objects/{source_id}"
+
+    if record.get("displayDate"):
+
+        date_val = int(record["displayDate"])
+
+        record["displayDate"] = date_val
+        record["creation_year"] = date_val
 
     return record
 
@@ -159,6 +169,9 @@ class NHCCNMETLProcess(BaseETLProcess):
         data = []
         collection_json = response.json()
 
+
+        everything_buffer = ""
+
         # Parse all records.
         for object_ in collection_json["objects"]:
 
@@ -169,16 +182,31 @@ class NHCCNMETLProcess(BaseETLProcess):
 
             object_json = response.json()
 
+            if len(object_json["object"]) > 1:
+
+                raise Exception("Found too many objects!")
+
             record = extract_values(object_=object_json["object"][0])
             data += [ record ]
 
+            # Sleep a moment to avoid overwhelming the API server.
+            # time.sleep(1)
+
             # REVIEW: remove this once we go live.
-            if len(data) > 20:
+            if len(data) > 20 and False:
 
                 break
 
-            # Sleep a moment to avoid overwhelming the API server.
-            time.sleep(3)
+            # REVIEW: remove this ...
+            import json
+            everything_buffer += json.dumps(object_json) + "\n"
+
+
+
+        # REVIEW: remove this ...
+        print("\n\n\n" + everything_buffer)
+
+
 
         return data
 
