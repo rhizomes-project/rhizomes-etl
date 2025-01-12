@@ -30,8 +30,6 @@ native_field_map = {
 
 }
 
-# REVIEW: Unclear how to get date and artist / author
-
 derived_field_map = {
 
     "web_url":                              RhizomeField.URL,
@@ -125,6 +123,10 @@ def extract_values(object_):
     source_id = record["sourceId"]
     record["web_url"] = f"https://collections.nhccnm.org/objects/{source_id}"
 
+    # REVIEW: image field (aka web_url) does not work yet
+
+    # REVIEW: Add in accession no somewhere
+
     if record.get("displayDate"):
 
         date_val = int(record["displayDate"])
@@ -161,45 +163,51 @@ class NHCCNMETLProcess(BaseETLProcess):
 
     def extract(self):
 
-        # Make one call to the eMuseum API to get a list of all records.
-        # REVIEW pagination does not seem to be working (can only get first 100 records).
-        url = "https://collections.nhccnm.org/objects/json?key=" + api_key
-        response = requests.get(url=url, timeout=60)
-
-        data = []
-        collection_json = response.json()
+        page_num = 1
+        records = []
+        total_records = 1
 
 
+        # REVIEW: remove this
         everything_buffer = ""
 
-        # Parse all records.
-        for object_ in collection_json["objects"]:
 
-            source_id = object_["sourceId"]["value"]
+        while len(records) < total_records:
 
-            object_url = f"https://collections.nhccnm.org/objects/{source_id}/json?key={api_key}"
-            response = requests.get(url=object_url, timeout=60)
+            url = f"https://collections.nhccnm.org/objects/json?key={api_key}&page={page_num}"
 
-            object_json = response.json()
+            response = requests.get(url=url, timeout=60)
 
-            if len(object_json["object"]) > 1:
+            collection_json = response.json()
+            total_records = collection_json["count"]
 
-                raise Exception("Found too many objects!")
+            # Parse all records.
+            for object_ in collection_json["objects"]:
 
-            record = extract_values(object_=object_json["object"][0])
-            data += [ record ]
+                source_id = object_["sourceId"]["value"]
 
-            # Sleep a moment to avoid overwhelming the API server.
-            # time.sleep(1)
+                object_url = f"https://collections.nhccnm.org/objects/{source_id}/json?key={api_key}"
+                response = requests.get(url=object_url, timeout=60)
 
-            # REVIEW: remove this once we go live.
-            if len(data) > 20 and False:
+                object_json = response.json()
 
-                break
+                if len(object_json["object"]) > 1:
 
-            # REVIEW: remove this ...
-            import json
-            everything_buffer += json.dumps(object_json) + "\n"
+                    raise Exception("Found too many objects!")
+
+                record = extract_values(object_=object_json["object"][0])
+                records += [ record ]
+
+
+
+                # REVIEW: remove this ...
+                import json
+                everything_buffer += json.dumps(object_json) + "\n"
+
+
+
+            # Continue paging through records.
+            page_num += 1
 
 
 
@@ -208,7 +216,7 @@ class NHCCNMETLProcess(BaseETLProcess):
 
 
 
-        return data
+        return records
 
 
 if __name__ == "__main__":    # pragma: no cover
