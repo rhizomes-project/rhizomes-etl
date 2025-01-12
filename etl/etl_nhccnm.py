@@ -140,6 +140,9 @@ def extract_values(object_):
         record["displayDate"] = date_val
         record["creation_year"] = date_val
 
+
+    # REVIEW: I believe NHCC wants the access number displayed somewhere - this is invno/value, I think.
+
     return record
 
 
