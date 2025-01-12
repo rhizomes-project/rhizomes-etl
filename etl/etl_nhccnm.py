@@ -123,7 +123,13 @@ def extract_values(object_):
     source_id = record["sourceId"]
     record["web_url"] = f"https://collections.nhccnm.org/objects/{source_id}"
 
-    # REVIEW: image field (aka web_url) does not work yet
+
+    # Try to get image url working
+    # REVIEW: Not sure if this is the correct image url - currently
+    # this gives us the error "The requested feature is disabled."
+    image_url = record["primaryMedia"]
+    image_url = image_url.replace("http://localhost/internal/", "https://collections.nhccnm.org/")
+
 
     # REVIEW: Add in accession no somewhere
 
