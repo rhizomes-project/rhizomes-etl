@@ -128,7 +128,7 @@ def extract_values(object_):
     # REVIEW: Not sure if this is the correct image url - currently
     # this gives us the error "The requested feature is disabled."
     image_url = record["primaryMedia"]
-    image_url = image_url.replace("http://localhost/internal/", "https://collections.nhccnm.org/")
+    record["web_url"] = image_url.replace("http://localhost/internal/", "https://collections.nhccnm.org/")
 
 
     # REVIEW: Add in accession no somewhere
