@@ -20,6 +20,7 @@ native_field_map = {
 
     "sourceId":                             RhizomeField.ID,
     "title":                                RhizomeField.TITLE,
+    "alt_title":                            RhizomeField.ALTERNATE_TITLES,
     "description":                          RhizomeField.DESCRIPTION,
     "medium":                               RhizomeField.RESOURCE_TYPE,
     "dimensions":                           RhizomeField.DIMENSIONS,
@@ -119,8 +120,30 @@ def extract_values(object_):
             record[field] = extract_value(elt=elt)
 
 
-    # Fill in missing values.
+    # Split title into title and alternate title
+    title = record["title"]
+    pos = title.find(" - ")
+    if pos >= 0:
+
+        record["alt_title"] = title[ pos + 3 : ]
+        record["title"] = title[ : pos ]
+
+    # Capitalize description.
+    description = record["description"]
+    record["description"] = description[0].upper() + description[ 1 : ]
+
+    # Clean up source.
+    source = record["creditline"]
+    pos = source.find("CollectionNational")
+    if pos >= 0:
+
+        pos += 10
+        record["creditline"] = source[ : pos ] + ", " + source[ : pos ]
+
+    # Fill in missing values..
     source_id = record["sourceId"]
+
+    # Create the link to the landing page.
     record["web_url"] = f"https://collections.nhccnm.org/objects/{source_id}"
 
 
@@ -133,6 +156,7 @@ def extract_values(object_):
 
     # REVIEW: Add in accession no somewhere
 
+    # Handle date values
     if record.get("displayDate"):
 
         date_val = int(record["displayDate"])
@@ -158,7 +182,7 @@ class NHCCNMETLProcess(BaseETLProcess):
 
     def get_collection_name(self):
 
-        return "National Hispanic Cultural Center (NHCCNM)"
+        return "National Hispanic Cultural Center (NHCC)"
 
     def get_access_rights_stmt(self):
 
