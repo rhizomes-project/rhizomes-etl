@@ -22,7 +22,7 @@ native_field_map = {
     "title":                                RhizomeField.TITLE,
     "alt_title":                            RhizomeField.ALTERNATE_TITLES,
     "description":                          RhizomeField.DESCRIPTION,
-    "medium":                               RhizomeField.RESOURCE_TYPE,
+    "subjects":                             RhizomeField.SUBJECTS_TOPIC_KEYWORDS,
     "dimensions":                           RhizomeField.DIMENSIONS,
     "displayDate":                          RhizomeField.DATE,
     "creditline":                           RhizomeField.SOURCE,
@@ -103,9 +103,13 @@ required_values = [
 #     return clean_value(value=value)
 
 
-def extract_value(elt):
+def extract_value(object_, field):
 
-    return elt["value"]
+    elt = object_.get(field)
+
+    if elt:
+
+        return elt["value"]
 
 def extract_values(object_):
 
@@ -113,12 +117,11 @@ def extract_values(object_):
 
     for field in native_field_map:
 
-        elt = object_.get(field)
+        value = extract_value(object_=object_, field=field)
 
-        if elt:
+        if value:
 
-            record[field] = extract_value(elt=elt)
-
+            record[field] = value
 
     # Split title into title and alternate title
     title = record["title"]
@@ -140,21 +143,38 @@ def extract_values(object_):
         pos += 10
         record["creditline"] = source[ : pos ] + ", " + source[ : pos ]
 
+    #
     # Fill in missing values..
+    #
+
     source_id = record["sourceId"]
 
     # Create the link to the landing page.
     record["web_url"] = f"https://collections.nhccnm.org/objects/{source_id}"
 
-
-    # Try to get image url working
-    # REVIEW: Not sure if this is the correct image url - currently
-    # this gives us the error "The requested feature is disabled."
+    # Create the image url.
     image_url = record["primaryMedia"]
-    record["primaryMedia"] = image_url.replace("http://localhost/internal/", "https://collections.nhccnm.org/")
+    record["primaryMedia"] = image_url.replace("http://localhost/", "https://collections.nhccnm.org/")
 
+    # Create subject as a list, including: medium, attributes, name
+    medium = extract_value(object_=object_, field="medium")
+    attributes = extract_value(object_=object_, field="attributes")
+    name = extract_value(object_=object_, field="name")
 
-    # REVIEW: Add in accession no somewhere
+    subjects = []
+    if medium:
+
+        subjects.append(medium)
+
+    if attributes:
+
+        subjects.append(attributes)
+
+    if name:
+
+        subjects.append(name)
+
+    record["subjects"] = subjects
 
     # Handle date values
     if record.get("displayDate"):
