@@ -125,11 +125,19 @@ def extract_values(object_):
 
     # Split title into title and alternate title
     title = record["title"]
-    pos = title.find(" - ")
-    if pos >= 0:
+    if title.startswith("Untitled ("):
 
-        record["alt_title"] = title[ pos + 3 : ]
-        record["title"] = title[ : pos ]
+        # Note: we are trimming parentheses from start & end of alt title.
+        record["alt_title"] = title[ 10 : -1 ]
+        record["title"] = title[ : 8 ]
+
+    else:
+
+        pos = title.find(" - ")
+        if pos >= 0:
+
+            record["alt_title"] = title[ pos + 3 : ]
+            record["title"] = title[ : pos ]
 
     # Capitalize description.
     description = record["description"]
