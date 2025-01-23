@@ -144,12 +144,12 @@ def extract_values(object_):
     record["description"] = description[0].upper() + description[ 1 : ]
 
     # Clean up source.
-    source = record["creditline"]
-    pos = source.find("CollectionNational")
+    source_ = record["creditline"]
+    pos = source_.find("CollectionNational")
     if pos >= 0:
 
         pos += 10
-        record["creditline"] = source[ : pos ] + ", " + source[ : pos ]
+        record["creditline"] = source_[ : pos ] + ", " + source_[ pos : ]
 
     #
     # Fill in missing values..
