@@ -28,7 +28,6 @@ native_field_map = {
     "displayDate":                          RhizomeField.DATE,
     "creditline":                           RhizomeField.SOURCE,
     "primaryMedia":                         RhizomeField.IMAGES,
-    "description":                          RhizomeField.DESCRIPTION,
     "access_rights":                        RhizomeField.ACCESS_RIGHTS
 
 }
