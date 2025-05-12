@@ -30,6 +30,10 @@ native_field_map = {
     "primaryMedia":                         RhizomeField.IMAGES,
     "access_rights":                        RhizomeField.ACCESS_RIGHTS
 
+
+# REVIEW: add terms values, thesconcepts
+
+
 }
 
 derived_field_map = {
