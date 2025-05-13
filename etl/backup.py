@@ -3,40 +3,56 @@
 import sys
 
 from run import INST_ETL_MAP
-from tools import get_current_metadata
+from tools import get_current_metadata, RhizomeField
 
 
 METADATA_MAP = {
 
-    RhizomeField.ID: "", # REVIEW: I don't see this in the csv files or the metadata???
-    RhizomeField.TITLE: "dcterms:title",
-    RhizomeField.ALTERNATE_TITLES: "", # REVIEW: what is this?
-    RhizomeField.AUTHOR_ARTIST: "dcterms:creator",
-    RhizomeField.IMAGES: "foaf:img",
-    RhizomeField.URL: "foaf:weblog",
-    RhizomeField.DESCRIPTION: "dcterms:description",
-    RhizomeField.SUBJECTS_TOPIC_KEYWORDS: "dcterms:subject",
-    RhizomeField.SEARCHABLE_DATE: "dcterms:date",
-    RhizomeField.RESOURCE_TYPE: "dcterms:type",
-    RhizomeField.DIGITAL_FORMAT: "dcterms:format",
-    RhizomeField.SOURCE: "dcterms:source",
-    RhizomeField.LANGUAGE: "dcterms:language",
-    RhizomeField.COLLECTION_NAME: "dcterms:contributor",
-    RhizomeField.ANNOTATES: "dcterms:contributor",
-    RhizomeField.ACCESS_RIGHTS: "", # REVIEW: what is this?
+    RhizomeField.TITLE: { "key": "dcterms:title", "selector": "@value" },
+    RhizomeField.ALTERNATE_TITLES: { "key": "dcterms:alternative", "selector": "@value" },
+    RhizomeField.AUTHOR_ARTIST: { "key": "dcterms:creator", "selector": "@value" },
+    RhizomeField.IMAGES: { "key": "foaf:img", "selector": "@id" },
+    RhizomeField.URL: { "key": "foaf:weblog", "selector": "@id" },
+    RhizomeField.DESCRIPTION: { "key": "dcterms:description", "selector": "@value" },
+    RhizomeField.SUBJECTS_TOPIC_KEYWORDS: { "key": "dcterms:subject", "selector": "@value" },
+    RhizomeField.SEARCHABLE_DATE: { "key": "dcterms:date", "selector": "@value" },
+    RhizomeField.RESOURCE_TYPE: { "key": "dcterms:type", "selector": "@value" },
+    RhizomeField.DIGITAL_FORMAT: { "key": "dcterms:format", "selector": "@value" },
+    RhizomeField.SOURCE: { "key": "dcterms:source", "selector": "@value" },
+    RhizomeField.LANGUAGE: { "key": "dcterms:language", "selector": "@value" },
+    RhizomeField.COLLECTION_NAME: { "key": "dcterms:contributor", "selector": "@value" },
+    RhizomeField.ANNOTATES: { "key": "dcterms:contributor", "selector": "@value" }, # REVIEW: what is the key for this?
+    RhizomeField.ACCESS_RIGHTS: { "key": "dcterms:accessRights", "selector": "@value" },
 
 }
 
-# REVIEW: finish the metadata map ^^^
+
+def get_key_values(obj, selector):
+
+    values = [ sub_obj.get(selector) for sub_obj in obj ]
+    return "|".join(values)
 
 
 def do_backup(institution=None):
 
     metadata = get_current_metadata()
 
+    for record in metadata:
+
+        for rhizome_field, config in METADATA_MAP.items():
+
+            key = config["key"]
+            selector = config["selector"]
+
+            obj = record.get(key)
+            if obj:
+
+                values = get_key_values(obj=obj, selector=selector)
+
+
     # REVIEW: todo add ability to filter by institution?
 
-    # REVIEW: todo output to csv here.
+    # REVIEW: todo output to csv here using MetadataWriter.
 
     return 0
 

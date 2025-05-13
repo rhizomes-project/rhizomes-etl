@@ -245,6 +245,42 @@ def get_value(value, format="json"):
 
 def get_current_metadata():
     """
+    Returns a list of currently-loaded metadata.
+    """
+
+    num_per_page = 250
+    curr_page = 1
+
+    base_url = "https://maas1848.umn.edu/api/items"
+    item_ids = []
+
+    curr_metadata = []
+
+    print(f"Retrieving current metadata from {base_url}", file=sys.stderr)
+
+    # Do a loop that cannot go forever.
+    # while curr_page < 1000:
+
+    while curr_page < 2:
+
+        response = requests.get(f"{base_url}?per_page={num_per_page}&page={curr_page}", timeout=60)
+        if not response.ok:
+
+            raise Exception(f"Omeka API returned error {response.status_code}, reason: '{response.reason}'")
+
+        curr_items = response.json()
+        if not curr_items:
+
+            return curr_metadata
+
+        curr_metadata += curr_items
+        curr_page += 1
+
+    return curr_metadata
+
+
+def get_current_record_subjects():
+    """
     Returns a dict of currently-loaded metadata.
 
     Note: Info in the dict incudes the record's collection,

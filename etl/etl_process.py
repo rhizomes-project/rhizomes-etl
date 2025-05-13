@@ -6,7 +6,7 @@ import os
 import sys
 
 from etl.setup import ETLEnv
-from etl.tools import MetadataWriter, get_current_metadata, RhizomeField, FIELDS_TO_DEDUPE, OUTPUT_COLS
+from etl.tools import MetadataWriter, get_current_record_subjects, RhizomeField, FIELDS_TO_DEDUPE, OUTPUT_COLS
 
 
 
@@ -280,7 +280,7 @@ class BaseETLProcess(abc.ABC):
                         del record[name]
 
         # Get all metadata currently loaded.
-        curr_metadata = get_current_metadata()
+        curr_metadata = get_current_record_subjects()
 
         # Remove records that are already loaded in the rhizomes website?
         if not self.etl_env.do_rebuild_previous_items():
