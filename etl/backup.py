@@ -3,7 +3,7 @@
 import sys
 
 from run import INST_ETL_MAP
-from tools import get_current_metadata, RhizomeField
+from tools import get_current_metadata, MetadataWriter, RhizomeField
 
 
 METADATA_MAP = {
@@ -27,17 +27,212 @@ METADATA_MAP = {
 }
 
 
+# REVIEW: do I actually need this?
 def get_key_values(obj, selector):
+
+    if not obj:
+
+        return ""
 
     values = [ sub_obj.get(selector) for sub_obj in obj ]
     return "|".join(values)
 
 
+# REVIEW: remove this:
+sample_record = {
+  "@context": "https://maas1848.umn.edu/api-context",
+  "@id": "https://maas1848.umn.edu/api/items/99406",
+  "@type": "o:Item",
+  "o:id": 99406,
+  "o:is_public": True,
+  "o:owner": {
+    "@id": "https://maas1848.umn.edu/api/users/2",
+    "o:id": 2
+  },
+  "o:resource_class": None,
+  "o:resource_template": {
+    "@id": "https://maas1848.umn.edu/api/resource_templates/3",
+    "o:id": 3
+  },
+  "o:thumbnail": None,
+  "o:title": "036: Chicano Perspective",
+  "thumbnail_display_urls": {
+    "large": "https://maas1848.umn.edu/files/large/56f41f3b62c5f44b0e80285bc9820f7eb27b92b7.jpg",
+    "medium": "https://maas1848.umn.edu/files/medium/56f41f3b62c5f44b0e80285bc9820f7eb27b92b7.jpg",
+    "square": "https://maas1848.umn.edu/files/square/56f41f3b62c5f44b0e80285bc9820f7eb27b92b7.jpg"
+  },
+  "o:created": {
+    "@value": "2021-10-01T11:33:10+00:00",
+    "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+  },
+  "o:modified": {
+    "@value": "2023-06-12T18:25:57+00:00",
+    "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+  },
+  "o:media": [
+    {
+      "@id": "https://maas1848.umn.edu/api/media/99506",
+      "o:id": 99506
+    }
+  ],
+  "o:item_set": [
+    
+  ],
+  "o:site": [
+    {
+      "@id": "https://maas1848.umn.edu/api/sites/1",
+      "o:id": 1
+    }
+  ],
+  "dcterms:title": [
+    {
+      "type": "literal",
+      "property_id": 1,
+      "property_label": "Title",
+      "is_public": True,
+      "@value": "036: Chicano Perspective"
+    }
+  ],
+  "dcterms:creator": [
+    {
+      "type": "literal",
+      "property_id": 2,
+      "property_label": "Creator",
+      "is_public": True,
+      "@value": "El Teatro Campesino"
+    }
+  ],
+  "foaf:weblog": [
+    {
+      "type": "uri",
+      "property_id": 148,
+      "property_label": "weblog",
+      "is_public": True,
+      "@id": "https://californiarevealed.org/islandora/object/cavpp%3A13985"
+    }
+  ],
+  "dcterms:description": [
+    {
+      "type": "literal",
+      "property_id": 4,
+      "property_label": "Description",
+      "is_public": True,
+      "@value": "(1) Airdate May 22, 1983, recorded May 16, 1983. (2) Interview by Pilar Montoya with Luis Valdez; film footage from 'La Huelga' period -- Luis and Daniel Valdez perform, 'Zoot Suit' footage. (3) Audience reaction of 'Corridos' (San Francisco); cast of 'Corridos' talk. They are: Robert Beltran, Bel Hernandez, Richard Montoya and Irma La CuiCui Rangel. Sacramento: KXTV, Ch. 10"
+    },
+    {
+      "type": "literal",
+      "property_id": 4,
+      "property_label": "Description",
+      "is_public": True,
+      "@value": "California Preservation Service (CAPS)"
+    }
+  ],
+  "dcterms:subject": [
+    {
+      "type": "literal",
+      "property_id": 3,
+      "property_label": "Subject",
+      "is_public": True,
+      "@value": "Chicano Movement--California"
+    }
+  ],
+  "dcterms:date": [
+    {
+      "type": "literal",
+      "property_id": 7,
+      "property_label": "Date",
+      "is_public": True,
+      "@value": "1983"
+    }
+  ],
+  "dcterms:type": [
+    {
+      "type": "literal",
+      "property_id": 8,
+      "property_label": "Type",
+      "is_public": True,
+      "@value": "moving image"
+    }
+  ],
+  "dcterms:format": [
+    {
+      "type": "literal",
+      "property_id": 9,
+      "property_label": "Format",
+      "is_public": True,
+      "@value": "Master"
+    },
+    {
+      "type": "literal",
+      "property_id": 9,
+      "property_label": "Format",
+      "is_public": True,
+      "@value": "U-matic"
+    }
+  ],
+  "dcterms:source": [
+    {
+      "type": "literal",
+      "property_id": 11,
+      "property_label": "Source",
+      "is_public": True,
+      "@value": "California Revealed from University of California, Santa Barbara, Department of Special Research Collections"
+    }
+  ],
+  "dcterms:contributor": [
+    {
+      "type": "literal",
+      "property_id": 6,
+      "property_label": "Contributor",
+      "is_public": True,
+      "@value": "Digital Public Library of America (DPLA)"
+    }
+  ],
+  "foaf:img": [
+    {
+      "type": "uri",
+      "property_id": 154,
+      "property_label": "image",
+      "is_public": True,
+      "@id": "https://calisphere.org/clip/500x500/76b9b0d1bdbff9bd877bafc5d8c22bd9"
+    }
+  ],
+  "dcterms:accessRights": [
+    {
+      "type": "literal",
+      "property_id": 47,
+      "property_label": "Access Rights",
+      "is_public": True,
+      "@value": "Image is displayed for education and personal research only. For individual rights information about an item, please check the \\u201cDescription\\u201d field, or follow the link to the digital object on the content provider\\u2019s website for more information. Reuse of copyright protected images requires signed permission from the copyright holder. If you are the copyright holder of this item and its use online constitutes an infringement of your copyright, please contact us by email at rhizomes@umn.edu to discuss its removal from the portal."
+    }
+  ]
+}
+
+
+
 def do_backup(institution=None):
 
+    # REVIEW: todo add ability to filter by institution?
+
+
+
+    # Get all current metadata.
     metadata = get_current_metadata()
 
+    # Output to csv here using MetadataWriter.
+    writer = MetadataWriter(format="csv")
+
+    writer.start_collection()
+
+    # Parse each record and write it out.
     for record in metadata:
+
+        writer.start_record()
+
+
+        # REVIEW: remove this.
+        # record = sample_record
+
 
         for rhizome_field, config in METADATA_MAP.items():
 
@@ -45,14 +240,16 @@ def do_backup(institution=None):
             selector = config["selector"]
 
             obj = record.get(key)
-            if obj:
 
-                values = get_key_values(obj=obj, selector=selector)
+            value = get_key_values(obj=obj, selector=selector)
+            if value:
 
 
-    # REVIEW: todo add ability to filter by institution?
+                writer.add_value(name=rhizome_field.value, value=value)
 
-    # REVIEW: todo output to csv here using MetadataWriter.
+        writer.end_record()
+
+    writer.end_collection()
 
     return 0
 

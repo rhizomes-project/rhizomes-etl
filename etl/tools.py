@@ -57,7 +57,9 @@ FIELDS_TO_DEDUPE = [
 
 OUTPUT_COLS = [
 
-    RhizomeField.ID,
+    # REVIEW: Confirm that we do not want Resource Identifier in the output.
+    # RhizomeField.ID,
+
     RhizomeField.TITLE,
     RhizomeField.ALTERNATE_TITLES,
     RhizomeField.AUTHOR_ARTIST,
@@ -360,6 +362,11 @@ class MetadataWriter():
 
             self.output = ""
 
+    @staticmethod
+    def is_record_valid(record):
+
+        return "Contributor" in record
+
     def start_collection(self):
 
         if self.format == "csv":
@@ -402,7 +409,11 @@ class MetadataWriter():
 
     def end_record(self):
 
-        if self.format == "csv":
+        if not MetadataWriter.is_record_valid(record=self.row_buf):
+
+            pass
+
+        elif self.format == "csv":
 
             self.output.writerow(self.row_buf)
 
