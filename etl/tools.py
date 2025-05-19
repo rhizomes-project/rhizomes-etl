@@ -428,6 +428,10 @@ class MetadataWriter():
 
             pass
 
+    def does_record_match(self, name, value):
+
+        return self.row_buf.get(name) == value
+
     def end_collection(self):
 
         # REVIEW: just return the data everywhere here?

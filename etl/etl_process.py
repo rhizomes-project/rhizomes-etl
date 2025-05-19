@@ -180,10 +180,9 @@ class BaseETLProcess(abc.ABC):
 
         pass
 
-    @abc.abstractmethod
     def get_access_rights_stmt(self):    # pragma: no cover (should never get called)
 
-        pass
+        return None
 
     @abc.abstractmethod
     def extract(self):    # pragma: no cover (should never get called)

@@ -21,13 +21,12 @@ METADATA_MAP = {
     RhizomeField.SOURCE: { "key": "dcterms:source", "selector": "@value" },
     RhizomeField.LANGUAGE: { "key": "dcterms:language", "selector": "@value" },
     RhizomeField.COLLECTION_NAME: { "key": "dcterms:contributor", "selector": "@value" },
-    RhizomeField.ANNOTATES: { "key": "dcterms:contributor", "selector": "@value" }, # REVIEW: what is the key for this?
+    RhizomeField.ANNOTATES: { "key": "dcterms:annotates", "selector": "@value" },
     RhizomeField.ACCESS_RIGHTS: { "key": "dcterms:accessRights", "selector": "@value" },
 
 }
 
 
-# REVIEW: do I actually need this?
 def get_key_values(obj, selector):
 
     if not obj:
@@ -212,12 +211,18 @@ sample_record = {
 
 def do_backup(institution=None):
 
-    # REVIEW: todo add ability to filter by institution
+    # Filter by institution? If so, get institution name.
+    if institution:
 
-
+        process = INST_ETL_MAP[institution]
+        institution = process(format="csv").get_collection_name()
 
     # Get all current metadata.
     metadata = get_current_metadata()
+
+
+    # breakpoint()
+
 
     # Output to csv here using MetadataWriter.
     #
@@ -234,11 +239,6 @@ def do_backup(institution=None):
 
         writer.start_record()
 
-
-        # REVIEW: remove this.
-        # record = sample_record
-
-
         for rhizome_field, config in METADATA_MAP.items():
 
             key = config["key"]
@@ -251,7 +251,14 @@ def do_backup(institution=None):
 
                 writer.add_value(name=rhizome_field.value, value=value)
 
-        writer.end_record()
+        # Filter by instition?
+        if institution and not writer.does_record_match(name=RhizomeField.COLLECTION_NAME.value, value=institution):
+
+            pass
+
+        else:
+
+            writer.end_record()
 
     writer.end_collection()
 
@@ -260,10 +267,11 @@ def do_backup(institution=None):
 
 def do_usage():
 
-    print("Usage: backup.py", file=sys.stderr)
-    print("Usage: backup.py institution", file=sys.stderr)
+    inst_list = list(INST_ETL_MAP.keys())
+    inst_list = "|".join(inst_list)
 
-    raise Exception("Invalid usage")
+    print("Usage: backup.py", file=sys.stderr)
+    print(f"Usage: backup.py institution=[{inst_list}]", file=sys.stderr)
 
 
 if __name__ == "__main__":    # pragma: no cover
@@ -273,7 +281,9 @@ if __name__ == "__main__":    # pragma: no cover
     if institution and institution not in INST_ETL_MAP:
 
         do_usage()
+        sys.exit(1)
 
     else:
 
         do_backup(institution=institution)
+        sys.exit(0)
