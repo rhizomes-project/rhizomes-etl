@@ -212,7 +212,7 @@ sample_record = {
 
 def do_backup(institution=None):
 
-    # REVIEW: todo add ability to filter by institution?
+    # REVIEW: todo add ability to filter by institution
 
 
 
@@ -220,7 +220,12 @@ def do_backup(institution=None):
     metadata = get_current_metadata()
 
     # Output to csv here using MetadataWriter.
-    writer = MetadataWriter(format="csv")
+    #
+    # Note:  Some records in the database seem to be corrupt (i.e., mostly or
+    # completely empty - perhaps added by mistake?) Use data validation to
+    # filter those out.
+    #
+    writer = MetadataWriter(format="csv", do_validate=True)
 
     writer.start_collection()
 
@@ -244,7 +249,6 @@ def do_backup(institution=None):
             value = get_key_values(obj=obj, selector=selector)
             if value:
 
-
                 writer.add_value(name=rhizome_field.value, value=value)
 
         writer.end_record()
@@ -256,6 +260,7 @@ def do_backup(institution=None):
 
 def do_usage():
 
+    print("Usage: backup.py", file=sys.stderr)
     print("Usage: backup.py institution", file=sys.stderr)
 
     raise Exception("Invalid usage")

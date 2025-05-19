@@ -344,7 +344,9 @@ def get_current_record_subjects():
 
 class MetadataWriter():
 
-    def __init__(self, format):
+    def __init__(self, format, do_validate=False):
+
+        self.do_validate = do_validate
 
         self.format = format
         if self.format == "json":
@@ -364,8 +366,13 @@ class MetadataWriter():
 
     @staticmethod
     def is_record_valid(record):
+        # Returns True if the record appears valid.
+        #
+        # Note: every record is required to have a Contributor
+        # field, so we should be able to use that to identify
+        # invalid records.
 
-        return "Contributor" in record
+        return RhizomeField.COLLECTION_NAME.value in record
 
     def start_collection(self):
 
@@ -409,7 +416,7 @@ class MetadataWriter():
 
     def end_record(self):
 
-        if not MetadataWriter.is_record_valid(record=self.row_buf):
+        if self.do_validate and not MetadataWriter.is_record_valid(record=self.row_buf):
 
             pass
 
