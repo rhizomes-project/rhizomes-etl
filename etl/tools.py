@@ -57,9 +57,6 @@ FIELDS_TO_DEDUPE = [
 
 OUTPUT_COLS = [
 
-    # REVIEW: Confirm that we do not want Resource Identifier in the output.
-    # RhizomeField.ID,
-
     RhizomeField.TITLE,
     RhizomeField.ALTERNATE_TITLES,
     RhizomeField.AUTHOR_ARTIST,
@@ -260,10 +257,11 @@ def get_current_metadata():
 
     print(f"Retrieving current metadata from {base_url}", file=sys.stderr)
 
-    # Do a loop that cannot go forever.
-    # while curr_page < 1000:
+    # REVIEW: remove this.
+    # while curr_page < 2:
 
-    while curr_page < 2:
+    # Do a loop that cannot go forever.
+    while curr_page < 1000:
 
         response = requests.get(f"{base_url}?per_page={num_per_page}&page={curr_page}", timeout=60)
         if not response.ok:
@@ -433,8 +431,6 @@ class MetadataWriter():
         return self.row_buf.get(name) == value
 
     def end_collection(self):
-
-        # REVIEW: just return the data everywhere here?
 
         if self.format == "json":
 

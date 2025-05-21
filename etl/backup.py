@@ -21,7 +21,7 @@ METADATA_MAP = {
     RhizomeField.SOURCE: { "key": "dcterms:source", "selector": "@value" },
     RhizomeField.LANGUAGE: { "key": "dcterms:language", "selector": "@value" },
     RhizomeField.COLLECTION_NAME: { "key": "dcterms:contributor", "selector": "@value" },
-    RhizomeField.ANNOTATES: { "key": "dcterms:annotates", "selector": "@value" },
+    RhizomeField.ANNOTATES: { "key": "bibo:annotates", "selector": "@value" },
     RhizomeField.ACCESS_RIGHTS: { "key": "dcterms:accessRights", "selector": "@value" },
 
 }
@@ -31,9 +31,13 @@ def get_key_values(obj, selector):
 
     if not obj:
 
-        return ""
+        return None
 
-    values = [ sub_obj.get(selector) for sub_obj in obj ]
+    values = [ sub_obj[selector] for sub_obj in obj if sub_obj.get(selector) ]
+    if not values:
+
+      return None
+
     return "|".join(values)
 
 
@@ -220,10 +224,6 @@ def do_backup(institution=None):
     # Get all current metadata.
     metadata = get_current_metadata()
 
-
-    # breakpoint()
-
-
     # Output to csv here using MetadataWriter.
     #
     # Note:  Some records in the database seem to be corrupt (i.e., mostly or
@@ -233,6 +233,7 @@ def do_backup(institution=None):
     writer = MetadataWriter(format="csv", do_validate=True)
 
     writer.start_collection()
+    record_count = 0
 
     # Parse each record and write it out.
     for record in metadata:
@@ -252,6 +253,9 @@ def do_backup(institution=None):
                 writer.add_value(name=rhizome_field.value, value=value)
 
         # Filter by instition?
+        #
+        # Note: we *should* be able to search the API by institution name,
+        # but I have not been able to get it to work.
         if institution and not writer.does_record_match(name=RhizomeField.COLLECTION_NAME.value, value=institution):
 
             pass
@@ -259,6 +263,11 @@ def do_backup(institution=None):
         else:
 
             writer.end_record()
+
+            record_count += 1
+            if record_count % 250 == 0:
+
+                print(f"{record_count} written ...", file=sys.stderr)
 
     writer.end_collection()
 
