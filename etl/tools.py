@@ -257,9 +257,6 @@ def get_current_metadata():
 
     print(f"Retrieving current metadata from {base_url}", file=sys.stderr)
 
-    # REVIEW: remove this.
-    # while curr_page < 2:
-
     # Do a loop that cannot go forever.
     while curr_page < 1000:
 
