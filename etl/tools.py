@@ -57,7 +57,6 @@ FIELDS_TO_DEDUPE = [
 
 OUTPUT_COLS = [
 
-    RhizomeField.ID,
     RhizomeField.TITLE,
     RhizomeField.ALTERNATE_TITLES,
     RhizomeField.AUTHOR_ARTIST,
@@ -245,6 +244,40 @@ def get_value(value, format="json"):
 
 def get_current_metadata():
     """
+    Returns a list of currently-loaded metadata.
+    """
+
+    num_per_page = 250
+    curr_page = 1
+
+    base_url = "https://maas1848.umn.edu/api/items"
+    item_ids = []
+
+    curr_metadata = []
+
+    print(f"Retrieving current metadata from {base_url}", file=sys.stderr)
+
+    # Do a loop that cannot go forever.
+    while curr_page < 1000:
+
+        response = requests.get(f"{base_url}?per_page={num_per_page}&page={curr_page}", timeout=60)
+        if not response.ok:
+
+            raise Exception(f"Omeka API returned error {response.status_code}, reason: '{response.reason}'")
+
+        curr_items = response.json()
+        if not curr_items:
+
+            return curr_metadata
+
+        curr_metadata += curr_items
+        curr_page += 1
+
+    return curr_metadata
+
+
+def get_current_record_subjects():
+    """
     Returns a dict of currently-loaded metadata.
 
     Note: Info in the dict incudes the record's collection,
@@ -306,7 +339,9 @@ def get_current_metadata():
 
 class MetadataWriter():
 
-    def __init__(self, format):
+    def __init__(self, format, do_validate=False):
+
+        self.do_validate = do_validate
 
         self.format = format
         if self.format == "json":
@@ -323,6 +358,16 @@ class MetadataWriter():
         else:
 
             self.output = ""
+
+    @staticmethod
+    def is_record_valid(record):
+        # Returns True if the record appears valid.
+        #
+        # Note: every record is required to have a Contributor
+        # field, so we should be able to use that to identify
+        # invalid records.
+
+        return RhizomeField.COLLECTION_NAME.value in record
 
     def start_collection(self):
 
@@ -366,7 +411,11 @@ class MetadataWriter():
 
     def end_record(self):
 
-        if self.format == "csv":
+        if self.do_validate and not MetadataWriter.is_record_valid(record=self.row_buf):
+
+            pass
+
+        elif self.format == "csv":
 
             self.output.writerow(self.row_buf)
 
@@ -374,9 +423,11 @@ class MetadataWriter():
 
             pass
 
-    def end_collection(self):
+    def does_record_match(self, name, value):
 
-        # REVIEW: just return the data everywhere here?
+        return self.row_buf.get(name) == value
+
+    def end_collection(self):
 
         if self.format == "json":
 

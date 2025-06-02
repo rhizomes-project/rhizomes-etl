@@ -4,7 +4,6 @@
 import sys
 
 from etl import setup
-
 from etl.etl_calisphere import CalisphereETLProcess
 from etl.etl_dpla import DPLAETLProcess
 from etl.etl_icaa import ICAAETLProcess
