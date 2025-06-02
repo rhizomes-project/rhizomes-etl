@@ -31,7 +31,7 @@ native_field_map = {
     "access_rights":                        RhizomeField.ACCESS_RIGHTS
 
 
-# REVIEW: add terms values, thesconcepts
+# REVIEW: add terms values, thesconcepts (once NHCCNM gets it into their API)
 
 
 }
@@ -71,66 +71,6 @@ If you believe that your copyrighted work has been uploaded, posted or copied to
 LINKS TO OTHER SITES
 
 New Mexico DCA Web sites contain links to third party Web sites. These links are provided solely as a convenience to you and not as an endorsement by DCA. DCA is not responsible for the content of linked third-party sites and does not make any representations regarding the content or accuracy of materials on such third party Web sites. If you decide to access linked third party Web sites, you do so at your own risk."""
-
-
-required_values = [
-    # "ACCESSNO",
-    # "TITLE",
-    # "DESCRIP",
-    # "OBJECT IMAGE"
-]
-
-
-# def is_record_valid(record):
-
-#     for required_value in required_values:
-
-#         if not record.get(required_value):
-
-#             message = f"Missing {required_value}"
-
-#             return False, message
-
-#     return True, None
-
-# def clean_value(value):
-
-#     # Is this value on a blank line?
-#     if not value:
-
-#         return None
-
-#     # This function can only clean strings.
-#     if type(value) is not str:
-
-#         return value
-
-#     for bad_string in bad_strings:
-
-#         value = value.replace(bad_string, " ")
-
-#     return value.strip()
-
-# def parse_date(value):
-
-#     if not value:
-
-#         return None
-
-#     elif type(value) is not str:
-
-#         return value
-
-#     value = value.lower()
-
-#     for invalid_prefix in invalid_prefixes:
-
-#         if value.startswith(invalid_prefix):
-
-#             value = value[ len(invalid_prefix) : ]
-#             break
-
-#     return clean_value(value=value)
 
 
 def extract_value(object_, field):
@@ -297,23 +237,8 @@ class NHCCNMETLProcess(BaseETLProcess):
                 record = extract_values(object_=object_json["object"][0])
                 records += [ record ]
 
-
-
-                # REVIEW: remove this ...
-                import json
-                everything_buffer += json.dumps(object_json) + "\n"
-
-
-
             # Continue paging through records.
             page_num += 1
-
-
-
-        # REVIEW: remove this ...
-        print("\n\n\n" + everything_buffer)
-
-
 
         return records
 
