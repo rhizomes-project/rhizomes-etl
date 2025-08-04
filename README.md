@@ -142,6 +142,16 @@ Command line options for the ETL scripts:
 
 `--images_only` - pass in 'yes' or 'no', indicating whether records that have no image should be ignored (default is 'no').
 
+# How to Run the backup scripts
+
+- These scripts backup code from Omeka to local csv files.
+- To backup all institutions:
+
+```
+do_backup.py
+```
+
+
 # Other scripts in this repository
 
 The `setup.py`, `data_parsers.py` and `tools.py` files in the etl folder container helper code used by the main `run.py` application. 
