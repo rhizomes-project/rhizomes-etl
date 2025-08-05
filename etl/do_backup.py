@@ -3,13 +3,13 @@
 from datetime import date
 import sys
 
-from backup import do_backup
+from backup import do_backup, get_institution_names
 from run import INST_ETL_MAP
 
 
 if __name__ == "__main__":    # pragma: no cover
 
-    institutions = list(INST_ETL_MAP.keys())
+    institutions = get_institution_names()
 
     for institution in institutions:
 

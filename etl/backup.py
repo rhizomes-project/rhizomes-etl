@@ -41,6 +41,20 @@ def get_key_values(obj, selector):
     return "|".join(values)
 
 
+def get_institution_names():
+
+    inst_names = []
+    institutions = list(INST_ETL_MAP.keys())
+
+    for institution in institutions:
+
+        process = INST_ETL_MAP[institution]
+        inst_name = process(format="csv").get_collection_name()
+        inst_names.append(inst_name)
+
+    return inst_names
+
+
 def do_backup(institution=None, output_file=sys.stdout):
 
     # Filter by institution? If so, get institution name.
@@ -48,6 +62,10 @@ def do_backup(institution=None, output_file=sys.stdout):
 
         process = INST_ETL_MAP[institution]
         institution = process(format="csv").get_collection_name()
+
+    # REVIEW: leave this in place in case we want
+    # to validate institution names.
+    institutions = get_institution_names()
 
     # Get all current metadata.
     metadata = get_current_metadata()
