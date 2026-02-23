@@ -339,7 +339,7 @@ def get_current_record_subjects():
 
 class MetadataWriter():
 
-    def __init__(self, format, do_validate=False):
+    def __init__(self, format, output_file=sys.stdout, do_validate=False):
 
         self.do_validate = do_validate
 
@@ -352,7 +352,7 @@ class MetadataWriter():
 
             fieldnames = [ col.value for col in OUTPUT_COLS ]
 
-            self.output = csv.DictWriter(sys.stdout, fieldnames=fieldnames, dialect=csv.QUOTE_ALL)
+            self.output = csv.DictWriter(output_file, fieldnames=fieldnames, dialect=csv.QUOTE_ALL)
             self.row_buf = {}
 
         else:

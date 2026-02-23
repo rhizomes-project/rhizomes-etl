@@ -870,7 +870,7 @@ class PTHETLProcess(BaseETLProcess):
 
     def get_collection_name(self):
 
-        return "The Portal to Texas History (TPTH)"
+        return "Portal to Texas History (TPTH)"
 
     def get_date_parsers(self):
 
