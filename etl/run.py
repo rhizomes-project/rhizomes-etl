@@ -47,6 +47,8 @@ def run_etl(institutions, format):
         etl_process.transform(data=data)
         etl_process.load(data=data)
 
+    return 0
+
 def do_usage(msg=None):
     "Output usage exception."
 
@@ -55,8 +57,17 @@ def do_usage(msg=None):
         print(msg, file=sys.stderr)
 
     print("Usage: run.py institution1 ... institutionN --format[=csv] --rebuild_previous_items=[yes|no] --images_only=[yes|no] --use_cache=[yes|no] --resume_download=[offset] --dupes_file=[file_name] --category", file=sys.stderr)
+    print("\nInstitutions:\n", file=sys.stderr)
+    print("cali: Calisphere")
+    print("dpla: Digital Public Library of America")
+    print("icaa: International Center for the Arts of the Americas at the Museum of Fine Arts, Houston")
+    print("mam: Mexic-Arte Museum")
+    print("nhccnm: National Hispanic Cultural Center (NHCC)")
+    print("nmma: National Museum of Mexican Art (NMMA)")
+    print("pth: The Portal to Texas History (TPTH)")
+    print("si: Smithsonian American Art Museum (SAAM)")
 
-    raise Exception("Invalid usage")
+    return 1
 
 def run_cmd_line(args):
 
@@ -73,7 +84,7 @@ def run_cmd_line(args):
 
             if len(arg) < 12:
 
-                do_usage(msg=f"Invalid format: {arg}")
+                return do_usage(msg=f"Invalid format: {arg}")
 
             pos = arg.find('=')
             format_ = arg[ pos + 1 : ]
@@ -148,18 +159,20 @@ def run_cmd_line(args):
 
             if arg not in INST_ETL_MAP:
 
-                do_usage(msg=f"Invalid institution: {arg}")
+                return do_usage(msg=f"Invalid institution: {arg}")
 
             institutions.append(arg)
 
     if not institutions:
 
-        do_usage()
+        return do_usage()
 
     # Run the ETL.
-    run_etl(institutions=institutions, format=format_)
+    return run_etl(institutions=institutions, format=format_)
 
 
 if __name__ == "__main__":    # pragma: no cover
 
-    run_cmd_line(sys.argv[ 1: ])
+    return_code = run_cmd_line(sys.argv[ 1: ])
+    sys.exit(return_code)
+
