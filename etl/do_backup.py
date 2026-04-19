@@ -10,6 +10,8 @@ from run import INST_ETL_MAP
 if __name__ == "__main__":    # pragma: no cover
 
     institution = sys.argv[ 1: ][0] if len(sys.argv) == 2 else None
+
+    # Back up a single institution?
     if institution:
 
         run_institution_backup_cli(institution=institution)

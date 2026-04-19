@@ -129,16 +129,17 @@ def do_usage():
     print(f"Usage: backup.py institution=[{inst_list}]", file=sys.stderr)
 
 def run_institution_backup_cli(institution):
+    # Back up a single institution
 
-    if not institution or institution not in INST_ETL_MAP:
-
-        do_usage()
-        sys.exit(1)
-
-    else:
+    if institution and institution in INST_ETL_MAP:
 
         do_backup(institution=institution)
         sys.exit(0)
+
+    else:
+
+        do_usage()
+        sys.exit(1)
 
 
 if __name__ == "__main__":    # pragma: no cover
