@@ -6,6 +6,8 @@ These Extract, Transform, Load (ETL) scripts pull metadata relevant to the Rhizo
 from several institutions' APIs and ultimately output that metadata in csv format.
 The steps that the scripts use to do this can be described in 3 phases: Extract, Transform and Load:
 
+__Note: to read how to back up the metadata from the omeka server into local csv files, click [here](./how-to-backup.md)__
+
 #### Extract
 The scripts first download relevant records from an institution's API - how relevancy is
 determined is accomplished in various ways, depending on the capabilities of each institution's API.
@@ -70,32 +72,9 @@ metadata from these 2 files gave us much better results and became our much-pref
 
 Note: these 2 metadata files are stored in this repo at etl/data/permanent/si/
 
+## How to Install the Necessary Software Tools
 
-# How to Install
-
-- Install python3.9 (see https://www.python.org/downloads/)
-- Install and activate pyvenv (optional - see https://docs.python.org/3/library/venv.html)
-- Install pip (see https://pip.pypa.io/en/stable/installing/)
-- Clone this repo and navigate to it in a terminal window (e.g., bash)
-- Copy your secrets file to <ROOT>/etl/secrets.json, where <ROOT> is whereever you cloned the repo. The secrets.json file will contain the API keys for the institutions you are accessing. You'll need to work with these institutions to obtain these keys. An example secrets file is below.
-- Install required modules:
-
-```
-pip install -r requirements.txt
-```
-
-Example Secrets file:
-  ```
-  {
-    "apis": {
-        "keys": {
-            "dpla": "YOUR-KEY-HERE",
-            "smithsonian": "YOUR-KEY-HERE",
-            "calisphere": "YOUR-KEY-HERE"
-        }
-    }
-}
-```
+- Click [here](./how-to-install.md) to find out how to set up the necessary tools for running etl scripts.
   
 # How to Run the ETL scripts
 
@@ -141,15 +120,6 @@ Command line options for the ETL scripts:
 `--rebuild_previous_items` - pass in 'yes' or 'no', indicating whether the ETL script should output metadata for items that are already loaded in the website (default is 'no').
 
 `--images_only` - pass in 'yes' or 'no', indicating whether records that have no image should be ignored (default is 'no').
-
-# How to Run the backup scripts
-
-- These scripts backup code from Omeka to local csv files.
-- To backup all institutions:
-
-```
-do_backup.py
-```
 
 
 # Other scripts in this repository
