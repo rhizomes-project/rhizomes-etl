@@ -72,32 +72,9 @@ metadata from these 2 files gave us much better results and became our much-pref
 
 Note: these 2 metadata files are stored in this repo at etl/data/permanent/si/
 
+## How to Install the Necessary Software Tools
 
-# How to Install
-
-- Install python3.9 (see https://www.python.org/downloads/)
-- Install and activate pyvenv (optional - see https://docs.python.org/3/library/venv.html)
-- Install pip (see https://pip.pypa.io/en/stable/installing/)
-- Clone this repo and navigate to it in a terminal window (e.g., bash)
-- Copy your secrets file to <ROOT>etl/secrets.json<ROOT>, in whatever folder you cloned the repo in. The secrets.json file will contain the API keys for the institutions you are accessing. You'll need to work with these institutions (or another rhizomes developer) to obtain these keys. An example secrets file is below.
-- Install required modules:
-
-```
-pip install -r requirements.txt
-```
-
-Example Secrets file:
-  ```
-  {
-    "apis": {
-        "keys": {
-            "dpla": "YOUR-KEY-HERE",
-            "smithsonian": "YOUR-KEY-HERE",
-            "calisphere": "YOUR-KEY-HERE"
-        }
-    }
-}
-```
+- Click [here](./how-to-install.md) to find out how to set up the necessary tools for running etl scripts.
   
 # How to Run the ETL scripts
 

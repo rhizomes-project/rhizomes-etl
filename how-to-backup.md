@@ -1,4 +1,10 @@
-# How to Run the backup scripts
+# How to run the backup scripts
+
+## How to Install the Necessary Software Tools
+
+- Click [here](./how-to-install.md) to find out how to set up the necessary tools for running the backup scripts.
+
+## How to run backups:
 
 - The script etl/do_backup.py backs up code from Omeka to local csv files.
 
