@@ -6,7 +6,7 @@ These Extract, Transform, Load (ETL) scripts pull metadata relevant to the Rhizo
 from several institutions' APIs and ultimately output that metadata in csv format.
 The steps that the scripts use to do this can be described in 3 phases: Extract, Transform and Load:
 
-Note: to read how to back up the metadata from the omeka server into local csv files, click [here](./how-to-backup.md)
+__Note: to read how to back up the metadata from the omeka server into local csv files, click [here](./how-to-backup.md)__
 
 #### Extract
 The scripts first download relevant records from an institution's API - how relevancy is
