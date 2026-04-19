@@ -1,6 +1,6 @@
 # How to Install the Necessary Software Tools
 
-## To run the etl scripts or run backups, follow these steps:
+## In order to set up your environment to run the etl scripts or to run backups, follow these steps:
 
 1. Install python3.9 (see https://www.python.org/downloads/)
 2. Install and activate pyvenv (optional - see https://docs.python.org/3/library/venv.html)

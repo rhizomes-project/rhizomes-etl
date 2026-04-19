@@ -1,23 +1,19 @@
 # How to run the backup scripts
 
-## How to Install the Necessary Software Tools
+## First install the necessary software tools:
 
 - Click [here](./how-to-install.md) to find out how to set up the necessary tools for running the backup scripts.
 
-## How to run backups:
-
-- The script etl/do_backup.py backs up code from Omeka to local csv files.
-
-## How do I back up all institutions in one call?
+## To back up all institutions in one call:
 
 - To back up all institutions in one call (with the csv for each institution
-going into a file named <institution>.csv), run the following:
+going into a file named <institution>.csv), simply run the following:
 
 ```
 etl/do_backup.py
 ```
 
-## How do I back up a specific institution?
+## To back up a specific institution:
 
 - To back up one institution run the following:
 
